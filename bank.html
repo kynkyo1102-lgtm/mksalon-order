@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お振込先のご案内 - プラッス ドゥ ニナ 南熊本店</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    /* ==========================================
+       共通変数・ベーススタイル
+    ========================================== */
+    :root {
+      --wood-dark: #231610;
+      --wood-medium: #4a3222;
+      --accent-gold: #c8a261;
+      --gold-light: #e6cb96;
+      --bg-color: #f7f4ee;
+      --card-bg: #ffffff;
+      --text-main: #2b2019;
+      --text-sub: #78695f;
+      --border-color: #e5dac9;
+      
+      --font-sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+      --font-script: 'Great Vibes', cursive;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      padding: 0;
+      padding-bottom: 60px;
+      font-family: var(--font-sans);
+      background-color: var(--bg-color);
+      color: var(--text-main);
+      display: flex;
+      flex-direction: column;
+      min-height: 100vh;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      width: 100%;
+    }
+
+    /* ヘッダー */
+    header {
+      background: linear-gradient(180deg, #1b100a 0%, var(--wood-dark) 100%);
+      color: #ffffff;
+      padding: 24px 20px 20px;
+      text-align: center;
+      border-bottom: 3px solid var(--accent-gold);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+      position: relative;
+    }
+
+    header::after {
+      content: "";
+      position: absolute;
+      top: 8px; left: 8px; right: 8px; bottom: 8px;
+      border: 1px solid rgba(200, 162, 97, 0.3);
+      border-radius: 4px;
+      pointer-events: none;
+    }
+
+    .header-logo {
+      font-family: var(--font-script);
+      font-size: 2.2rem;
+      color: var(--gold-light);
+      line-height: 1;
+      margin-bottom: 6px;
+      text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+      text-decoration: none;
+      display: inline-block;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 500;
+      color: #ffffff;
+      letter-spacing: 0.1em;
+    }
+
+    main {
+      flex: 1;
+      max-width: 520px;
+      width: 100%;
+      margin: 0 auto;
+      padding: 20px 16px;
+      box-sizing: border-box;
+    }
+
+    /* ==========================================
+       お振込先案内 固有スタイル
+    ========================================== */
+    .bank-notice {
+      background-color: #fff9f0;
+      border: 1px solid #ebd3b0;
+      border-radius: 8px;
+      padding: 12px 14px;
+      font-size: 0.8rem;
+      color: #8c581e;
+      line-height: 1.5;
+      margin-bottom: 20px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
+    }
+
+    .bank-card {
+      background-color: var(--card-bg);
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 18px;
+      margin-bottom: 16px;
+      box-shadow: 0 3px 10px rgba(35, 22, 16, 0.04);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .bank-card.highlight-card {
+      border: 1.5px solid var(--accent-gold);
+      background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
+      box-shadow: 0 4px 14px rgba(200, 162, 97, 0.12);
+    }
+
+    .bank-card-header {
+      margin-bottom: 14px;
+      padding-bottom: 8px;
+      border-bottom: 1px dashed var(--border-color);
+    }
+
+    .bank-tag {
+      display: inline-block;
+      font-size: 0.78rem;
+      font-weight: bold;
+      padding: 4px 10px;
+      border-radius: 4px;
+      letter-spacing: 0.03em;
+    }
+
+    .tag-normal {
+      background-color: #f0e9df;
+      color: var(--wood-medium);
+    }
+
+    .tag-high {
+      background-color: var(--wood-dark);
+      color: var(--gold-light);
+    }
+
+    .info-list {
+      margin: 0;
+      padding: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .info-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 0.85rem;
+    }
+
+    .info-item dt {
+      color: var(--text-sub);
+      font-size: 0.78rem;
+      font-weight: 500;
+      margin: 0;
+    }
+
+    .info-item dd {
+      margin: 0;
+      font-weight: bold;
+      color: var(--text-main);
+      text-align: right;
+    }
+
+    .account-number {
+      font-family: monospace, sans-serif;
+      font-size: 1.1rem !important;
+      letter-spacing: 0.08em;
+      color: var(--wood-dark) !important;
+    }
+
+    .bank-sub-note {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin: 16px 0 24px;
+      padding-left: 4px;
+    }
+
+    .bank-sub-note ul {
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .bank-sub-note li {
+      margin-bottom: 4px;
+      line-height: 1.4;
+    }
+
+    /* 戻るボタン */
+    .back-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      padding: 12px;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--wood-dark);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:active {
+      background-color: #f7f3ed;
+      transform: translateY(1px);
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 24px 15px;
+      font-size: 0.7rem;
+      color: var(--text-sub);
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="header-logo">Place de Nina</div>
+    <h1>お振込先のご案内</h1>
+  </header>
+
+  <main>
+
+    <div class="bank-notice">
+      ※ご購入金額（税込）によって振込先口座が異なります。金額をご確認のうえ、お間違えのないようお振込みをお願いいたします。
+    </div>
+
+    <!-- 口座①：10万円未満 -->
+    <div class="bank-card">
+      <div class="bank-card-header">
+        <span class="bank-tag tag-normal">10万円未満のお支払い</span>
+      </div>
+      <dl class="info-list">
+        <div class="info-item">
+          <dt>金融機関</dt>
+          <dd>ゆうちょ銀行（金融機関コード: 9900）</dd>
+        </div>
+        <div class="info-item">
+          <dt>支店名</dt>
+          <dd>七四八（店番号: 748）</dd>
+        </div>
+        <div class="info-item">
+          <dt>預金種目</dt>
+          <dd>普通預金</dd>
+        </div>
+        <div class="info-item">
+          <dt>口座番号</dt>
+          <dd class="account-number">7723294</dd>
+        </div>
+        <div class="info-item">
+          <dt>口座名義</dt>
+          <dd>カ）エイチワイジェイ</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- 口座②：10万円以上 -->
+    <div class="bank-card highlight-card">
+      <div class="bank-card-header">
+        <span class="bank-tag tag-high">10万円以上のお支払い</span>
+      </div>
+      <dl class="info-list">
+        <div class="info-item">
+          <dt>金融機関</dt>
+          <dd>肥後銀行（金融機関コード: 0182）</dd>
+        </div>
+        <div class="info-item">
+          <dt>支店名</dt>
+          <dd>浜線支店（店番号: 117）</dd>
+        </div>
+        <div class="info-item">
+          <dt>預金種目</dt>
+          <dd>普通預金</dd>
+        </div>
+        <div class="info-item">
+          <dt>口座番号</dt>
+          <dd class="account-number">202371</dd>
+        </div>
+        <div class="info-item">
+          <dt>口座名義</dt>
+          <dd>カ）エイチワイジェイ</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- お願い事項 -->
+    <div class="bank-sub-note">
+      <ul>
+        <li>振込手数料はお客様ご負担となります。予めご了承ください。</li>
+      </ul>
+    </div>
+
+    <!-- 戻るボタン -->
+    <a href="index.html" class="back-btn">
+      ‹ トップページへ戻る
+    </a>
+
+  </main>
+
+  <footer>
+    &copy; PLACE DE NINA MINAMIKUMAMOTO
+  </footer>
+
+</body>
+</html>
