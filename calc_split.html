@@ -1,0 +1,801 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ポイント振り分けメーカー - Place de Nina</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* 数値入力（input[type=number]）の矢印（スピンボタン）を非表示にする */
+    input[type=number]::-webkit-inner-spin-button,
+    input[type=number]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    input[type=number] {
+      -moz-appearance: textfield; /* Firefox用 */
+    }
+
+    .calc-select {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #fcfcfc;
+      box-sizing: border-box;
+      color: var(--text-main);
+    }
+    .calc-select:focus, .input-pt:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background-color: #fff;
+    }
+    .input-pt {
+      width: 100%;
+      padding: 8px 10px;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      background-color: #fff;
+      box-sizing: border-box;
+      color: var(--text-main);
+    }
+    .product-list-box {
+      max-height: 280px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 16px;
+      background: #fff;
+    }
+    .product-item {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px;
+      border-bottom: 1px dashed var(--border-color);
+      transition: background 0.2s;
+    }
+    .product-item:last-child {
+      border-bottom: none;
+    }
+    .product-item.selected {
+      background-color: rgba(200, 162, 97, 0.12);
+      font-weight: bold;
+    }
+    .product-item select.prod-qty {
+      width: 70px;
+      padding: 4px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      font-size: 0.85rem;
+      background-color: #fff;
+      color: var(--text-main);
+    }
+
+    /* モード概要ガイド */
+    .mode-guide-box {
+      background: #fdfbf7;
+      border: 1px solid #e8dfd1;
+      border-radius: 8px;
+      padding: 10px 12px;
+      margin-bottom: 12px;
+      font-size: 0.76rem;
+      color: var(--text-main);
+      line-height: 1.5;
+    }
+    .mode-guide-title {
+      font-weight: bold;
+      color: var(--wood-dark, #5c4033);
+      margin-bottom: 4px;
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      font-size: 0.8rem;
+    }
+    .mode-guide-list {
+      margin: 0;
+      padding-left: 0;
+      list-style: none;
+    }
+    .mode-guide-list li {
+      margin-bottom: 3px;
+    }
+    .mode-guide-list li:last-child {
+      margin-bottom: 0;
+    }
+    .mode-badge {
+      display: inline-block;
+      font-weight: bold;
+      color: #b87b2a;
+      margin-right: 2px;
+    }
+    
+    /* モード切り替えタブのスタイル */
+    .mode-tabs {
+      display: flex;
+      gap: 4px;
+      margin-bottom: 12px;
+      border-bottom: 2px solid var(--border-color);
+    }
+    .tab-btn {
+      flex: 1;
+      padding: 8px 2px;
+      font-size: 0.78rem;
+      font-weight: bold;
+      background: #f5f5f5;
+      border: 1px solid var(--border-color);
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      cursor: pointer;
+      color: var(--text-sub);
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .tab-btn.active {
+      background: var(--accent-gold, #c8a261);
+      color: #fff;
+      border-color: var(--accent-gold, #c8a261);
+    }
+    .mode-panel {
+      display: none;
+      background: #faf8f5;
+      padding: 10px;
+      border-radius: 8px;
+      margin-bottom: 12px;
+      border: 1px solid var(--border-color);
+    }
+    .mode-panel.active {
+      display: block;
+    }
+    
+    .result-container {
+      margin-top: 14px;
+      padding-top: 10px;
+      border-top: 1px dashed var(--border-color);
+      scroll-margin-top: 20px;
+    }
+    
+    /* 左右配置コンテナ */
+    .split-container {
+      display: flex;
+      gap: 8px;
+      margin-top: 8px;
+    }
+    .split-col {
+      flex: 1;
+      min-width: 0;
+      background: #fffdf9;
+      padding: 8px;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+    }
+    .split-item-card {
+      background: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 6px;
+      padding: 6px 8px;
+      margin-bottom: 6px;
+      font-size: 0.78rem;
+      box-shadow: 0 1px 2px rgba(0,0,0,0.03);
+    }
+    .split-item-name {
+      font-weight: bold;
+      color: var(--wood-dark);
+      margin-bottom: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .split-item-sub {
+      color: var(--text-sub);
+      font-size: 0.72rem;
+    }
+    .total-box {
+      margin-top: 6px;
+      padding-top: 6px;
+      border-top: 1px dashed var(--border-color);
+    }
+    .total-pt-val {
+      font-weight: bold;
+      color: #b87b2a;
+    }
+    .total-cost-val {
+      font-size: 0.9rem;
+      font-weight: bold;
+      color: #2b6cb0;
+    }
+    
+    .final-sum-box {
+      background-color: #fff8e6;
+      border: 1px solid #f6e05e;
+      border-radius: 6px;
+      padding: 4px 6px;
+      margin: 4px 0;
+      font-size: 0.82rem;
+      font-weight: bold;
+      color: #2d3748;
+      text-align: center;
+    }
+    
+    .nav-link {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 0.82rem;
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      padding: 3px 6px;
+      border-radius: 4px;
+      font-size: 0.72rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover {
+      background-color: #f0f0f0;
+      color: var(--text-main);
+    }
+    
+    .suggest-box {
+      margin-top: 6px;
+      padding: 6px;
+      background: #fffdf0;
+      border: 1px solid #f6e05e;
+      border-radius: 6px;
+      font-size: 0.72rem;
+      color: #744210;
+      line-height: 1.3;
+    }
+
+    /* スマホ表示用レイアウトの最適化 */
+    @media (max-width: 600px) {
+      .product-list-box {
+        max-height: 200px;
+      }
+      .tab-btn {
+        font-size: 0.72rem;
+        padding: 6px 1px;
+      }
+      .split-col {
+        padding: 6px 4px;
+      }
+      .total-box p {
+        font-size: 0.76rem !important;
+      }
+      .final-sum-box {
+        font-size: 0.78rem;
+        padding: 3px 4px;
+      }
+      .final-sum-box span {
+        font-size: 0.88rem !important;
+      }
+      .mode-guide-box {
+        padding: 8px 10px;
+        font-size: 0.73rem;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <header>
+    <a href="index.html" class="header-logo">Place de Nina</a>
+    <h1>ポイント振り分けメーカー</h1>
+  </header>
+
+  <main>
+    <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
+    
+    <div class="card-box">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+        <div class="section-title" style="margin-bottom: 0;">購入商品のポイント振り分け</div>
+        <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 リセット</button>
+      </div>
+
+      <!-- モード選び方ガイド -->
+      <div class="mode-guide-box">
+        <div class="mode-guide-title">💡 どのモードを選べばいい？</div>
+        <ul class="mode-guide-list">
+          <li><span class="mode-badge">① かんたん均等</span>：今回の購入分を左右半々に分けたいとき</li>
+          <li><span class="mode-badge">② 目標PT</span>：左右に狙いたいポイント数（目標）があるとき</li>
+          <li><span class="mode-badge">③ 保有PT合算</span>：手持ちのPTと足して左右差を無くしたいとき</li>
+        </ul>
+      </div>
+      
+      <!-- モード切り替えタブ -->
+      <div class="mode-tabs">
+        <button class="tab-btn active" onclick="switchMode('auto')">① かんたん均等</button>
+        <button class="tab-btn" onclick="switchMode('target')">② 目標PT</button>
+        <button class="tab-btn" onclick="switchMode('current')">③ 保有PT合算</button>
+      </div>
+
+      <!-- ① かんたん均等の説明パネル -->
+      <div id="panel-auto" class="mode-panel active">
+        <p class="usage-guide" style="margin:0; font-size:0.78rem;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
+      </div>
+
+      <!-- ② 目標PTカスタムの入力パネル -->
+      <div id="panel-target" class="mode-panel">
+        <p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">指定の目標ポイントに近づくよう振り分けます。</p>
+        <div style="display: flex; gap: 8px;">
+          <div style="flex: 1;">
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">左 (L) 目標PT</label>
+            <input type="number" id="targetLeftPt" class="input-pt" placeholder="例: 10000" min="0">
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">右 (R) 目標PT</label>
+            <input type="number" id="targetRightPt" class="input-pt" placeholder="例: 5000" min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ 保有PT合算の入力パネル -->
+      <div id="panel-current" class="mode-panel">
+        <p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">保有PTも含めて左右差が一番少なくなるよう配置します。</p>
+        <div style="display: flex; gap: 8px;">
+          <div style="flex: 1;">
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の左 (L) PT</label>
+            <input type="number" id="currentLeftPt" class="input-pt" value="0" min="0">
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の右 (R) PT</label>
+            <input type="number" id="currentRightPt" class="input-pt" value="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label class="label-accent" style="font-size:0.8rem;">対象月度</label>
+        <select id="monthSelect" class="calc-select"></select>
+      </div>
+
+      <div id="productQtyList" class="product-list-box">
+        <!-- JSで動的生成 -->
+      </div>
+
+      <button class="btn-copy" onclick="calculateBinarySplit()">計算を実行する</button>
+
+      <div id="splitResult" class="result-container" style="display:none;">
+        <div class="split-container">
+          <div class="split-col">
+            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">左 (L)</h3>
+            <div id="leftList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="leftTotalPt">0</span> PT <span id="leftPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
+              
+              <p id="leftTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
+                目標差: <span id="leftTargetDiffVal" style="font-weight:bold;">0</span>
+              </p>
+
+              <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="leftCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
+              
+              <div id="leftFinalPtRow" class="final-sum-box" style="display:none;">
+                ＝ <span id="leftFinalPtVal" style="color:#b87b2a; font-size:0.95rem;">0</span> PT
+              </div>
+
+              <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+
+              <div id="leftSuggestBox" class="suggest-box" style="display:none;">
+                💡 <strong>おすすめ追加:</strong><br>
+                <span id="leftSuggestItem"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="split-col">
+            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">右 (R)</h3>
+            <div id="rightList"></div>
+            
+            <div class="total-box">
+              <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="rightTotalPt">0</span> PT <span id="rightPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
+              
+              <p id="rightTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
+                目標差: <span id="rightTargetDiffVal" style="font-weight:bold;">0</span>
+              </p>
+
+              <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="rightCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
+              
+              <div id="rightFinalPtRow" class="final-sum-box" style="display:none;">
+                ＝ <span id="rightFinalPtVal" style="color:#b87b2a; font-size:0.95rem;">0</span> PT
+              </div>
+
+              <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+
+              <div id="rightSuggestBox" class="suggest-box" style="display:none;">
+                💡 <strong>おすすめ追加:</strong><br>
+                <span id="rightSuggestItem"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div style="margin-top:10px; padding-top:8px; border-top:1.5px solid var(--accent-gold); font-size:0.82rem; text-align:center;">
+          <div id="ptDiffRow">
+            <span id="diffLabel">今回PT差</span>: <strong id="ptDiff" style="color:#c94b4b; font-size:0.9rem;">0</strong> PT
+          </div>
+          <div>
+            総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1rem;">0</strong> 円
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    &copy; Place de Nina Order Support System
+  </footer>
+
+  <script>
+    let configData = null;
+    let currentMode = 'auto'; // 'auto', 'target', 'current'
+
+    function switchMode(mode) {
+      currentMode = mode;
+      const tabs = document.querySelectorAll('.tab-btn');
+      tabs.forEach((tab, idx) => {
+        const modeNames = ['auto', 'target', 'current'];
+        if (modeNames[idx] === mode) {
+          tab.classList.add('active');
+        } else {
+          tab.classList.remove('active');
+        }
+      });
+
+      document.getElementById('panel-auto').classList.toggle('active', mode === 'auto');
+      document.getElementById('panel-target').classList.toggle('active', mode === 'target');
+      document.getElementById('panel-current').classList.toggle('active', mode === 'current');
+
+      document.getElementById('splitResult').style.display = 'none';
+    }
+
+    async function loadConfig() {
+      try {
+        const res = await fetch('month_config.json');
+        configData = await res.json();
+        
+        const monthSelect = document.getElementById('monthSelect');
+        configData.activeMonths.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          monthSelect.appendChild(opt);
+        });
+
+        renderProductQtyList();
+      } catch (e) {
+        alert('month_config.json の読み込みに失敗しました。');
+      }
+    }
+
+    function renderProductQtyList() {
+      const month = document.getElementById('monthSelect').value;
+      const container = document.getElementById('productQtyList');
+      container.innerHTML = '';
+
+      configData.products.forEach((p, index) => {
+        if (p.name === 'リペアセラム') return;
+
+        const pt = p.pts[month] || 0;
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.id = `item-row-${index}`;
+
+        let optionsHtml = '';
+        for (let i = 0; i <= 30; i++) {
+          optionsHtml += `<option value="${i}">${i}</option>`;
+        }
+
+        div.innerHTML = `
+          <span style="font-size:0.82rem;">
+            <strong>${p.name}</strong><br>
+            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
+          </span>
+          <select class="prod-qty" data-index="${index}" onchange="highlightSelected(${index})">
+            ${optionsHtml}
+          </select>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    function highlightSelected(index) {
+      const row = document.getElementById(`item-row-${index}`);
+      const select = row.querySelector('.prod-qty');
+      if (parseInt(select.value) > 0) {
+        row.classList.add('selected');
+      } else {
+        row.classList.remove('selected');
+      }
+    }
+
+    function resetSplitSelection() {
+      const selects = document.querySelectorAll('.prod-qty');
+      selects.forEach(select => {
+        select.value = '0';
+        const idx = select.getAttribute('data-index');
+        highlightSelected(idx);
+      });
+
+      document.getElementById('targetLeftPt').value = '';
+      document.getElementById('targetRightPt').value = '';
+      document.getElementById('currentLeftPt').value = '0';
+      document.getElementById('currentRightPt').value = '0';
+
+      document.getElementById('splitResult').style.display = 'none';
+    }
+
+    function findOptimalSubset(items, targetPt) {
+      let dp = new Map();
+      dp.set(0, []);
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const nextDp = new Map(dp);
+
+        for (let [sum, path] of dp.entries()) {
+          const newSum = sum + item.pt;
+          if (!nextDp.has(newSum)) {
+            nextDp.set(newSum, [...path, i]);
+          }
+        }
+        dp = nextDp;
+      }
+
+      let minDiff = Infinity;
+      let bestIndices = [];
+
+      for (let [sum, indices] of dp.entries()) {
+        const diff = Math.abs(sum - targetPt);
+        if (diff < minDiff) {
+          minDiff = diff;
+          bestIndices = indices;
+        }
+      }
+
+      return bestIndices;
+    }
+
+    function findSuggestedProduct(shortagePt, month) {
+      if (shortagePt <= 0) return null;
+
+      let bestSuggestion = null;
+      let minDiff = Infinity;
+      let minPrice = Infinity;
+
+      configData.products.forEach(p => {
+        if (p.name === 'リペアセラム') return;
+        const pt = p.pts[month] || 0;
+        if (pt <= 0) return;
+
+        for (let qty = 1; qty <= 5; qty++) {
+          const totalPt = pt * qty;
+          const totalPrice = p.price * qty;
+          const diff = Math.abs(totalPt - shortagePt);
+
+          if (diff < minDiff || (diff === minDiff && totalPrice < minPrice)) {
+            minDiff = diff;
+            minPrice = totalPrice;
+            bestSuggestion = {
+              name: p.name,
+              qty: qty,
+              pt: totalPt,
+              price: totalPrice
+            };
+          }
+        }
+      });
+
+      return bestSuggestion;
+    }
+
+    function calculateBinarySplit() {
+      const month = document.getElementById('monthSelect').value;
+      const selects = document.querySelectorAll('.prod-qty');
+      
+      let allUnitItems = [];
+
+      selects.forEach(select => {
+        const qty = parseInt(select.value) || 0;
+        if (qty > 0) {
+          const idx = select.getAttribute('data-index');
+          const p = configData.products[idx];
+          const pt = p.pts[month] || 0;
+          for (let i = 0; i < qty; i++) {
+            allUnitItems.push({ name: p.name, pt: pt, price: p.price });
+          }
+        }
+      });
+
+      if (allUnitItems.length === 0) {
+        alert('商品を1つ以上（個数1以上）指定してください。');
+        return;
+      }
+
+      const totalPurchasePt = allUnitItems.reduce((acc, cur) => acc + cur.pt, 0);
+      let targetLeftPt = 0;
+      let curLeftPt = 0;
+      let curRightPt = 0;
+
+      if (currentMode === 'auto') {
+        targetLeftPt = totalPurchasePt / 2;
+      } else if (currentMode === 'target') {
+        const tL = parseFloat(document.getElementById('targetLeftPt').value);
+        const tR = parseFloat(document.getElementById('targetRightPt').value);
+
+        if (!isNaN(tL) && !isNaN(tR)) {
+          const targetTotal = tL + tR;
+          targetLeftPt = targetTotal > 0 ? totalPurchasePt * (tL / targetTotal) : totalPurchasePt / 2;
+        } else if (!isNaN(tL)) {
+          targetLeftPt = tL;
+        } else if (!isNaN(tR)) {
+          targetLeftPt = totalPurchasePt - tR;
+        } else {
+          alert('目標PT（左または右）を入力してください。');
+          return;
+        }
+      } else if (currentMode === 'current') {
+        curLeftPt = parseFloat(document.getElementById('currentLeftPt').value) || 0;
+        curRightPt = parseFloat(document.getElementById('currentRightPt').value) || 0;
+        
+        targetLeftPt = (totalPurchasePt + curRightPt - curLeftPt) / 2;
+        if (targetLeftPt < 0) targetLeftPt = 0;
+        if (targetLeftPt > totalPurchasePt) targetLeftPt = totalPurchasePt;
+      }
+
+      const leftIndices = findOptimalSubset(allUnitItems, targetLeftPt);
+      const leftSet = new Set(leftIndices);
+
+      let left = [], right = [];
+      let leftPt = 0, rightPt = 0;
+      let leftCost = 0, rightCost = 0;
+
+      allUnitItems.forEach((item, index) => {
+        if (leftSet.has(index)) {
+          left.push(item);
+          leftPt += item.pt;
+          leftCost += item.price;
+        } else {
+          right.push(item);
+          rightPt += item.pt;
+          rightCost += item.price;
+        }
+      });
+
+      const summarizeToCards = (list) => {
+        let map = {};
+        list.forEach(i => {
+          if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt, price: i.price };
+          map[i.name].count++;
+        });
+        
+        return Object.keys(map).map(k => `
+          <div class="split-item-card">
+            <div class="split-item-name">${k} × ${map[k].count}</div>
+            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()}PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
+          </div>
+        `).join('');
+      };
+
+      document.getElementById('leftList').innerHTML = summarizeToCards(left);
+      document.getElementById('rightList').innerHTML = summarizeToCards(right);
+      
+      document.getElementById('leftTotalPt').textContent = leftPt.toLocaleString();
+      document.getElementById('leftTotalCost').textContent = leftCost.toLocaleString();
+      
+      document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
+      document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
+
+      const showCurrent = (currentMode === 'current');
+      document.getElementById('leftPlusSign').style.display = showCurrent ? 'inline' : 'none';
+      document.getElementById('rightPlusSign').style.display = showCurrent ? 'inline' : 'none';
+      document.getElementById('leftCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('leftFinalPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('rightCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('rightFinalPtRow').style.display = showCurrent ? 'block' : 'none';
+
+      if (showCurrent) {
+        document.getElementById('leftCurrentPtVal').textContent = curLeftPt.toLocaleString();
+        document.getElementById('leftFinalPtVal').textContent = (curLeftPt + leftPt).toLocaleString();
+        document.getElementById('rightCurrentPtVal').textContent = curRightPt.toLocaleString();
+        document.getElementById('rightFinalPtVal').textContent = (curRightPt + rightPt).toLocaleString();
+
+        document.getElementById('diffLabel').textContent = '最終合計PT差';
+        document.getElementById('ptDiff').textContent = Math.abs((curLeftPt + leftPt) - (curRightPt + rightPt)).toLocaleString();
+      } else {
+        document.getElementById('diffLabel').textContent = '今回PT差';
+        document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      }
+
+      const ptDiffRow = document.getElementById('ptDiffRow');
+      if (currentMode === 'target') {
+        ptDiffRow.style.display = 'none';
+      } else {
+        ptDiffRow.style.display = 'block';
+      }
+
+      const isTargetMode = (currentMode === 'target');
+      document.getElementById('leftTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
+      document.getElementById('rightTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
+
+      if (isTargetMode) {
+        const rawTL = parseFloat(document.getElementById('targetLeftPt').value);
+        const rawTR = parseFloat(document.getElementById('targetRightPt').value);
+
+        if (!isNaN(rawTL)) {
+          const diffL = leftPt - rawTL;
+          const diffElL = document.getElementById('leftTargetDiffVal');
+          if (diffL < 0) {
+            diffElL.style.color = '#c94b4b';
+            diffElL.textContent = `${diffL.toLocaleString()} PT`;
+            
+            const sug = findSuggestedProduct(Math.abs(diffL), month);
+            if (sug) {
+              const qtyStr = sug.qty > 1 ? ` × ${sug.qty}個` : '';
+              document.getElementById('leftSuggestItem').innerHTML = `<strong>${sug.name}${qtyStr}</strong><br>${sug.pt.toLocaleString()} PT / ${sug.price.toLocaleString()}円`;
+              document.getElementById('leftSuggestBox').style.display = 'block';
+            }
+          } else {
+            diffElL.style.color = '#2b6cb0';
+            diffElL.textContent = `+${diffL.toLocaleString()} PT`;
+            document.getElementById('leftSuggestBox').style.display = 'none';
+          }
+        } else {
+          document.getElementById('leftTargetDiffRow').style.display = 'none';
+          document.getElementById('leftSuggestBox').style.display = 'none';
+        }
+
+        if (!isNaN(rawTR)) {
+          const diffR = rightPt - rawTR;
+          const diffElR = document.getElementById('rightTargetDiffVal');
+          if (diffR < 0) {
+            diffElR.style.color = '#c94b4b';
+            diffElR.textContent = `${diffR.toLocaleString()} PT`;
+
+            const sug = findSuggestedProduct(Math.abs(diffR), month);
+            if (sug) {
+              const qtyStr = sug.qty > 1 ? ` × ${sug.qty}個` : '';
+              document.getElementById('rightSuggestItem').innerHTML = `<strong>${sug.name}${qtyStr}</strong><br>${sug.pt.toLocaleString()} PT / ${sug.price.toLocaleString()}円`;
+              document.getElementById('rightSuggestBox').style.display = 'block';
+            }
+          } else {
+            diffElR.style.color = '#2b6cb0';
+            diffElR.textContent = `+${diffR.toLocaleString()} PT`;
+            document.getElementById('rightSuggestBox').style.display = 'none';
+          }
+        } else {
+          document.getElementById('rightTargetDiffRow').style.display = 'none';
+          document.getElementById('rightSuggestBox').style.display = 'none';
+        }
+      } else {
+        document.getElementById('leftSuggestBox').style.display = 'none';
+        document.getElementById('rightSuggestBox').style.display = 'none';
+      }
+
+      document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
+
+      const resDiv = document.getElementById('splitResult');
+      resDiv.style.display = 'block';
+      resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
+    window.onload = loadConfig;
+  </script>
+</body>
+</html>
