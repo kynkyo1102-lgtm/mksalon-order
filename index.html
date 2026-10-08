@@ -12,280 +12,87 @@
 <link href="style.css" rel="stylesheet"/>
 <style>
 /* =========================================================
-   リデザイン版：親しみやすい目的別UI
+   このページ固有のCSS（style.cssには入れない）
    ========================================================= */
 
-/* ─────────────────────────────────────
-   1. ヒーロー・キャッチセクション
-───────────────────────────────────────── */
-.hero-catch-section {
-  background: linear-gradient(135deg, #fbf7ef 0%, #ebd8ba 100%);
-  border-radius: 12px;
-  padding: 24px 18px;
-  margin-bottom: 24px;
-  text-align: center;
-  box-shadow: 0 4px 12px rgba(200, 162, 97, 0.12);
+  .header-logo:hover {
+  opacity: 0.85;
 }
-
-.hero-catch-section h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: var(--wood-dark);
-  margin-bottom: 8px;
-  letter-spacing: 0.02em;
-}
-
-.hero-catch-section p {
-  font-size: 0.9rem;
-  color: var(--text-main);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.hero-catch-icon {
-  font-size: 2.5rem;
-  margin-bottom: 12px;
-}
-
-/* ─────────────────────────────────────
-   2. お知らせセクション
-───────────────────────────────────────── */
-#newsContainerArea {
-  margin-bottom: 20px;
-}
-
-.news-box {
+  .news-box {
   background-color: #fffdf9;
   border: 1px solid var(--border-color);
   border-left: 4px solid var(--accent-gold);
   border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 10px;
+  padding: 10px 12px;
+  margin-bottom: 12px;
   font-size: 0.82rem;
   line-height: 1.5;
   box-shadow: 0 2px 8px rgba(35, 22, 16, 0.04);
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
 }
-
-.news-date {
+  .news-date {
   font-size: 0.75rem;
   font-weight: 700;
   color: var(--text-sub);
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 6px;
+  white-space: nowrap;
 }
-
-.news-badge {
+  .news-badge {
   background-color: #e53935;
   color: #ffffff;
-  font-size: 0.65rem;
+  font-size: 0.68rem;
   font-weight: bold;
   padding: 2px 6px;
-  border-radius: 3px;
+  border-radius: 4px;
+  margin-right: 6px;
+  display: inline-block;
   line-height: 1;
+  vertical-align: middle;
 }
-
-.news-text {
+  .news-text {
   font-size: 0.82rem;
   color: var(--text-main);
   margin: 0;
+  line-height: 1.5;
 }
-
-.news-accordion {
-  background-color: #fffdf9;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  margin-top: 8px;
-  overflow: hidden;
-}
-
-.news-summary {
-  padding: 10px 14px;
-  font-weight: 600;
-  font-size: 0.8rem;
-  color: var(--wood-dark);
-  cursor: pointer;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  user-select: none;
-  background-color: #f7f3ed;
-  transition: background-color 0.2s;
-}
-
-.news-summary:hover {
-  background-color: #f0e8de;
-}
-
-.news-summary::-webkit-details-marker {
-  display: none;
-}
-
-.news-toggle-icon {
-  font-size: 0.7rem;
-  color: var(--accent-gold);
-  transition: transform 0.2s ease;
-}
-
-.news-accordion[open] .news-toggle-icon {
-  transform: rotate(90deg);
-}
-
-.news-content-body {
-  padding: 12px 14px;
-  border-top: 1px dashed var(--border-color);
-  font-size: 0.8rem;
-}
-
-/* ─────────────────────────────────────
-   3. セクション見出し
-───────────────────────────────────────── */
-.section-title {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--wood-dark);
-  margin-bottom: 16px;
-  padding-bottom: 10px;
-  border-bottom: 2px solid var(--border-color);
-}
-
-.section-title::before {
+  .section-title::after {
   content: "";
-  flex-shrink: 0;
-  display: inline-block;
-  width: 4px;
-  height: 20px;
-  background-color: var(--accent-gold);
-  border-radius: 2px;
-}
-
-/* ─────────────────────────────────────
-   4. 目的別ガイド（どのツール？）
-───────────────────────────────────────── */
-.purpose-guide-section {
-  margin-bottom: 24px;
-}
-
-.purpose-cards {
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.purpose-card {
-  background-color: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: 10px;
-  padding: 14px 16px;
-  display: flex;
-  align-items: flex-start;
-  gap: 12px;
-  cursor: pointer;
-  transition: all 0.2s ease;
-  text-decoration: none;
-  color: inherit;
-}
-
-.purpose-card:active {
-  transform: translateY(1px);
-  box-shadow: 0 2px 6px rgba(35, 22, 16, 0.06);
-}
-
-.purpose-card.active {
-  background-color: #fbf7ef;
-  border: 2px solid var(--accent-gold);
-  border-left: 4px solid var(--accent-gold);
-}
-
-.purpose-icon {
-  flex-shrink: 0;
-  font-size: 1.6rem;
-  width: 40px;
-  height: 40px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.purpose-content {
   flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-color), transparent);
 }
-
-.purpose-title {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--wood-dark);
-  margin-bottom: 3px;
-}
-
-.purpose-desc {
+  .usage-guide {
   font-size: 0.78rem;
   color: var(--text-sub);
-  line-height: 1.4;
-  margin: 0;
+  background-color: rgba(200, 162, 97, 0.12);
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  line-height: 1.45;
 }
-
-.purpose-badge {
-  flex-shrink: 0;
-  background-color: var(--accent-gold);
-  color: #ffffff;
-  font-size: 0.65rem;
-  font-weight: bold;
-  padding: 4px 8px;
+  .menu-card {
+  background-color: var(--card-bg);
   border-radius: 12px;
-  align-self: center;
-  white-space: nowrap;
-}
-
-/* ─────────────────────────────────────
-   5. ツール選択エリア（メインカード）
-───────────────────────────────────────── */
-.tools-section {
-  margin-bottom: 28px;
-}
-
-.tool-card {
-  background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
-  border: 1.5px solid var(--border-color);
-  border-left: 5px solid var(--accent-gold);
-  border-radius: 12px;
-  padding: 16px 18px;
-  margin-bottom: 12px;
+  padding: 18px 20px;
+  margin-bottom: 14px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+  border: 1px solid var(--border-color);
+  transition: all 0.25s ease;
   text-decoration: none;
   color: inherit;
   display: flex;
   align-items: center;
-  gap: 14px;
-  transition: all 0.25s ease;
-  box-shadow: 0 3px 12px rgba(200, 162, 97, 0.1);
+  gap: 16px;
 }
-
-.tool-card:active {
+  .menu-card:active {
   transform: translateY(2px);
   box-shadow: 0 2px 6px rgba(35, 22, 16, 0.04);
 }
-
-.tool-card:hover {
-  transform: translateY(-2px);
-  background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
-  border-color: var(--accent-gold);
-  box-shadow: 0 6px 18px rgba(200, 162, 97, 0.18);
-}
-
-.tool-card.featured {
-  border-left-width: 6px;
-  padding: 18px 20px;
-  box-shadow: 0 4px 16px rgba(200, 162, 97, 0.15);
-}
-
-.tool-icon {
+  .card-icon {
   flex-shrink: 0;
-  width: 48px;
-  height: 48px;
+  width: 44px;
+  height: 44px;
   background: linear-gradient(135deg, #fbf7ef, #ebd8ba);
   border-radius: 50%;
   display: flex;
@@ -294,378 +101,432 @@
   color: var(--wood-dark);
   border: 1px solid var(--accent-gold);
   box-shadow: inset 0 1px 3px rgba(255,255,255,0.8);
-  font-size: 1.4rem;
 }
-
-.tool-content {
+  .card-content {
   flex: 1;
 }
-
-.tool-title {
+  .card-title {
   font-size: 0.95rem;
   font-weight: 700;
-  color: var(--wood-dark);
   margin-bottom: 4px;
-  letter-spacing: 0.01em;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: var(--text-main);
+  letter-spacing: 0.02em;
 }
-
-.tool-desc {
-  font-size: 0.8rem;
+  .card-title::after {
+  content: "›";
+  font-size: 1.2rem;
+  color: var(--accent-gold);
+}
+  .card-desc {
+  font-size: 0.78rem;
   color: var(--text-sub);
   line-height: 1.45;
   margin: 0;
 }
-
-.tool-arrow {
-  flex-shrink: 0;
-  font-size: 1.1rem;
-  color: var(--accent-gold);
-  font-weight: bold;
-}
-
-/* ─────────────────────────────────────
-   6. ステップ表示（フロー）
-───────────────────────────────────────── */
-.step-flow-info {
-  background-color: #fbf9f5;
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--accent-gold);
-  border-radius: 8px;
-  padding: 12px 14px;
-  margin-bottom: 20px;
-  font-size: 0.78rem;
-  line-height: 1.6;
-  color: var(--text-main);
-}
-
-.step-flow-info strong {
-  color: var(--wood-dark);
-}
-
-.step-numbers {
-  display: flex;
-  gap: 8px;
-  margin-top: 8px;
-  font-size: 0.75rem;
-}
-
-.step-badge {
-  background-color: var(--accent-gold);
-  color: #ffffff;
-  padding: 3px 7px;
-  border-radius: 12px;
-  font-weight: bold;
-}
-
-/* ─────────────────────────────────────
-   7. 補足・注意書き
-───────────────────────────────────────── */
-.notice-box {
-  background-color: #fef5f5;
-  border: 1px solid #f0d5d5;
-  border-left: 4px solid #e53935;
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-bottom: 16px;
-  font-size: 0.78rem;
-  line-height: 1.5;
-  color: #c94b4b;
-}
-
-.notice-box strong {
-  color: #a03535;
-}
-
-/* ─────────────────────────────────────
-   8. 情報・SNSエリア
-───────────────────────────────────────── */
-.sub-info-area {
-  margin-top: 32px;
+  .sub-info-area {
+  margin-top: 36px;
   padding-top: 20px;
   border-top: 1px dashed var(--border-color);
 }
-
-.sub-info-title {
+  .sub-info-title {
   font-size: 0.75rem;
-  font-weight: 600;
+  font-weight: 500;
   color: var(--text-sub);
   text-align: center;
   margin-bottom: 14px;
   letter-spacing: 0.08em;
-  text-transform: uppercase;
 }
-
-.sub-grid {
+  .sub-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 10px;
 }
-
-.sub-btn {
+  .sub-btn {
   background-color: #ffffff;
   border: 1px solid var(--border-color);
   border-radius: 8px;
-  padding: 12px 12px;
+  padding: 10px 12px;
   text-decoration: none;
   color: var(--text-main);
   font-size: 0.78rem;
-  font-weight: 600;
+  font-weight: 500;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 6px;
+  gap: 8px;
   box-shadow: 0 2px 6px rgba(35, 22, 16, 0.03);
   transition: all 0.2s ease;
-  flex-direction: column;
 }
-
-.sub-btn:active {
+  .sub-btn:active {
   background-color: #fcf9f2;
   transform: translateY(1px);
 }
-
-.sub-btn svg {
-  width: 20px;
-  height: 20px;
+  .sub-btn .icon-line {
+  color: var(--line-subtle);
 }
-
-/* ─────────────────────────────────────
-   9. フッター
-───────────────────────────────────────── */
-footer {
+  .sub-btn .icon-insta {
+  color: var(--insta-subtle);
+}
+  footer {
   text-align: center;
   padding: 24px 15px;
   font-size: 0.7rem;
   color: var(--text-sub);
   letter-spacing: 0.1em;
 }
-
-footer a {
-  color: var(--text-sub);
-  text-decoration: underline;
-  margin-right: 8px;
+  .guide-content {
+  display: none;
+  background-color: #fffdf9;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: -10px;
+  margin-bottom: 16px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-main);
 }
 
-/* ─────────────────────────────────────
-   10. 責任表示・透明性
-───────────────────────────────────────── */
-.tool-note {
-  font-size: 0.72rem;
-  color: var(--text-sub);
-  margin-top: 8px;
-  font-style: italic;
-}
-</style>
+
+    /* ==========================================
+       1. お知らせエリア（ページ固有のアコーディオン表示）
+    ========================================== */
+    #newsContainerArea {
+      margin-bottom: 20px;
+    }
+
+    .news-accordion {
+      background-color: #fffdf9;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-top: 8px;
+      overflow: hidden;
+    }
+
+    .news-summary {
+      padding: 10px 14px;
+      font-weight: bold;
+      font-size: 0.82rem;
+      color: var(--wood-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+      background-color: #f7f3ed;
+      transition: background-color 0.2s;
+    }
+
+    .news-summary:hover {
+      background-color: #f0e8de;
+    }
+
+    .news-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .news-toggle-icon {
+      font-size: 0.75rem;
+      color: var(--accent-gold);
+      transition: transform 0.2s ease;
+    }
+
+    .news-accordion[open] .news-toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .news-content-body {
+      padding: 12px 14px;
+      border-top: 1px dashed var(--border-color);
+      font-size: 0.82rem;
+    }
+
+    /* ==========================================
+       2. 使い方ガイド（折りたたみ）
+    ========================================== */
+    .usage-guide-accordion {
+      background-color: #fbf9f5;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      font-size: 0.85rem;
+      overflow: hidden;
+    }
+
+    .usage-guide-summary {
+      padding: 10px 12px;
+      font-weight: bold;
+      color: var(--wood-dark);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      user-select: none;
+    }
+
+    .usage-guide-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .usage-guide-content {
+      padding: 10px 12px 12px 12px;
+      border-top: 1px dashed var(--border-color);
+      color: var(--text-main);
+      line-height: 1.6;
+    }
+
+    /* ==========================================
+       3. メイン注文ツール（フィーチャーカード）
+    ========================================== */
+    .hero-order-section {
+      margin-bottom: 24px;
+    }
+
+    .menu-card.featured-card {
+      width: 100%;
+      box-sizing: border-box;
+      background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
+      border: 1.5px solid var(--border-color);
+      border-left: 5px solid var(--accent-gold);
+      box-shadow: 0 4px 14px rgba(200, 162, 97, 0.15), 0 2px 6px rgba(0, 0, 0, 0.04);
+    }
+
+    .menu-card.featured-card .card-icon {
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      color: var(--accent-gold);
+    }
+
+    .menu-card.featured-card .card-title {
+      font-size: 1.05rem;
+      color: var(--wood-dark);
+    }
+
+    .menu-card.featured-card .card-desc {
+      font-size: 0.8rem;
+      margin-top: 3px;
+    }
+
+    .menu-card.featured-card:hover {
+      transform: translateY(-2px);
+      background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
+      border-color: var(--accent-gold);
+      box-shadow: 0 8px 20px rgba(200, 162, 97, 0.25);
+    }
+
+    /* 注文計算アシスタント */
+    .calc-sub-card {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background-color: #f4eee6;
+      border: 1px solid var(--border-color);
+      border-left: 4px solid var(--accent-gold);
+      border-radius: 8px;
+      padding: 12px 14px;
+      margin-top: 10px;
+      margin-bottom: 24px;
+      text-decoration: none;
+      color: var(--text-main);
+      transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
+      width: 100%;
+      box-sizing: border-box;
+    }
+
+    .calc-sub-card:hover {
+      background-color: #ebdcd0;
+      border-color: var(--accent-gold);
+    }
+
+    .calc-sub-content {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .calc-sub-icon {
+      font-size: 1.1rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 32px;
+      height: 32px;
+      background-color: #ffffff;
+      border-radius: 50%;
+      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+    }
+
+    .calc-sub-title {
+      font-size: 0.88rem;
+      font-weight: bold;
+      color: var(--wood-dark);
+    }
+
+    .calc-sub-desc {
+      font-size: 0.75rem;
+      color: var(--text-sub);
+      margin-top: 1px;
+    }
+
+    .calc-sub-arrow {
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      font-weight: bold;
+    }
+  </style>
 </head>
 <body>
 <header>
 <a class="header-logo" href="index.html">Place de Nina</a>
 <h1>プラッス ドゥ ニナ 南熊本店</h1>
 </header>
-
 <main>
-
-<!-- ═══════════════════════════════════════
-     お知らせセクション
-     ═══════════════════════════════════════ -->
+<!-- お知らせセクション（JavaScriptで自動挿入） -->
 <div id="newsContainerArea"></div>
-
-<!-- ═══════════════════════════════════════
-     ヒーロー・キャッチセクション
-     ═══════════════════════════════════════ -->
-<div class="hero-catch-section">
-  <div class="hero-catch-icon">💐</div>
-  <h2>LINEで簡単注文</h2>
-  <p>プリザーブドフラワーのご注文を、LINEでサクッと送信できます。<br/>ご都合に合わせて、2つの方法からお選びください。</p>
+<!-- メイン：注文ツールセクション -->
+<div class="hero-order-section">
+<div class="section-title">LINEご注文作成ツール</div>
+<!-- 注意書き -->
+<p style="font-size: 0.78rem; color: #c94b4b; margin: -4px 0 12px 0; line-height: 1.4; font-weight: bold;">
+        ※こちらは直接サロンへ送信されるものではなく、注文テキストを作成できるツールになります。ご注文の際はツールで作成したテキストまたは画像をサロンLINEへご送信ください。
+      </p>
+<!-- どちらのツールを使えばいい？（折りたたみ） -->
+<details class="usage-guide-accordion">
+<summary class="usage-guide-summary">
+<span>💡 どちらのツールを使えばいい？</span>
+<span style="font-size: 0.75rem; color: var(--accent-gold);">▼</span>
+</summary>
+<div class="usage-guide-content">
+          ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br/>
+          ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br/>
+<span style="font-size: 0.78rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
 </div>
-
-<!-- ═══════════════════════════════════════
-     目的別ガイド：どのツール？
-     ═══════════════════════════════════════ -->
-<section class="purpose-guide-section">
-  <div class="section-title">どのツールを使う？</div>
-  
-  <div class="purpose-cards">
-    <!-- 選択肢 1 -->
-    <a href="single.html" class="purpose-card">
-      <div class="purpose-icon">✏️</div>
-      <div class="purpose-content">
-        <div class="purpose-title">さっと注文したい</div>
-        <p class="purpose-desc">LINEノートにコピペ。テキストで注文を送信</p>
-      </div>
-      <div class="purpose-badge">おすすめ</div>
-    </a>
-    
-    <!-- 選択肢 2 -->
-    <a href="bulk.html" class="purpose-card">
-      <div class="purpose-icon">📋</div>
-      <div class="purpose-content">
-        <div class="purpose-title">注文書として保存したい</div>
-        <p class="purpose-desc">画像またはPDFで控えを手元に残す</p>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- ─────────────────────────────────────
-     ステップフロー情報
-─────────────────────────────────────── -->
-<div class="step-flow-info">
-  <strong>📌 ご注文の流れ</strong><br/>
-  選んだツール → 注文内容を入力 → テキスト/画像を作成 → LINEで送信
-  <div class="step-numbers">
-    <span class="step-badge">1</span>
-    <span class="step-badge">2</span>
-    <span class="step-badge">3</span>
-    <span class="step-badge">4</span>
-  </div>
+</details>
+<!-- メイン注文ツール 1 -->
+<a class="menu-card featured-card" href="single.html">
+<div class="card-icon">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect height="4" rx="1" ry="1" width="8" x="8" y="2"></rect></svg>
 </div>
-
-<!-- ─────────────────────────────────────
-     注意・免責
-─────────────────────────────────────── -->
-<div class="notice-box">
-  <strong>⚠️ ご注意：</strong>このツールは注文テキスト/画像を作成するアシスタントです。直接サロンへ送信されません。作成後、必ずLINEで手動送信してください。
+<div class="card-content">
+<div class="card-title">LINEノート コピペ用</div>
+<p class="card-desc">LINEノートへ直接貼り付けるテキスト注文を作成します。</p>
 </div>
-
-<!-- ═══════════════════════════════════════
-     サブツール：計算アシスタント
-     ═══════════════════════════════════════ -->
-<section class="tools-section">
-  <div class="section-title">その他のツール</div>
-
-  <a href="calc.html" class="tool-card">
-    <div class="tool-icon">📊</div>
-    <div class="tool-content">
-      <div class="tool-title">注文計算アシスタント</div>
-      <p class="tool-desc">購入PT最適化、左右の分配計算などをサポート</p>
-      <p class="tool-note">PT計算で迷ったらこちら</p>
-    </div>
-    <div class="tool-arrow">›</div>
-  </a>
-</section>
-
-<!-- ═══════════════════════════════════════
-     店舗情報・SNSリンク
-     ═══════════════════════════════════════ -->
+</a>
+<!-- メイン注文ツール 2 -->
+<a class="menu-card featured-card" href="bulk.html">
+<div class="card-icon">
+<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line></svg>
+</div>
+<div class="card-content">
+<div class="card-title">注文書作成 画像保存用</div>
+<p class="card-desc">注文書を発行し、画像で控えを保存できます。</p>
+</div>
+</a>
+<!-- 注文計算アシスタント -->
+<a class="calc-sub-card" href="calc.html">
+<div class="calc-sub-content">
+<div class="calc-sub-icon">📊</div>
+<div>
+<div class="calc-sub-title">注文計算アシスタント</div>
+<div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
+</div>
+</div>
+<div class="calc-sub-arrow">▶</div>
+</a>
+</div>
+<!-- 店舗情報・SNSリンク -->
 <div class="sub-info-area">
-  <div class="sub-info-title">INFORMATION &amp; SNS</div>
-  
-  <div class="sub-grid">
-    <!-- 公式LINE -->
-    <a class="sub-btn" href="https://line.me/ti/p/7iG8fg4ykI" rel="noopener noreferrer" target="_blank">
-      <svg fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M19.365 9.863c.349-1.971-1.959-3.796-5.593-4.047-3.635-.248-6.66.737-7.008 2.708-.223 1.247.505 2.357 1.892 3.153V19c0 1.105-.672 2-1.5 2s-1.5-.895-1.5-2V2c0-1.105.672-2 1.5-2s1.5.895 1.5 2v4.358c1.128-.387 2.639-.67 4.306-.67 4.408 0 8.037 1.864 8.037 4.161 0 .964-.411 1.881-1.134 2.555z"/>
-      </svg>
-      <span>公式LINE</span>
-    </a>
-
-    <!-- Instagram -->
-    <a class="sub-btn" href="https://www.instagram.com/kumamoto5527?igsh=MXBwZ3ljeHFnb29oNg==" rel="noopener noreferrer" target="_blank">
-      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <rect height="20" rx="5" ry="5" width="20" x="2" y="2"/>
-        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
-        <circle cx="17.5" cy="6.5" r="1.5"/>
-      </svg>
-      <span>Instagram</span>
-    </a>
-
-    <!-- 店舗案内 -->
-    <a class="sub-btn" href="info.html">
-      <span style="font-size: 1.1rem;">📍</span>
-      <span>店舗案内</span>
-    </a>
-
-    <!-- お支払いについて -->
-    <a class="sub-btn" href="bank.html">
-      <span style="font-size: 1.1rem;">💳</span>
-      <span>お支払い</span>
-    </a>
-
-    <!-- よくある質問 -->
-    <a class="sub-btn" href="faq.html">
-      <span style="font-size: 1.1rem;">❓</span>
-      <span>よくある質問</span>
-    </a>
-
-    <!-- プライバシーポリシー -->
-    <a class="sub-btn" href="privacy.html">
-      <span style="font-size: 1.1rem;">🔒</span>
-      <span>プライバシー</span>
-    </a>
-  </div>
+<div class="sub-info-title">INFORMATION &amp; SNS</div>
+<div class="sub-grid">
+<a class="sub-btn" href="https://line.me/ti/p/7iG8fg4ykI" rel="noopener noreferrer" target="_blank">
+<svg class="icon-line" fill="currentColor" height="18" viewbox="0 0 24 24" width="18"><path d="M12 2C6.48 2 2 5.82 2 10.53c0 4.2 3.55 7.72 8.36 8.37.33.07.78.22.89.5.1.26.07.67.03.94l-.15.89c-.04.26-.2.1 1.01-.55 1.22-.66 6.58-3.87 6.58-9.62C22 5.82 17.52 2 12 2z"></path></svg>
+<span>公式LINE</span>
+</a>
+<a class="sub-btn" href="https://www.instagram.com/kumamoto5527?igsh=MXBwZ3ljeHFnb29oNg==" rel="noopener noreferrer" target="_blank">
+<svg class="icon-insta" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
+<span>Instagram</span>
+</a>
+<a class="sub-btn" href="info.html">
+<span>📍</span> 店舗案内
+        </a>
+<a class="sub-btn" href="bank.html">
+<span>💳</span> お支払いについて
+        </a>
+<a class="sub-btn" href="faq.html">
+<span>❓</span> よくある質問
+        </a>
 </div>
-
+</div>
 </main>
-
 <footer>
-  © PLACE DE NINA MINAMIKUMAMOTO
-</footer>
-
-<!-- ═══════════════════════════════════════
-     JavaScriptで動的にお知らせを読み込み
-     ═══════════════════════════════════════ -->
+<div style="margin-bottom: 8px;">
+<a href="privacy.html" style="color: var(--text-sub); text-decoration: underline; font-size: 0.7rem;">プライバシーポリシー</a>
+</div>
+    © PLACE DE NINA MINAMIKUMAMOTO
+  </footer>
 <script>
-  async function loadNews() {
-    try {
-      const res = await fetch('./month_config.json?v=' + Date.now());
-      const data = await res.json();
-      
-      const container = document.getElementById('newsContainerArea');
-      if (!container) return;
+    async function loadNews() {
+      try {
+        const res = await fetch('./month_config.json?v=' + Date.now());
+        const data = await res.json();
+        
+        const container = document.getElementById('newsContainerArea');
+        if (!container) return;
 
-      let items = [];
-      if (Array.isArray(data.newsList) && data.newsList.length > 0) {
-        items = data.newsList;
-      } else if (data.newsDate || data.newsText) {
-        items = [{ date: data.newsDate || '', text: data.newsText || '' }];
-      }
-
-      if (items.length > 0) {
-        const latest = items[0];
-        // 最新お知らせ（NEWバッジを追加）
-        let html = `
-          <div class="news-box">
-            <span class="news-date">
-              <span class="news-badge">NEW</span>${latest.date}
-            </span>
-            <p class="news-text">${latest.text}</p>
-          </div>
-        `;
-
-        // 過去のお知らせ（アコーディオン内・バッジなし）
-        if (items.length > 1) {
-          const pastItemsHtml = items.slice(1).map(item => `
-            <div class="news-box" style="margin-bottom: 10px;">
-              <span class="news-date">${item.date}</span>
-              <p class="news-text">${item.text}</p>
-            </div>
-          `).join('');
-
-          html += `
-            <details class="news-accordion">
-              <summary class="news-summary">
-                <span>📢 過去のお知らせ一覧</span>
-                <span class="news-toggle-icon">▶</span>
-              </summary>
-              <div class="news-content-body">
-                ${pastItemsHtml}
-              </div>
-            </details>
-          `;
+        let items = [];
+        if (Array.isArray(data.newsList) && data.newsList.length > 0) {
+          items = data.newsList;
+        } else if (data.newsDate || data.newsText) {
+          items = [{ date: data.newsDate || '', text: data.newsText || '' }];
         }
 
-        container.innerHTML = html;
-      } else {
-        container.innerHTML = '';
+        if (items.length > 0) {
+          const latest = items[0];
+          // 最新お知らせ（NEWバッジを追加）
+          let html = `
+            <div class="news-box">
+              <span class="news-date">
+                <span class="news-badge">NEW</span>${latest.date}
+              </span>
+              <p class="news-text">${latest.text}</p>
+            </div>
+          `;
+
+          // 過去のお知らせ（アコーディオン内・バッジなし）
+          if (items.length > 1) {
+            const pastItemsHtml = items.slice(1).map(item => `
+              <div class="news-box" style="margin-bottom: 10px;">
+                <span class="news-date">${item.date}</span>
+                <p class="news-text">${item.text}</p>
+              </div>
+            `).join('');
+
+            html += `
+              <details class="news-accordion">
+                <summary class="news-summary">
+                  <span>📢 過去のお知らせ一覧</span>
+                  <span class="news-toggle-icon">▶</span>
+                </summary>
+                <div class="news-content-body">
+                  ${pastItemsHtml}
+                </div>
+              </details>
+            `;
+          }
+
+          container.innerHTML = html;
+        } else {
+          container.innerHTML = '';
+        }
+      } catch (e) {
+        console.error("お知らせの読み込みに失敗しました", e);
       }
-    } catch (e) {
-      console.error("お知らせの読み込みに失敗しました", e);
     }
-  }
 
-  window.addEventListener('DOMContentLoaded', loadNews);
-</script>
-
+    window.addEventListener('DOMContentLoaded', loadNews);
+  </script>
 </body>
 </html>
