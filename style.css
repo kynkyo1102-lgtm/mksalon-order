@@ -1,28 +1,21 @@
-/* =========================================================
-   mksalon-order
-   共通CSS：5ページすべてで使用するスタイルのみ
-   シンプル × キャッチーなかわいいデザイン
-   ========================================================= */
-
 @charset "UTF-8";
 
 :root {
-  /* かわいいカラーパレット */
-  --primary-color: #ff6b9d;      /* ポップなピンク */
-  --secondary-color: #c44569;    /* 濃いめピンク */
-  --accent-color: #ffd166;       /* 明るいイエロー */
-  --light-bg: #fff5f8;           /* 薄いピンク背景 */
-  --white: #ffffff;
-  --text-main: #2d2d2d;
-  --text-sub: #888888;
-  --border-light: #ffdbea;
-  
-  /* かわいいフォント */
-  --font-sans: "Rounded Mplus 1c", "Comfortaa", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
-  --font-accent: "Comfortaa", "Rounded Mplus 1c", cursive;
-  
-  --line-subtle: #ff6b9d;
-  --insta-subtle: #e1306c;
+  --bg-color: #f6f3f1;
+  --panel-color: #ffffff;
+  --text-main: #2d2927;
+  --text-sub: #7a706a;
+  --line-color: #e8e0d9;
+  --accent: #c9a98f;       /* くすみベージュ系 */
+  --accent-deep: #8b6b54;  /* 深めのブラウン */
+  --soft-cream: #f4ece6;
+  --shadow-soft: rgba(45, 41, 39, 0.06);
+
+  --font-sans: "Noto Sans JP", "Yu Gothic", "Hiragino Sans", "Segoe UI", sans-serif;
+}
+
+* {
+  box-sizing: border-box;
 }
 
 body {
@@ -30,7 +23,7 @@ body {
   padding: 0;
   padding-bottom: 110px;
   font-family: var(--font-sans);
-  background-color: var(--light-bg);
+  background-color: var(--bg-color);
   color: var(--text-main);
   display: flex;
   flex-direction: column;
@@ -41,35 +34,33 @@ body {
 }
 
 header {
-  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
-  color: #ffffff;
-  padding: 24px 20px 20px;
+  background: var(--panel-color);
+  color: var(--text-main);
+  padding: 20px 18px 16px;
   text-align: center;
-  border-bottom: none;
-  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
+  border-bottom: 1px solid var(--line-color);
+  box-shadow: 0 1px 0 var(--shadow-soft);
   position: relative;
 }
 
 .header-logo {
-  font-family: var(--font-accent);
-  font-size: 2.2rem;
+  font-family: var(--font-sans);
+  font-size: 1.9rem;
   font-weight: 700;
-  color: var(--white);
-  line-height: 1;
+  color: var(--accent-deep);
+  line-height: 1.1;
   margin-bottom: 6px;
-  text-shadow: none;
   text-decoration: none;
   display: inline-block;
-  letter-spacing: 0.05em;
+  letter-spacing: 0.08em;
 }
 
 h1 {
   margin: 0;
-  font-size: 0.95rem;
-  font-weight: 500;
-  color: #ffffff;
-  letter-spacing: 0.05em;
-  opacity: 0.95;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-sub);
+  letter-spacing: 0.08em;
 }
 
 main {
@@ -82,16 +73,14 @@ main {
 }
 
 .section-title {
-  font-size: 0.9rem;
+  font-size: 0.82rem;
   font-weight: 700;
-  color: var(--primary-color);
-  margin: 24px 0 14px 0;
-  letter-spacing: 0.05em;
+  color: var(--accent-deep);
+  margin: 22px 0 12px;
+  letter-spacing: 0.08em;
   display: flex;
   align-items: center;
   gap: 10px;
-}
-
-* {
-  box-sizing: border-box;
+  border-bottom: 1px solid var(--line-color);
+  padding-bottom: 8px;
 }
