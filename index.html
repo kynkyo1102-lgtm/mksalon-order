@@ -1,227 +1,142 @@
 <!DOCTYPE html>
-
 <html lang="ja">
+
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>プラッス ドゥ ニナ 南熊本店</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<!-- 外部CSSの読み込み -->
-<link href="style.css" rel="stylesheet"/>
-<style>
-/* =========================================================
-   このページ固有のCSS（style.cssには入れない）
-   ========================================================= */
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  .header-logo:hover {
-  opacity: 0.85;
-}
-  .news-box {
-  background-color: #fffdf9;
-  border: 1px solid var(--border-color);
-  border-left: 4px solid var(--accent-gold);
-  border-radius: 8px;
-  padding: 10px 12px;
-  margin-bottom: 12px;
-  font-size: 0.82rem;
-  line-height: 1.5;
-  box-shadow: 0 2px 8px rgba(35, 22, 16, 0.04);
-  display: flex;
-  flex-direction: column;
-  gap: 2px;
-}
-  .news-date {
-  font-size: 0.75rem;
-  font-weight: 700;
-  color: var(--text-sub);
-  white-space: nowrap;
-}
-  .news-badge {
-  background-color: #e53935;
-  color: #ffffff;
-  font-size: 0.68rem;
-  font-weight: bold;
-  padding: 2px 6px;
-  border-radius: 4px;
-  margin-right: 6px;
-  display: inline-block;
-  line-height: 1;
-  vertical-align: middle;
-}
-  .news-text {
-  font-size: 0.82rem;
-  color: var(--text-main);
-  margin: 0;
-  line-height: 1.5;
-}
-  .section-title::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--border-color), transparent);
-}
-  .usage-guide {
-  font-size: 0.78rem;
-  color: var(--text-sub);
-  background-color: rgba(200, 162, 97, 0.12);
-  padding: 10px 14px;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  line-height: 1.45;
-}
-  .menu-card {
-  background-color: var(--card-bg);
-  border-radius: 12px;
-  padding: 18px 20px;
-  margin-bottom: 14px;
-  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
-  border: 1px solid var(--border-color);
-  transition: all 0.25s ease;
-  text-decoration: none;
-  color: inherit;
-  display: flex;
-  align-items: center;
-  gap: 16px;
-}
-  .menu-card:active {
-  transform: translateY(2px);
-  box-shadow: 0 2px 6px rgba(35, 22, 16, 0.04);
-}
-  .card-icon {
-  flex-shrink: 0;
-  width: 44px;
-  height: 44px;
-  background: linear-gradient(135deg, #fbf7ef, #ebd8ba);
-  border-radius: 50%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: var(--wood-dark);
-  border: 1px solid var(--accent-gold);
-  box-shadow: inset 0 1px 3px rgba(255,255,255,0.8);
-}
-  .card-content {
-  flex: 1;
-}
-  .card-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  color: var(--text-main);
-  letter-spacing: 0.02em;
-}
-  .card-title::after {
-  content: "›";
-  font-size: 1.2rem;
-  color: var(--accent-gold);
-}
-  .card-desc {
-  font-size: 0.78rem;
-  color: var(--text-sub);
-  line-height: 1.45;
-  margin: 0;
-}
-  .sub-info-area {
-  margin-top: 36px;
-  padding-top: 20px;
-  border-top: 1px dashed var(--border-color);
-}
-  .sub-info-title {
-  font-size: 0.75rem;
-  font-weight: 500;
-  color: var(--text-sub);
-  text-align: center;
-  margin-bottom: 14px;
-  letter-spacing: 0.08em;
-}
-  .sub-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 10px;
-}
-  .sub-btn {
-  background-color: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 10px 12px;
-  text-decoration: none;
-  color: var(--text-main);
-  font-size: 0.78rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(35, 22, 16, 0.03);
-  transition: all 0.2s ease;
-}
-  .sub-btn:active {
-  background-color: #fcf9f2;
-  transform: translateY(1px);
-}
-  .sub-btn .icon-line {
-  color: var(--line-subtle);
-}
-  .sub-btn .icon-insta {
-  color: var(--insta-subtle);
-}
-  footer {
-  text-align: center;
-  padding: 24px 15px;
-  font-size: 0.7rem;
-  color: var(--text-sub);
-  letter-spacing: 0.1em;
-}
-  .guide-content {
-  display: none;
-  background-color: #fffdf9;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 14px;
-  margin-top: -10px;
-  margin-bottom: 16px;
-  font-size: 0.8rem;
-  line-height: 1.6;
-  color: var(--text-main);
-}
+  <title>プラッス ドゥ ニナ 南熊本店</title>
 
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap"
+    rel="stylesheet"
+  >
 
-    /* ==========================================
-       1. お知らせエリア（ページ固有のアコーディオン表示）
-    ========================================== */
+  <link href="style.css" rel="stylesheet">
+
+  <style>
+    /* =========================================================
+       南熊本店 TOP PAGE
+       ========================================================= */
+
+    body {
+      background: #fbfaf7;
+    }
+
+    /* ---------- Header ---------- */
+
+    header {
+      text-align: center;
+      padding: 28px 20px 18px;
+    }
+
+    .header-logo {
+      display: inline-block;
+      color: var(--accent-gold);
+      font-family: "Great Vibes", cursive;
+      font-size: 1.8rem;
+      text-decoration: none;
+      margin-bottom: 4px;
+    }
+
+    header h1 {
+      margin: 0;
+      font-size: 1.05rem;
+      font-weight: 700;
+      color: var(--text-main);
+      letter-spacing: 0.04em;
+    }
+
+    /* ---------- Intro ---------- */
+
+    .welcome {
+      text-align: center;
+      padding: 18px 10px 26px;
+    }
+
+    .welcome-label {
+      display: inline-block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--accent-gold);
+      letter-spacing: 0.12em;
+      margin-bottom: 8px;
+    }
+
+    .welcome-title {
+      margin: 0;
+      font-size: 1.45rem;
+      line-height: 1.45;
+      color: var(--text-main);
+    }
+
+    .welcome-text {
+      margin: 9px 0 0;
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--text-sub);
+    }
+
+    /* ---------- News ---------- */
+
     #newsContainerArea {
-      margin-bottom: 20px;
+      margin-bottom: 24px;
+    }
+
+    .news-box {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 12px;
+      padding: 12px 14px;
+      margin-bottom: 10px;
+      box-shadow: 0 3px 12px rgba(35, 22, 16, 0.04);
+    }
+
+    .news-date {
+      display: block;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      margin-bottom: 3px;
+    }
+
+    .news-badge {
+      display: inline-block;
+      background: #e85c5c;
+      color: #fff;
+      font-size: 0.62rem;
+      padding: 2px 6px;
+      border-radius: 999px;
+      margin-right: 6px;
+      line-height: 1.2;
+    }
+
+    .news-text {
+      margin: 0;
+      font-size: 0.78rem;
+      line-height: 1.55;
+      color: var(--text-main);
     }
 
     .news-accordion {
-      background-color: #fffdf9;
+      background: #fff;
       border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-top: 8px;
+      border-radius: 12px;
       overflow: hidden;
     }
 
     .news-summary {
-      padding: 10px 14px;
-      font-weight: bold;
-      font-size: 0.82rem;
-      color: var(--wood-dark);
-      cursor: pointer;
+      padding: 11px 14px;
       display: flex;
-      align-items: center;
       justify-content: space-between;
-      user-select: none;
-      background-color: #f7f3ed;
-      transition: background-color 0.2s;
-    }
-
-    .news-summary:hover {
-      background-color: #f0e8de;
+      align-items: center;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 700;
+      color: var(--wood-dark);
+      background: #f8f4ed;
     }
 
     .news-summary::-webkit-details-marker {
@@ -229,304 +144,670 @@
     }
 
     .news-toggle-icon {
-      font-size: 0.75rem;
       color: var(--accent-gold);
-      transition: transform 0.2s ease;
-    }
-
-    .news-accordion[open] .news-toggle-icon {
-      transform: rotate(90deg);
     }
 
     .news-content-body {
-      padding: 12px 14px;
+      padding: 12px;
       border-top: 1px dashed var(--border-color);
-      font-size: 0.82rem;
     }
 
-    /* ==========================================
-       2. 使い方ガイド（折りたたみ）
-    ========================================== */
-    .usage-guide-accordion {
-      background-color: #fbf9f5;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-bottom: 16px;
-      font-size: 0.85rem;
-      overflow: hidden;
+    /* ---------- Main navigation ---------- */
+
+    .main-section {
+      margin-bottom: 34px;
     }
 
-    .usage-guide-summary {
-      padding: 10px 12px;
-      font-weight: bold;
-      color: var(--wood-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
+    .section-heading {
+      margin-bottom: 12px;
     }
 
-    .usage-guide-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .usage-guide-content {
-      padding: 10px 12px 12px 12px;
-      border-top: 1px dashed var(--border-color);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-
-    /* ==========================================
-       3. メイン注文ツール（フィーチャーカード）
-    ========================================== */
-    .hero-order-section {
-      margin-bottom: 24px;
-    }
-
-    .menu-card.featured-card {
-      width: 100%;
-      box-sizing: border-box;
-      background: linear-gradient(135deg, #ffffff 0%, #faf5ef 100%);
-      border: 1.5px solid var(--border-color);
-      border-left: 5px solid var(--accent-gold);
-      box-shadow: 0 4px 14px rgba(200, 162, 97, 0.15), 0 2px 6px rgba(0, 0, 0, 0.04);
-    }
-
-    .menu-card.featured-card .card-icon {
-      background-color: #ffffff;
-      border: 1px solid var(--border-color);
+    .section-heading-label {
+      display: block;
+      font-size: 0.68rem;
       color: var(--accent-gold);
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      margin-bottom: 2px;
     }
 
-    .menu-card.featured-card .card-title {
+    .section-heading-title {
+      margin: 0;
       font-size: 1.05rem;
-      color: var(--wood-dark);
-    }
-
-    .menu-card.featured-card .card-desc {
-      font-size: 0.8rem;
-      margin-top: 3px;
-    }
-
-    .menu-card.featured-card:hover {
-      transform: translateY(-2px);
-      background: linear-gradient(135deg, #ffffff 0%, #f4eee6 100%);
-      border-color: var(--accent-gold);
-      box-shadow: 0 8px 20px rgba(200, 162, 97, 0.25);
-    }
-
-    /* 注文計算アシスタント */
-    .calc-sub-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #f4eee6;
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--accent-gold);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-top: 10px;
-      margin-bottom: 24px;
-      text-decoration: none;
       color: var(--text-main);
-      transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
-      width: 100%;
-      box-sizing: border-box;
     }
 
-    .calc-sub-card:hover {
-      background-color: #ebdcd0;
-      border-color: var(--accent-gold);
+    .section-heading-desc {
+      margin: 4px 0 0;
+      font-size: 0.75rem;
+      color: var(--text-sub);
     }
 
-    .calc-sub-content {
-      display: flex;
-      align-items: center;
+    /* ---------- Main cards ---------- */
+
+    .choice-grid {
+      display: grid;
       gap: 12px;
     }
 
-    .calc-sub-icon {
-      font-size: 1.1rem;
+    .choice-card {
+      position: relative;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 17px 16px;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 15px;
+      text-decoration: none;
+      color: inherit;
+      box-shadow: 0 4px 14px rgba(35, 22, 16, 0.045);
+      transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        border-color 0.2s ease;
+    }
+
+    .choice-card:hover {
+      transform: translateY(-2px);
+      border-color: var(--accent-gold);
+      box-shadow: 0 8px 20px rgba(35, 22, 16, 0.08);
+    }
+
+    .choice-card:active {
+      transform: translateY(0);
+    }
+
+    .choice-card.primary {
+      background: linear-gradient(135deg, #fffdf9, #f8f0e4);
+      border-color: #dbc7a7;
+    }
+
+    .choice-icon {
+      flex-shrink: 0;
+      width: 48px;
+      height: 48px;
       display: flex;
       align-items: center;
       justify-content: center;
-      width: 32px;
-      height: 32px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
+      background: #f8f3ea;
+      border: 1px solid #dfcfb5;
+      border-radius: 14px;
+      font-size: 1.35rem;
     }
 
-    .calc-sub-title {
-      font-size: 0.88rem;
-      font-weight: bold;
+    .choice-card.primary .choice-icon {
+      background: #fff;
+    }
+
+    .choice-content {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .choice-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+      margin-bottom: 3px;
+      font-size: 0.94rem;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .choice-arrow {
+      flex-shrink: 0;
+      color: var(--accent-gold);
+      font-size: 1.15rem;
+    }
+
+    .choice-desc {
+      margin: 0;
+      font-size: 0.75rem;
+      line-height: 1.5;
+      color: var(--text-sub);
+    }
+
+    .choice-tag {
+      display: inline-block;
+      margin-left: 5px;
+      padding: 2px 6px;
+      border-radius: 999px;
+      background: #e85c5c;
+      color: #fff;
+      font-size: 0.58rem;
+      vertical-align: middle;
+    }
+
+    /* ---------- Order tools ---------- */
+
+    .order-tools {
+      margin-top: 10px;
+      padding: 13px;
+      background: #f8f5ef;
+      border-radius: 14px;
+    }
+
+    .order-tools-title {
+      margin: 0 0 9px;
+      font-size: 0.74rem;
+      font-weight: 700;
       color: var(--wood-dark);
     }
 
-    .calc-sub-desc {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      margin-top: 1px;
+    .tool-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 8px;
     }
 
-    .calc-sub-arrow {
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      font-weight: bold;
+    .tool-btn {
+      display: block;
+      padding: 11px 9px;
+      text-align: center;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+
+    .tool-btn small {
+      display: block;
+      margin-top: 3px;
+      color: var(--text-sub);
+      font-size: 0.63rem;
+      font-weight: 400;
+    }
+
+    /* ---------- Small links ---------- */
+
+    .small-section {
+      margin-top: 38px;
+      padding-top: 24px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    .small-section-title {
+      margin: 0 0 12px;
+      text-align: center;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--text-sub);
+      letter-spacing: 0.08em;
+    }
+
+    .small-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 9px;
+    }
+
+    .small-btn {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+      min-height: 42px;
+      padding: 8px;
+      box-sizing: border-box;
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      color: var(--text-main);
+      text-decoration: none;
+      font-size: 0.72rem;
+      box-shadow: 0 2px 7px rgba(35, 22, 16, 0.025);
+    }
+
+    .small-btn:hover {
+      border-color: var(--accent-gold);
+    }
+
+    /* ---------- Footer ---------- */
+
+    footer {
+      text-align: center;
+      padding: 30px 15px 24px;
+      font-size: 0.67rem;
+      line-height: 1.7;
+      color: var(--text-sub);
+      letter-spacing: 0.06em;
+    }
+
+    footer a {
+      color: var(--text-sub);
     }
   </style>
 </head>
+
 <body>
+
 <header>
-<a class="header-logo" href="index.html">Place de Nina</a>
-<h1>プラッス ドゥ ニナ 南熊本店</h1>
+  <a class="header-logo" href="index.html">Place de Nina</a>
+  <h1>プラッス ドゥ ニナ 南熊本店</h1>
 </header>
+
+
 <main>
-<!-- お知らせセクション（JavaScriptで自動挿入） -->
-<div id="newsContainerArea"></div>
-<!-- メイン：注文ツールセクション -->
-<div class="hero-order-section">
-<div class="section-title">LINEご注文作成ツール</div>
-<!-- 注意書き -->
-<p style="font-size: 0.78rem; color: #c94b4b; margin: -4px 0 12px 0; line-height: 1.4; font-weight: bold;">
-        ※こちらは直接サロンへ送信されるものではなく、注文テキストを作成できるツールになります。ご注文の際はツールで作成したテキストまたは画像をサロンLINEへご送信ください。
+
+  <!-- =========================
+       Welcome
+  ========================== -->
+
+  <section class="welcome">
+    <span class="welcome-label">MINAMIKUMAMOTO</span>
+
+    <h2 class="welcome-title">
+      南熊本店へようこそ 👋
+    </h2>
+
+    <p class="welcome-text">
+      ご注文・使い方・お支払いなど、<br>
+      必要なところからどうぞ。
+    </p>
+  </section>
+
+
+  <!-- =========================
+       News
+  ========================== -->
+
+  <div id="newsContainerArea"></div>
+
+
+  <!-- =========================
+       Main navigation
+  ========================== -->
+
+  <section class="main-section">
+
+    <div class="section-heading">
+      <span class="section-heading-label">MENU</span>
+      <h2 class="section-heading-title">今日は何をしますか？</h2>
+      <p class="section-heading-desc">
+        目的にあわせて選んでください。
       </p>
-<!-- どちらのツールを使えばいい？（折りたたみ） -->
-<details class="usage-guide-accordion">
-<summary class="usage-guide-summary">
-<span>💡 どちらのツールを使えばいい？</span>
-<span style="font-size: 0.75rem; color: var(--accent-gold);">▼</span>
-</summary>
-<div class="usage-guide-content">
-          ・<strong>コピペ用</strong>：LINEノートへ文章でサクッと注文を送信したい方<br/>
-          ・<strong>画像保存用</strong>：注文書を画像（またはPDF）で手元に残したい方<br/>
-<span style="font-size: 0.78rem; color: var(--text-sub);">※作成した内容をLINEノート等に貼り付けてご送信ください。</span>
-</div>
-</details>
-<!-- メイン注文ツール 1 -->
-<a class="menu-card featured-card" href="single.html">
-<div class="card-icon">
-<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path><rect height="4" rx="1" ry="1" width="8" x="8" y="2"></rect></svg>
-</div>
-<div class="card-content">
-<div class="card-title">LINEノート コピペ用</div>
-<p class="card-desc">LINEノートへ直接貼り付けるテキスト注文を作成します。</p>
-</div>
-</a>
-<!-- メイン注文ツール 2 -->
-<a class="menu-card featured-card" href="bulk.html">
-<div class="card-icon">
-<svg fill="none" height="22" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="22"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="16" x2="8" y1="13" y2="13"></line><line x1="16" x2="8" y1="17" y2="17"></line></svg>
-</div>
-<div class="card-content">
-<div class="card-title">注文書作成 画像保存用</div>
-<p class="card-desc">注文書を発行し、画像で控えを保存できます。</p>
-</div>
-</a>
-<!-- 注文計算アシスタント -->
-<a class="calc-sub-card" href="calc.html">
-<div class="calc-sub-content">
-<div class="calc-sub-icon">📊</div>
-<div>
-<div class="calc-sub-title">注文計算アシスタント</div>
-<div class="calc-sub-desc">購入PT最適化・左右の分配計算はこちら</div>
-</div>
-</div>
-<div class="calc-sub-arrow">▶</div>
-</a>
-</div>
-<!-- 店舗情報・SNSリンク -->
-<div class="sub-info-area">
-<div class="sub-info-title">INFORMATION &amp; SNS</div>
-<div class="sub-grid">
-<a class="sub-btn" href="https://line.me/ti/p/7iG8fg4ykI" rel="noopener noreferrer" target="_blank">
-<svg class="icon-line" fill="currentColor" height="18" viewbox="0 0 24 24" width="18"><path d="M12 2C6.48 2 2 5.82 2 10.53c0 4.2 3.55 7.72 8.36 8.37.33.07.78.22.89.5.1.26.07.67.03.94l-.15.89c-.04.26-.2.1 1.01-.55 1.22-.66 6.58-3.87 6.58-9.62C22 5.82 17.52 2 12 2z"></path></svg>
-<span>公式LINE</span>
-</a>
-<a class="sub-btn" href="https://www.instagram.com/kumamoto5527?igsh=MXBwZ3ljeHFnb29oNg==" rel="noopener noreferrer" target="_blank">
-<svg class="icon-insta" fill="none" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" viewbox="0 0 24 24" width="18"><rect height="20" rx="5" ry="5" width="20" x="2" y="2"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"></line></svg>
-<span>Instagram</span>
-</a>
-<a class="sub-btn" href="info.html">
-<span>📍</span> 店舗案内
+    </div>
+
+
+    <div class="choice-grid">
+
+      <!-- 注文 -->
+
+      <a class="choice-card primary" href="#orderTools">
+
+        <div class="choice-icon">
+          🛒
+        </div>
+
+        <div class="choice-content">
+
+          <div class="choice-title">
+            <span>
+              注文したい
+              <span class="choice-tag">おすすめ</span>
+            </span>
+
+            <span class="choice-arrow">›</span>
+          </div>
+
+          <p class="choice-desc">
+            LINEで送る注文内容を作成します。
+          </p>
+
+        </div>
+
+      </a>
+
+
+      <!-- ガイド -->
+
+      <a class="choice-card" href="guide.html">
+
+        <div class="choice-icon">
+          📖
+        </div>
+
+        <div class="choice-content">
+
+          <div class="choice-title">
+            <span>使い方を知りたい</span>
+            <span class="choice-arrow">›</span>
+          </div>
+
+          <p class="choice-desc">
+            はじめての方はこちら。各種サービスの使い方をご案内します。
+          </p>
+
+        </div>
+
+      </a>
+
+
+      <!-- 支払い -->
+
+      <a class="choice-card" href="bank.html">
+
+        <div class="choice-icon">
+          💳
+        </div>
+
+        <div class="choice-content">
+
+          <div class="choice-title">
+            <span>お支払いについて知りたい</span>
+            <span class="choice-arrow">›</span>
+          </div>
+
+          <p class="choice-desc">
+            振込方法などのお支払いに関する情報はこちら。
+          </p>
+
+        </div>
+
+      </a>
+
+
+      <!-- FAQ -->
+
+      <a class="choice-card" href="faq.html">
+
+        <div class="choice-icon">
+          ❓
+        </div>
+
+        <div class="choice-content">
+
+          <div class="choice-title">
+            <span>困ったときは</span>
+            <span class="choice-arrow">›</span>
+          </div>
+
+          <p class="choice-desc">
+            よくある質問や、わからないときの確認はこちら。
+          </p>
+
+        </div>
+
+      </a>
+
+
+      <!-- 店舗 -->
+
+      <a class="choice-card" href="info.html">
+
+        <div class="choice-icon">
+          📍
+        </div>
+
+        <div class="choice-content">
+
+          <div class="choice-title">
+            <span>南熊本店について</span>
+            <span class="choice-arrow">›</span>
+          </div>
+
+          <p class="choice-desc">
+            店舗情報やご案内をご確認いただけます。
+          </p>
+
+        </div>
+
+      </a>
+
+    </div>
+
+  </section>
+
+
+  <!-- =========================
+       Order tools
+  ========================== -->
+
+  <section class="main-section" id="orderTools">
+
+    <div class="section-heading">
+      <span class="section-heading-label">ORDER</span>
+      <h2 class="section-heading-title">注文を作成する</h2>
+      <p class="section-heading-desc">
+        使いやすい方法を選んでください。
+      </p>
+    </div>
+
+
+    <div class="order-tools">
+
+      <p class="order-tools-title">
+        💡 どちらを使えばいい？
+      </p>
+
+      <div class="tool-grid">
+
+        <a class="tool-btn" href="single.html">
+          LINEノート コピペ用
+          <small>文章で注文したい方</small>
         </a>
-<a class="sub-btn" href="bank.html">
-<span>💳</span> お支払いについて
+
+        <a class="tool-btn" href="bulk.html">
+          注文書 画像保存用
+          <small>画像・PDFで残したい方</small>
         </a>
-<a class="sub-btn" href="faq.html">
-<span>❓</span> よくある質問
-        </a>
-</div>
-</div>
+
+      </div>
+
+    </div>
+
+
+    <!-- 計算アシスタント -->
+
+    <a
+      href="calc.html"
+      class="choice-card"
+      style="margin-top: 10px;"
+    >
+
+      <div class="choice-icon">
+        📊
+      </div>
+
+      <div class="choice-content">
+
+        <div class="choice-title">
+          <span>注文計算アシスタント</span>
+          <span class="choice-arrow">›</span>
+        </div>
+
+        <p class="choice-desc">
+          購入PT最適化・左右の分配計算はこちら。
+        </p>
+
+      </div>
+
+    </a>
+
+  </section>
+
+
+  <!-- =========================
+       SNS / other
+  ========================== -->
+
+  <section class="small-section">
+
+    <h2 class="small-section-title">
+      OTHER
+    </h2>
+
+    <div class="small-grid">
+
+      <a
+        class="small-btn"
+        href="https://line.me/ti/p/7iG8fg4ykI"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        💬 公式LINE
+      </a>
+
+      <a
+        class="small-btn"
+        href="https://www.instagram.com/kumamoto5527?igsh=MXBwZ3ljeHFnb29oNg=="
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        ◎ Instagram
+      </a>
+
+      <a class="small-btn" href="privacy.html">
+        🔒 プライバシー
+      </a>
+
+    </div>
+
+  </section>
+
 </main>
+
+
 <footer>
-<div style="margin-bottom: 8px;">
-<a href="privacy.html" style="color: var(--text-sub); text-decoration: underline; font-size: 0.7rem;">プライバシーポリシー</a>
-</div>
-    © PLACE DE NINA MINAMIKUMAMOTO
-  </footer>
+  © PLACE DE NINA MINAMIKUMAMOTO
+</footer>
+
+
 <script>
-    async function loadNews() {
-      try {
-        const res = await fetch('./month_config.json?v=' + Date.now());
-        const data = await res.json();
-        
-        const container = document.getElementById('newsContainerArea');
-        if (!container) return;
+  async function loadNews() {
 
-        let items = [];
-        if (Array.isArray(data.newsList) && data.newsList.length > 0) {
-          items = data.newsList;
-        } else if (data.newsDate || data.newsText) {
-          items = [{ date: data.newsDate || '', text: data.newsText || '' }];
-        }
+    try {
 
-        if (items.length > 0) {
-          const latest = items[0];
-          // 最新お知らせ（NEWバッジを追加）
-          let html = `
-            <div class="news-box">
-              <span class="news-date">
-                <span class="news-badge">NEW</span>${latest.date}
-              </span>
-              <p class="news-text">${latest.text}</p>
-            </div>
-          `;
+      const res = await fetch(
+        './month_config.json?v=' + Date.now()
+      );
 
-          // 過去のお知らせ（アコーディオン内・バッジなし）
-          if (items.length > 1) {
-            const pastItemsHtml = items.slice(1).map(item => `
-              <div class="news-box" style="margin-bottom: 10px;">
-                <span class="news-date">${item.date}</span>
-                <p class="news-text">${item.text}</p>
-              </div>
-            `).join('');
+      const data = await res.json();
 
-            html += `
-              <details class="news-accordion">
-                <summary class="news-summary">
-                  <span>📢 過去のお知らせ一覧</span>
-                  <span class="news-toggle-icon">▶</span>
-                </summary>
-                <div class="news-content-body">
-                  ${pastItemsHtml}
-                </div>
-              </details>
-            `;
-          }
+      const container =
+        document.getElementById('newsContainerArea');
 
-          container.innerHTML = html;
-        } else {
-          container.innerHTML = '';
-        }
-      } catch (e) {
-        console.error("お知らせの読み込みに失敗しました", e);
+      if (!container) return;
+
+      let items = [];
+
+      if (
+        Array.isArray(data.newsList) &&
+        data.newsList.length > 0
+      ) {
+
+        items = data.newsList;
+
+      } else if (
+        data.newsDate ||
+        data.newsText
+      ) {
+
+        items = [{
+          date: data.newsDate || '',
+          text: data.newsText || ''
+        }];
+
       }
+
+
+      if (items.length === 0) {
+
+        container.innerHTML = '';
+        return;
+
+      }
+
+
+      const latest = items[0];
+
+
+      let html = `
+        <div class="news-box">
+
+          <span class="news-date">
+            <span class="news-badge">NEW</span>
+            ${latest.date}
+          </span>
+
+          <p class="news-text">
+            ${latest.text}
+          </p>
+
+        </div>
+      `;
+
+
+      if (items.length > 1) {
+
+        const pastItemsHtml =
+          items.slice(1)
+            .map(item => `
+              <div class="news-box">
+
+                <span class="news-date">
+                  ${item.date}
+                </span>
+
+                <p class="news-text">
+                  ${item.text}
+                </p>
+
+              </div>
+            `)
+            .join('');
+
+
+        html += `
+          <details class="news-accordion">
+
+            <summary class="news-summary">
+
+              <span>
+                📢 過去のお知らせ
+              </span>
+
+              <span class="news-toggle-icon">
+                ▶
+              </span>
+
+            </summary>
+
+            <div class="news-content-body">
+              ${pastItemsHtml}
+            </div>
+
+          </details>
+        `;
+
+      }
+
+
+      container.innerHTML = html;
+
+
+    } catch (e) {
+
+      console.error(
+        'お知らせの読み込みに失敗しました',
+        e
+      );
+
     }
 
-    window.addEventListener('DOMContentLoaded', loadNews);
-  </script>
+  }
+
+
+  window.addEventListener(
+    'DOMContentLoaded',
+    loadNews
+  );
+</script>
+
 </body>
 </html>
