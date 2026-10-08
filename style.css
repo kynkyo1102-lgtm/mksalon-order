@@ -1,201 +1,86 @@
 /* =========================================================
-   Place de Nina / salon
-   共通CSS：5ページすべてで使用するスタイル
+   Place de Nina / salon 
+   共通CSS：5ページすべてで使用するスタイルのみ
    ========================================================= */
 
 @charset "UTF-8";
 
-
-/* =========================================================
-   カラーテーマ
-   ========================================================= */
-
-:root {
-
-  /* 背景・カード */
-  --bg-color: #F8F8F7;
-  --card-bg: #FFFFFF;
-
-  /* テキスト */
-  --text-main: #302D2A;
-  --text-sub: #77716C;
-  --text-light: #A29B96;
-
-  /* アクセント */
-  --accent: #D58B78;
-  --accent-dark: #C77863;
-  --accent-light: #F7E9E4;
-
-  /* ボーダー */
-  --border-color: #E7E3DF;
-  --border-dark: #DAD4CF;
-
-  /* SNS */
-  --line-subtle: #06A94D;
-  --insta-subtle: #B83262;
-
-
-  /* =======================================================
-     旧CSSとの互換用
-     既存ページが参照していても壊れないよう残しています
-     ======================================================= */
-
-  --wood-dark: #302D2A;
-  --wood-medium: #4A4541;
-
-  --accent-gold: #D58B78;
-  --gold-light: #D58B78;
-
-
-  /* =======================================================
-     フォント
-     ======================================================= */
-
-  --font-sans:
-    "Noto Sans JP",
-    -apple-system,
-    BlinkMacSystemFont,
-    "Segoe UI",
-    Roboto,
-    "Helvetica Neue",
-    Arial,
-    sans-serif;
-
-  --font-script: var(--font-sans);
+  :root {
+  --wood-dark: #231610;
+  --wood-medium: #4a3222;
+  --accent-gold: #c8a261;
+  --gold-light: #e6cb96;
+  --bg-color: #f7f4ee;
+  --card-bg: #ffffff;
+  --text-main: #2b2019;
+  --text-sub: #78695f;
+  --border-color: #e5dac9;
+  
+  
+  --font-sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-script: "Great Vibes", cursive;
+  
+  --line-subtle: #05a043;
+  --insta-subtle: #b83262;
 }
-
-
-/* =========================================================
-   共通
-   ========================================================= */
-
-* {
-  box-sizing: border-box;
-}
-
-
-/* =========================================================
-   BODY
-   ========================================================= */
-
 body {
-
   margin: 0;
   padding: 0;
-  padding-bottom: 40px;
-
+  padding-bottom: 110px;
   font-family: var(--font-sans);
-
   background-color: var(--bg-color);
   color: var(--text-main);
-
   display: flex;
   flex-direction: column;
-
   min-height: 100vh;
-
   -webkit-font-smoothing: antialiased;
-
   overflow-x: hidden;
-
   width: 100%;
 }
-
-
-/* =========================================================
-   HEADER
-   ========================================================= */
-
-header {
-
-  background: #FFFFFF;
-
-  color: var(--text-main);
-
-  padding: 22px 20px 19px;
-
+  header {
+  background: linear-gradient(180deg, #1b100a 0%, var(--wood-dark) 100%);
+  color: #ffffff;
+  padding: 24px 20px 20px;
   text-align: center;
-
-  border-bottom: 1px solid var(--border-color);
-
-  box-shadow:
-    0 2px 12px rgba(48, 45, 42, 0.05);
-
+  border-bottom: 3px solid var(--accent-gold);
+  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
   position: relative;
 }
-
-
-/* ロゴ */
-
-.header-logo {
-
-  font-family: var(--font-sans);
-
-  font-size: 1.45rem;
-
-  font-weight: 700;
-
-  color: var(--text-main);
-
+  .header-logo {
+  font-family: var(--font-script);
+  font-size: 2.2rem;
+  color: var(--gold-light);
   line-height: 1;
-
-  margin-bottom: 8px;
-
-  letter-spacing: 0.05em;
-
-  text-shadow: none;
-
+  margin-bottom: 6px;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
   text-decoration: none;
-
   display: inline-block;
 }
-
-
-/* 店舗名 */
-
-h1 {
-
+  h1 {
   margin: 0;
-
-  font-size: 0.9rem;
-
+  font-size: 1.05rem;
   font-weight: 500;
-
-  color: var(--text-sub);
-
-  letter-spacing: 0.08em;
+  color: #ffffff;
+  letter-spacing: 0.1em;
 }
-
-
-/* =========================================================
-   MAIN
-   ========================================================= */
-
-main {
-
+  main {
   flex: 1;
-
   max-width: 520px;
-
   width: 100%;
-
   margin: 0 auto;
-
   padding: 20px 16px;
-
   box-sizing: border-box;
 }
-
-
-/* =========================================================
-   RESPONSIVE
-   ========================================================= */
-
-@media (max-width: 480px) {
-
-  main {
-    padding-left: 14px;
-    padding-right: 14px;
-  }
-
+  .section-title {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--wood-medium);
+  margin: 20px 0 10px 4px;
+  letter-spacing: 0.05em;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+  * {
+  box-sizing: border-box;
 }
