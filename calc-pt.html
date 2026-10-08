@@ -1,0 +1,744 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>購入PT最適化ツール - Place de Nina</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<!-- 共通CSSの読み込み -->
+<link href="style.css" rel="stylesheet"/>
+<style>
+/* =========================================================
+   このページ固有のCSS（style.cssには入れない）
+   ========================================================= */
+
+  .header-logo:hover {
+  opacity: 0.85;
+}
+  .section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-color), transparent);
+}
+  .card-box {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-gold);
+}
+  .form-group {
+  margin-bottom: 12px;
+}
+  .form-group:last-child {
+  margin-bottom: 0;
+}
+  .form-row > .form-group {
+  margin-bottom: 0;
+  flex: 1;
+}
+  label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--wood-dark);
+}
+  .label-accent {
+  color: var(--wood-medium);
+}
+  input[type="number"],
+  select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 0.88rem;
+  background-color: #fcfcfc;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+  .btn-copy {
+  background-color: var(--wood-dark);
+  color: var(--gold-light);
+  border: 1px solid var(--accent-gold);
+  padding: 13px;
+  font-size: 0.95rem;
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+}
+  footer {
+  text-align: center;
+  padding: 24px 15px;
+  font-size: 0.7rem;
+  color: var(--text-sub);
+  letter-spacing: 0.1em;
+}
+  .calc-select,
+  .calc-input {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  color: var(--text-main);
+}
+  .calc-select:focus,
+  .calc-input:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  background-color: #fff;
+}
+  .product-list-box {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 12px;
+  background: #fff;
+}
+  .product-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 6px;
+  border-bottom: 1px dashed var(--border-color);
+  font-size: 0.85rem;
+  gap: 8px;
+}
+  .product-item:last-child {
+  border-bottom: none;
+}
+  .product-info {
+  flex: 1;
+  min-width: 130px;
+}
+  .product-controls {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+}
+  .product-controls label {
+  font-size: 0.78rem;
+  color: var(--text-sub);
+  cursor: pointer;
+  white-space: nowrap;
+}
+  .product-controls select.mandatory-qty-select {
+  width: 60px;
+  padding: 4px;
+  text-align: center;
+  border: 1px solid var(--border-color);
+  border-radius: 4px;
+  font-size: 0.82rem;
+  background-color: #fff;
+}
+  .result-container {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-color);
+}
+  .plan-card {
+  background: #fff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  margin-bottom: 12px;
+}
+  .plan-card.best {
+  border: 1.5px solid var(--accent-gold);
+  background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
+}
+  .plan-title {
+  font-weight: bold;
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: var(--wood-dark);
+}
+  .mandatory-item-badge {
+  display: inline-block;
+  background-color: rgba(201, 75, 75, 0.12);
+  color: #c94b4b;
+  font-size: 0.72rem;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  margin-left: 6px;
+  vertical-align: middle;
+}
+  .nav-link {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+  .nav-link:hover {
+  text-decoration: underline;
+}
+  .guide-toggle-btn {
+  width: 100%;
+  background: rgba(200, 162, 97, 0.12);
+  border: 1px solid var(--accent-gold);
+  color: var(--wood-medium);
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 0.82rem;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 16px;
+}
+  .guide-toggle-btn:hover {
+  background: rgba(200, 162, 97, 0.2);
+}
+  .guide-content {
+  display: none;
+  background-color: #fffdf9;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 14px;
+  margin-top: -10px;
+  margin-bottom: 16px;
+  font-size: 0.8rem;
+  line-height: 1.6;
+  color: var(--text-main);
+}
+
+
+    .calc-select, .calc-input {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #fcfcfc;
+      box-sizing: border-box;
+      color: var(--text-main);
+    }
+    .calc-select:focus, .calc-input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background-color: #fff;
+    }
+    .product-list-box {
+      max-height: 280px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 12px;
+      background: #fff;
+    }
+    .product-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 6px;
+      border-bottom: 1px dashed var(--border-color);
+      font-size: 0.85rem;
+      gap: 8px;
+    }
+    .product-item:last-child {
+      border-bottom: none;
+    }
+    .product-info {
+      flex: 1;
+      min-width: 130px;
+    }
+    .product-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .product-controls label {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .product-controls select.mandatory-qty-select {
+      width: 60px;
+      padding: 4px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.82rem;
+      background-color: #fff;
+    }
+    .result-container {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-color);
+      scroll-margin-top: 20px; /* スクロール位置の余白調整 */
+    }
+    .plan-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .plan-card.best {
+      border: 1.5px solid var(--accent-gold);
+      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
+    }
+    .plan-title {
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      color: var(--wood-dark);
+    }
+    .mandatory-item-badge {
+      display: inline-block;
+      background-color: rgba(201, 75, 75, 0.12);
+      color: #c94b4b;
+      font-size: 0.72rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .nav-link {
+      display: inline-block;
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+    .guide-toggle-btn {
+      width: 100%;
+      background: rgba(200, 162, 97, 0.12);
+      border: 1px solid var(--accent-gold);
+      color: var(--wood-medium);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .guide-toggle-btn:hover {
+      background: rgba(200, 162, 97, 0.2);
+    }
+    .guide-content {
+      display: none;
+      background-color: #fffdf9;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: -10px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+    /* リセットボタン用のスタイル */
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover {
+      background-color: #f0f0f0;
+      color: var(--text-main);
+    }
+  </style>
+</head>
+<body>
+<header>
+<a class="header-logo" href="index.html">Place de Nina</a>
+<h1>購入PT最適化ツール</h1>
+</header>
+<main>
+<a class="nav-link" href="calc.html">&lt; メニューに戻る</a>
+<div class="card-box">
+<div class="section-title">ポイント最適化シミュレーター</div>
+<button class="guide-toggle-btn" onclick="toggleGuide()" type="button">
+<span>使い方・詳細な設定方法を見る</span>
+<span id="guideArrow">▼</span>
+</button>
+<div class="guide-content" id="guideContent">
+        指定した目標ポイントに対して、最適な商品の組み合わせを自動で計算します。<br/><br/>
+<strong>(1) 対象月度・目標PTを入力</strong><br/>
+<strong>(2) 商品ごとの条件設定</strong><br/>
+<div style="padding-left: 10px; margin-top: 4px;">
+          ・例① 商品を含めない場合：<strong>「除外」</strong>にチェック<br/>
+          ・例② 商品を必ず含める場合：<strong>「必須個数」</strong>を指定<br/>
+          ・例③ 商品を1個だけ含めたい場合：<strong>「除外」にチェックを入れ、かつ「必須個数」に「1」を入力</strong>
+</div>
+</div>
+<div class="form-group">
+<label class="label-accent">対象月度</label>
+<select class="calc-select" id="monthSelect" onchange="renderProductSettings()"></select>
+</div>
+<div class="form-group" style="margin-top: 12px;">
+<label class="label-accent">購入ポイント（例: 10000, 200000）</label>
+<input class="calc-input" id="targetPt" step="1000" type="number" value="10000"/>
+</div>
+<div style="margin-top: 16px;">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+<label class="label-accent" style="margin-bottom: 0;">商品ごとの条件設定（除外 / 必ず含める個数）</label>
+<button class="btn-reset" onclick="resetProductSettings()" type="button">🔄 条件設定をリセット</button>
+</div>
+<div class="product-list-box" id="productSettingsList">
+<!-- JSで動的生成 -->
+</div>
+</div>
+<div style="background: rgba(200, 162, 97, 0.08); border: 1px dashed var(--accent-gold); border-radius: 8px; padding: 12px 14px; margin: 16px 0; font-size: 0.85rem; color: var(--wood-dark); text-align: center;">
+        設定したら、下の <span style="display: inline-block; background-color: var(--accent-gold); color: #fff; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">おすすめ購入パターンを計算</span> ボタンを押してください。
+      </div>
+<button class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
+<div class="result-container" id="comboResult" style="display:none;"></div>
+</div>
+</main>
+<footer>
+    © Place de Nina Order Support System
+  </footer>
+<script>
+    let configData = null;
+
+    function toggleGuide() {
+      const content = document.getElementById('guideContent');
+      const arrow = document.getElementById('guideArrow');
+      if (content.style.display === 'block') {
+        content.style.display = 'none';
+        arrow.textContent = '▼';
+      } else {
+        content.style.display = 'block';
+        arrow.textContent = '▲';
+      }
+    }
+
+    async function loadConfig() {
+      try {
+        const res = await fetch('month_config.json');
+        configData = await res.json();
+        
+        const monthSelect = document.getElementById('monthSelect');
+        configData.activeMonths.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          monthSelect.appendChild(opt);
+        });
+
+        renderProductSettings();
+      } catch (e) {
+        alert('month_config.json の読み込みに失敗しました。');
+      }
+    }
+
+    function renderProductSettings() {
+      const month = document.getElementById('monthSelect').value;
+      const container = document.getElementById('productSettingsList');
+      container.innerHTML = '';
+
+      if (!configData) return;
+
+      configData.products.forEach((p, index) => {
+        if (p.name === 'リペアセラム') return;
+
+        const pt = p.pts[month] || 0;
+        
+        let optionsHtml = '';
+        for (let i = 0; i <= 30; i++) {
+          optionsHtml += `<option value="${i}">${i}</option>`;
+        }
+
+        const div = document.createElement('div');
+        div.className = 'product-item';
+        div.innerHTML = `
+          <div class="product-info">
+            <strong>${p.name}</strong><br>
+            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
+          </div>
+          <div class="product-controls">
+            <label><input type="checkbox" class="exclude-chk" data-index="${index}"> 除外</label>
+            <label>必須個数: 
+              <select class="mandatory-qty-select" data-index="${index}">
+                ${optionsHtml}
+              </select>
+            </label>
+          </div>
+        `;
+        container.appendChild(div);
+      });
+    }
+
+    // 条件設定のリセット関数
+    function resetProductSettings() {
+      // 目標PTを初期値に戻す
+      document.getElementById('targetPt').value = 10000;
+
+      // 除外チェックをすべて解除
+      const checkboxes = document.querySelectorAll('.exclude-chk');
+      checkboxes.forEach(chk => chk.checked = false);
+
+      // 必須個数をすべて 0 にセット
+      const selects = document.querySelectorAll('.mandatory-qty-select');
+      selects.forEach(sel => sel.value = '0');
+
+      // 計算結果を非表示にする
+      const resDiv = document.getElementById('comboResult');
+      resDiv.style.display = 'none';
+      resDiv.innerHTML = '';
+    }
+
+    function calculateBestCombos() {
+      const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
+      const month = document.getElementById('monthSelect').value;
+
+      if (targetPt <= 0) {
+        alert('有効な目標ポイントを入力してください。');
+        return;
+      }
+
+      let baseProducts = [];
+      let mandatoryFixedPt = 0;
+      let mandatoryFixedCost = 0;
+      let mandatoryItemsList = [];
+
+      configData.products.forEach((p, index) => {
+        if (p.name === 'リペアセラム') return;
+
+        const pt = p.pts[month] || 0;
+        if (pt <= 0) return;
+
+        const chk = document.querySelector(`.exclude-chk[data-index="${index}"]`);
+        const qtySelect = document.querySelector(`.mandatory-qty-select[data-index="${index}"]`);
+
+        const isExcluded = chk ? chk.checked : false;
+        const mandatoryQty = qtySelect ? parseInt(qtySelect.value) || 0 : 0;
+
+        if (mandatoryQty > 0) {
+          mandatoryFixedPt += pt * mandatoryQty;
+          mandatoryFixedCost += p.price * mandatoryQty;
+          mandatoryItemsList.push({ ...p, pt, count: mandatoryQty, displayName: p.name, isMandatory: true });
+        }
+
+        if (!isExcluded) {
+          baseProducts.push({ name: p.name, price: p.price, pt: pt });
+        }
+      });
+
+      let remainingTargetPt = Math.max(0, targetPt - mandatoryFixedPt);
+
+      // 1. 最適プラン（目標PTに一番近く、最安）
+      let bestPlan = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost);
+      
+      // 2. パターンA（最適プランで一番使われた動的商品を1つ除外）
+      let planA = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, [bestPlan]);
+
+      // 3. パターンB（最適プラン ＋ パターンAで使われた主力商品を累積除外して探索）
+      let planB = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, [bestPlan, planA]);
+
+      let plans = [
+        {
+          title: "★【最適】目標PTに最も近い最安構成",
+          items: bestPlan.items,
+          totalPt: bestPlan.totalPt,
+          totalCost: bestPlan.totalCost,
+          isBest: true
+        },
+        {
+          title: "【パターンA】別商品バリエーション 1",
+          items: planA.items,
+          totalPt: planA.totalPt,
+          totalCost: planA.totalCost,
+          isBest: false
+        },
+        {
+          title: "【パターンB】別商品バリエーション 2",
+          items: planB.items,
+          totalPt: planB.totalPt,
+          totalCost: planB.totalCost,
+          isBest: false
+        }
+      ];
+
+      const resDiv = document.getElementById('comboResult');
+      resDiv.style.display = 'block';
+      let html = '';
+
+      plans.forEach((plan) => {
+        let displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
+
+        let diffPt = plan.totalPt - targetPt;
+        let diffStr = diffPt === 0 ? "(±0)" : (diffPt > 0 ? `(+${diffPt.toLocaleString()})` : `(${diffPt.toLocaleString()})`);
+
+        html += `
+          <div class="plan-card ${plan.isBest ? 'best' : ''}">
+            <div class="plan-title">${plan.title}</div>
+            <ul style="margin: 6px 0; padding-left: 18px; font-size:0.85rem;">
+              ${displayItems.map(i => {
+                let badgeHtml = i.isMandatory ? `<span class="mandatory-item-badge">必須</span>` : '';
+                return `<li>${i.displayName} × ${i.count}個 ${badgeHtml} (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`;
+              }).join('')}
+            </ul>
+            <div style="font-size:0.85rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
+              合計ポイント: <strong style="color:#c94b4b;">${plan.totalPt.toLocaleString()} PT</strong> 
+              <span style="color:var(--text-sub); font-size:0.78rem;">${diffStr}</span><br>
+              合計金額: <strong style="color:#2b6cb0;">${plan.totalCost.toLocaleString()} 円</strong>
+            </div>
+          </div>
+        `;
+      });
+
+      resDiv.innerHTML = html;
+
+      // 結果が表示された後、結果エリアへスムーズに自動スクロール
+      resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+
+    // 目標PT以上で「最もオーバー分が少なく」「金額が最安」の構成を探す関数
+    function findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdNames = []) {
+      let filteredProducts = products;
+      if (excludeProdNames && excludeProdNames.length > 0) {
+        filteredProducts = products.filter(p => !excludeProdNames.includes(p.name));
+      }
+
+      if (remainingTarget <= 0 || filteredProducts.length === 0) {
+        return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
+      }
+
+      const maxPt = Math.max(...filteredProducts.map(p => p.pt), 1000);
+      const limit = remainingTarget + maxPt;
+
+      let dp = new Array(limit + 1).fill(Infinity);
+      let parent = new Array(limit + 1).fill(null);
+      dp[0] = 0;
+
+      for (let i = 0; i < filteredProducts.length; i++) {
+        const p = filteredProducts[i];
+        for (let j = p.pt; j <= limit; j++) {
+          if (dp[j - p.pt] !== Infinity) {
+            if (dp[j - p.pt] + p.price < dp[j]) {
+              dp[j] = dp[j - p.pt] + p.price;
+              parent[j] = { prev: j - p.pt, prod: p };
+            }
+          }
+        }
+      }
+
+      let bestPt = -1;
+      let minScore = Infinity;
+
+      for (let pt = remainingTarget; pt <= limit; pt++) {
+        if (dp[pt] !== Infinity) {
+          let overPt = pt - remainingTarget;
+          // 超過PTに100倍の強固なペナルティを課し、「目標に一番近い（オーバーが最小）」かつ「安さ」を優先
+          let score = dp[pt] + (overPt * 100);
+          if (score < minScore) {
+            minScore = score;
+            bestPt = pt;
+          }
+        }
+      }
+
+      if (bestPt !== -1) {
+        let counts = {};
+        let curr = bestPt;
+        while (curr > 0 && parent[curr]) {
+          let pName = parent[curr].prod.name;
+          counts[pName] = counts[pName] || { ...parent[curr].prod, count: 0 };
+          counts[pName].count++;
+          curr = parent[curr].prev;
+        }
+        let dynamicItems = Object.values(counts);
+        
+        let mergedMap = {};
+        [...mandatoryItems, ...dynamicItems].forEach(item => {
+          if (!mergedMap[item.name]) {
+            mergedMap[item.name] = { ...item, count: item.count };
+          } else {
+            mergedMap[item.name].count += item.count;
+          }
+        });
+
+        return { items: Object.values(mergedMap), totalPt: fixedPt + bestPt, totalCost: fixedCost + dp[bestPt] };
+      }
+
+      return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
+    }
+
+    // 既存プランと重複しないバリエーションを作る代替関数（過去プランの主力商品を累積除外）
+    function findAlternativeCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, previousPlans) {
+      let excludeProdNames = [];
+
+      previousPlans.forEach(plan => {
+        let dynamicItems = plan.items.filter(i => !i.isMandatory);
+        if (dynamicItems.length > 0) {
+          dynamicItems.sort((a, b) => b.count - a.count);
+          let topProdName = dynamicItems[0].name;
+          if (!excludeProdNames.includes(topProdName)) {
+            excludeProdNames.push(topProdName);
+          }
+        }
+      });
+
+      let altPlan = findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdNames);
+
+      // もし候補除外によって全く同じ結果や不整合が出た場合は元に戻す
+      if (altPlan.items.length === 0) {
+        return previousPlans[0];
+      }
+
+      return altPlan;
+    }
+
+    function formatItemsWithSamePrice(items, allValidProducts) {
+      return items.map(item => {
+        let sameSpecProducts = allValidProducts.filter(p => p.pt === item.pt && p.price === item.price && p.name !== item.name);
+        if (sameSpecProducts.length > 0) {
+          let altNames = sameSpecProducts.map(p => p.name).join(' / ');
+          return {
+            ...item,
+            displayName: `${item.name} （または ${altNames}）`
+          };
+        }
+        return {
+          ...item,
+          displayName: item.name
+        };
+      });
+    }
+
+    window.onload = loadConfig;
+  </script>
+</body>
+</html>
