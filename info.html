@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -100,3 +101,107 @@
       font-weight: bold;
     }
 
+    /* 戻るボタン */
+    .back-btn {
+      display: block;
+      width: 100%;
+      text-align: center;
+      margin-top: 24px;
+      padding: 12px;
+      background-color: #ffffff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      color: var(--wood-dark);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: bold;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
+      transition: all 0.2s ease;
+    }
+
+    .back-btn:active {
+      background-color: #f7f3ed;
+      transform: translateY(1px);
+    }
+
+    /* フッター */
+    footer {
+      text-align: center;
+      padding: 24px 15px;
+      font-size: 0.7rem;
+      color: var(--text-sub);
+      letter-spacing: 0.1em;
+    }
+  </style>
+</head>
+
+<body>
+
+  <header>
+    <div class="header-logo">Place de Nina</div>
+    <h1>店舗案内</h1>
+  </header>
+
+  <main>
+
+    <div class="info-card">
+      <dl class="info-list">
+
+        <div class="info-item">
+          <dt>店名</dt>
+          <dd>プラッス ドゥ ニナ 南熊本店</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>住所</dt>
+          <dd>
+            〒862-0962<br>
+            熊本県熊本市南区田迎4丁目9-36<br>
+            <a href="https://www.google.com/maps/search/?api=1&query=熊本県熊本市南区田迎4丁目9-36"
+               target="_blank"
+               rel="noopener noreferrer"
+               class="map-btn">
+              📍 Googleマップで開く
+            </a>
+          </dd>
+        </div>
+
+        <div class="info-item">
+          <dt>営業時間</dt>
+          <dd>11:00 〜 17:00</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>定休日</dt>
+          <dd>水・土日祝</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>電話番号</dt>
+          <dd>
+            <a href="tel:096-284-1927" class="tel-link">096-284-1927</a>
+          </dd>
+        </div>
+
+        <div class="info-item">
+          <dt>アクセス</dt>
+          <dd>JR南熊本駅より徒歩20分 / 駐車場2台あり</dd>
+        </div>
+
+      </dl>
+    </div>
+
+    <!-- 戻るボタン -->
+    <a href="index.html" class="back-btn">
+      ‹ トップページへ戻る
+    </a>
+
+  </main>
+
+  <footer>
+    &copy; PLACE DE NINA MINAMIKUMAMOTO
+  </footer>
+
+</body>
+</html>
+```
