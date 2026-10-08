@@ -1,41 +1,56 @@
 /* =========================================================
    Place de Nina / salon
-   南熊本店 共通CSS
-   C案：モノトーン＋コーラル
+   共通CSS：5ページすべてで使用するスタイル
    ========================================================= */
 
 @charset "UTF-8";
 
 
 /* =========================================================
-   Variables
+   カラーテーマ
    ========================================================= */
 
 :root {
 
-  /* Background */
+  /* 背景・カード */
   --bg-color: #F8F8F7;
   --card-bg: #FFFFFF;
 
-  /* Text */
+  /* テキスト */
   --text-main: #302D2A;
   --text-sub: #77716C;
   --text-light: #A29B96;
 
-  /* Accent */
+  /* アクセント */
   --accent: #D58B78;
   --accent-dark: #C77863;
   --accent-light: #F7E9E4;
 
-  /* Border */
+  /* ボーダー */
   --border-color: #E7E3DF;
   --border-dark: #DAD4CF;
 
   /* SNS */
-  --line-color: #06A94D;
-  --instagram-color: #B83262;
+  --line-subtle: #06A94D;
+  --insta-subtle: #B83262;
 
-  /* Font */
+
+  /* =======================================================
+     旧CSSとの互換用
+     既存ページが参照していても壊れないよう残しています
+     ======================================================= */
+
+  --wood-dark: #302D2A;
+  --wood-medium: #4A4541;
+
+  --accent-gold: #D58B78;
+  --gold-light: #D58B78;
+
+
+  /* =======================================================
+     フォント
+     ======================================================= */
+
   --font-sans:
     "Noto Sans JP",
     -apple-system,
@@ -46,56 +61,58 @@
     Arial,
     sans-serif;
 
+  --font-script: var(--font-sans);
 }
 
 
 /* =========================================================
-   Reset
+   共通
    ========================================================= */
 
 * {
   box-sizing: border-box;
 }
 
-html {
-  scroll-behavior: smooth;
-}
+
+/* =========================================================
+   BODY
+   ========================================================= */
 
 body {
+
   margin: 0;
   padding: 0;
+  padding-bottom: 40px;
 
   font-family: var(--font-sans);
 
-  background: var(--bg-color);
+  background-color: var(--bg-color);
   color: var(--text-main);
+
+  display: flex;
+  flex-direction: column;
+
+  min-height: 100vh;
 
   -webkit-font-smoothing: antialiased;
 
   overflow-x: hidden;
 
-  min-height: 100vh;
+  width: 100%;
 }
 
 
 /* =========================================================
-   Links
+   HEADER
    ========================================================= */
 
-a {
-  color: inherit;
-}
-
-
-/* =========================================================
-   Header
-   ========================================================= */
-
-.site-header {
+header {
 
   background: #FFFFFF;
 
-  padding: 22px 20px 20px;
+  color: var(--text-main);
+
+  padding: 22px 20px 19px;
 
   text-align: center;
 
@@ -103,1210 +120,82 @@ a {
 
   box-shadow:
     0 2px 12px rgba(48, 45, 42, 0.05);
+
+  position: relative;
 }
 
+
+/* ロゴ */
 
 .header-logo {
 
-  display: inline-block;
+  font-family: var(--font-sans);
+
+  font-size: 1.45rem;
+
+  font-weight: 700;
 
   color: var(--text-main);
 
-  font-size: 1.45rem;
-  font-weight: 700;
+  line-height: 1;
+
+  margin-bottom: 8px;
 
   letter-spacing: 0.05em;
 
-  line-height: 1;
+  text-shadow: none;
 
   text-decoration: none;
 
-  transition:
-    color 0.2s ease,
-    opacity 0.2s ease;
+  display: inline-block;
 }
 
 
-.header-logo:hover {
+/* 店舗名 */
 
-  color: var(--accent);
+h1 {
 
-}
+  margin: 0;
 
+  font-size: 0.9rem;
 
-.store-name {
-
-  margin: 9px 0 0;
+  font-weight: 500;
 
   color: var(--text-sub);
 
-  font-size: 0.78rem;
-  font-weight: 500;
-
   letter-spacing: 0.08em;
-
 }
 
 
 /* =========================================================
-   Main
+   MAIN
    ========================================================= */
 
 main {
 
+  flex: 1;
+
+  max-width: 520px;
+
   width: 100%;
-  max-width: 540px;
 
   margin: 0 auto;
 
-  padding: 24px 16px 70px;
+  padding: 20px 16px;
 
+  box-sizing: border-box;
 }
 
 
 /* =========================================================
-   Welcome
-   ========================================================= */
-
-.welcome {
-
-  padding: 18px 4px 10px;
-
-}
-
-
-.welcome-label {
-
-  margin: 0 0 7px;
-
-  color: var(--accent);
-
-  font-size: 0.66rem;
-  font-weight: 700;
-
-  letter-spacing: 0.16em;
-
-}
-
-
-.welcome h1 {
-
-  margin: 0;
-
-  font-size: 1.45rem;
-  font-weight: 700;
-
-  letter-spacing: 0.02em;
-
-}
-
-
-.welcome-text {
-
-  margin: 8px 0 0;
-
-  color: var(--text-sub);
-
-  font-size: 0.8rem;
-
-  line-height: 1.7;
-
-}
-
-
-/* =========================================================
-   Section
-   ========================================================= */
-
-.section {
-
-  margin-top: 34px;
-
-}
-
-
-.section-heading {
-
-  display: flex;
-  align-items: flex-start;
-
-  gap: 10px;
-
-  margin: 0 0 13px 2px;
-
-}
-
-
-.section-heading-line {
-
-  display: block;
-
-  width: 4px;
-  min-width: 4px;
-
-  height: 38px;
-
-  margin-top: 2px;
-
-  background: var(--accent);
-
-  border-radius: 999px;
-
-}
-
-
-.section-heading h2 {
-
-  margin: 0;
-
-  font-size: 1rem;
-  font-weight: 700;
-
-  line-height: 1.45;
-
-}
-
-
-.section-kicker {
-
-  margin: 0 0 1px;
-
-  color: var(--accent);
-
-  font-size: 0.61rem;
-  font-weight: 700;
-
-  letter-spacing: 0.15em;
-
-}
-
-
-/* =========================================================
-   News
-   ========================================================= */
-
-.news-card {
-
-  padding: 16px 17px;
-
-  background: var(--card-bg);
-
-  border: 1px solid var(--border-color);
-
-  border-radius: 14px;
-
-  box-shadow:
-    0 2px 8px rgba(48, 45, 42, 0.04);
-
-}
-
-
-.news-date {
-
-  margin-bottom: 5px;
-
-  color: var(--accent);
-
-  font-size: 0.68rem;
-  font-weight: 600;
-
-}
-
-
-.news-title {
-
-  color: var(--text-main);
-
-  font-size: 0.9rem;
-  font-weight: 700;
-
-  line-height: 1.55;
-
-}
-
-
-.news-card p {
-
-  margin: 7px 0 0;
-
-  color: var(--text-sub);
-
-  font-size: 0.77rem;
-
-  line-height: 1.7;
-
-}
-
-
-.news-loading,
-.news-empty {
-
-  padding: 16px;
-
-  background: #FFFFFF;
-
-  border: 1px solid var(--border-color);
-
-  border-radius: 14px;
-
-  color: var(--text-light);
-
-  font-size: 0.75rem;
-
-  text-align: center;
-
-}
-
-
-/* =========================================================
-   Past News
-   ========================================================= */
-
-.past-news {
-
-  margin-top: 8px;
-
-  background: #FFFFFF;
-
-  border: 1px solid var(--border-color);
-
-  border-radius: 12px;
-
-}
-
-
-.past-news summary {
-
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  padding: 12px 15px;
-
-  color: var(--text-sub);
-
-  font-size: 0.75rem;
-  font-weight: 600;
-
-  cursor: pointer;
-
-  list-style: none;
-
-}
-
-
-.past-news summary::-webkit-details-marker {
-  display: none;
-}
-
-
-.past-news summary span {
-
-  color: var(--text-light);
-
-  font-size: 1.1rem;
-
-}
-
-
-.past-news-list {
-
-  border-top: 1px solid var(--border-color);
-
-}
-
-
-.past-news-item {
-
-  padding: 13px 15px;
-
-  border-bottom: 1px solid #F0EEEC;
-
-}
-
-
-.past-news-item:last-child {
-  border-bottom: none;
-}
-
-
-.past-news-item time {
-
-  display: block;
-
-  margin-bottom: 3px;
-
-  color: var(--accent);
-
-  font-size: 0.65rem;
-
-}
-
-
-.past-news-item strong {
-
-  display: block;
-
-  font-size: 0.78rem;
-
-  line-height: 1.5;
-
-}
-
-
-.past-news-item p {
-
-  margin: 5px 0 0;
-
-  color: var(--text-sub);
-
-  font-size: 0.72rem;
-
-  line-height: 1.6;
-
-}
-
-
-/* =========================================================
-   Order Notice
-   ========================================================= */
-
-.order-notice {
-
-  display: flex;
-
-  gap: 11px;
-
-  margin-bottom: 13px;
-
-  padding: 13px 14px;
-
-  background: var(--accent-light);
-
-  border: 1px solid #EDD6CD;
-
-  border-radius: 13px;
-
-}
-
-
-.order-notice-icon {
-
-  width: 22px;
-  min-width: 22px;
-
-  height: 22px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: var(--accent);
-
-  color: #FFFFFF;
-
-  border-radius: 50%;
-
-  font-size: 0.72rem;
-  font-weight: 700;
-
-}
-
-
-.order-notice-content strong {
-
-  display: block;
-
-  margin-bottom: 2px;
-
-  color: var(--text-main);
-
-  font-size: 0.75rem;
-
-}
-
-
-.order-notice-content p {
-
-  margin: 0;
-
-  color: var(--text-sub);
-
-  font-size: 0.7rem;
-
-  line-height: 1.6;
-
-}
-
-
-/* =========================================================
-   Tool Cards
-   ========================================================= */
-
-.tool-list {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 11px;
-
-}
-
-
-.tool-card {
-
-  display: flex;
-
-  gap: 14px;
-
-  padding: 18px;
-
-  background: #FFFFFF;
-
-  border: 1px solid var(--border-color);
-
-  border-radius: 17px;
-
-  text-decoration: none;
-
-  box-shadow:
-    0 3px 10px rgba(48, 45, 42, 0.045);
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease,
-    border-color 0.2s ease;
-
-}
-
-
-.tool-card:hover {
-
-  transform: translateY(-2px);
-
-  border-color: #DFC2B8;
-
-  box-shadow:
-    0 7px 18px rgba(48, 45, 42, 0.08);
-
-}
-
-
-.tool-icon {
-
-  width: 52px;
-  min-width: 52px;
-
-  height: 52px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: var(--accent-light);
-
-  border-radius: 15px;
-
-  font-size: 1.45rem;
-
-}
-
-
-.tool-content {
-
-  flex: 1;
-
-  min-width: 0;
-
-}
-
-
-.tool-label {
-
-  margin: 0 0 2px;
-
-  color: var(--accent);
-
-  font-size: 0.58rem;
-  font-weight: 700;
-
-  letter-spacing: 0.12em;
-
-}
-
-
-.tool-content h3 {
-
-  margin: 0;
-
-  color: var(--text-main);
-
-  font-size: 1rem;
-  font-weight: 700;
-
-  line-height: 1.45;
-
-}
-
-
-.tool-description {
-
-  margin: 5px 0 9px;
-
-  color: var(--text-sub);
-
-  font-size: 0.72rem;
-
-  line-height: 1.65;
-
-}
-
-
-.tool-action {
-
-  display: flex;
-
-  align-items: center;
-  justify-content: space-between;
-
-  color: var(--accent);
-
-  font-size: 0.73rem;
-  font-weight: 700;
-
-}
-
-
-.tool-action span {
-
-  font-size: 1.15rem;
-
-  line-height: 1;
-
-  transition:
-    transform 0.2s ease;
-
-}
-
-
-.tool-card:hover .tool-action span {
-
-  transform: translateX(3px);
-
-}
-
-
-/* =========================================================
-   Guide Accordion
-   ========================================================= */
-
-.guide-accordion {
-
-  margin-top: 9px;
-
-  background: #FFFFFF;
-
-  border: 1px solid var(--border-color);
-
-  border-radius: 13px;
-
-}
-
-
-.guide-accordion summary {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 8px;
-
-  padding: 13px 15px;
-
-  cursor: pointer;
-
-  list-style: none;
-
-}
-
-
-.guide-accordion summary::-webkit-details-marker {
-  display: none;
-}
-
-
-.accordion-icon {
-
-  font-size: 0.9rem;
-
-}
-
-
-.accordion-title {
-
-  flex: 1;
-
-  color: var(--text-main);
-
-  font-size: 0.75rem;
-  font-weight: 600;
-
-}
-
-
-.accordion-arrow {
-
-  color: var(--text-light);
-
-  font-size: 1.1rem;
-
-}
-
-
-.accordion-content {
-
-  padding: 0 15px 14px;
-
-}
-
-
-.choice-item {
-
-  padding: 11px 12px;
-
-  background: var(--bg-color);
-
-  border-radius: 10px;
-
-}
-
-
-.choice-item + .choice-item {
-
-  margin-top: 7px;
-
-}
-
-
-.choice-item strong {
-
-  display: block;
-
-  font-size: 0.73rem;
-
-}
-
-
-.choice-item p {
-
-  margin: 4px 0 0;
-
-  color: var(--text-sub);
-
-  font-size: 0.69rem;
-
-  line-height: 1.6;
-
-}
-
-
-/* =========================================================
-   Support Card
-   ========================================================= */
-
-.support-card {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 13px;
-
-  padding: 15px;
-
-  background: #FFFFFF;
-
-  border: 1px solid var(--border-color);
-
-  border-radius: 14px;
-
-  text-decoration: none;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-
-}
-
-
-.support-card:hover {
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 6px 15px rgba(48, 45, 42, 0.07);
-
-}
-
-
-.support-icon {
-
-  width: 44px;
-  min-width: 44px;
-
-  height: 44px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  background: #F1EFEC;
-
-  border-radius: 12px;
-
-  font-size: 1.2rem;
-
-}
-
-
-.support-content {
-
-  flex: 1;
-
-}
-
-
-.support-content h3 {
-
-  margin: 0;
-
-  font-size: 0.84rem;
-  font-weight: 700;
-
-}
-
-
-.support-content p {
-
-  margin: 3px 0 0;
-
-  color: var(--text-sub);
-
-  font-size: 0.69rem;
-
-  line-height: 1.55;
-
-}
-
-
-.support-arrow {
-
-  color: var(--text-light);
-
-  font-size: 1.2rem;
-
-}
-
-
-/* =========================================================
-   Information Cards
-   ========================================================= */
-
-.info-grid {
-
-  display: grid;
-
-  grid-template-columns: repeat(2, 1fr);
-
-  gap: 9px;
-
-}
-
-
-.info-card {
-
-  position: relative;
-
-  min-height: 145px;
-
-  display: flex;
-
-  flex-direction: column;
-
-  padding: 15px;
-
-  background: #FFFFFF;
-
-  border: 1px solid var(--border-color);
-
-  border-radius: 14px;
-
-  text-decoration: none;
-
-  transition:
-    transform 0.2s ease,
-    box-shadow 0.2s ease;
-
-}
-
-
-.info-card:hover {
-
-  transform: translateY(-2px);
-
-  box-shadow:
-    0 6px 15px rgba(48, 45, 42, 0.07);
-
-}
-
-
-.info-card-icon {
-
-  width: 38px;
-  height: 38px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  margin-bottom: 10px;
-
-  background: #F2EFEC;
-
-  border-radius: 11px;
-
-  font-size: 1rem;
-
-}
-
-
-.info-card-content h3 {
-
-  margin: 0;
-
-  font-size: 0.8rem;
-  font-weight: 700;
-
-  line-height: 1.45;
-
-}
-
-
-.info-card-content p {
-
-  margin: 4px 0 0;
-
-  color: var(--text-sub);
-
-  font-size: 0.66rem;
-
-  line-height: 1.6;
-
-}
-
-
-.info-arrow {
-
-  position: absolute;
-
-  right: 12px;
-  bottom: 11px;
-
-  color: var(--text-light);
-
-  font-size: 1rem;
-
-}
-
-
-/* =========================================================
-   SNS
-   ========================================================= */
-
-.sns-list {
-
-  display: flex;
-
-  flex-direction: column;
-
-  gap: 9px;
-
-}
-
-
-.sns-card {
-
-  display: flex;
-
-  align-items: center;
-
-  gap: 11px;
-
-  padding: 12px 14px;
-
-  background: #FFFFFF;
-
-  border: 1px solid var(--border-color);
-
-  border-radius: 13px;
-
-  text-decoration: none;
-
-}
-
-
-.sns-icon {
-
-  width: 40px;
-  min-width: 40px;
-
-  height: 40px;
-
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  border-radius: 11px;
-
-  color: #FFFFFF;
-
-  font-size: 0.63rem;
-  font-weight: 700;
-
-}
-
-
-.sns-line .sns-icon {
-
-  background: var(--line-color);
-
-}
-
-
-.sns-instagram .sns-icon {
-
-  background: var(--instagram-color);
-
-}
-
-
-.sns-text {
-
-  flex: 1;
-
-}
-
-
-.sns-text strong {
-
-  display: block;
-
-  font-size: 0.77rem;
-
-}
-
-
-.sns-text small {
-
-  display: block;
-
-  margin-top: 2px;
-
-  color: var(--text-sub);
-
-  font-size: 0.64rem;
-
-}
-
-
-.sns-arrow {
-
-  color: var(--text-light);
-
-  font-size: 1rem;
-
-}
-
-
-/* =========================================================
-   Footer
-   ========================================================= */
-
-footer {
-
-  padding: 30px 16px 34px;
-
-  background: #F0EEEC;
-
-  border-top: 1px solid var(--border-color);
-
-  text-align: center;
-
-  color: var(--text-sub);
-
-}
-
-
-.footer-logo {
-
-  margin-bottom: 5px;
-
-  color: var(--text-main);
-
-  font-size: 0.9rem;
-  font-weight: 700;
-
-  letter-spacing: 0.05em;
-
-}
-
-
-footer p {
-
-  margin: 0 0 12px;
-
-  font-size: 0.68rem;
-
-}
-
-
-footer a {
-
-  color: var(--text-sub);
-
-  font-size: 0.64rem;
-
-  text-decoration: none;
-
-}
-
-
-footer a:hover {
-
-  color: var(--accent);
-
-}
-
-
-footer small {
-
-  display: block;
-
-  margin-top: 14px;
-
-  color: #A59F9A;
-
-  font-size: 0.58rem;
-
-  letter-spacing: 0.03em;
-
-}
-
-
-/* =========================================================
-   Mobile
+   RESPONSIVE
    ========================================================= */
 
 @media (max-width: 480px) {
 
   main {
-
-    padding:
-      20px
-      14px
-      60px;
-
-  }
-
-
-  .site-header {
-
-    padding:
-      20px
-      16px
-      18px;
-
-  }
-
-
-  .header-logo {
-
-    font-size: 1.3rem;
-
-  }
-
-
-  .store-name {
-
-    font-size: 0.72rem;
-
-  }
-
-
-  .welcome h1 {
-
-    font-size: 1.3rem;
-
-  }
-
-
-  .tool-card {
-
-    padding: 16px;
-
-  }
-
-
-  .tool-icon {
-
-    width: 48px;
-    min-width: 48px;
-
-    height: 48px;
-
-  }
-
-
-  .info-card {
-
-    min-height: 140px;
-
-    padding: 13px;
-
-  }
-
-}
-
-
-/* =========================================================
-   Small screens
-   ========================================================= */
-
-@media (max-width: 350px) {
-
-  .tool-card {
-
-    gap: 10px;
-
-  }
-
-
-  .tool-icon {
-
-    width: 43px;
-    min-width: 43px;
-
-    height: 43px;
-
-  }
-
-
-  .tool-description {
-
-    font-size: 0.68rem;
-
+    padding-left: 14px;
+    padding-right: 14px;
   }
 
 }
