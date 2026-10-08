@@ -1,0 +1,1330 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
+<title>サロン専用注文書作成ツール - Place de Nina</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<style>
+/* =========================================================
+   このページ固有のCSS（style.cssには入れない）
+   ========================================================= */
+
+  .header-logo:hover {
+  opacity: 0.85;
+}
+  .section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-color), transparent);
+}
+  .usage-guide {
+  font-size: 0.78rem;
+  color: var(--text-sub);
+  background-color: rgba(200, 162, 97, 0.12);
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  line-height: 1.45;
+}
+  .card-accent {
+  border-left: 4px solid var(--accent-gold);
+}
+  .form-group {
+  margin-bottom: 12px;
+}
+  .form-group:last-child {
+  margin-bottom: 0;
+}
+  .form-row > .form-group {
+  margin-bottom: 0;
+  flex: 1;
+}
+  .form-row .fg-zip { flex: 0 0 120px; }
+  .form-row .fg-code { flex: 1.2; }
+  .form-row .fg-num { flex: 0.8; }
+  label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--wood-dark);
+}
+  .label-accent {
+  color: var(--wood-medium);
+}
+  input[type="text"],
+  textarea,
+  select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 0.88rem;
+  background-color: #fcfcfc;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+  textarea#output_text {
+  height: 180px;
+  font-family: monospace;
+}
+  .btn-danger {
+  background-color: #c94b4b;
+  color: white;
+  padding: 6px 12px;
+  font-size: 0.75rem;
+  border-radius: 6px;
+}
+  .btn-copy {
+  background-color: var(--wood-dark);
+  color: var(--gold-light);
+  border: 1px solid var(--accent-gold);
+  padding: 13px;
+  font-size: 0.95rem;
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+}
+  .footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 -4px 20px rgba(35, 22, 16, 0.12);
+  border-top: 1px solid var(--border-color);
+  padding: 12px 16px;
+  z-index: 1000;
+}
+  .total-preview {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--wood-dark);
+  text-align: center;
+}
+  .sub-btn {
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 10px 12px;
+  text-decoration: none;
+  color: var(--text-main);
+  font-size: 0.78rem;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  box-shadow: 0 2px 6px rgba(35, 22, 16, 0.03);
+  transition: all 0.2s ease;
+}
+  .sub-btn:active {
+  background-color: #fcf9f2;
+  transform: translateY(1px);
+}
+  .sub-btn .icon-line {
+  color: var(--line-subtle);
+}
+  .sub-btn .icon-insta {
+  color: var(--insta-subtle);
+}
+  .info-card {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 20px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+  border: 1px solid var(--border-color);
+  margin-bottom: 24px;
+}
+  .back-btn {
+  display: block;
+  text-align: center;
+  padding: 12px;
+  background-color: #ffffff;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  color: var(--text-sub);
+  font-size: 0.8rem;
+  text-decoration: none;
+  box-shadow: 0 2px 6px rgba(35, 22, 16, 0.03);
+  transition: all 0.2s ease;
+}
+  .back-btn:active {
+  background-color: #fcf9f2;
+}
+  .sub-note {
+  font-size: 0.72rem;
+  margin-top: -5px;
+  color: var(--text-sub);
+}
+  .item-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+  align-items: center;
+}
+  .item-select {
+  flex: 2;
+}
+  .item-qty-container {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.82rem;
+  color: var(--wood-dark);
+  font-weight: 500;
+}
+  .item-qty {
+  min-width: 60px;
+}
+  .btn-del-item {
+  padding: 6px 10px;
+  font-size: 12px;
+  margin-left: 4px;
+}
+  .position-box {
+  border: 1px solid var(--border-color);
+  padding: 14px;
+  border-radius: 10px;
+  margin-bottom: 15px;
+  background-color: #fdfbf7;
+}
+  .pos-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+  .pos-title {
+  font-size: 14px;
+  color: var(--wood-dark);
+}
+  .member-reg-row {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+  .pos-subtotal {
+  margin-top: 10px;
+  padding-top: 8px;
+  border-top: 1px dashed var(--border-color);
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--wood-medium);
+  text-align: right;
+}
+  .hidden-pw { display: none; }
+  .custom-pos-container { display: none; margin-top: 8px; }
+  .manual-input-box {
+  display: none;
+  margin-top: 8px;
+  padding: 10px;
+  background-color: #fdfaf3;
+  border: 1px solid var(--accent-gold);
+  border-radius: 8px;
+}
+  .manual-input-text {
+  font-size: 12px;
+  color: #8a6d3b;
+  font-weight: bold;
+}
+  .mt-8 { margin-top: 8px; }
+  .mt-10 { margin-top: 10px; }
+  details.tiny-restore-box {
+  border: 1px dashed var(--border-color);
+  background: #fdfdfc;
+  border-radius: 8px;
+  padding: 0;
+  margin-bottom: 12px;
+  overflow: hidden;
+}
+  .tiny-restore-summary {
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: #888;
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  padding: 8px 14px;
+  user-select: none;
+}
+  .tiny-restore-summary::-webkit-details-marker {
+  display: none;
+}
+  .tiny-restore-summary::after {
+  content: "＋ 復元メニューを開く";
+  font-size: 0.72rem;
+  color: #aaa;
+  font-weight: 400;
+}
+  details.tiny-restore-box[open] .tiny-restore-summary::after {
+  content: "− 閉じる";
+}
+  .tiny-restore-body {
+  padding: 0 14px 12px 14px;
+  border-top: 1px dashed var(--border-color);
+  background: #faf8f5;
+}
+  .info-card,
+  .tiny-restore-box {
+  width: 100%;
+  max-width: 100%;
+  overflow: hidden;
+}
+  .foldable-summary {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--wood-medium);
+  cursor: pointer;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  outline: none;
+  padding: 16px 20px;
+  user-select: none;
+}
+  .foldable-summary::-webkit-details-marker {
+  display: none;
+}
+  .foldable-summary::after {
+  content: "＋ 開く";
+  font-size: 0.78rem;
+  color: var(--accent-gold);
+  background: rgba(200, 162, 97, 0.12);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid var(--accent-gold);
+  font-weight: 500;
+  white-space: nowrap;
+}
+  details[open] .foldable-summary::after {
+  content: "− 閉じる";
+}
+  .member-content-body {
+  margin-top: 14px;
+  padding-top: 12px;
+  border-top: 1px dashed var(--border-color);
+}
+  #import_text_input {
+  width: 100%;
+  font-size: 0.85rem;
+  padding: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 6px;
+  box-sizing: border-box;
+  line-height: 1.5;
+  resize: vertical;
+}
+@media (max-width: 600px) {
+    .item-row {
+      flex-wrap: wrap;
+    }
+}
+  .pos-code-row {
+  display: flex;
+  gap: 8px;
+  align-items: flex-end;
+}
+  .fg-code {
+  flex: 1; 
+}
+  .fg-num {
+  width: 90px; 
+  flex-shrink: 0;
+}
+
+
+    /* スマホ崩れ防止・共通調整 */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    .info-card, .tiny-restore-box {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    /* 控えめな復元補助ツール（トーンダウン＆点線） */
+    details.tiny-restore-box {
+      background: #faf8f5;
+      border: 1px dashed var(--accent-gold, #c8a261);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      padding: 0;
+      overflow: hidden;
+      opacity: 0.92;
+    }
+    .tiny-restore-summary {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #8c7355;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+      padding: 12px 16px;
+      user-select: none;
+      background: rgba(200, 162, 97, 0.05);
+    }
+    .tiny-restore-summary::-webkit-details-marker {
+      display: none;
+    }
+    .tiny-restore-summary::after {
+      content: "＋ 開く";
+      font-size: 0.75rem;
+      color: #8c7355;
+      background: rgba(140, 115, 85, 0.1);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    details[open] .tiny-restore-summary::after {
+      content: "− 閉じる";
+    }
+    .tiny-restore-body {
+      padding: 14px 16px;
+      border-top: 1px dashed rgba(200, 162, 97, 0.3);
+      background: #fff;
+    }
+    #import_text_input {
+      width: 100%;
+      font-size: 0.85rem;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    /* 折り畳み共通スタイル（会員事前登録用） */
+    details.info-card {
+      padding: 0;
+      overflow: hidden;
+    }
+    .foldable-summary {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--wood-medium);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+      padding: 16px 20px;
+      user-select: none;
+    }
+    .foldable-summary::-webkit-details-marker {
+      display: none;
+    }
+    .foldable-summary::after {
+      content: "＋ 開く";
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      background: rgba(200, 162, 97, 0.12);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--accent-gold);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    details[open] .foldable-summary::after {
+      content: "− 閉じる";
+    }
+    .foldable-body {
+      padding: 0 20px 16px 20px;
+      border-top: 1px dashed var(--border-color);
+      margin-top: 4px;
+    }
+    .member-content-body {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    /* モバイル向けフォーム・テーブル調整補強 */
+    @media (max-width: 600px) {
+      .form-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .item-row {
+        flex-wrap: wrap;
+      }
+    }
+  </style>
+</head>
+<body>
+<header>
+<div class="header-logo">
+<a href="index.html" style="color: inherit; text-decoration: none;">Place de Nina</a>
+</div>
+<h1>LINEご注文作成ツール</h1>
+</header>
+<main>
+<!-- 控えめな復元補助ツール（最上部・注意書き付き） -->
+<details class="tiny-restore-box">
+<summary class="tiny-restore-summary">
+<span>📥 以前の注文内容を復元する（テキスト貼付）</span>
+</summary>
+<div class="tiny-restore-body">
+<p class="sub-note" style="margin-top:0; margin-bottom: 8px;">LINEからコピーした注文文面全体を貼り付けて復元できます。</p>
+<textarea id="import_text_input" placeholder="ここにLINEからコピーした注文文面を貼り付け" rows="6"></textarea>
+<p class="sub-note" style="margin-top: 6px; margin-bottom: 0;">※ポイント換算は現在の処理月度のマスタ値で再計算されます。</p>
+<button class="sub-btn mt-8" onclick="restoreAllFromText()" style="padding: 8px 16px; font-size: 0.85rem; width: 100%;" type="button">⚡ この文章から入力を復元する</button>
+</div>
+</details>
+<!-- 1. 会員リポジトリ登録エリア（折り畳み式） -->
+<div class="info-card card-accent">
+<details class="member-details">
+<summary class="foldable-summary member-summary" style="padding: 0;">
+<span style="font-size: 0.88rem; font-weight: 700; color: var(--wood-medium);">1. よく使う会員番号の事前登録</span>
+</summary>
+<div class="member-content-body">
+<div class="usage-guide">
+<strong>💡 事前登録しておくと便利です！</strong><br/>
+            ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br/>
+            ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br/>
+<span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
+</div>
+<div id="member_register_container"></div>
+<button class="sub-btn mt-8" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
+</div>
+</details>
+</div>
+<!-- 2. お届け先情報 -->
+<div class="info-card">
+<div class="section-title">2. お届け先情報</div>
+<p class="sub-note">※以前にご注文された方は宛名のみのご入力で構いません。(備考がある場合はご入力ください。)</p>
+<div class="form-group">
+<label>お届け先氏名（宛名）</label>
+<input id="ship_name" oninput="saveBasicInfo(); updatePreview();" placeholder="例：山田太郎" type="text"/>
+</div>
+<div class="form-group fg-zip">
+<label>郵便番号</label>
+<input id="ship_zip" oninput="checkZipCode(); updatePreview();" placeholder="1234567 (7桁)" type="text"/>
+</div>
+<div class="form-group">
+<label>ご住所</label>
+<input id="ship_address" oninput="updatePreview();" placeholder="郵便番号を入れると自動入力されます" type="text"/>
+</div>
+<div class="form-group">
+<label>電話番号</label>
+<input id="ship_tel" oninput="updatePreview();" placeholder="例：090-0000-0000" type="text"/>
+</div>
+<div class="form-group">
+<label>備考</label>
+<input id="ship_note" oninput="updatePreview();" placeholder="例：18時以降指定、不在時宅配BOXなど" type="text"/>
+</div>
+</div>
+<!-- 3. 決済方法 -->
+<div class="info-card">
+<div class="section-title">3. 決済方法</div>
+<div class="form-group">
+<label>決済方法の選択</label>
+<select id="payment_method" onchange="togglePwField(); updatePreview();">
+<option value="現金">現金</option>
+<option value="ニナファームカード">ニナファームカード</option>
+<option value="クレジットカード">クレジットカード</option>
+<option value="PayPay">PayPay</option>
+</select>
+</div>
+<div class="hidden-pw" id="pw_container">
+<div class="form-group" id="group_pw_code">
+<label>E-ServiceログインPW</label>
+<input id="pw_code" oninput="updatePreview();" placeholder="PWコードを入力してください" type="text"/>
+</div>
+<div class="form-group" id="group_nina_point">
+<label>使用するポイントNiNA</label>
+<input id="nina_point" oninput="updatePreview();" placeholder="例：1000pt" type="text"/>
+</div>
+</div>
+<div class="form-group mt-10">
+<label>🧾 領収書が必要な場合は宛名をお書きください</label>
+<input id="receipt_name" oninput="saveBasicInfo(); updatePreview();" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" type="text"/>
+</div>
+</div>
+<!-- 4. 処理月度の選択 -->
+<div class="info-card">
+<div class="section-title">4. 処理月度の選択</div>
+<select id="target_month" onchange="onMonthChange();">
+<!-- JSで動的生成されます -->
+</select>
+</div>
+<!-- 5. 会員番号ごとの注文 -->
+<div class="info-card">
+<div class="section-title">5. 会員番号ごとの注文</div>
+<div id="positions_container"></div>
+<button class="sub-btn mt-8" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
+</div>
+<!-- 6. 生成された注文テキスト -->
+<div class="info-card">
+<div class="section-title">6. 生成された注文テキスト</div>
+<p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
+<textarea id="output_text" placeholder="ここにLINE用のテキストがリアルタイムで生成されます" readonly=""></textarea>
+</div>
+<!-- 戻るボタン -->
+<a class="back-btn" href="index.html">
+      ‹ トップページへ戻る
+    </a>
+</main>
+<!-- 固定下部バー -->
+<div class="footer-bar">
+<div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
+<button class="btn-copy" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
+</div>
+<script>
+let currentMaster = {
+  activeMonths: ["9月度", "8月度"],
+  products: [
+    { name: "OX-288", price: 13800, pts: { "8月度": 10000, "9月度": 10000 } },
+    { name: "OX-288(追加購入)", price: 13800, pts: { "8月度": 10000, "9月度": 10000 } },
+    { name: "OX-288 (ゼリータイプ)", price: 14200, pts: { "8月度": 10000, "9月度": 10000 } },
+    { name: "ボアソン", price: 10800, pts: { "8月度": 10000, "9月度": 10000 } },
+    { name: "ハイプロリーナ", price: 7200, pts: { "8月度": 6000, "9月度": 6000 } },
+    { name: "ゼウス 2026", price: 17800, pts: { "8月度": 13000, "9月度": 13000 } },
+    { name: "アルピニスト スラージュ", price: 4000, pts: { "8月度": 2800, "9月度": 2800 } },
+    { name: "O・M・C プロテイン", price: 6000, pts: { "8月度": 5000, "9月度": 5000 } },
+    { name: "サヴォン アンベリール (120g)", price: 5200, pts: { "8月度": 4300, "9月度": 4300 } },
+    { name: "サヴォン アンベリール (70g)", price: 3500, pts: { "8月度": 2900, "9月度": 2900 } },
+    { name: "ブランシュール (150g)", price: 12200, pts: { "8月度": 10500, "9月度": 10500 } },
+    { name: "ブランシュール (80g)", price: 6800, pts: { "8月度": 5800, "9月度": 5800 } },
+    { name: "デマキヤン", price: 4100, pts: { "8月度": 3400, "9月度": 3400 } },
+    { name: "赤化粧水", price: 3600, pts: { "8月度": 3000, "9月度": 3000 } },
+    { name: "赤美容液", price: 6400, pts: { "8月度": 5400, "9月度": 5400 } },
+    { name: "赤ジェル", price: 4800, pts: { "8月度": 4000, "9月度": 4000 } },
+    { name: "白化粧水", price: 3600, pts: { "8月度": 3000, "9月度": 3000 } },
+    { name: "白美容液", price: 6400, pts: { "8月度": 5400, "9月度": 5400 } },
+    { name: "白ジェル", price: 4800, pts: { "8月度": 4000, "9月度": 4000 } },
+    { name: "グルナードゥ", price: 32000, pts: { "8月度": 26000, "9月度": 26000 } },
+    { name: "リペアセラム", price: 14800, pts: { "8月度": 15000, "9月度": 15000 } },
+    { name: "リペアクリーム", price: 18700, pts: { "8月度": 15000, "9月度": 15000 } },
+    { name: "レボリューション", price: 17200, pts: { "8月度": 14500, "9月度": 14500 } },
+    { name: "グロウジェルクリーム", price: 9800, pts: { "8月度": 8000, "9月度": 8000 } },
+    { name: "ハンドモイスチャー", price: 2200, pts: { "8月度": 1800, "9月度": 1800 } },
+    { name: "リップセラム", price: 2000, pts: { "8月度": 1600, "9月度": 1600 } },
+    { name: "ボディミルク", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
+    { name: "ミュー ヴィサージュ", price: 3300, pts: { "8月度": 2600, "9月度": 2600 } },
+    { name: "ミューコール", price: 3300, pts: { "8月度": 2600, "9月度": 2600 } },
+    { name: "バイオミスト", price: 3700, pts: { "8月度": 3000, "9月度": 3000 } },
+    { name: "ボディソープ", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
+    { name: "シャンプー", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
+    { name: "トリートメント", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
+    { name: "ヘアマスク", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
+    { name: "スカルプトナー", price: 9200, pts: { "8月度": 7500, "9月度": 7500 } },
+    { name: "クレオ デンタルクリーン", price: 2200, pts: { "8月度": 1800, "9月度": 1800 } },
+    { name: "クレオ マウスウォッシュ", price: 3200, pts: { "8月度": 2500, "9月度": 2500 } },
+    { name: "アロマオイル ローズ", price: 8700, pts: { "8月度": 7300, "9月度": 7300 } },
+    { name: "ゼウス オードゥ パルファン 2026", price: 21000, pts: { "8月度": 18000, "9月度": 18000 } },
+    { name: "オヴェルデ エクストラバージンオリーブオイル", price: 16200, pts: { "8月度": 8000, "9月度": 8000 } },
+    { name: "モン コパン", price: 3500, pts: { "8月度": 2800, "9月度": 2800 } },
+    { name: "モン コパン ジュレ", price: 3500, pts: { "8月度": 2800, "9月度": 2800 } }
+  ]
+};
+
+let positionCount = 0;
+let registeredMembers = [];
+
+function checkZipCode() {
+    const zipInput = document.getElementById('ship_zip').value;
+    const cleanZip = zipInput.replace(/[━ー*]/g, '').replace(/-/g, '').trim();
+
+    if (cleanZip.length === 7) {
+        fetch(`https://zipcloud.ibsnet.co.jp/api/search?zipcode=${cleanZip}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.results) {
+                    const res = data.results[0];
+                    const fullAddress = res.address1 + res.address2 + res.address3;
+                    document.getElementById('ship_address').value = fullAddress;
+                    updatePreview();
+                }
+            })
+            .catch(error => {
+                console.error("住所の取得に失敗しました:", error);
+            });
+    }
+}
+
+window.onload = async function() {
+    try {
+        const response = await fetch('./month_config.json?cache=' + new Date().getTime());
+        if (response.ok) {
+            const remoteConfig = await response.json();
+            currentMaster = remoteConfig;
+            localStorage.setItem('salonOrderMasterConfig', JSON.stringify(currentMaster));
+        }
+    } catch (e) {
+        const savedConfig = localStorage.getItem('salonOrderMasterConfig');
+        if (savedConfig) {
+            try { currentMaster = JSON.parse(savedConfig); } catch (err) {}
+        }
+    }
+
+    renderMonthOptions();
+
+    if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
+    if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
+    if(localStorage.getItem('receipt_name')) document.getElementById('receipt_name').value = localStorage.getItem('receipt_name');
+    
+    togglePwField();
+
+    const savedMembers = localStorage.getItem('registered_members');
+    if (savedMembers) {
+        registeredMembers = JSON.parse(savedMembers);
+        registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
+    } else {
+        addMemberRegisterRow('', '');
+    }
+
+    addPositionBox();
+};
+
+function renderMonthOptions() {
+    const monthSelect = document.getElementById('target_month');
+    monthSelect.innerHTML = '';
+    
+    if (currentMaster.activeMonths && currentMaster.activeMonths.length > 0) {
+        currentMaster.activeMonths.forEach(m => {
+            const opt = document.createElement('option');
+            opt.value = m;
+            opt.textContent = m;
+            monthSelect.appendChild(opt);
+        });
+    } else {
+        const opt = document.createElement('option');
+        opt.value = "9月度";
+        opt.textContent = "9月度";
+        monthSelect.appendChild(opt);
+    }
+}
+
+function saveBasicInfo() {
+    localStorage.setItem('ship_name', document.getElementById('ship_name').value);
+    localStorage.setItem('payment_method', document.getElementById('payment_method').value);
+    localStorage.setItem('receipt_name', document.getElementById('receipt_name').value);
+}
+
+function togglePwField() {
+    const payMethod = document.getElementById('payment_method').value;
+    const pwContainer = document.getElementById('pw_container');
+    const groupPw = document.getElementById('group_pw_code');
+    const groupPt = document.getElementById('group_nina_point');
+
+    if (payMethod === 'ニナファームカード') {
+        pwContainer.style.display = 'block';
+        groupPw.style.display = 'block';
+        groupPt.style.display = 'block';
+    } else if (payMethod === 'クレジットカード') {
+        pwContainer.style.display = 'block';
+        groupPw.style.display = 'block';
+        groupPt.style.display = 'none';
+        document.getElementById('nina_point').value = ''; 
+    } else {
+        pwContainer.style.display = 'none';
+        groupPw.style.display = 'none';
+        groupPt.style.display = 'none';
+        document.getElementById('pw_code').value = ''; 
+        document.getElementById('nina_point').value = ''; 
+    }
+}
+
+function addMemberRegisterRow(code = '', name = '') {
+    const container = document.getElementById('member_register_container');
+    const row = document.createElement('div');
+    row.className = 'member-reg-row';
+    row.innerHTML = `
+        <input type="text" class="reg-code" placeholder="例：1234567" value="${code}" oninput="saveMembers()">
+        <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
+        <button class="btn-danger" onclick="removeMemberRegisterRow(this)">✕</button>
+    `;
+    container.appendChild(row);
+}
+
+function removeMemberRegisterRow(btn) {
+    btn.parentElement.remove();
+    saveMembers();
+}
+
+function saveMembers() {
+    const rows = document.querySelectorAll('.member-reg-row');
+    registeredMembers = [];
+    rows.forEach(row => {
+        const code = row.querySelector('.reg-code').value.trim();
+        const name = row.querySelector('.reg-name').value.trim();
+        if(code || name) {
+            registeredMembers.push({ code, name });
+        }
+    });
+    localStorage.setItem('registered_members', JSON.stringify(registeredMembers));
+    
+    document.querySelectorAll('.pos-select').forEach(select => {
+        const currentVal = select.value;
+        refreshMemberOptions(select);
+        select.value = currentVal;
+    });
+    updatePreview();
+}
+
+function refreshMemberOptions(selectElement) {
+    let options = '<option value="">-- 登録済み会員から選択 --</option>';
+    registeredMembers.forEach((m, idx) => {
+        options += `<option value="${idx}">${m.code} ${m.name}</option>`;
+    });
+    options += '<option value="manual">＋ 新しい会員情報を直接入力する</option>';
+    selectElement.innerHTML = options;
+}
+
+function onSelectMember(posId) {
+    const select = document.getElementById(`pos_select_${posId}`);
+    const codeInput = document.getElementById(`pos_code_${posId}`);
+    const nameInput = document.getElementById(`pos_name_${posId}`);
+    const manualBox = document.getElementById(`manual_input_box_${posId}`);
+    
+    const selectedVal = select.value;
+
+    if (selectedVal === "manual") {
+        manualBox.style.display = 'block';
+        codeInput.value = '';
+        nameInput.value = '';
+        codeInput.removeAttribute('readonly');
+        nameInput.removeAttribute('readonly');
+        codeInput.placeholder = "例：1267505";
+        nameInput.placeholder = "例：山田太郎";
+    } else if (selectedVal !== "") {
+        manualBox.style.display = 'none';
+        const member = registeredMembers[selectedVal];
+        codeInput.value = member.code;
+        nameInput.value = member.name;
+        codeInput.setAttribute('readonly', true);
+        nameInput.setAttribute('readonly', true);
+    } else {
+        manualBox.style.display = 'none';
+        codeInput.value = '';
+        nameInput.value = '';
+        codeInput.setAttribute('readonly', true);
+        nameInput.setAttribute('readonly', true);
+        codeInput.placeholder = "上枠で選択してください";
+        nameInput.placeholder = "上枠で選択してください";
+    }
+    updatePreview();
+}
+
+function toggleCustomPos(posId) {
+    const pSel = document.getElementById(`pos_num_select_${posId}`);
+    const customContainer = document.getElementById(`custom_pos_container_${posId}`);
+    if (pSel.value === 'custom') {
+        customContainer.style.display = 'block';
+    } else {
+        customContainer.style.display = 'none';
+        document.getElementById(`pos_custom_num_${posId}`).value = '';
+    }
+    updatePreview();
+}
+
+function onMonthChange() {
+    document.querySelectorAll('.item-select').forEach(select => {
+        const selectedIndex = select.value;
+        refreshProductOptions(select);
+        select.value = selectedIndex;
+    });
+    updatePreview();
+}
+
+function refreshProductOptions(selectElement) {
+    const selectedMonth = document.getElementById('target_month').value;
+    let options = '<option value="">-- 商品を選択 --</option>';
+    
+    currentMaster.products.forEach((p, index) => {
+        let ptVal = 0;
+        if (p.pts && p.pts[selectedMonth] !== undefined) {
+            ptVal = p.pts[selectedMonth];
+        } else if (p.pt !== undefined) {
+            ptVal = p.pt;
+        }
+        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${ptVal.toLocaleString()}pt)</option>`;
+    });
+    selectElement.innerHTML = options;
+}
+
+function addPositionBox(initialCode = '', initialSuffix = '00', initialName = '', initialItems = []) {
+    positionCount++;
+    const container = document.getElementById('positions_container');
+    const box = document.createElement('div');
+    box.className = 'position-box';
+    box.id = `position_box_${positionCount}`;
+    
+    box.innerHTML = `
+        <div class="pos-header">
+            <strong class="pos-title">ポジション #${positionCount}</strong>
+            ${positionCount > 1 ? `<button class="btn-danger" onclick="removePositionBox(${positionCount})">削除</button>` : ''}
+        </div>
+        <div class="form-group">
+            <label class="label-accent">👤 会員の選択</label>
+            <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})"></select>
+        </div>
+
+        <div class="manual-input-box" id="manual_input_box_${positionCount}">
+            <span class="manual-input-text">📝 未登録の会員情報を下に入力してください</span>
+        </div>
+        
+        <!-- ▼ 会員番号とポジションを横並びにするブロック ▼ -->
+        <div class="pos-code-row mt-8">
+            <div class="form-group fg-code" style="margin-bottom:0;">
+                <label>会員番号</label>
+                <input type="text" id="pos_code_${positionCount}" value="${initialCode}" placeholder="例：1234567" oninput="updatePreview()">
+            </div>
+            <div class="form-group fg-num" style="margin-bottom:0;">
+                <label>ポジション</label>
+                <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
+                    <option value="00">00</option>
+                    <option value="01">01</option>
+                    <option value="02">02</option>
+                    <option value="03">03</option>
+                    <option value="04">04</option>
+                    <option value="05">05</option>
+                    <option value="06">06</option>
+                    <option value="07">07</option>
+                    <option value="08">08</option>
+                    <option value="09">09</option>
+                    <option value="10">10</option>
+                    <option value="custom">その他</option>
+                </select>
+            </div>
+        </div>
+
+        <!-- その他を選択したときに出るカスタム入力 -->
+        <div class="custom-pos-container mt-8" id="custom_pos_container_${positionCount}" style="display:none;">
+            <label>その他のポジション（手入力）</label>
+            <input type="text" id="pos_custom_num_${positionCount}" placeholder="例：11" oninput="updatePreview()">
+        </div>
+
+        <div class="form-group mt-10">
+            <label>会員名</label>
+            <input type="text" id="pos_name_${positionCount}" value="${initialName}" placeholder="例：山田太郎" oninput="updatePreview()">
+        </div>
+        <!-- ▲ ここまで ▲ -->
+
+        <div class="form-group mt-10">
+            <label>購入商品</label>
+            <div class="items-list" id="items_list_${positionCount}"></div>
+            <button class="sub-btn mt-8" onclick="addItemRow(${positionCount})">+ 商品を追加</button>
+        </div>
+        <div class="pos-subtotal" id="pos_subtotal_${positionCount}">小計: 0点 0円 (0pt)</div>
+    `;
+    container.appendChild(box);
+    
+    // 以下、既存の初期化処理続き...
+    const newSelect = document.getElementById(`pos_select_${positionCount}`);
+    refreshMemberOptions(newSelect);
+
+    const numSel = document.getElementById(`pos_num_select_${positionCount}`);
+    const standardSuffixes = ["00","01","02","03","04","05","06","07","08","09","10"];
+    if (standardSuffixes.includes(initialSuffix)) {
+        numSel.value = initialSuffix;
+    } else if (initialSuffix) {
+        numSel.value = 'custom';
+        document.getElementById(`custom_pos_container_${positionCount}`).style.display = 'block';
+        document.getElementById(`pos_custom_num_${positionCount}`).value = initialSuffix;
+    }
+
+    if (initialItems && initialItems.length > 0) {
+        initialItems.forEach(item => {
+            addItemRowWithData(positionCount, item.prodIndex, item.qty);
+        });
+    } else {
+        addItemRow(positionCount);
+    }
+    updatePreview();
+}
+
+function removePositionBox(id) {
+    document.getElementById(`position_box_${id}`).remove();
+    updatePreview();
+}
+
+function addItemRow(posId, prodIndexVal = '', qtyVal = 1) {
+    addItemRowWithData(posId, prodIndexVal, qtyVal);
+}
+
+function addItemRowWithData(posId, prodIndexVal, qtyVal) {
+    const list = document.getElementById('items_list_' + posId);
+    if (!list) return;
+    const row = document.createElement('div');
+    row.className = 'item-row';
+    
+    const select = document.createElement('select');
+    select.className = 'item-select';
+    select.onchange = updatePreview;
+    refreshProductOptions(select);
+    if (prodIndexVal !== '' && prodIndexVal !== null && prodIndexVal !== undefined) {
+        select.value = prodIndexVal;
+    }
+
+    let qtyOptions = '';
+    for(let i = 1; i <= 40; i++) {
+        qtyOptions += `<option value="${i}" ${i == qtyVal ? 'selected' : ''}>${i}</option>`;
+    }
+
+    const qtyContainer = document.createElement('div');
+    qtyContainer.className = 'item-qty-container';
+    qtyContainer.innerHTML = `<select class="item-qty" onchange="updatePreview()">${qtyOptions}</select> 個`;
+
+    const deleteBtn = document.createElement('button');
+    deleteBtn.className = 'btn-danger btn-del-item';
+    deleteBtn.innerText = '✕';
+    deleteBtn.onclick = function() {
+        if (list.querySelectorAll('.item-row').length > 1) {
+            row.remove();
+        } else {
+            select.value = '';
+            row.querySelector('.item-qty').value = '1';
+        }
+        updatePreview();
+    };
+
+    row.appendChild(select);
+    row.appendChild(qtyContainer);
+    row.appendChild(deleteBtn);
+    
+    list.appendChild(row);
+}
+
+// 📦 コピーされた全体テキストから一括復元するパーサー
+function restoreAllFromText() {
+    try {
+        const text = document.getElementById('import_text_input').value;
+        if (!text.trim()) {
+            alert("復元するテキストを貼り付けてください。");
+            return;
+        }
+
+        // 1. 月度の復元
+        const monthMatch = text.match(/🇫🇷\s*([^\n注文分]+)注文分/);
+        if (monthMatch && monthMatch[1]) {
+            const monthSel = document.getElementById('target_month');
+            for (let opt of monthSel.options) {
+                if (opt.value === monthMatch[1].trim()) {
+                    monthSel.value = opt.value;
+                    onMonthChange();
+                    break;
+                }
+            }
+        }
+
+        // 2. 決済方法の復元
+        if (text.includes("ニナファームカード決済")) {
+            document.getElementById('payment_method').value = "ニナファームカード";
+            const pwMatch = text.match(/\(PW:\s*([^\)]+)\)/);
+            if (pwMatch) document.getElementById('pw_code').value = pwMatch[1].trim();
+            const ptMatch = text.match(/使用するポイントNiNA:\s*([^\n]+)/);
+            if (ptMatch) document.getElementById('nina_point').value = ptMatch[1].trim();
+        } else if (text.includes("クレジットカード決済")) {
+            document.getElementById('payment_method').value = "クレジットカード";
+            const pwMatch = text.match(/\(PW:\s*([^\)]+)\)/);
+            if (pwMatch) document.getElementById('pw_code').value = pwMatch[1].trim();
+        } else if (text.includes("PayPay決済")) {
+            document.getElementById('payment_method').value = "PayPay";
+        } else if (text.includes("現金決済")) {
+            document.getElementById('payment_method').value = "現金";
+        }
+        togglePwField();
+
+        // 領収書
+        const receiptMatch = text.match(/🧾 領収書：([^\n]+)/);
+        if (receiptMatch) {
+            document.getElementById('receipt_name').value = receiptMatch[1].trim();
+        }
+
+        // 3. 送付先の復元
+        const noteMatch = text.match(/★([^*]+)★/);
+        if (noteMatch) document.getElementById('ship_note').value = noteMatch[1].trim();
+        
+        const zipMatch = text.match(/〒([0-9-]+)/);
+        if (zipMatch) document.getElementById('ship_zip').value = zipMatch[1].trim();
+        
+        const telMatch = text.match(/TEL:\s*([^\n]+)/);
+        if (telMatch) document.getElementById('ship_tel').value = telMatch[1].trim();
+
+        // 住所と宛名の抽出
+        const shipBlockMatch = text.match(/\(送付先\)([\s\S]*)/);
+        if (shipBlockMatch) {
+            const lines = shipBlockMatch[1].trim().split('\n');
+            lines.forEach(line => {
+                const trimmed = line.trim();
+                if (trimmed.startsWith('★') && trimmed.endsWith('★')) return;
+                if (trimmed.startsWith('〒')) return;
+                if (trimmed.startsWith('TEL:')) return;
+                
+                if (trimmed.includes('様')) {
+                    const namePart = trimmed.replace(/様$/, '').trim();
+                    if (namePart) document.getElementById('ship_name').value = namePart;
+                } else if (trimmed) {
+                    document.getElementById('ship_address').value = trimmed;
+                }
+            });
+        }
+
+        // 4. ポジションブロックの解析と復元
+        document.getElementById('positions_container').innerHTML = '';
+        positionCount = 0;
+
+        const posBlocks = text.split('🔹').slice(1);
+        if (posBlocks.length === 0) {
+            alert("「🔹」で区切られたポジションデータが見つかりませんでした。文面を確認してください。");
+            return;
+        }
+
+        posBlocks.forEach(block => {
+            const lines = block.trim().split('\n');
+            const headerLine = lines[0] || '';
+            
+            let code = '';
+            let suffix = '00';
+            let name = '';
+
+            const codeSuffixMatch = headerLine.match(/^([0-9]+)-([0-9A-Za-z]+)\s+(.+)$/);
+            const codeOnlyMatch = headerLine.match(/^([0-9]+)\s+(.+)$/);
+            if (codeSuffixMatch) {
+                code = codeSuffixMatch[1];
+                suffix = codeSuffixMatch[2];
+                name = codeSuffixMatch[3].trim();
+            } else if (codeOnlyMatch) {
+                code = codeOnlyMatch[1];
+                suffix = '00';
+                name = codeOnlyMatch[2].trim();
+            }
+
+            let initialItems = [];
+            for (let i = 1; i < lines.length; i++) {
+                const line = lines[i].trim();
+                if (line.startsWith('計 ') || line.startsWith('−−−') || !line) continue;
+                
+                const itemMatch = line.match(/^(.+?)\s+(\d+)個\s+/);
+                if (itemMatch) {
+                    const prodName = itemMatch[1].trim();
+                    const qtyVal = parseInt(itemMatch[2], 10);
+                    
+                    const prodIdx = currentMaster.products.findIndex(p => p.name === prodName);
+                    if (prodIdx !== -1) {
+                        initialItems.push({ prodIndex: prodIdx, qty: qtyVal });
+                    }
+                }
+            }
+
+            addPositionBox(code, suffix, name, initialItems);
+        });
+
+        if (positionCount === 0) {
+            addPositionBox();
+        }
+
+        saveBasicInfo();
+        updatePreview();
+        alert("テキストから入力を復元しました！");
+    } catch (e) {
+        console.error("復元エラー:", e);
+        alert("復元処理中にエラーが発生しました: " + e.message);
+    }
+}
+
+function calculateAll() {
+    const positionBoxes = document.querySelectorAll('.position-box');
+    const selectedMonth = document.getElementById('target_month').value;
+    
+    let grandTotalQty = 0;
+    let grandTotalPrice = 0;
+    let grandTotalPt = 0;
+    
+    let positionsData = [];
+    let itemSummaryMap = {};
+
+    positionBoxes.forEach((box) => {
+        const boxId = box.id.replace('position_box_', '');
+        
+        const rawCode = document.getElementById(`pos_code_${boxId}`).value.trim();
+        const posName = document.getElementById(`pos_name_${boxId}`).value.trim();
+        
+        const numSel = document.getElementById(`pos_num_select_${boxId}`).value;
+        let suffix = numSel;
+        if (numSel === 'custom') {
+            suffix = document.getElementById(`pos_custom_num_${boxId}`).value.trim();
+        }
+
+        let posCode = rawCode;
+        if (rawCode && suffix) {
+            posCode = `${rawCode}-${suffix}`;
+        }
+
+        const posInfo = (posCode || posName) ? `${posCode} ${posName}`.trim() : "";
+
+        const rows = box.querySelectorAll('.item-row');
+        
+        let posQty = 0;
+        let posPrice = 0;
+        let posPt = 0;
+        let posItemsText = "";
+
+        rows.forEach(row => {
+            const pIndex = row.querySelector('.item-select').value;
+            const qty = parseInt(row.querySelector('.item-qty').value) || 0;
+            
+            if(pIndex !== "") {
+                const prod = currentMaster.products[pIndex];
+                
+                let itemPt = 0;
+                if (prod.pts && prod.pts[selectedMonth] !== undefined) {
+                    itemPt = prod.pts[selectedMonth];
+                } else if (prod.pt !== undefined) {
+                    itemPt = prod.pt;
+                }
+
+                const subPrice = prod.price * qty;
+                const subPt = itemPt * qty;
+
+                posQty += qty;
+                posPrice += subPrice;
+                posPt += subPt;
+
+                posItemsText += `${prod.name} ${qty}個 ${subPrice.toLocaleString()}円(${subPt.toLocaleString()}pt)\n`;
+
+                if (itemSummaryMap[prod.name]) {
+                    itemSummaryMap[prod.name] += qty;
+                } else {
+                    itemSummaryMap[prod.name] = qty;
+                }
+            }
+        });
+
+        const subtotalDiv = document.getElementById(`pos_subtotal_${boxId}`);
+        if (subtotalDiv) {
+            subtotalDiv.innerText = `小計: ${posQty}点 ${posPrice.toLocaleString()}円 (${posPt.toLocaleString()}pt)`;
+        }
+
+        if(posInfo && posItemsText) {
+            positionsData.push({
+                info: posInfo,
+                itemsText: posItemsText,
+                qty: posQty,
+                price: posPrice,
+                pt: posPt
+            });
+            
+            grandTotalQty += posQty;
+            grandTotalPrice += posPrice;
+            grandTotalPt += posPt;
+        }
+    });
+
+    return { positionsData, grandTotalQty, grandTotalPrice, grandTotalPt, itemSummaryMap };
+}
+
+function generateText() {
+    const shipZip = document.getElementById('ship_zip').value;
+    const shipName = document.getElementById('ship_name').value;
+    const shipAddr = document.getElementById('ship_address').value;
+    const shipTel = document.getElementById('ship_tel').value;
+    const shipNote = document.getElementById('ship_note').value.trim();
+    
+    const payment = document.getElementById('payment_method').value;
+    const pw = document.getElementById('pw_code').value.trim();
+    const ninaPt = document.getElementById('nina_point').value.trim();
+    const receiptName = document.getElementById('receipt_name').value.trim();
+    const month = document.getElementById('target_month').value;
+    
+    const today = new Date();
+    const dateStr = `${today.getMonth()+1}/${today.getDate()}`;
+
+    const data = calculateAll();
+
+    let text = `🇫🇷${month}注文分①${dateStr}\n\n`;
+    
+    if(payment) {
+        if(payment === 'ニナファームカード') {
+            text += `ニナファームカード決済`;
+            if(pw) text += ` (PW: ${pw})`;
+            if(ninaPt) text += `\n使用するポイントNiNA: ${ninaPt}`;
+            text += `\n`;
+        } else if(payment === 'クレジットカード') {
+            text += `クレジットカード決済`;
+            if(pw) text += ` (PW: ${pw})`;
+            text += `\n`;
+        } else {
+            text += `${payment}決済\n`;
+        }
+    }
+
+    if(receiptName) {
+        text += `🧾 領収書：${receiptName}\n`;
+    }
+
+    text += `\n`;
+
+    data.positionsData.forEach(pos => {
+        text += `🔹${pos.info}\n \n${pos.itemsText}\n計  ${pos.qty}点 ${pos.price.toLocaleString()}円(${pos.pt.toLocaleString()}pt)\n`;
+        text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−•\n\n`;
+    });
+
+    text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n\n`;
+    
+    const summaryKeys = Object.keys(data.itemSummaryMap);
+    if (summaryKeys.length > 0) {
+        summaryKeys.forEach(prodName => {
+            text += `●${prodName}×${data.itemSummaryMap[prodName]}\n`;
+        });
+        text += `\n`;
+    }
+
+    if(shipZip || shipName || shipAddr || shipTel || shipNote) {
+        text += `(送付先)\n`;
+        if(shipNote) text += `★${shipNote}★\n\n`;
+        if(shipZip) text += `〒${shipZip}\n`;
+        if(shipAddr) text += `${shipAddr}\n`;
+        if(shipName) text += `${shipName} 様\n`;
+        if(shipTel) text += `TEL: ${shipTel}\n`;
+    }
+
+    return { text, grandTotalQty: data.grandTotalQty, grandTotalPrice: data.grandTotalPrice, grandTotalPt: data.grandTotalPt };
+}
+
+function updatePreview() {
+    const result = generateText();
+    document.getElementById('total_summary_text').innerText = `合計 ${result.grandTotalQty}点 ${result.grandTotalPrice.toLocaleString()}円 (${result.grandTotalPt.toLocaleString()}pt)`;
+    
+    const outputArea = document.getElementById('output_text');
+    if (outputArea) {
+        outputArea.value = result.text;
+    }
+}
+
+function copyToClipboard() {
+    const result = generateText();
+    navigator.clipboard.writeText(result.text).then(() => {
+        alert("LINE用の注文テキストをコピーしました！「ニナファーム南熊本サロン」のLINEノートに貼り付けてください。");
+    }).catch(err => {
+        alert("コピーに失敗しました。画面下の枠内の文章を手動で選択してコピーしてください。");
+    });
+}
+</script>
+</body>
+</html>
