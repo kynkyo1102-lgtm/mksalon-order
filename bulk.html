@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+
+<html lang="ja">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>南熊本サロン専用商品購入注文書</title>
+<!-- フォント・ライブラリ群 -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script charset="UTF-8" src="https://yubinbango.github.io/yubinbango/yubinbango.js"></script>
+<!-- デフォルトマスタデータの読み込み -->
+<script src="default-master.js"></script>
+<!-- 外部スタイルシートの読み込み -->
+<link href="style.css" rel="stylesheet"/>
+<!-- 外部ロジックJavaScriptの読み込み -->
+<script defer="" src="app.js"></script>
+<style>
+/* =========================================================
+   このページ固有のCSS（style.cssには入れない）
+   ========================================================= */
+
+  .header-logo:hover {
+  opacity: 0.85;
+}
+  .header-guide-link {
+  display: inline-block;
+  font-size: 0.78rem;
+  color: var(--gold-light);
+  font-weight: normal;
+  margin-top: 8px;
+  text-decoration: underline;
+}
+  .section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-color), transparent);
+}
+  .card-box {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-gold);
+}
+  .form-group {
+  margin-bottom: 12px;
+}
+  .form-group:last-child {
+  margin-bottom: 0;
+}
+  .form-row > .form-group {
+  margin-bottom: 0;
+  flex: 1;
+}
+  .flex-row {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+  label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--wood-dark);
+}
+  input[type="text"],
+  input[type="number"],
+  input[type="tel"],
+  select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 0.88rem;
+  background-color: #fcfcfc;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+  .product-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+  font-size: 0.78rem;
+  background-color: #fff;
+  border-radius: 8px;
+  overflow: hidden;
+  border: 1px solid var(--border-color);
+  table-layout: fixed; 
+}
+  .product-table th,
+  .product-table td {
+  border-bottom: 1px solid var(--border-color);
+  padding: 8px 6px;
+  text-align: left;
+  word-break: break-word;
+}
+  .product-table th {
+  background-color: #f7f3eb;
+  color: var(--wood-dark);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-align: center;
+}
+  .product-table th:first-child,
+  .product-table td:first-child {
+  
+}
+  .product-table th.width-65,
+  .product-table td:nth-child(2) {
+  width: 72px; 
+  white-space: nowrap;
+  text-align: right;
+  font-variant-numeric: tabular-nums;
+}
+  .product-table th.width-55,
+  .product-table td:nth-child(3),
+  .product-table td.pt-col {
+  width: 55px;
+  white-space: nowrap;
+  text-align: right;
+  color: var(--wood-medium);
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+}
+  .product-table td.qty-col {
+  width: 52px; 
+  text-align: center;
+  white-space: nowrap;
+  padding: 8px 2px; 
+}
+  .product-table td.qty-col select {
+  width: 100%;
+  padding: 4px 2px;
+  font-size: 0.8rem;
+  text-align: center;
+}
+  .btn-add {
+  background-color: var(--wood-dark);
+  color: var(--gold-light);
+  border: 1px solid var(--accent-gold);
+  padding: 10px 18px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border-radius: 20px;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+  transition: all 0.2s;
+}
+  .btn-add:active {
+  transform: translateY(1px);
+}
+  .btn-action {
+  width: 100%;
+  padding: 13px;
+  margin-top: 10px;
+  border: 1px solid var(--border-color);
+  border-radius: 25px;
+  font-size: 0.88rem;
+  font-weight: bold;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.08);
+}
+  .btn-pdf { background-color: var(--wood-dark); color: var(--gold-light); border-color: var(--accent-gold); }
+  .footer-bar {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(255, 255, 255, 0.96);
+  backdrop-filter: blur(8px);
+  box-shadow: 0 -4px 20px rgba(35, 22, 16, 0.12);
+  border-top: 1px solid var(--border-color);
+  padding: 12px 16px;
+  z-index: 1000;
+}
+  .footer-content {
+  max-width: 520px;
+  margin: 0 auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+  .footer-totals {
+  font-size: 0.82rem;
+  color: var(--wood-dark);
+}
+  .product-table td,
+  .product-table th {
+  word-break: break-word;
+}
+  details.card-box summary {
+  outline: none;
+  transition: color 0.2s ease;
+}
+  details.card-box-preset summary.summary-preset {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--wood-dark);
+  cursor: pointer;
+  list-style: none;
+  padding: 2px 0;
+  display: flex;
+  align-items: center;
+}
+  .preset-subtext {
+  font-size: 0.75rem;
+  color: var(--text-sub);
+  margin-top: 6px;
+  margin-bottom: 12px;
+  line-height: 1.45;
+}
+  .product-table td.qty-col select {
+  width: auto;       
+  max-width: 100%;
+  padding: 4px 2px;  
+  font-size: 0.8rem;
+  text-align: center;
+}
+  .product-table td.qty-col {
+  width: 50px;
+  text-align: center;
+  padding: 6px 2px;
+}
+  .product-table td.qty-col select {
+  width: 100%;
+  box-sizing: border-box; 
+  padding: 4px 0;
+  font-size: 0.8rem;
+  text-align: center;
+}
+</style></head>
+<body>
+<header>
+<a class="header-logo" href="https://kynkyo1102-lgtm.github.io/salon-order/">Place de Nina</a>
+<h1>南熊本サロン専用商品購入注文書</h1>
+<a class="header-guide-link" href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" rel="noopener noreferrer" target="_blank">
+      📖 詳しい操作手順・使い方を見る
+    </a>
+</header>
+<main>
+<!-- 入力フォーム画面 -->
+<div id="formSection">
+<form class="h-adr" id="orderForm">
+<span class="p-country-name" style="display:none;">Japan</span>
+<!-- 会員番号・氏名 事前登録エリア（ほかのセクションと統一） -->
+<div class="section-title">⚙️ 会員情報の事前登録・保存</div>
+<details class="card-box card-box-preset">
+<summary class="summary-preset">
+            よく使う会員情報を登録
+          </summary>
+<div class="preset-subtext">
+            よく使う「会員番号」と「氏名」をあらかじめ登録しておくと、下の選択項目からワンタップで呼び出せます。
+          </div>
+<div class="form-group margin-top-10">
+<label>登録する会員番号</label>
+<div class="flex-row">
+<input class="flex-1" id="regMemberIdMain" placeholder="例: 12345" type="text"/>
+<span>-</span>
+<select class="width-85" id="regMemberIdSub"></select>
+</div>
+</div>
+<div class="form-group">
+<label for="regFullName">登録する氏名</label>
+<input id="regFullName" placeholder="例: 山田 太郎" type="text"/>
+</div>
+<button class="btn-action btn-save-member" onclick="savePreMemberInfo()" type="button">
+            💾 この会員情報を保存する
+          </button>
+<!-- 登録済み一覧の表示エリア -->
+<div class="registered-list-area" id="registeredMembersList"></div>
+</details>
+<!-- 基本情報エリア（スクロール戻り用ID: topOfForm） -->
+<div class="section-title" id="topOfForm">👤 ご注文者様基本情報</div>
+<div class="card-box">
+<div class="form-group">
+<label for="presetMemberSelect">保存済み会員から選択</label>
+<select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
+<option value="">-- 登録リストから選択 --</option>
+</select>
+</div>
+<div class="form-group">
+<label for="month">発注月度 *</label>
+<select id="month" name="month" required="">
+<option value="">選択してください</option>
+</select>
+</div>
+<div class="form-group">
+<label>購入会員番号 *</label>
+<div class="flex-row">
+<input class="flex-1" id="memberIdMain" placeholder="例: 12345" required="" type="text"/>
+<span>-</span>
+<select class="width-85" id="memberIdSub"></select>
+</div>
+</div>
+<div class="form-group">
+<label for="fullName">氏名 *</label>
+<input id="fullName" name="fullName" placeholder="例: 山田 太郎" required="" type="text"/>
+</div>
+</div>
+<!-- お支払い方法エリア -->
+<div class="section-title">💳 お支払い方法</div>
+<div class="card-box">
+<div class="form-group">
+<label for="paymentMethod">お支払い方法を選択 *</label>
+<select id="paymentMethod" onchange="togglePaymentFields()" required="">
+<option value="現金">現金</option>
+<option value="ニナファームカード">ニナファームカード</option>
+<option value="クレジットカード">クレジットカード</option>
+<option value="PayPay">PayPay</option>
+</select>
+</div>
+<!-- 領収書の宛名 -->
+<div class="form-group margin-top-12">
+<label for="receiptName">領収書の宛名 <span class="sub-label">(※必要な場合のみ)</span></label>
+<input id="receiptName" placeholder="例: 株式会社〇〇、〇〇様" type="text"/>
+</div>
+<div class="payment-extra-box" id="paymentExtraFields">
+<div class="form-group display-none" id="eservicePwGroup">
+<label for="eservicePw">E-Service PW</label>
+<input id="eservicePw" placeholder="パスワードを入力" type="text"/>
+</div>
+<div class="form-group display-none" id="ninaPointGroup">
+<label for="ninaPoint">ニナポイント利用（※利用する場合のみ）</label>
+<input id="ninaPoint" min="0" oninput="updateCalc()" placeholder="例: 1000" type="number"/>
+<small class="sub-label">※1pt ＝ 1円としてお値引きされます</small>
+</div>
+</div>
+</div>
+<!-- お届け先エリア -->
+<div class="section-title">📦 お届け先（配送ご希望の方のみ）</div>
+<div style="font-size: 0.75rem; color: var(--text-sub); margin: -4px 0 10px 4px;">
+          ※以前にご注文された方は宛名のみでも構いません。
+        </div>
+<div class="card-box">
+<div class="form-group">
+<label for="shipName">お届け先お名前</label>
+<!-- inputの変更を検知してローカルストレージに保存するよう実装 -->
+<input id="shipName" oninput="saveShipNameStorage(this.value)" placeholder="例: 山田 花子（氏名と異なる場合等）" type="text"/>
+</div>
+<div class="form-group">
+<label for="zip">郵便番号（ハイフンなし7桁）</label>
+<input class="p-postal-code" id="zip" maxlength="7" placeholder="例: 8600000" type="text"/>
+</div>
+<div class="form-group">
+<label for="address">住所</label>
+<input class="p-region p-locality p-street-address p-extended-address" id="address" placeholder="自動入力されます" type="text"/>
+</div>
+<div class="form-group">
+<label for="phone">電話番号</label>
+<input id="phone" placeholder="例: 09012345678" type="tel"/>
+</div>
+</div>
+<!-- 商品一覧テーブル -->
+<div class="section-title">🛍️ 注文商品選択</div>
+<div class="sub-instruction">ご希望商品の数量を選択してください</div>
+<table class="product-table">
+<thead>
+<tr>
+<th>商品名</th>
+<th class="width-65">価格(税込)</th>
+<th class="width-55">獲得Pt</th>
+<th class="qty-col">数量</th>
+</tr>
+</thead>
+<tbody id="productTableBody"></tbody>
+</table>
+<!-- 追加済み注文リスト（確認用） -->
+<div class="card-box order-list-box display-none" id="orderListContainer" style="margin-top: 20px; background-color: #f7f4ed; border: 1.5px solid var(--accent-gold); border-radius: 10px; padding: 14px;">
+<div class="order-list-header" style="font-weight: bold; font-size: 0.9rem; color: var(--wood-dark); border-bottom: 1px dashed var(--accent-gold); padding-bottom: 8px; margin-bottom: 10px;">
+            📋 追加済みの注文（<span id="orderCount">0</span>件）
+          </div>
+<div class="added-orders-list" id="addedOrdersList" style="font-size: 0.82rem; margin-bottom: 14px;"></div>
+<!-- 1番上に戻るボタンを追加 -->
+<button class="btn-action" onclick="document.getElementById('topOfForm').scrollIntoView({behavior:'smooth'})" style="background-color: #ffffff; color: var(--wood-dark); border: 1.5px solid var(--wood-dark); margin-bottom: 8px;" type="button">
+            ＋ さらに別の注文を追加する（上に戻る）
+          </button>
+<button class="btn-action btn-pdf" onclick="generateAllReceipts()" type="button">
+            🏁 注文書の一括作成画面へ
+          </button>
+</div>
+<!-- 下部固定フッター -->
+<div class="footer-bar">
+<div class="footer-content">
+<div class="footer-totals">
+<div>
+                お支払額: <span class="price-highlight" id="displayPrice">¥0</span>
+<span class="footer-badge display-none" id="footerOrderBadge" onclick="document.getElementById('orderListContainer').scrollIntoView({behavior:'smooth'})"></span>
+</div>
+<div class="footer-subtext">
+                (小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span class="pt-highlight" id="displayPt">0pt</span>)
+              </div>
+</div>
+<button class="btn-add" onclick="addOrderToList()" type="button">
+              ＋ この注文を追加
+            </button>
+</div>
+</div>
+</form>
+</div>
+<!-- 完成画面（JavaScriptで生成処理を行う際に使用する動的領域） -->
+<div class="display-none" id="completeSection">
+<div id="receiptsWrapper"></div>
+</div>
+</main>
+<script>
+    // 支払い方法の表示制御
+    function togglePaymentFields() {
+      const method = document.getElementById('paymentMethod')?.value;
+      const pwGroup = document.getElementById('eservicePwGroup');
+      const pointGroup = document.getElementById('ninaPointGroup');
+      const pwInput = document.getElementById('eservicePw');
+      const pointInput = document.getElementById('ninaPoint');
+
+      if (!pwGroup || !pointGroup) return;
+
+      if (method === '現金' || method === 'PayPay') {
+        pwGroup.style.display = 'none';
+        pointGroup.style.display = 'none';
+        if (pwInput) pwInput.value = '';
+        if (pointInput) pointInput.value = '';
+      } else if (method === 'クレジットカード') {
+        pwGroup.style.display = 'block';
+        pointGroup.style.display = 'none';
+        if (pointInput) pointInput.value = '';
+      } else if (method === 'ニナファームカード') {
+        pwGroup.style.display = 'block';
+        pointGroup.style.display = 'block';
+      }
+
+      if (typeof updateCalc === 'function') {
+        updateCalc();
+      }
+    }
+
+    // お届け先お名前のローカルストレージ保存用関数
+    const SHIP_NAME_KEY = 'salon_order_shipName';
+
+    function saveShipNameStorage(val) {
+      localStorage.setItem(SHIP_NAME_KEY, val);
+    }
+
+    function loadShipNameStorage() {
+      const saved = localStorage.getItem(SHIP_NAME_KEY);
+      const shipInput = document.getElementById('shipName');
+      if (saved && shipInput) {
+        shipInput.value = saved;
+      }
+    }
+
+    document.addEventListener('DOMContentLoaded', () => {
+      togglePaymentFields();
+      loadShipNameStorage();
+    });
+  </script>
+</body>
+</html>
