@@ -1,34 +1,36 @@
 /* =========================================================
-   Place de Nina / salon 
+   mksalon-order
    共通CSS：5ページすべてで使用するスタイルのみ
+   シンプル × キャッチーなかわいいデザイン
    ========================================================= */
 
 @charset "UTF-8";
 
-  :root {
-  --wood-dark: #231610;
-  --wood-medium: #4a3222;
-  --accent-gold: #c8a261;
-  --gold-light: #e6cb96;
-  --bg-color: #f7f4ee;
-  --card-bg: #ffffff;
-  --text-main: #2b2019;
-  --text-sub: #78695f;
-  --border-color: #e5dac9;
+:root {
+  /* かわいいカラーパレット */
+  --primary-color: #ff6b9d;      /* ポップなピンク */
+  --secondary-color: #c44569;    /* 濃いめピンク */
+  --accent-color: #ffd166;       /* 明るいイエロー */
+  --light-bg: #fff5f8;           /* 薄いピンク背景 */
+  --white: #ffffff;
+  --text-main: #2d2d2d;
+  --text-sub: #888888;
+  --border-light: #ffdbea;
   
+  /* かわいいフォント */
+  --font-sans: "Rounded Mplus 1c", "Comfortaa", "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-accent: "Comfortaa", "Rounded Mplus 1c", cursive;
   
-  --font-sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
-  --font-script: "Great Vibes", cursive;
-  
-  --line-subtle: #05a043;
-  --insta-subtle: #b83262;
+  --line-subtle: #ff6b9d;
+  --insta-subtle: #e1306c;
 }
+
 body {
   margin: 0;
   padding: 0;
   padding-bottom: 110px;
   font-family: var(--font-sans);
-  background-color: var(--bg-color);
+  background-color: var(--light-bg);
   color: var(--text-main);
   display: flex;
   flex-direction: column;
@@ -37,33 +39,40 @@ body {
   overflow-x: hidden;
   width: 100%;
 }
-  header {
-  background: linear-gradient(180deg, #1b100a 0%, var(--wood-dark) 100%);
+
+header {
+  background: linear-gradient(135deg, var(--primary-color) 0%, var(--secondary-color) 100%);
   color: #ffffff;
   padding: 24px 20px 20px;
   text-align: center;
-  border-bottom: 3px solid var(--accent-gold);
-  box-shadow: 0 4px 20px rgba(0,0,0,0.25);
+  border-bottom: none;
+  box-shadow: 0 4px 15px rgba(255, 107, 157, 0.3);
   position: relative;
 }
-  .header-logo {
-  font-family: var(--font-script);
+
+.header-logo {
+  font-family: var(--font-accent);
   font-size: 2.2rem;
-  color: var(--gold-light);
+  font-weight: 700;
+  color: var(--white);
   line-height: 1;
   margin-bottom: 6px;
-  text-shadow: 0 2px 4px rgba(0,0,0,0.5);
+  text-shadow: none;
   text-decoration: none;
   display: inline-block;
+  letter-spacing: 0.05em;
 }
-  h1 {
+
+h1 {
   margin: 0;
-  font-size: 1.05rem;
+  font-size: 0.95rem;
   font-weight: 500;
   color: #ffffff;
-  letter-spacing: 0.1em;
+  letter-spacing: 0.05em;
+  opacity: 0.95;
 }
-  main {
+
+main {
   flex: 1;
   max-width: 520px;
   width: 100%;
@@ -71,16 +80,18 @@ body {
   padding: 20px 16px;
   box-sizing: border-box;
 }
-  .section-title {
-  font-size: 0.88rem;
+
+.section-title {
+  font-size: 0.9rem;
   font-weight: 700;
-  color: var(--wood-medium);
-  margin: 20px 0 10px 4px;
+  color: var(--primary-color);
+  margin: 24px 0 14px 0;
   letter-spacing: 0.05em;
   display: flex;
   align-items: center;
   gap: 10px;
 }
-  * {
+
+* {
   box-sizing: border-box;
 }
