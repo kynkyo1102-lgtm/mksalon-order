@@ -1,16 +1,161 @@
 <!DOCTYPE html>
+
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ポイント振り分けメーカー - Place de Nina</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="style.css">
-  <style>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>ポイント振り分けメーカー - Place de Nina</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="style.css" rel="stylesheet"/>
+<style>
+/* =========================================================
+   このページ固有のCSS（style.cssには入れない）
+   ========================================================= */
+
+  .header-logo:hover {
+  opacity: 0.85;
+}
+  .section-title::after {
+  content: "";
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, var(--border-color), transparent);
+}
+  .usage-guide {
+  font-size: 0.78rem;
+  color: var(--text-sub);
+  background-color: rgba(200, 162, 97, 0.12);
+  padding: 10px 14px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  line-height: 1.45;
+}
+  .guide-box {
+  background-color: rgba(200, 162, 97, 0.12);
+  border: 1px solid var(--accent-gold);
+  padding: 12px 14px;
+  border-radius: 8px;
+  margin-bottom: 16px;
+  font-size: 0.78rem;
+  color: var(--wood-medium);
+  line-height: 1.5;
+  text-align: center;
+}
+  .card-box {
+  background-color: var(--card-bg);
+  border-radius: 12px;
+  padding: 16px 18px;
+  margin-bottom: 16px;
+  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--accent-gold);
+}
+  .form-group {
+  margin-bottom: 12px;
+}
+  .form-group:last-child {
+  margin-bottom: 0;
+}
+  .form-row > .form-group {
+  margin-bottom: 0;
+  flex: 1;
+}
+  label {
+  display: block;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 6px;
+  color: var(--wood-dark);
+}
+  .label-accent {
+  color: var(--wood-medium);
+}
+  input[type="number"],
+  select {
+  width: 100%;
+  padding: 10px 12px;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  box-sizing: border-box;
+  font-size: 0.88rem;
+  background-color: #fcfcfc;
+  color: var(--text-main);
+  outline: none;
+  transition: border-color 0.2s;
+}
+  .btn-copy {
+  background-color: var(--wood-dark);
+  color: var(--gold-light);
+  border: 1px solid var(--accent-gold);
+  padding: 13px;
+  font-size: 0.95rem;
+  width: 100%;
+  border-radius: 30px;
+  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
+}
+  footer {
+  text-align: center;
+  padding: 24px 15px;
+  font-size: 0.7rem;
+  color: var(--text-sub);
+  letter-spacing: 0.1em;
+}
+  .calc-select {
+  width: 100%;
+  padding: 10px 12px;
+  font-size: 0.88rem;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background-color: #fcfcfc;
+  box-sizing: border-box;
+  color: var(--text-main);
+}
+  .calc-select:focus {
+  outline: none;
+  border-color: var(--accent-gold);
+  background-color: #fff;
+}
+  .product-list-box {
+  max-height: 280px;
+  overflow-y: auto;
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  padding: 8px;
+  margin-bottom: 12px;
+  background: #fff;
+}
+  .product-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 6px;
+  border-bottom: 1px dashed var(--border-color);
+  font-size: 0.85rem;
+  gap: 8px;
+}
+  .product-item:last-child {
+  border-bottom: none;
+}
+  .result-container {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--border-color);
+}
+  .nav-link {
+  display: inline-block;
+  margin-bottom: 14px;
+  font-size: 0.85rem;
+  color: var(--accent-gold);
+  text-decoration: none;
+}
+  .nav-link:hover {
+  text-decoration: underline;
+}
+
+
     /* 数値入力（input[type=number]）の矢印（スピンボタン）を非表示にする */
     input[type=number]::-webkit-inner-spin-button,
     input[type=number]::-webkit-outer-spin-button {
@@ -81,7 +226,7 @@
       color: var(--text-main);
     }
 
-    /* モード概要ガイド */
+    /* モード概要ガイド（新規追加） */
     .mode-guide-box {
       background: #fdfbf7;
       border: 1px solid #e8dfd1;
@@ -262,7 +407,7 @@
       line-height: 1.3;
     }
 
-    /* スマホ表示用レイアウトの最適化 */
+    /* 📱 スマホ表示用レイアウトの最適化 */
     @media (max-width: 600px) {
       .product-list-box {
         max-height: 200px;
@@ -292,156 +437,128 @@
   </style>
 </head>
 <body>
-
-  <header>
-    <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>ポイント振り分けメーカー</h1>
-  </header>
-
-  <main>
-    <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
-    
-    <div class="card-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <div class="section-title" style="margin-bottom: 0;">購入商品のポイント振り分け</div>
-        <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 リセット</button>
-      </div>
-
-      <!-- モード選び方ガイド -->
-      <div class="mode-guide-box">
-        <div class="mode-guide-title">💡 どのモードを選べばいい？</div>
-        <ul class="mode-guide-list">
-          <li><span class="mode-badge">① かんたん均等</span>：今回の購入分を左右半々に分けたいとき</li>
-          <li><span class="mode-badge">② 目標PT</span>：左右に狙いたいポイント数（目標）があるとき</li>
-          <li><span class="mode-badge">③ 保有PT合算</span>：手持ちのPTと足して左右差を無くしたいとき</li>
-        </ul>
-      </div>
-      
-      <!-- モード切り替えタブ -->
-      <div class="mode-tabs">
-        <button class="tab-btn active" onclick="switchMode('auto')">① かんたん均等</button>
-        <button class="tab-btn" onclick="switchMode('target')">② 目標PT</button>
-        <button class="tab-btn" onclick="switchMode('current')">③ 保有PT合算</button>
-      </div>
-
-      <!-- ① かんたん均等の説明パネル -->
-      <div id="panel-auto" class="mode-panel active">
-        <p class="usage-guide" style="margin:0; font-size:0.78rem;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
-      </div>
-
-      <!-- ② 目標PTカスタムの入力パネル -->
-      <div id="panel-target" class="mode-panel">
-        <p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">指定の目標ポイントに近づくよう振り分けます。</p>
-        <div style="display: flex; gap: 8px;">
-          <div style="flex: 1;">
-            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">左 (L) 目標PT</label>
-            <input type="number" id="targetLeftPt" class="input-pt" placeholder="例: 10000" min="0">
-          </div>
-          <div style="flex: 1;">
-            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">右 (R) 目標PT</label>
-            <input type="number" id="targetRightPt" class="input-pt" placeholder="例: 5000" min="0">
-          </div>
-        </div>
-      </div>
-
-      <!-- ③ 保有PT合算の入力パネル -->
-      <div id="panel-current" class="mode-panel">
-        <p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">保有PTも含めて左右差が一番少なくなるよう配置します。</p>
-        <div style="display: flex; gap: 8px;">
-          <div style="flex: 1;">
-            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の左 (L) PT</label>
-            <input type="number" id="currentLeftPt" class="input-pt" value="0" min="0">
-          </div>
-          <div style="flex: 1;">
-            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の右 (R) PT</label>
-            <input type="number" id="currentRightPt" class="input-pt" value="0" min="0">
-          </div>
-        </div>
-      </div>
-
-      <div class="form-group" style="margin-bottom: 10px;">
-        <label class="label-accent" style="font-size:0.8rem;">対象月度</label>
-        <select id="monthSelect" class="calc-select"></select>
-      </div>
-
-      <div id="productQtyList" class="product-list-box">
-        <!-- JSで動的生成 -->
-      </div>
-
-      <button class="btn-copy" onclick="calculateBinarySplit()">計算を実行する</button>
-
-      <div id="splitResult" class="result-container" style="display:none;">
-        <div class="split-container">
-          <div class="split-col">
-            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">左 (L)</h3>
-            <div id="leftList"></div>
-            
-            <div class="total-box">
-              <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="leftTotalPt">0</span> PT <span id="leftPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
-              
-              <p id="leftTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
+<header>
+<a class="header-logo" href="index.html">Place de Nina</a>
+<h1>ポイント振り分けメーカー</h1>
+</header>
+<main>
+<a class="nav-link" href="calc.html">&lt; メニューに戻る</a>
+<div class="card-box">
+<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+<div class="section-title" style="margin-bottom: 0;">購入商品のポイント振り分け</div>
+<button class="btn-reset" onclick="resetSplitSelection()" type="button">🔄 リセット</button>
+</div>
+<!-- モード選び方ガイド（新規追加） -->
+<div class="mode-guide-box">
+<div class="mode-guide-title">💡 どのモードを選べばいい？</div>
+<ul class="mode-guide-list">
+<li><span class="mode-badge">① かんたん均等</span>：今回の購入分を左右半々に分けたいとき</li>
+<li><span class="mode-badge">② 目標PT</span>：左右に狙いたいポイント数（目標）があるとき</li>
+<li><span class="mode-badge">③ 保有PT合算</span>：手持ちのPTと足して左右差を無くしたいとき</li>
+</ul>
+</div>
+<!-- モード切り替えタブ -->
+<div class="mode-tabs">
+<button class="tab-btn active" onclick="switchMode('auto')">① かんたん均等</button>
+<button class="tab-btn" onclick="switchMode('target')">② 目標PT</button>
+<button class="tab-btn" onclick="switchMode('current')">③ 保有PT合算</button>
+</div>
+<!-- ① かんたん均等の説明パネル -->
+<div class="mode-panel active" id="panel-auto">
+<p class="usage-guide" style="margin:0; font-size:0.78rem;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
+</div>
+<!-- ② 目標PTカスタムの入力パネル -->
+<div class="mode-panel" id="panel-target">
+<p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">指定の目標ポイントに近づくよう振り分けます。</p>
+<div style="display: flex; gap: 8px;">
+<div style="flex: 1;">
+<label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">左 (L) 目標PT</label>
+<input class="input-pt" id="targetLeftPt" min="0" placeholder="例: 10000" type="number"/>
+</div>
+<div style="flex: 1;">
+<label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">右 (R) 目標PT</label>
+<input class="input-pt" id="targetRightPt" min="0" placeholder="例: 5000" type="number"/>
+</div>
+</div>
+</div>
+<!-- ③ 保有PT合算の入力パネル -->
+<div class="mode-panel" id="panel-current">
+<p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">保有PTも含めて左右差が一番少なくなるよう配置します。</p>
+<div style="display: flex; gap: 8px;">
+<div style="flex: 1;">
+<label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の左 (L) PT</label>
+<input class="input-pt" id="currentLeftPt" min="0" type="number" value="0"/>
+</div>
+<div style="flex: 1;">
+<label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の右 (R) PT</label>
+<input class="input-pt" id="currentRightPt" min="0" type="number" value="0"/>
+</div>
+</div>
+</div>
+<div class="form-group" style="margin-bottom: 10px;">
+<label class="label-accent" style="font-size:0.8rem;">対象月度</label>
+<select class="calc-select" id="monthSelect"></select>
+</div>
+<div class="product-list-box" id="productQtyList">
+<!-- JSで動的生成 -->
+</div>
+<button class="btn-copy" onclick="calculateBinarySplit()">計算を実行する</button>
+<div class="result-container" id="splitResult" style="display:none;">
+<div class="split-container">
+<div class="split-col">
+<h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">左 (L)</h3>
+<div id="leftList"></div>
+<div class="total-box">
+<p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="leftTotalPt">0</span> PT <span id="leftPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
+<p id="leftTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
                 目標差: <span id="leftTargetDiffVal" style="font-weight:bold;">0</span>
-              </p>
-
-              <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="leftCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
-              
-              <div id="leftFinalPtRow" class="final-sum-box" style="display:none;">
+</p>
+<p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="leftCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
+<div class="final-sum-box" id="leftFinalPtRow" style="display:none;">
                 ＝ <span id="leftFinalPtVal" style="color:#b87b2a; font-size:0.95rem;">0</span> PT
               </div>
-
-              <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
-
-              <div id="leftSuggestBox" class="suggest-box" style="display:none;">
-                💡 <strong>おすすめ追加:</strong><br>
-                <span id="leftSuggestItem"></span>
-              </div>
-            </div>
-          </div>
-
-          <div class="split-col">
-            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">右 (R)</h3>
-            <div id="rightList"></div>
-            
-            <div class="total-box">
-              <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="rightTotalPt">0</span> PT <span id="rightPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
-              
-              <p id="rightTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
+<p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+<div class="suggest-box" id="leftSuggestBox" style="display:none;">
+                💡 <strong>おすすめ追加:</strong><br/>
+<span id="leftSuggestItem"></span>
+</div>
+</div>
+</div>
+<div class="split-col">
+<h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">右 (R)</h3>
+<div id="rightList"></div>
+<div class="total-box">
+<p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="rightTotalPt">0</span> PT <span id="rightPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
+<p id="rightTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
                 目標差: <span id="rightTargetDiffVal" style="font-weight:bold;">0</span>
-              </p>
-
-              <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="rightCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
-              
-              <div id="rightFinalPtRow" class="final-sum-box" style="display:none;">
+</p>
+<p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="rightCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
+<div class="final-sum-box" id="rightFinalPtRow" style="display:none;">
                 ＝ <span id="rightFinalPtVal" style="color:#b87b2a; font-size:0.95rem;">0</span> PT
               </div>
-
-              <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
-
-              <div id="rightSuggestBox" class="suggest-box" style="display:none;">
-                💡 <strong>おすすめ追加:</strong><br>
-                <span id="rightSuggestItem"></span>
-              </div>
-            </div>
+<p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+<div class="suggest-box" id="rightSuggestBox" style="display:none;">
+                💡 <strong>おすすめ追加:</strong><br/>
+<span id="rightSuggestItem"></span>
+</div>
+</div>
+</div>
+</div>
+<div style="margin-top:10px; padding-top:8px; border-top:1.5px solid var(--accent-gold); font-size:0.82rem; text-align:center;">
+<div id="ptDiffRow">
+<span id="diffLabel">今回PT差</span>: <strong id="ptDiff" style="color:#c94b4b; font-size:0.9rem;">0</strong> PT
           </div>
-        </div>
-
-        <div style="margin-top:10px; padding-top:8px; border-top:1.5px solid var(--accent-gold); font-size:0.82rem; text-align:center;">
-          <div id="ptDiffRow">
-            <span id="diffLabel">今回PT差</span>: <strong id="ptDiff" style="color:#c94b4b; font-size:0.9rem;">0</strong> PT
-          </div>
-          <div>
+<div>
             総合計金額: <strong id="grandTotalCost" style="color:var(--wood-dark); font-size:1rem;">0</strong> 円
           </div>
-        </div>
-      </div>
-    </div>
-  </main>
-
-  <footer>
-    &copy; Place de Nina Order Support System
+</div>
+</div>
+</div>
+</main>
+<footer>
+    © Place de Nina Order Support System
   </footer>
-
-  <script>
+<script>
     let configData = null;
     let currentMode = 'auto'; // 'auto', 'target', 'current'
 
