@@ -1,0 +1,154 @@
+/* Extracted from calc_pt.html; page-specific rules retained to preserve behavior. */
+.calc-select, .calc-input {
+      width: 100%;
+      padding: 10px 12px;
+      font-size: 0.88rem;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      background-color: #fcfcfc;
+      box-sizing: border-box;
+      color: var(--text-main);
+    }
+    .calc-select:focus, .calc-input:focus {
+      outline: none;
+      border-color: var(--accent-gold);
+      background-color: #fff;
+    }
+    .product-list-box {
+      max-height: 280px;
+      overflow-y: auto;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 8px;
+      margin-bottom: 12px;
+      background: #fff;
+    }
+    .product-item {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: space-between;
+      padding: 10px 6px;
+      border-bottom: 1px dashed var(--border-color);
+      font-size: 0.85rem;
+      gap: 8px;
+    }
+    .product-item:last-child {
+      border-bottom: none;
+    }
+    .product-info {
+      flex: 1;
+      min-width: 130px;
+    }
+    .product-controls {
+      display: flex;
+      gap: 10px;
+      align-items: center;
+      justify-content: flex-end;
+      flex-wrap: wrap;
+    }
+    .product-controls label {
+      font-size: 0.78rem;
+      color: var(--text-sub);
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .product-controls select.mandatory-qty-select {
+      width: 60px;
+      padding: 4px;
+      text-align: center;
+      border: 1px solid var(--border-color);
+      border-radius: 4px;
+      font-size: 0.82rem;
+      background-color: #fff;
+    }
+    .result-container {
+      margin-top: 18px;
+      padding-top: 14px;
+      border-top: 1px dashed var(--border-color);
+      scroll-margin-top: 20px; /* スクロール位置の余白調整 */
+    }
+    .plan-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+    .plan-card.best {
+      border: 1.5px solid var(--accent-gold);
+      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
+    }
+    .plan-title {
+      font-weight: bold;
+      font-size: 0.95rem;
+      margin-bottom: 8px;
+      color: var(--wood-dark);
+    }
+    .mandatory-item-badge {
+      display: inline-block;
+      background-color: rgba(201, 75, 75, 0.12);
+      color: #c94b4b;
+      font-size: 0.72rem;
+      font-weight: bold;
+      padding: 2px 6px;
+      border-radius: 4px;
+      margin-left: 6px;
+      vertical-align: middle;
+    }
+    .nav-link {
+      display: inline-block;
+      margin-bottom: 14px;
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
+    .guide-toggle-btn {
+      width: 100%;
+      background: rgba(200, 162, 97, 0.12);
+      border: 1px solid var(--accent-gold);
+      color: var(--wood-medium);
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-size: 0.82rem;
+      font-weight: bold;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .guide-toggle-btn:hover {
+      background: rgba(200, 162, 97, 0.2);
+    }
+    .guide-content {
+      display: none;
+      background-color: #fffdf9;
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      padding: 14px;
+      margin-top: -10px;
+      margin-bottom: 16px;
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-main);
+    }
+    /* リセットボタン用のスタイル */
+    .btn-reset {
+      background: none;
+      border: 1px solid var(--border-color);
+      color: var(--text-sub);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: background-color 0.2s, color 0.2s;
+    }
+    .btn-reset:hover {
+      background-color: #f0f0f0;
+      color: var(--text-main);
+    }
