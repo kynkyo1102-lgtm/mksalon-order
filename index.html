@@ -11,7 +11,7 @@
   <!-- 外部CSSの読み込み -->
   <link rel="stylesheet" href="style.css?v=preview-20261018-3">
 
-  <link rel="stylesheet" href="css/index.css?v=preview-20261018-3">
+  <link rel="stylesheet" href="css/index.css?v=redesign-20261018-1">
   <!-- Preview reliability: core layout remains visible even when external CSS is cached. -->
   <style>
     .home-page .home-order-grid { display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important; }
@@ -24,18 +24,12 @@
 </head>
 <body class="home-page">
 
-  <header>
+  <header class="home-header">
     <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>プラッス ドゥ ニナ 南熊本店</h1>
+    <span class="home-header-shop">南熊本店</span>
   </header>
 
   <main>
-
-    <!-- 重要なお知らせ：注文前に確認 -->
-    <section class="home-news-section" aria-label="重要なお知らせ">
-      <h2 class="home-section-heading">お知らせ・注文締め日</h2>
-      <div id="newsContainerArea"></div>
-    </section>
 
     <!-- メイン：注文ツールセクション -->
     <div class="hero-order-section">
@@ -87,11 +81,18 @@
 
     </div>
 
-    <!-- 店舗情報・SNSリンク -->
+    <!-- 通常のお知らせ：注文ツールの下に配置 -->
+    <section class="home-news-section" aria-label="重要なお知らせ">
+      <h2 class="home-section-heading">お知らせ</h2>
+      <div id="newsContainerArea"></div>
+    </section>
+
+
+    <!-- SNS・店舗情報・サポート：用途別に整理 -->
     <div class="sub-info-area">
       <h2 class="sub-info-title">サロン情報・サポート</h2>
       
-      <div class="sub-grid">
+      <div class="home-social-links">
         <a href="https://line.me/ti/p/7iG8fg4ykI" target="_blank" rel="noopener noreferrer" class="sub-btn">
           <svg class="icon-line" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.53c0 4.2 3.55 7.72 8.36 8.37.33.07.78.22.89.5.1.26.07.67.03.94l-.15.89c-.04.26-.2.1 1.01-.55 1.22-.66 6.58-3.87 6.58-9.62C22 5.82 17.52 2 12 2z"/></svg>
           <span>公式LINE</span>
@@ -102,18 +103,20 @@
           <span>Instagram</span>
         </a>
 
+      </div>
+      <nav class="home-support-links" aria-label="サロンのご案内">
         <a href="info.html" class="sub-btn">
-          <span>📍</span> 店舗案内
+          <span>店舗案内</span><span class="home-link-arrow" aria-hidden="true">↗</span>
         </a>
         
         <a href="bank.html" class="sub-btn">
-          <span>💳</span> お支払いについて
+          <span>お支払いについて</span><span class="home-link-arrow" aria-hidden="true">↗</span>
         </a>
 
         <a href="faq.html" class="sub-btn">
-          <span>❓</span> よくある質問
+          <span>よくある質問</span><span class="home-link-arrow" aria-hidden="true">↗</span>
         </a>
-      </div>
+      </nav>
     </div>
 
   </main>
