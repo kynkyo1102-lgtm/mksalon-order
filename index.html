@@ -59,6 +59,14 @@
     .home-page .home-floating-calc-label{font-size:11.7px!important;}
     .home-page .home-floating-calc-mascot{width:88px!important;height:88px!important;right:-8px!important;bottom:-3px!important;}
     @media(max-width:360px){.home-page .home-floating-calc{width:185px!important;right:10px!important;padding-left:11px!important}.home-page .home-floating-calc-label{font-size:11px!important}}
+
+    /* Future member guide slot: non-interactive until guide launch */
+    .home-page .home-members-guide{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 32px;padding:21px 18px;border:1px solid #e5e5e5;border-radius:16px;background:#fafafa;box-sizing:border-box;}
+    .home-page .home-members-guide-copy{min-width:0;}
+    .home-page .home-members-guide h2{margin:0 0 7px;font-size:18px;line-height:1.4;font-weight:700;color:#222;}
+    .home-page .home-members-guide p{margin:0;font-size:13px;line-height:1.7;color:#666;}
+    .home-page .home-members-guide-status{flex-shrink:0;padding:5px 10px;border-radius:999px;background:#eee;color:#666;font-size:11px;font-weight:700;white-space:nowrap;}
+    @media(max-width:380px){.home-page .home-members-guide{padding:18px 14px;gap:8px}.home-page .home-members-guide h2{font-size:16px}.home-page .home-members-guide p{font-size:12px}}
   </style>
 </head>
 <body class="home-page">
@@ -108,6 +116,15 @@
       <div id="newsContainerArea"></div>
     </section>
 
+
+    <!-- メンバーズガイド：完成後に案内リンクへ差し替えるための枠 -->
+    <section class="home-members-guide" aria-labelledby="home-members-guide-title">
+      <div class="home-members-guide-copy">
+        <h2 id="home-members-guide-title">メンバーズガイド</h2>
+        <p>登録や定期購入など、各種お手続きのご案内</p>
+      </div>
+      <span class="home-members-guide-status">準備中</span>
+    </section>
 
     <!-- SNS・店舗情報・サポート：用途別に整理 -->
     <div class="sub-info-area">
