@@ -47,6 +47,12 @@
     /* Light floating pill: preserve compact size and mascot overlap */
     .home-page .home-floating-calc{background:#fafafa!important;color:#222!important;border:1px solid #d8d8d8!important;box-shadow:0 3px 12px rgba(0,0,0,.12)!important;}
     .home-page .home-floating-calc-label{color:#222!important;}
+
+    /* Compact illustrated banner: pale background, mascot overlapping the right edge */
+    .home-page .home-floating-calc{width:218px!important;height:62px!important;right:15px!important;bottom:20px!important;border-radius:12px!important;background:#f6f6f6!important;border:1px solid #d8d8d8!important;box-shadow:0 4px 14px rgba(0,0,0,.12)!important;justify-content:flex-start!important;align-items:center!important;padding:0 72px 0 15px!important;overflow:visible!important;}
+    .home-page .home-floating-calc-label{font-size:13px!important;line-height:1.4!important;letter-spacing:0!important;white-space:nowrap!important;color:#222!important;font-weight:700!important;}
+    .home-page .home-floating-calc-mascot{width:98px!important;height:98px!important;left:auto!important;right:-9px!important;bottom:-3px!important;object-fit:contain!important;pointer-events:none!important;}
+    @media(max-width:360px){.home-page .home-floating-calc{width:205px!important;right:10px!important;padding-left:12px!important}.home-page .home-floating-calc-label{font-size:12px!important}}
   </style>
 </head>
 <body class="home-page">
@@ -130,9 +136,9 @@
 
   </main>
 
-  <a href="calc.html" class="home-floating-calc" aria-label="PTアシスタントを開く" title="PTアシスタント">
+  <a href="calc.html" class="home-floating-calc" aria-label="計算サポートツールを開く" title="計算サポートツール">
     <img class="home-floating-calc-mascot" src="assets/pt-assistant.svg" alt="" aria-hidden="true" width="124" height="124">
-    <span class="home-floating-calc-label">PTアシスタント</span>
+    <span class="home-floating-calc-label">計算サポートツール</span>
   </a>
 
   <footer>
