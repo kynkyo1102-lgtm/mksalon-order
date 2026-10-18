@@ -1,0 +1,20 @@
+@charset "UTF-8";
+
+:root {
+  --wood-dark: #231610;
+  --wood-medium: #4a3222;
+  --accent-gold: #c8a261;
+  --gold-light: #e6cb96;
+  --bg-color: #f7f4ee;
+  --card-bg: #ffffff;
+  --text-main: #2b2019;
+  --text-sub: #78695f;
+  --border-color: #e5dac9;
+  
+  /* フォント指定 */
+  --font-sans: "Noto Sans JP", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-script: 'Great Vibes', cursive;
+  
+  --line-subtle: #05a043;
+  --insta-subtle: #b83262;
+}
