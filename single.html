@@ -1,598 +1,148 @@
 <!DOCTYPE html>
-
 <html lang="ja">
 <head>
-<meta charset="utf-8"/>
-<meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" name="viewport"/>
-<title>サロン専用注文書作成ツール - Place de Nina</title>
-<link href="https://fonts.googleapis.com" rel="preconnect"/>
-<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
-<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&amp;family=Noto+Sans+JP:wght@400;500;700&amp;display=swap" rel="stylesheet"/>
-<link href="style.css" rel="stylesheet"/>
-<style>
-/* =========================================================
-   このページ固有のCSS（style.cssには入れない）
-   ========================================================= */
-
-  .header-logo:hover {
-  opacity: 0.85;
-}
-  .section-title::after {
-  content: "";
-  flex: 1;
-  height: 1px;
-  background: linear-gradient(90deg, var(--border-color), transparent);
-}
-  .usage-guide {
-  font-size: 0.78rem;
-  color: var(--text-sub);
-  background-color: rgba(200, 162, 97, 0.12);
-  padding: 10px 14px;
-  border-radius: 6px;
-  margin-bottom: 16px;
-  line-height: 1.45;
-}
-  .card-accent {
-  border-left: 4px solid var(--accent-gold);
-}
-  .form-group {
-  margin-bottom: 12px;
-}
-  .form-group:last-child {
-  margin-bottom: 0;
-}
-  .form-row > .form-group {
-  margin-bottom: 0;
-  flex: 1;
-}
-  .form-row .fg-zip { flex: 0 0 120px; }
-  .form-row .fg-code { flex: 1.2; }
-  .form-row .fg-num { flex: 0.8; }
-  label {
-  display: block;
-  font-size: 0.78rem;
-  font-weight: 700;
-  margin-bottom: 6px;
-  color: var(--wood-dark);
-}
-  .label-accent {
-  color: var(--wood-medium);
-}
-  input[type="text"],
-  textarea,
-  select {
-  width: 100%;
-  padding: 10px 12px;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  box-sizing: border-box;
-  font-size: 0.88rem;
-  background-color: #fcfcfc;
-  color: var(--text-main);
-  outline: none;
-  transition: border-color 0.2s;
-}
-  textarea#output_text {
-  height: 180px;
-  font-family: monospace;
-}
-  .btn-danger {
-  background-color: #c94b4b;
-  color: white;
-  padding: 6px 12px;
-  font-size: 0.75rem;
-  border-radius: 6px;
-}
-  .btn-copy {
-  background-color: var(--wood-dark);
-  color: var(--gold-light);
-  border: 1px solid var(--accent-gold);
-  padding: 13px;
-  font-size: 0.95rem;
-  width: 100%;
-  border-radius: 30px;
-  box-shadow: 0 4px 12px rgba(35, 22, 16, 0.15);
-}
-  .footer-bar {
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  background-color: rgba(255, 255, 255, 0.96);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 -4px 20px rgba(35, 22, 16, 0.12);
-  border-top: 1px solid var(--border-color);
-  padding: 12px 16px;
-  z-index: 1000;
-}
-  .total-preview {
-  font-size: 0.95rem;
-  font-weight: 700;
-  color: var(--wood-dark);
-  text-align: center;
-}
-  .sub-btn {
-  background-color: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  padding: 10px 12px;
-  text-decoration: none;
-  color: var(--text-main);
-  font-size: 0.78rem;
-  font-weight: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 8px;
-  box-shadow: 0 2px 6px rgba(35, 22, 16, 0.03);
-  transition: all 0.2s ease;
-}
-  .sub-btn:active {
-  background-color: #fcf9f2;
-  transform: translateY(1px);
-}
-  .sub-btn .icon-line {
-  color: var(--line-subtle);
-}
-  .sub-btn .icon-insta {
-  color: var(--insta-subtle);
-}
-  .info-card {
-  background-color: var(--card-bg);
-  border-radius: 12px;
-  padding: 20px;
-  box-shadow: 0 4px 16px rgba(35, 22, 16, 0.05);
-  border: 1px solid var(--border-color);
-  margin-bottom: 24px;
-}
-  .back-btn {
-  display: block;
-  text-align: center;
-  padding: 12px;
-  background-color: #ffffff;
-  border: 1px solid var(--border-color);
-  border-radius: 8px;
-  color: var(--text-sub);
-  font-size: 0.8rem;
-  text-decoration: none;
-  box-shadow: 0 2px 6px rgba(35, 22, 16, 0.03);
-  transition: all 0.2s ease;
-}
-  .back-btn:active {
-  background-color: #fcf9f2;
-}
-  .sub-note {
-  font-size: 0.72rem;
-  margin-top: -5px;
-  color: var(--text-sub);
-}
-  .item-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-  align-items: center;
-}
-  .item-select {
-  flex: 2;
-}
-  .item-qty-container {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  font-size: 0.82rem;
-  color: var(--wood-dark);
-  font-weight: 500;
-}
-  .item-qty {
-  min-width: 60px;
-}
-  .btn-del-item {
-  padding: 6px 10px;
-  font-size: 12px;
-  margin-left: 4px;
-}
-  .position-box {
-  border: 1px solid var(--border-color);
-  padding: 14px;
-  border-radius: 10px;
-  margin-bottom: 15px;
-  background-color: #fdfbf7;
-}
-  .pos-header {
-  display: flex;
-  justify-content: space-between;
-  margin-bottom: 8px;
-}
-  .pos-title {
-  font-size: 14px;
-  color: var(--wood-dark);
-}
-  .member-reg-row {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 8px;
-}
-  .pos-subtotal {
-  margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px dashed var(--border-color);
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: var(--wood-medium);
-  text-align: right;
-}
-  .hidden-pw { display: none; }
-  .custom-pos-container { display: none; margin-top: 8px; }
-  .manual-input-box {
-  display: none;
-  margin-top: 8px;
-  padding: 10px;
-  background-color: #fdfaf3;
-  border: 1px solid var(--accent-gold);
-  border-radius: 8px;
-}
-  .manual-input-text {
-  font-size: 12px;
-  color: #8a6d3b;
-  font-weight: bold;
-}
-  .mt-8 { margin-top: 8px; }
-  .mt-10 { margin-top: 10px; }
-  details.tiny-restore-box {
-  border: 1px dashed var(--border-color);
-  background: #fdfdfc;
-  border-radius: 8px;
-  padding: 0;
-  margin-bottom: 12px;
-  overflow: hidden;
-}
-  .tiny-restore-summary {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: #888;
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  outline: none;
-  padding: 8px 14px;
-  user-select: none;
-}
-  .tiny-restore-summary::-webkit-details-marker {
-  display: none;
-}
-  .tiny-restore-summary::after {
-  content: "＋ 復元メニューを開く";
-  font-size: 0.72rem;
-  color: #aaa;
-  font-weight: 400;
-}
-  details.tiny-restore-box[open] .tiny-restore-summary::after {
-  content: "− 閉じる";
-}
-  .tiny-restore-body {
-  padding: 0 14px 12px 14px;
-  border-top: 1px dashed var(--border-color);
-  background: #faf8f5;
-}
-  .info-card,
-  .tiny-restore-box {
-  width: 100%;
-  max-width: 100%;
-  overflow: hidden;
-}
-  .foldable-summary {
-  font-size: 0.88rem;
-  font-weight: 700;
-  color: var(--wood-medium);
-  cursor: pointer;
-  list-style: none;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  outline: none;
-  padding: 16px 20px;
-  user-select: none;
-}
-  .foldable-summary::-webkit-details-marker {
-  display: none;
-}
-  .foldable-summary::after {
-  content: "＋ 開く";
-  font-size: 0.78rem;
-  color: var(--accent-gold);
-  background: rgba(200, 162, 97, 0.12);
-  padding: 4px 10px;
-  border-radius: 6px;
-  border: 1px solid var(--accent-gold);
-  font-weight: 500;
-  white-space: nowrap;
-}
-  details[open] .foldable-summary::after {
-  content: "− 閉じる";
-}
-  .member-content-body {
-  margin-top: 14px;
-  padding-top: 12px;
-  border-top: 1px dashed var(--border-color);
-}
-  #import_text_input {
-  width: 100%;
-  font-size: 0.85rem;
-  padding: 10px;
-  border: 1px solid var(--border-color);
-  border-radius: 6px;
-  box-sizing: border-box;
-  line-height: 1.5;
-  resize: vertical;
-}
-@media (max-width: 600px) {
-    .item-row {
-      flex-wrap: wrap;
-    }
-}
-  .pos-code-row {
-  display: flex;
-  gap: 8px;
-  align-items: flex-end;
-}
-  .fg-code {
-  flex: 1; 
-}
-  .fg-num {
-  width: 90px; 
-  flex-shrink: 0;
-}
-
-
-    /* スマホ崩れ防止・共通調整 */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      overflow-x: hidden;
-      width: 100%;
-    }
-    .info-card, .tiny-restore-box {
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    /* 控えめな復元補助ツール（トーンダウン＆点線） */
-    details.tiny-restore-box {
-      background: #faf8f5;
-      border: 1px dashed var(--accent-gold, #c8a261);
-      border-radius: 8px;
-      margin-bottom: 16px;
-      padding: 0;
-      overflow: hidden;
-      opacity: 0.92;
-    }
-    .tiny-restore-summary {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: #8c7355;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      outline: none;
-      padding: 12px 16px;
-      user-select: none;
-      background: rgba(200, 162, 97, 0.05);
-    }
-    .tiny-restore-summary::-webkit-details-marker {
-      display: none;
-    }
-    .tiny-restore-summary::after {
-      content: "＋ 開く";
-      font-size: 0.75rem;
-      color: #8c7355;
-      background: rgba(140, 115, 85, 0.1);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 400;
-      white-space: nowrap;
-    }
-    details[open] .tiny-restore-summary::after {
-      content: "− 閉じる";
-    }
-    .tiny-restore-body {
-      padding: 14px 16px;
-      border-top: 1px dashed rgba(200, 162, 97, 0.3);
-      background: #fff;
-    }
-    #import_text_input {
-      width: 100%;
-      font-size: 0.85rem;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-      line-height: 1.5;
-      resize: vertical;
-    }
-
-    /* 折り畳み共通スタイル（会員事前登録用） */
-    details.info-card {
-      padding: 0;
-      overflow: hidden;
-    }
-    .foldable-summary {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--wood-medium);
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      outline: none;
-      padding: 16px 20px;
-      user-select: none;
-    }
-    .foldable-summary::-webkit-details-marker {
-      display: none;
-    }
-    .foldable-summary::after {
-      content: "＋ 開く";
-      font-size: 0.78rem;
-      color: var(--accent-gold);
-      background: rgba(200, 162, 97, 0.12);
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--accent-gold);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-    details[open] .foldable-summary::after {
-      content: "− 閉じる";
-    }
-    .foldable-body {
-      padding: 0 20px 16px 20px;
-      border-top: 1px dashed var(--border-color);
-      margin-top: 4px;
-    }
-    .member-content-body {
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--border-color);
-    }
-
-    /* モバイル向けフォーム・テーブル調整補強 */
-    @media (max-width: 600px) {
-      .form-row {
-        flex-direction: column;
-        gap: 8px;
-      }
-      .item-row {
-        flex-wrap: wrap;
-      }
-    }
-  </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>サロン専用注文書作成ツール - Place de Nina</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=4">
+  <link rel="stylesheet" href="css/single.css">
 </head>
 <body>
-<header>
-<div class="header-logo">
-<a href="index.html" style="color: inherit; text-decoration: none;">Place de Nina</a>
-</div>
-<h1>LINEご注文作成ツール</h1>
-</header>
-<main>
-<!-- 控えめな復元補助ツール（最上部・注意書き付き） -->
-<details class="tiny-restore-box">
-<summary class="tiny-restore-summary">
-<span>📥 以前の注文内容を復元する（テキスト貼付）</span>
-</summary>
-<div class="tiny-restore-body">
-<p class="sub-note" style="margin-top:0; margin-bottom: 8px;">LINEからコピーした注文文面全体を貼り付けて復元できます。</p>
-<textarea id="import_text_input" placeholder="ここにLINEからコピーした注文文面を貼り付け" rows="6"></textarea>
-<p class="sub-note" style="margin-top: 6px; margin-bottom: 0;">※ポイント換算は現在の処理月度のマスタ値で再計算されます。</p>
-<button class="sub-btn mt-8" onclick="restoreAllFromText()" style="padding: 8px 16px; font-size: 0.85rem; width: 100%;" type="button">⚡ この文章から入力を復元する</button>
-</div>
-</details>
-<!-- 1. 会員リポジトリ登録エリア（折り畳み式） -->
-<div class="info-card card-accent">
-<details class="member-details">
-<summary class="foldable-summary member-summary" style="padding: 0;">
-<span style="font-size: 0.88rem; font-weight: 700; color: var(--wood-medium);">1. よく使う会員番号の事前登録</span>
-</summary>
-<div class="member-content-body">
-<div class="usage-guide">
-<strong>💡 事前登録しておくと便利です！</strong><br/>
-            ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br/>
-            ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br/>
-<span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
-</div>
-<div id="member_register_container"></div>
-<button class="sub-btn mt-8" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
-</div>
-</details>
-</div>
-<!-- 2. お届け先情報 -->
-<div class="info-card">
-<div class="section-title">2. お届け先情報</div>
-<p class="sub-note">※以前にご注文された方は宛名のみのご入力で構いません。(備考がある場合はご入力ください。)</p>
-<div class="form-group">
-<label>お届け先氏名（宛名）</label>
-<input id="ship_name" oninput="saveBasicInfo(); updatePreview();" placeholder="例：山田太郎" type="text"/>
-</div>
-<div class="form-group fg-zip">
-<label>郵便番号</label>
-<input id="ship_zip" oninput="checkZipCode(); updatePreview();" placeholder="1234567 (7桁)" type="text"/>
-</div>
-<div class="form-group">
-<label>ご住所</label>
-<input id="ship_address" oninput="updatePreview();" placeholder="郵便番号を入れると自動入力されます" type="text"/>
-</div>
-<div class="form-group">
-<label>電話番号</label>
-<input id="ship_tel" oninput="updatePreview();" placeholder="例：090-0000-0000" type="text"/>
-</div>
-<div class="form-group">
-<label>備考</label>
-<input id="ship_note" oninput="updatePreview();" placeholder="例：18時以降指定、不在時宅配BOXなど" type="text"/>
-</div>
-</div>
-<!-- 3. 決済方法 -->
-<div class="info-card">
-<div class="section-title">3. 決済方法</div>
-<div class="form-group">
-<label>決済方法の選択</label>
-<select id="payment_method" onchange="togglePwField(); updatePreview();">
-<option value="現金">現金</option>
-<option value="ニナファームカード">ニナファームカード</option>
-<option value="クレジットカード">クレジットカード</option>
-<option value="PayPay">PayPay</option>
-</select>
-</div>
-<div class="hidden-pw" id="pw_container">
-<div class="form-group" id="group_pw_code">
-<label>E-ServiceログインPW</label>
-<input id="pw_code" oninput="updatePreview();" placeholder="PWコードを入力してください" type="text"/>
-</div>
-<div class="form-group" id="group_nina_point">
-<label>使用するポイントNiNA</label>
-<input id="nina_point" oninput="updatePreview();" placeholder="例：1000pt" type="text"/>
-</div>
-</div>
-<div class="form-group mt-10">
-<label>🧾 領収書が必要な場合は宛名をお書きください</label>
-<input id="receipt_name" oninput="saveBasicInfo(); updatePreview();" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" type="text"/>
-</div>
-</div>
-<!-- 4. 処理月度の選択 -->
-<div class="info-card">
-<div class="section-title">4. 処理月度の選択</div>
-<select id="target_month" onchange="onMonthChange();">
-<!-- JSで動的生成されます -->
-</select>
-</div>
-<!-- 5. 会員番号ごとの注文 -->
-<div class="info-card">
-<div class="section-title">5. 会員番号ごとの注文</div>
-<div id="positions_container"></div>
-<button class="sub-btn mt-8" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
-</div>
-<!-- 6. 生成された注文テキスト -->
-<div class="info-card">
-<div class="section-title">6. 生成された注文テキスト</div>
-<p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
-<textarea id="output_text" placeholder="ここにLINE用のテキストがリアルタイムで生成されます" readonly=""></textarea>
-</div>
-<!-- 戻るボタン -->
-<a class="back-btn" href="index.html">
+
+  <header>
+    <div class="header-logo">
+      <a href="index.html" style="color: inherit; text-decoration: none;">Place de Nina</a>
+    </div>
+    <h1>LINEご注文作成ツール</h1>
+  </header>
+  
+  <main>
+
+    <!-- 控えめな復元補助ツール（最上部・注意書き付き） -->
+    <details class="tiny-restore-box">
+      <summary class="tiny-restore-summary">
+        <span>📥 以前の注文内容を復元する（テキスト貼付）</span>
+      </summary>
+      <div class="tiny-restore-body">
+        <p class="sub-note" style="margin-top:0; margin-bottom: 8px;">LINEからコピーした注文文面全体を貼り付けて復元できます。</p>
+        <textarea id="import_text_input" rows="6" placeholder="ここにLINEからコピーした注文文面を貼り付け"></textarea>
+        <p class="sub-note" style="margin-top: 6px; margin-bottom: 0;">※ポイント換算は現在の処理月度のマスタ値で再計算されます。</p>
+        <button type="button" class="sub-btn mt-8" style="padding: 8px 16px; font-size: 0.85rem; width: 100%;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
+      </div>
+    </details>
+
+    <!-- 1. 会員リポジトリ登録エリア（折り畳み式） -->
+    <div class="info-card card-accent">
+      <details class="member-details">
+        <summary class="foldable-summary member-summary" style="padding: 0;">
+          <span style="font-size: 0.88rem; font-weight: 700; color: var(--wood-medium);">1. よく使う会員番号の事前登録</span>
+        </summary>
+        <div class="member-content-body">
+          <div class="usage-guide">
+            <strong>💡 事前登録しておくと便利です！</strong><br>
+            ・ここに家族やご自身の会員情報を登録しておくと、下の「5. 会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
+            ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
+            <span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
+          </div>
+
+          <div id="member_register_container"></div>
+          <button class="sub-btn mt-8" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
+        </div>
+      </details>
+    </div>
+
+    <!-- 2. お届け先情報 -->
+    <div class="info-card">
+      <div class="section-title">2. お届け先情報</div>
+      <p class="sub-note">※以前にご注文された方は宛名のみのご入力で構いません。(備考がある場合はご入力ください。)</p>
+      <div class="form-group">
+        <label>お届け先氏名（宛名）</label>
+        <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
+      </div>
+      <div class="form-group fg-zip">
+        <label>郵便番号</label>
+        <input type="text" id="ship_zip" placeholder="1234567 (7桁)" oninput="checkZipCode(); updatePreview();">
+      </div>
+      <div class="form-group">
+        <label>ご住所</label>
+        <input type="text" id="ship_address" placeholder="郵便番号を入れると自動入力されます" oninput="updatePreview();">
+      </div>
+      <div class="form-group">
+        <label>電話番号</label>
+        <input type="text" id="ship_tel" placeholder="例：090-0000-0000" oninput="updatePreview();">
+      </div>
+      <div class="form-group">
+        <label>備考</label>
+        <input type="text" id="ship_note" placeholder="例：18時以降指定、不在時宅配BOXなど" oninput="updatePreview();">
+      </div>
+    </div>
+
+    <!-- 3. 決済方法 -->
+    <div class="info-card">
+      <div class="section-title">3. 決済方法</div>
+      <div class="form-group">
+        <label>決済方法の選択</label>
+        <select id="payment_method" onchange="togglePwField(); updatePreview();">
+          <option value="現金">現金</option>
+          <option value="ニナファームカード">ニナファームカード</option>
+          <option value="クレジットカード">クレジットカード</option>
+          <option value="PayPay">PayPay</option>
+        </select>
+      </div>
+      <div class="hidden-pw" id="pw_container">
+        <div class="form-group" id="group_pw_code">
+          <label>E-ServiceログインPW</label>
+          <input type="text" id="pw_code" placeholder="PWコードを入力してください" oninput="updatePreview();">
+        </div>
+        <div class="form-group" id="group_nina_point">
+          <label>使用するポイントNiNA</label>
+          <input type="text" id="nina_point" placeholder="例：1000pt" oninput="updatePreview();">
+        </div>
+      </div>
+      <div class="form-group mt-10">
+        <label>🧾 領収書が必要な場合は宛名をお書きください</label>
+        <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" oninput="saveBasicInfo(); updatePreview();">
+      </div>
+    </div>
+
+    <!-- 4. 処理月度の選択 -->
+    <div class="info-card">
+      <div class="section-title">4. 処理月度の選択</div>
+      <select id="target_month" onchange="onMonthChange();">
+        <!-- JSで動的生成されます -->
+      </select>
+    </div>
+
+    <!-- 5. 会員番号ごとの注文 -->
+    <div class="info-card">
+      <div class="section-title">5. 会員番号ごとの注文</div>
+      <div id="positions_container"></div>
+      <button class="sub-btn mt-8" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
+    </div>
+
+    <!-- 6. 生成された注文テキスト -->
+    <div class="info-card">
+      <div class="section-title">6. 生成された注文テキスト</div>
+      <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
+      <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
+    </div>
+
+    <!-- 戻るボタン -->
+    <a href="index.html" class="back-btn">
       ‹ トップページへ戻る
     </a>
-</main>
-<!-- 固定下部バー -->
-<div class="footer-bar">
-<div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
-<button class="btn-copy" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
-</div>
+
+  </main>
+
+  <!-- 固定下部バー -->
+  <div class="footer-bar">
+    <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
+    <button class="btn-copy" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
+  </div>
+
 <script>
 let currentMaster = {
   activeMonths: ["9月度", "8月度"],
