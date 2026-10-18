@@ -67,6 +67,15 @@
     .home-page .home-members-guide p{margin:0;font-size:13px;line-height:1.7;color:#666;}
     .home-page .home-members-guide-status{flex-shrink:0;padding:5px 10px;border-radius:999px;background:#eee;color:#666;font-size:11px;font-weight:700;white-space:nowrap;}
     @media(max-width:380px){.home-page .home-members-guide{padding:18px 14px;gap:8px}.home-page .home-members-guide h2{font-size:16px}.home-page .home-members-guide p{font-size:12px}}
+
+    /* Member guide: compact full-width illustrated navigation banner */
+    .home-page .home-members-guide{position:relative;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:18px 18px 17px;margin:24px 0 32px;background:#f7f7f7;border:1px solid #e5e5e5;border-radius:12px;min-height:98px;box-sizing:border-box;}
+    .home-page .home-members-guide-copy{flex:1;min-width:0;}
+    .home-page .home-members-guide h2{font-size:17px;margin:0 0 5px;line-height:1.4;}
+    .home-page .home-members-guide p{font-size:12px;line-height:1.6;margin:0 0 8px;color:#666;}
+    .home-page .home-members-guide-status{display:inline-block;padding:3px 9px;background:#eaeaea;border-radius:999px;font-size:10px;color:#666;font-weight:700;}
+    .home-page .home-members-guide-illustration{display:block;flex:0 0 72px;width:72px;height:72px;}
+    @media(max-width:380px){.home-page .home-members-guide{padding:15px 13px;gap:8px}.home-page .home-members-guide h2{font-size:16px}.home-page .home-members-guide-illustration{width:62px;height:62px;flex-basis:62px}}
   </style>
 </head>
 <body class="home-page">
@@ -121,9 +130,15 @@
     <section class="home-members-guide" aria-labelledby="home-members-guide-title">
       <div class="home-members-guide-copy">
         <h2 id="home-members-guide-title">メンバーズガイド</h2>
-        <p>登録や定期購入など、各種お手続きのご案内</p>
+        <p>登録・定期購入などの操作案内</p>
+        <span class="home-members-guide-status">準備中</span>
       </div>
-      <span class="home-members-guide-status">準備中</span>
+      <svg class="home-members-guide-illustration" viewBox="0 0 80 80" width="72" height="72" fill="none" aria-hidden="true">
+        <rect x="13" y="13" width="47" height="54" rx="8" fill="#fff" stroke="#b8b8b8" stroke-width="2"/>
+        <path d="M24 25h25M24 34h19M24 43h24" stroke="#999" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="56" cy="54" r="16" fill="#f2f2f2" stroke="#999" stroke-width="2"/>
+        <path d="m49 54 5 5 9-11" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      </svg>
     </section>
 
     <!-- SNS・店舗情報・サポート：用途別に整理 -->
