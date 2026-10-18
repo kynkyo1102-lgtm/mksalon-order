@@ -1,0 +1,126 @@
+/* スマホ崩れ防止・共通調整 */
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      overflow-x: hidden;
+      width: 100%;
+    }
+    .info-card, .tiny-restore-box {
+      width: 100%;
+      max-width: 100%;
+      overflow: hidden;
+    }
+
+    /* 控えめな復元補助ツール（トーンダウン＆点線） */
+    details.tiny-restore-box {
+      background: #faf8f5;
+      border: 1px dashed var(--accent-gold, #c8a261);
+      border-radius: 8px;
+      margin-bottom: 16px;
+      padding: 0;
+      overflow: hidden;
+      opacity: 0.92;
+    }
+    .tiny-restore-summary {
+      font-size: 0.82rem;
+      font-weight: 500;
+      color: #8c7355;
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+      padding: 12px 16px;
+      user-select: none;
+      background: rgba(200, 162, 97, 0.05);
+    }
+    .tiny-restore-summary::-webkit-details-marker {
+      display: none;
+    }
+    .tiny-restore-summary::after {
+      content: "＋ 開く";
+      font-size: 0.75rem;
+      color: #8c7355;
+      background: rgba(140, 115, 85, 0.1);
+      padding: 3px 8px;
+      border-radius: 4px;
+      font-weight: 400;
+      white-space: nowrap;
+    }
+    details[open] .tiny-restore-summary::after {
+      content: "− 閉じる";
+    }
+    .tiny-restore-body {
+      padding: 14px 16px;
+      border-top: 1px dashed rgba(200, 162, 97, 0.3);
+      background: #fff;
+    }
+    #import_text_input {
+      width: 100%;
+      font-size: 0.85rem;
+      padding: 10px;
+      border: 1px solid #ccc;
+      border-radius: 6px;
+      box-sizing: border-box;
+      line-height: 1.5;
+      resize: vertical;
+    }
+
+    /* 折り畳み共通スタイル（会員事前登録用） */
+    details.info-card {
+      padding: 0;
+      overflow: hidden;
+    }
+    .foldable-summary {
+      font-size: 0.88rem;
+      font-weight: 700;
+      color: var(--wood-medium);
+      cursor: pointer;
+      list-style: none;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      outline: none;
+      padding: 16px 20px;
+      user-select: none;
+    }
+    .foldable-summary::-webkit-details-marker {
+      display: none;
+    }
+    .foldable-summary::after {
+      content: "＋ 開く";
+      font-size: 0.78rem;
+      color: var(--accent-gold);
+      background: rgba(200, 162, 97, 0.12);
+      padding: 4px 10px;
+      border-radius: 6px;
+      border: 1px solid var(--accent-gold);
+      font-weight: 500;
+      white-space: nowrap;
+    }
+    details[open] .foldable-summary::after {
+      content: "− 閉じる";
+    }
+    .foldable-body {
+      padding: 0 20px 16px 20px;
+      border-top: 1px dashed var(--border-color);
+      margin-top: 4px;
+    }
+    .member-content-body {
+      margin-top: 14px;
+      padding-top: 12px;
+      border-top: 1px dashed var(--border-color);
+    }
+
+    /* モバイル向けフォーム・テーブル調整補強 */
+    @media (max-width: 600px) {
+      .form-row {
+        flex-direction: column;
+        gap: 8px;
+      }
+      .item-row {
+        flex-wrap: wrap;
+      }
+    }
