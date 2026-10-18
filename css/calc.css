@@ -1,0 +1,54 @@
+/* Extracted from calc.html; page-specific rules retained to preserve behavior. */
+.menu-container {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin-top: 20px;
+    }
+    .menu-card {
+      background: #fff;
+      border: 1px solid var(--border-color);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      color: var(--text-main);
+      display: block;
+      transition: all 0.2s ease;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.02);
+    }
+    .menu-card:hover {
+      border-color: var(--accent-gold);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 8px rgba(200, 162, 97, 0.15);
+      background: linear-gradient(180deg, #ffffff 0%, #fcfaf5 100%);
+    }
+    .menu-card-title {
+      font-size: 1.05rem;
+      font-weight: bold;
+      color: var(--wood-dark);
+      margin-bottom: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+    .menu-card-title::after {
+      content: "›";
+      font-size: 1.3rem;
+      color: var(--accent-gold);
+    }
+    .menu-card-desc {
+      font-size: 0.85rem;
+      color: var(--text-sub);
+      margin: 0;
+      line-height: 1.5;
+    }
+    .nav-link {
+      display: inline-block;
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      color: var(--accent-gold);
+      text-decoration: none;
+    }
+    .nav-link:hover {
+      text-decoration: underline;
+    }
