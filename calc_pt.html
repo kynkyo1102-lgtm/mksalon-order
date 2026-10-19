@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=10">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=11">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -33,11 +33,11 @@
   <main class="app-main">
     <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
     
-    <h1 class="app-page-title">ポイント最適化シミュレーター</h1>
+    <p class="quest-eyebrow">POINT QUEST <span>— PURCHASE SIMULATOR —</span></p><h1 class="app-page-title">ポイント最適化シミュレーター</h1><p class="quest-lead">目標PTに向けて、最適な購入パターンを探そう。</p>
     <div class="calc-page-layout">
-      <section class="calc-steps" aria-label="使い方"><h2>使い方</h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
+      <section class="calc-steps" aria-label="使い方"><h2>冒険の進め方 <span class="quest-mini">HOW TO PLAY</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
 
-      <div class="calc-workspace"><section class="calc-input-section" aria-labelledby="calc-input-title"><h2 id="calc-input-title"><span>STEP 1</span> 購入条件を入力</h2>
+      <div class="calc-workspace"><section class="calc-input-section" aria-labelledby="calc-input-title"><h2 id="calc-input-title"><span>STEP 1</span> 目標を決める</h2>
       <div class="form-group">
         <label class="label-accent">対象月度</label>
         <select id="monthSelect" class="calc-select" onchange="renderProductSettings()"></select>
@@ -51,7 +51,7 @@
       </section>
 
       <section class="calc-product-section" aria-labelledby="product-condition-title">
-        <div class="calc-conditions-toolbar"><h2 id="product-condition-title"><span class="calc-section-number">STEP 2</span> 商品ごとの条件設定 <small>任意</small></h2><button type="button" class="btn-reset" onclick="resetProductSettings()">条件をリセット</button></div>
+        <div class="calc-conditions-toolbar"><h2 id="product-condition-title"><span class="calc-section-number">STEP 2</span> アイテムの条件設定 <small>任意</small></h2><button type="button" class="btn-reset" onclick="resetProductSettings()">条件をリセット</button></div>
         <p class="calc-product-help">指定したい商品だけ選択してください。未指定の商品は通常どおり計算されます。</p>
         <label for="conditionProductSelect" class="label-accent">商品を選択</label>
         <select id="conditionProductSelect" class="calc-select" onchange="showProductConditionEditor()"><option value="">商品を選択してください</option></select>
@@ -70,8 +70,8 @@
       </section>
       </div>
       <div class="calc-run-area"><p class="calc-action-hint">対象月度と購入ポイントを入力して計算してください。商品条件の指定は任意です。</p>
-      <button id="calcRunButton" class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
-      <div id="calcProgress" class="calc-progress" role="status" aria-live="polite" hidden><div class="calc-progress-line"><span></span></div><p>条件を照合して、最適な組み合わせを探しています…</p></div>
+      <button id="calcRunButton" class="btn-copy" onclick="calculateBestCombos()">▶ クエスト開始・組み合わせを計算</button>
+      <div id="calcProgress" class="calc-progress" role="status" aria-live="polite" hidden><div class="calc-progress-line"><span></span></div><p>最適な組み合わせを探索中…</p></div>
       <div id="calcComplete" class="calc-complete" role="status" aria-live="polite" hidden></div>
       </div>
 
@@ -91,7 +91,7 @@
       if (revealTimer !== null) clearTimeout(revealTimer);
       revealTimer = null;
       document.getElementById("calcRunButton").disabled = false;
-      document.getElementById("calcRunButton").textContent = "おすすめ購入パターンを計算";
+      document.getElementById("calcRunButton").textContent = "▶ クエスト開始・組み合わせを計算";
       document.getElementById("calcProgress").hidden = true;
       document.getElementById("calcComplete").hidden = true;
     }
@@ -337,7 +337,7 @@
       const reveal = () => {
         revealTimer = null;
         button.disabled = false;
-        button.textContent = 'おすすめ購入パターンを計算';
+        button.textContent = '▶ クエスト開始・組み合わせを計算';
         document.getElementById('calcProgress').hidden = true;
         const completion = document.getElementById('calcComplete');
         const difference = bestPlan.totalPt - targetPt;
