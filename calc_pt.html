@@ -13,19 +13,28 @@
   <link rel="stylesheet" href="style.css">
   
   <link rel="stylesheet" href="css/calc-pt.css">
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=1">
 </head>
-<body>
+<body class="app-page calc-pt-page">
 
-  <header>
-    <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>購入PT最適化ツール</h1>
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">LINEノート用</a><a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
   </header>
 
-  <main>
-    <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
+  <main class="app-main">
+    <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
     
+    <h1 class="app-page-title">ポイント最適化シミュレーター</h1>
     <div class="card-box">
-      <div class="section-title">ポイント最適化シミュレーター</div>
       
       <button type="button" class="guide-toggle-btn" onclick="toggleGuide()">
         <span>使い方・詳細な設定方法を見る</span>
@@ -52,30 +61,25 @@
         <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
       </div>
 
-      <div style="margin-top: 16px;">
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
-          <label class="label-accent" style="margin-bottom: 0;">商品ごとの条件設定（除外 / 必ず含める個数）</label>
-          <button type="button" class="btn-reset" onclick="resetProductSettings()">🔄 条件設定をリセット</button>
+      <details class="calc-conditions" id="calcConditions">
+        <summary>商品ごとの条件を設定する <span class="calc-conditions-hint">任意・除外／必須個数</span><span class="calc-conditions-symbol" aria-hidden="true"></span></summary>
+        <div class="calc-conditions-body">
+          <div class="calc-conditions-toolbar"><span>商品ごとの条件設定</span><button type="button" class="btn-reset" onclick="resetProductSettings()">条件設定をリセット</button></div>
+          <div id="productSettingsList" class="product-list-box"></div>
         </div>
-        <div id="productSettingsList" class="product-list-box">
-          <!-- JSで動的生成 -->
-        </div>
-      </div>
-
-      <div style="background: rgba(200, 162, 97, 0.08); border: 1px dashed var(--accent-gold); border-radius: 8px; padding: 12px 14px; margin: 16px 0; font-size: 0.85rem; color: var(--wood-dark); text-align: center;">
-        設定したら、下の <span style="display: inline-block; background-color: var(--accent-gold); color: #fff; padding: 4px 12px; border-radius: 6px; font-weight: bold; font-size: 0.85rem;">おすすめ購入パターンを計算</span> ボタンを押してください。
-      </div>
-
+      </details>
+      <p class="calc-action-hint">対象月度と購入ポイントを入力して計算してください。商品条件の指定は任意です。</p>
       <button class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
 
       <div id="comboResult" class="result-container" style="display:none;"></div>
     </div>
   </main>
 
-  <footer>
+  <footer class="app-footer">
     &copy; Place de Nina Order Support System
   </footer>
 
+  <script src="js/app-shell.js?v=menu-motion-2" defer></script>
   <script>
     let configData = null;
 
@@ -251,6 +255,7 @@
         html += `
           <div class="plan-card ${plan.isBest ? 'best' : ''}">
             <div class="plan-title">${plan.title}</div>
+            <div class="plan-summary"><div>合計ポイント <strong>${plan.totalPt.toLocaleString()} PT</strong></div><div>合計金額 <strong>${plan.totalCost.toLocaleString()} 円</strong></div></div>
             <ul style="margin: 6px 0; padding-left: 18px; font-size:0.85rem;">
               ${displayItems.map(i => {
                 let badgeHtml = i.isMandatory ? `<span class="mandatory-item-badge">必須</span>` : '';
