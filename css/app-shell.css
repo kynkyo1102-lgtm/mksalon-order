@@ -1,0 +1,35 @@
+/* Shared application UI for refreshed pages. Scope to .app-page to protect legacy tools. */
+.app-page{--app-ink:#222;--app-muted:#666;--app-line:#dedede;--app-surface:#fff;background:#fff;color:var(--app-ink);font-family:"Noto Sans JP",sans-serif;padding-bottom:0;}
+.app-page .app-header{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;color:#222;border:0;border-bottom:1px solid #e6e6e6;box-shadow:none;text-align:left;padding:18px 22px;}
+.app-page .app-header::after{display:none;}
+.app-page .app-brand{display:flex;align-items:baseline;gap:9px;min-width:0;white-space:nowrap;}
+.app-page .app-brand-name{font:700 16px/1.5 "Noto Sans JP",sans-serif;letter-spacing:.035em;color:#222;text-decoration:none;text-shadow:none;margin:0;}
+.app-page .app-brand-shop{font-size:12px;color:#666;}
+.app-page .app-menu-toggle{display:grid;place-items:center;flex-shrink:0;width:42px;height:42px;padding:0;background:transparent;border:0;border-radius:9px;color:#222;cursor:pointer;}
+.app-page .app-menu-toggle:focus-visible,.app-page .app-menu a:focus-visible{outline:2px solid #333;outline-offset:2px;}
+.app-page .app-menu[hidden]{display:none!important;}
+.app-page .app-menu{position:absolute;right:12px;top:calc(100% + 5px);z-index:200;display:flex;flex-direction:column;width:min(350px,calc(100vw - 24px));max-height:calc(100dvh - 85px);overflow-y:auto;padding:18px 22px 20px;background:#fff;border:1px solid #e2e2e2;border-radius:14px;box-shadow:0 14px 36px rgba(0,0,0,.16);box-sizing:border-box;}
+.app-page .app-menu a{color:#222;text-decoration:none;border-radius:7px;}
+.app-page .app-menu a:hover{background:#f7f7f7;}
+.app-page .app-menu-primary{display:block;padding:13px 5px;font-size:16px;font-weight:400;line-height:1.5;}
+.app-page .app-menu-group{margin:8px 0 10px;padding:12px 0 13px;border-top:1px solid #dedede;border-bottom:1px solid #dedede;}
+.app-page .app-menu-group-title{display:block;padding:2px 5px 9px;font-size:16px;font-weight:700;}
+.app-page .app-menu-sub{display:block;margin-left:14px;padding:10px 8px;font-size:15px;}
+.app-page .app-menu-disabled{color:#555;cursor:default;}
+.app-page .app-menu-disabled small{margin-left:8px;font-size:10px;color:#888;}
+.app-page .app-menu-secondary{margin-top:17px;padding-top:13px;border-top:1px solid #e5e5e5;}
+.app-page .app-menu-secondary a{display:block;padding:10px 5px;font-size:13px;color:#666;}
+.app-page .app-main{max-width:760px;width:100%;margin:0 auto;padding:30px 20px 50px;box-sizing:border-box;}
+.app-page .app-page-title{font-size:22px;line-height:1.5;font-weight:700;letter-spacing:0;color:#222;margin:0 0 22px;}
+.app-page .app-panel{border:1px solid #e3e3e3;border-radius:12px;background:#fff;padding:8px 20px;}
+.app-page .app-details{margin:0;}
+.app-page .app-detail{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;padding:19px 0;border-bottom:1px solid #ebebeb;}
+.app-page .app-detail:last-child{border-bottom:0;}
+.app-page .app-detail dt{font-size:13px;font-weight:500;line-height:1.7;color:#666;margin:0;letter-spacing:0;}
+.app-page .app-detail dd{font-size:15px;line-height:1.85;color:#222;margin:0;overflow-wrap:anywhere;}
+.app-page .app-action-link{display:inline-flex;align-items:center;gap:6px;margin-top:11px;padding:10px 14px;border:1px solid #dedede;border-radius:8px;background:#fafafa;color:#222;text-decoration:none;font-size:13px;font-weight:500;}
+.app-page .app-tel-link{color:#222;text-decoration:underline;text-underline-offset:3px;font-weight:500;}
+.app-page .app-back{display:inline-flex;align-items:center;gap:7px;margin-top:26px;padding:11px 0;color:#555;text-decoration:none;font-size:14px;}
+.app-page .app-footer{border-top:1px solid #e6e6e6;background:#fff;color:#777;text-align:center;padding:22px 16px;font-size:11px;letter-spacing:.03em;}
+@media(max-width:520px){.app-page .app-main{padding:26px 16px 42px}.app-page .app-page-title{font-size:20px}.app-page .app-panel{padding:3px 16px}.app-page .app-detail{grid-template-columns:1fr;gap:4px;padding:17px 0}.app-page .app-detail dt{font-size:12px}.app-page .app-detail dd{font-size:15px}.app-page .app-menu{right:0;width:min(100vw,380px);border-radius:0 0 14px 14px;padding:20px 25px 24px;}}
+@media(max-width:360px){.app-page .app-brand{gap:6px}.app-page .app-brand-name{font-size:15px}.app-page .app-brand-shop{font-size:11px}}
