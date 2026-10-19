@@ -4,206 +4,52 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>店舗案内 - プラッス ドゥ ニナ 南熊本店</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- 共通CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-
-  <style>
-    /* ==========================================
-       ヘッダー固有スタイル
-    ========================================== */
-    header::after {
-      content: "";
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      right: 8px;
-      bottom: 8px;
-      border: 1px solid rgba(200, 162, 97, 0.3);
-      border-radius: 4px;
-      pointer-events: none;
-    }
-
-    /* ==========================================
-       店舗案内 固有スタイル
-    ========================================== */
-    .info-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 20px;
-      box-shadow: 0 3px 10px rgba(35, 22, 16, 0.04);
-    }
-
-    .info-list {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-    }
-
-    .info-item {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
-      padding-bottom: 12px;
-      border-bottom: 1px dashed var(--border-color);
-    }
-
-    .info-item:last-child {
-      border-bottom: none;
-      padding-bottom: 0;
-    }
-
-    .info-item dt {
-      color: var(--text-sub);
-      font-size: 0.78rem;
-      font-weight: 700;
-      margin: 0;
-      letter-spacing: 0.05em;
-    }
-
-    .info-item dd {
-      margin: 0;
-      font-size: 0.88rem;
-      color: var(--text-main);
-      line-height: 1.5;
-    }
-
-    /* Googleマップボタン */
-    .map-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      margin-top: 8px;
-      padding: 6px 12px;
-      background-color: #f7f3ed;
-      border: 1px solid var(--border-color);
-      border-radius: 6px;
-      color: var(--wood-dark);
-      text-decoration: none;
-      font-size: 0.78rem;
-      font-weight: bold;
-      transition: background-color 0.2s;
-    }
-
-    .map-btn:hover {
-      background-color: #ebdcd0;
-    }
-
-    /* 電話番号リンク */
-    .tel-link {
-      color: var(--wood-dark);
-      text-decoration: none;
-      font-weight: bold;
-    }
-
-    /* 戻るボタン */
-    .back-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      margin-top: 24px;
-      padding: 12px;
-      background-color: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      color: var(--wood-dark);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      transition: all 0.2s ease;
-    }
-
-    .back-btn:active {
-      background-color: #f7f3ed;
-      transform: translateY(1px);
-    }
-
-    /* フッター */
-    footer {
-      text-align: center;
-      padding: 24px 15px;
-      font-size: 0.7rem;
-      color: var(--text-sub);
-      letter-spacing: 0.1em;
-    }
-  </style>
+  <link rel="stylesheet" href="css/app-shell.css?v=1">
 </head>
-
-<body>
-
-  <header>
-    <div class="header-logo">Place de Nina</div>
-    <h1>店舗案内</h1>
-  </header>
-
-  <main>
-
-    <div class="info-card">
-      <dl class="info-list">
-
-        <div class="info-item">
-          <dt>店名</dt>
-          <dd>プラッス ドゥ ニナ 南熊本店</dd>
-        </div>
-
-        <div class="info-item">
-          <dt>住所</dt>
-          <dd>
-            〒862-0962<br>
-            熊本県熊本市南区田迎4丁目9-36<br>
-            <a href="https://www.google.com/maps/search/?api=1&query=熊本県熊本市南区田迎4丁目9-36"
-               target="_blank"
-               rel="noopener noreferrer"
-               class="map-btn">
-              📍 Googleマップで開く
-            </a>
-          </dd>
-        </div>
-
-        <div class="info-item">
-          <dt>営業時間</dt>
-          <dd>11:00 〜 17:00</dd>
-        </div>
-
-        <div class="info-item">
-          <dt>定休日</dt>
-          <dd>水・土日祝</dd>
-        </div>
-
-        <div class="info-item">
-          <dt>電話番号</dt>
-          <dd>
-            <a href="tel:096-284-1927" class="tel-link">096-284-1927</a>
-          </dd>
-        </div>
-
-        <div class="info-item">
-          <dt>アクセス</dt>
-          <dd>JR南熊本駅より徒歩20分 / 駐車場2台あり</dd>
-        </div>
-
-      </dl>
+<body class="app-page">
+  <header class="app-header">
+    <div class="app-brand">
+      <a class="app-brand-name" href="index.html">Place de Nina</a>
+      <span class="app-brand-shop">南熊本店</span>
     </div>
-
-    <!-- 戻るボタン -->
-    <a href="index.html" class="back-btn">
-      ‹ トップページへ戻る
-    </a>
-
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu">
+      <svg width="23" height="23" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+    </button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group">
+        <span class="app-menu-group-title">注文</span>
+        <a class="app-menu-sub" href="single.html">LINEノート用</a>
+        <a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a>
+      </div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary">
+        <a href="info.html" aria-current="page">店舗案内</a>
+        <a href="bank.html">お支払いについて</a>
+        <a href="faq.html">よくある質問</a>
+      </div>
+    </nav>
+  </header>
+  <main class="app-main">
+    <h1 class="app-page-title">店舗案内</h1>
+    <section class="app-panel" aria-label="店舗情報">
+      <dl class="app-details">
+        <div class="app-detail"><dt>店名</dt><dd>プラッス ドゥ ニナ 南熊本店</dd></div>
+        <div class="app-detail"><dt>住所</dt><dd>〒862-0962<br>熊本県熊本市南区田迎4丁目9-36<br><a class="app-action-link" href="https://www.google.com/maps/search/?api=1&amp;query=熊本県熊本市南区田迎4丁目9-36" target="_blank" rel="noopener noreferrer">Googleマップで開く ↗</a></dd></div>
+        <div class="app-detail"><dt>営業時間</dt><dd>11:00 〜 17:00</dd></div>
+        <div class="app-detail"><dt>定休日</dt><dd>水・土日祝</dd></div>
+        <div class="app-detail"><dt>電話番号</dt><dd><a class="app-tel-link" href="tel:096-284-1927">096-284-1927</a></dd></div>
+        <div class="app-detail"><dt>アクセス</dt><dd>JR南熊本駅より徒歩20分 / 駐車場2台あり</dd></div>
+      </dl>
+    </section>
+    <a href="index.html" class="app-back">‹ トップページへ戻る</a>
   </main>
-
-  <footer>
-    &copy; PLACE DE NINA MINAMIKUMAMOTO
-  </footer>
-
+  <footer class="app-footer">&copy; PLACE DE NINA MINAMIKUMAMOTO</footer>
+  <script src="js/app-shell.js?v=1" defer></script>
 </body>
 </html>
-
