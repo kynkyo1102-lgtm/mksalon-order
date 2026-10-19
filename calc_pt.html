@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=8">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=9">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -348,7 +348,17 @@
         completion.replaceChildren();
         const reactionText = document.createElement('span');
         reactionText.className = 'calc-reaction-text';
-        reactionText.textContent = isPerfect ? 'ぴったり！' : isNear ? 'ほぼぴったり！' : '見つかりました！';
+        const message = isPerfect ? 'ぴったり！' : isNear ? 'ほぼぴったり！' : '見つかりました！';
+        reactionText.setAttribute('aria-label', message);
+        reactionText.textContent = '';
+        for (const [index, char] of Array.from(message).entries()) {
+          const letter = document.createElement('span');
+          letter.className = 'calc-reaction-letter';
+          letter.textContent = char;
+          letter.style.setProperty('--letter-index', index);
+          letter.setAttribute('aria-hidden', 'true');
+          reactionText.appendChild(letter);
+        }
         completion.appendChild(reactionText);
         if (isPerfect || isNear) {
           const emoji = document.createElement('span');
