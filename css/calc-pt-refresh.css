@@ -147,3 +147,16 @@
 .calc-pt-page .calc-complete.is-perfect,.calc-pt-page .calc-complete.is-near{color:#222}
 .calc-pt-page .calc-reaction-emoji{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-size:1.15em;white-space:nowrap;line-height:1}
 .calc-pt-page .calc-complete.is-found{font-size:clamp(18px,4.5vw,23px)}
+
+/* v9: restrained Boing-inspired staggered character animation */
+.calc-pt-page .calc-complete{font-size:clamp(27px,6.8vw,38px);min-height:72px;gap:10px;overflow:visible}
+.calc-pt-page .calc-complete.is-found{font-size:clamp(23px,5.6vw,30px)}
+.calc-pt-page .calc-reaction-text{display:inline-flex;align-items:baseline;justify-content:center;white-space:nowrap;perspective:500px;transform-style:preserve-3d;font-weight:800;letter-spacing:-.045em}
+.calc-pt-page .calc-reaction-letter{display:inline-block;transform-origin:50% 85%;backface-visibility:hidden}
+.calc-pt-page .calc-reaction-emoji{font-size:1.04em;line-height:1}
+.calc-pt-page .calc-complete.calc-reaction-pop{animation:none}
+.calc-pt-page .calc-complete.calc-reaction-pop .calc-reaction-letter{animation:calc-letter-boing .72s cubic-bezier(.2,.75,.2,1) both;animation-delay:calc(var(--letter-index)*55ms)}
+.calc-pt-page .calc-complete.calc-reaction-pop .calc-reaction-emoji{animation:calc-emoji-boing .65s cubic-bezier(.2,.85,.25,1) both;animation-delay:.3s}
+@keyframes calc-letter-boing{0%{opacity:0;transform:translateY(22px) translateZ(-60px) rotateX(-65deg) scale(.72)}48%{opacity:1;transform:translateY(-9px) translateZ(28px) rotateX(9deg) scale(1.13,.92)}72%{transform:translateY(3px) translateZ(0) rotateX(-4deg) scale(.97,1.05)}100%{opacity:1;transform:none}}
+@keyframes calc-emoji-boing{0%{opacity:0;transform:translateY(12px) scale(.5) rotate(-15deg)}55%{opacity:1;transform:translateY(-6px) scale(1.2) rotate(7deg)}100%{opacity:1;transform:none}}
+@media(prefers-reduced-motion:reduce){.calc-pt-page .calc-complete.calc-reaction-pop .calc-reaction-letter,.calc-pt-page .calc-complete.calc-reaction-pop .calc-reaction-emoji{animation:none}}
