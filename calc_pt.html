@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=9">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=10">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -342,35 +342,9 @@
         const completion = document.getElementById('calcComplete');
         const difference = bestPlan.totalPt - targetPt;
         const nearLimit = Math.max(1, targetPt * 0.05);
-        const isPerfect = difference === 0;
-        const isNear = difference > 0 && difference <= nearLimit;
-        completion.className = 'calc-complete' + (isPerfect ? ' is-perfect' : isNear ? ' is-near' : ' is-found');
+        completion.hidden = true;
         completion.replaceChildren();
-        const reactionText = document.createElement('span');
-        reactionText.className = 'calc-reaction-text';
-        const message = isPerfect ? 'ぴったり！' : isNear ? 'ほぼぴったり！' : '見つかりました！';
-        reactionText.setAttribute('aria-label', message);
-        reactionText.textContent = '';
-        for (const [index, char] of Array.from(message).entries()) {
-          const letter = document.createElement('span');
-          letter.className = 'calc-reaction-letter';
-          letter.textContent = char;
-          letter.style.setProperty('--letter-index', index);
-          letter.setAttribute('aria-hidden', 'true');
-          reactionText.appendChild(letter);
-        }
-        completion.appendChild(reactionText);
-        if (isPerfect || isNear) {
-          const emoji = document.createElement('span');
-          emoji.className = 'calc-reaction-emoji';
-          emoji.textContent = isPerfect ? '👍✨' : '👌';
-          emoji.setAttribute('aria-hidden', 'true');
-          completion.appendChild(emoji);
-        }
-        completion.classList.remove('calc-reaction-pop');
-        void completion.offsetWidth;
-        if (!reducedMotion) completion.classList.add('calc-reaction-pop');
-        completion.hidden = false;
+
         resDiv.style.display = 'block';
         if (!reducedMotion) resDiv.classList.add('calc-result-reveal');
         else resDiv.classList.remove('calc-result-reveal');
