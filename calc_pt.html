@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=2">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=3">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -275,28 +275,27 @@
       resDiv.style.display = 'block';
       let html = '';
 
-      plans.forEach((plan) => {
-        let displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
-
-        let diffPt = plan.totalPt - targetPt;
-        let diffStr = diffPt === 0 ? "(±0)" : (diffPt > 0 ? `(+${diffPt.toLocaleString()})` : `(${diffPt.toLocaleString()})`);
-
+      plans.forEach((plan, index) => {
+        const displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
+        const diffPt = plan.totalPt - targetPt;
+        const diffStr = diffPt === 0 ? '目標ちょうど' : (diffPt > 0 ? '目標より +' + diffPt.toLocaleString() + ' PT' : '目標より ' + diffPt.toLocaleString() + ' PT');
+        const planLabel = index === 0 ? 'おすすめプラン' : index === 1 ? 'パターンA' : 'パターンB';
         html += `
-          <div class="plan-card ${plan.isBest ? 'best' : ''}">
-            <div class="plan-title">${plan.title}</div>
-            <div class="plan-summary"><div>合計ポイント <strong>${plan.totalPt.toLocaleString()} PT</strong></div><div>合計金額 <strong>${plan.totalCost.toLocaleString()} 円</strong></div></div>
-            <ul style="margin: 6px 0; padding-left: 18px; font-size:0.85rem;">
-              ${displayItems.map(i => {
-                let badgeHtml = i.isMandatory ? `<span class="mandatory-item-badge">必須</span>` : '';
-                return `<li>${i.displayName} × ${i.count}個 ${badgeHtml} (${(i.pt * i.count).toLocaleString()} PT / ${(i.price * i.count).toLocaleString()}円)</li>`;
-              }).join('')}
-            </ul>
-            <div style="font-size:0.85rem; margin-top:8px; border-top:1px dashed var(--border-color); padding-top:6px;">
-              合計ポイント: <strong style="color:#c94b4b;">${plan.totalPt.toLocaleString()} PT</strong> 
-              <span style="color:var(--text-sub); font-size:0.78rem;">${diffStr}</span><br>
-              合計金額: <strong style="color:#2b6cb0;">${plan.totalCost.toLocaleString()} 円</strong>
+          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">
+            <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">最適</span>' : '<span class="plan-variation-label">別の組み合わせ</span>'}</div>
+            <div class="plan-summary">
+              <div class="plan-summary-item"><span>合計ポイント</span><strong>${plan.totalPt.toLocaleString()} <small>PT</small></strong><em>${diffStr}</em></div>
+              <div class="plan-summary-item"><span>合計金額</span><strong>${plan.totalCost.toLocaleString()} <small>円</small></strong></div>
             </div>
-          </div>
+            <h3 class="plan-items-heading">購入する商品</h3>
+            <div class="plan-items-list">
+              ${displayItems.length ? displayItems.map(i => `
+                <div class="plan-item-row">
+                  <div class="plan-item-name"><strong>${i.displayName}</strong>${i.isMandatory ? '<span class="mandatory-item-badge">必須</span>' : ''}</div>
+                  <div class="plan-item-meta"><span class="plan-item-qty">${i.count}個</span><span>${(i.pt * i.count).toLocaleString()} PT</span><span>${(i.price * i.count).toLocaleString()} 円</span></div>
+                </div>`).join('') : '<p class="plan-empty">対象の商品がありません。</p>'}
+            </div>
+          </section>
         `;
       });
 
