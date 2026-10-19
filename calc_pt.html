@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=6">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=7">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -342,9 +342,21 @@
         const completion = document.getElementById('calcComplete');
         const difference = bestPlan.totalPt - targetPt;
         const nearLimit = Math.max(1, targetPt * 0.05);
-        const reaction = difference === 0 ? 'ぴったり！' : difference > 0 && difference <= nearLimit ? 'ニアピン！' : '見つかりました！';
-        completion.textContent = reaction;
-        completion.className = 'calc-complete' + (difference === 0 ? ' is-perfect' : difference > 0 && difference <= nearLimit ? ' is-near' : ' is-found');
+        const isPerfect = difference === 0;
+        const isNear = difference > 0 && difference <= nearLimit;
+        completion.className = 'calc-complete' + (isPerfect ? ' is-perfect' : isNear ? ' is-near' : ' is-found');
+        completion.replaceChildren();
+        if (isPerfect || isNear) {
+          const art = document.createElement('img');
+          art.className = 'calc-reaction-art';
+          art.src = isPerfect ? 'assets/calc-perfect.svg' : 'assets/calc-near.svg';
+          art.alt = isPerfect ? 'ぴったり！' : 'ほぼぴったり！';
+          art.width = isPerfect ? 940 : 956;
+          art.height = isPerfect ? 312 : 230;
+          completion.appendChild(art);
+        } else {
+          completion.textContent = '見つかりました！';
+        }
         completion.classList.remove('calc-reaction-pop');
         void completion.offsetWidth;
         if (!reducedMotion) completion.classList.add('calc-reaction-pop');
