@@ -33,3 +33,14 @@
 .app-page .app-footer{border-top:1px solid #e6e6e6;background:#fff;color:#777;text-align:center;padding:22px 16px;font-size:11px;letter-spacing:.03em;}
 @media(max-width:520px){.app-page .app-main{padding:26px 16px 42px}.app-page .app-page-title{font-size:20px}.app-page .app-panel{padding:3px 16px}.app-page .app-detail{grid-template-columns:1fr;gap:4px;padding:17px 0}.app-page .app-detail dt{font-size:12px}.app-page .app-detail dd{font-size:15px}.app-page .app-menu{right:0;width:min(100vw,380px);border-radius:0 0 14px 14px;padding:20px 25px 24px;}}
 @media(max-width:360px){.app-page .app-brand{gap:6px}.app-page .app-brand-name{font-size:15px}.app-page .app-brand-shop{font-size:11px}}
+
+/* Shared menu motion and hamburger-to-close icon */
+.home-page .home-menu-toggle svg,.app-page .app-menu-toggle svg{transition:transform .2s ease;}
+.home-page .home-menu-toggle svg path,.app-page .app-menu-toggle svg path{transition:d .2s ease;}
+.home-page .home-menu-toggle[aria-expanded="true"] svg,.app-page .app-menu-toggle[aria-expanded="true"] svg{transform:rotate(90deg);}
+.home-page .home-site-menu,.app-page .app-menu{transform-origin:top right;}
+.home-page .home-site-menu.menu-enter,.app-page .app-menu.menu-enter{animation:app-menu-in .2s ease-out both;}
+.home-page .home-site-menu.menu-exit,.app-page .app-menu.menu-exit{animation:app-menu-out .16s ease-in both;pointer-events:none;}
+@keyframes app-menu-in{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes app-menu-out{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-6px) scale(.99)}}
+@media(prefers-reduced-motion:reduce){.home-page .home-site-menu.menu-enter,.home-page .home-site-menu.menu-exit,.app-page .app-menu.menu-enter,.app-page .app-menu.menu-exit{animation:none}.home-page .home-menu-toggle svg,.app-page .app-menu-toggle svg{transition:none}}
