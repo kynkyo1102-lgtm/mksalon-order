@@ -35,7 +35,7 @@
     
     <p class="quest-eyebrow">POINT QUEST <span>— PURCHASE SIMULATOR —</span></p><h1 class="app-page-title">ポイント最適化シミュレーター</h1><p class="quest-lead">目標PTに向けて、最適な購入パターンを探そう。</p>
     <div class="calc-page-layout">
-      <section class="calc-steps" aria-label="使い方"><h2>冒険の進め方 <span class="quest-mini">HOW TO PLAY</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
+      <section class="calc-steps" aria-label="使い方"><h2>進め方 <span class="quest-mini">HOW TO PLAY</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
 
       <div class="calc-workspace"><section class="calc-input-section" aria-labelledby="calc-input-title"><h2 id="calc-input-title"><span>STEP 1</span> 目標を決める</h2>
       <div class="form-group">
@@ -308,10 +308,10 @@
         const displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
         const diffPt = plan.totalPt - targetPt;
         const diffStr = diffPt === 0 ? '目標ちょうど' : (diffPt > 0 ? '目標より +' + diffPt.toLocaleString() + ' PT' : '目標より ' + diffPt.toLocaleString() + ' PT');
-        const planLabel = index === 0 ? 'おすすめプラン' : index === 1 ? 'パターンA' : 'パターンB';
+        const planLabel = index === 0 ? 'ベストルート' : index === 1 ? 'ルート02' : 'ルート03';
         html += `
           <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">
-            <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">最適</span>' : '<span class="plan-variation-label">別の組み合わせ</span>'}</div>
+            <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">最適な組み合わせ</span>' : '<span class="plan-variation-label">別ルート</span>'}</div>
             <div class="plan-summary">
               <div class="plan-summary-item"><span>合計ポイント</span><strong>${plan.totalPt.toLocaleString()} <small>PT</small></strong><em>${diffStr}</em></div>
               <div class="plan-summary-item"><span>合計金額</span><strong>${plan.totalCost.toLocaleString()} <small>円</small></strong></div>
