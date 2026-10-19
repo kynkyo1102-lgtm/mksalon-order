@@ -84,3 +84,29 @@
 .calc-pt-page .plan-item-qty{margin-right:auto;font-weight:700;color:#222}
 .calc-pt-page .plan-empty{font-size:13px;color:#777}
 @media(max-width:520px){.calc-pt-page .plan-summary-item strong{font-size:17px}.calc-pt-page .plan-item-meta{font-size:12px;gap:8px}}
+
+/* v4: section rhythm and calculation feedback */
+.calc-pt-page .calc-steps{margin-bottom:34px;padding:19px 20px;background:#f7f7f7}
+.calc-pt-page .calc-steps h2::before{content:"01";font-size:12px;font-weight:600;color:#888;margin-right:12px}
+.calc-pt-page .calc-input-section{padding:3px 0 29px;margin-bottom:31px;border-bottom:1px solid #e9e9e9}
+.calc-pt-page .calc-input-section h2{font-size:16px;color:#222;font-weight:700;margin:0 0 21px}
+.calc-pt-page .calc-input-section h2 span,.calc-pt-page .calc-section-number{font-size:12px;font-weight:600;color:#888;margin-right:10px}
+.calc-pt-page .calc-input-section .form-group+.form-group{margin-top:22px!important}
+.calc-pt-page .calc-product-section{border:0;padding:0;margin:0 0 34px}
+.calc-pt-page .calc-product-section .calc-conditions-toolbar{margin-bottom:12px}
+.calc-pt-page .calc-product-help{margin-bottom:18px}
+.calc-pt-page .calc-action-hint{margin-top:20px}
+.calc-pt-page .calc-progress{padding:20px 6px 8px;text-align:center}
+.calc-pt-page .calc-progress[hidden],.calc-pt-page .calc-complete[hidden]{display:none!important}
+.calc-pt-page .calc-progress p{font-size:13px;color:#666;margin:12px 0 0}
+.calc-pt-page .calc-progress-line{height:3px;background:#eaeaea;border-radius:5px;overflow:hidden}
+.calc-pt-page .calc-progress-line span{display:block;width:36%;height:100%;background:#444;border-radius:5px;animation:calc-progress-move .85s ease-in-out infinite alternate}
+.calc-pt-page .calc-complete{font-size:14px;color:#333;margin:20px 0 0;text-align:center;font-weight:600}
+.calc-pt-page .btn-copy:disabled{opacity:.75;cursor:wait}
+.calc-pt-page .calc-result-reveal .plan-card{animation:calc-plan-appear .42s ease-out both}
+.calc-pt-page .calc-result-reveal .plan-card:nth-child(2){animation-delay:.13s}
+.calc-pt-page .calc-result-reveal .plan-card:nth-child(3){animation-delay:.26s}
+@keyframes calc-progress-move{from{transform:translateX(-30%)}to{transform:translateX(225%)}}
+@keyframes calc-plan-appear{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.calc-pt-page .calc-progress-line span,.calc-pt-page .calc-result-reveal .plan-card{animation:none!important}}
+@media(max-width:520px){.calc-pt-page .calc-steps{padding:17px;margin-bottom:30px}.calc-pt-page .calc-input-section{margin-bottom:28px;padding-bottom:25px}}
