@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=1">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=2">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -36,20 +36,7 @@
     <h1 class="app-page-title">ポイント最適化シミュレーター</h1>
     <div class="card-box">
       
-      <button type="button" class="guide-toggle-btn" onclick="toggleGuide()">
-        <span>使い方・詳細な設定方法を見る</span>
-        <span id="guideArrow">▼</span>
-      </button>
-      <div id="guideContent" class="guide-content">
-        指定した目標ポイントに対して、最適な商品の組み合わせを自動で計算します。<br><br>
-        <strong>(1) 対象月度・目標PTを入力</strong><br>
-        <strong>(2) 商品ごとの条件設定</strong><br>
-        <div style="padding-left: 10px; margin-top: 4px;">
-          ・例① 商品を含めない場合：<strong>「除外」</strong>にチェック<br>
-          ・例② 商品を必ず含める場合：<strong>「必須個数」</strong>を指定<br>
-          ・例③ 商品を1個だけ含めたい場合：<strong>「除外」にチェックを入れ、かつ「必須個数」に「1」を入力</strong>
-        </div>
-      </div>
+      <section class="calc-steps" aria-label="使い方"><h2>使い方</h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
 
       <div class="form-group">
         <label class="label-accent">対象月度</label>
@@ -61,13 +48,24 @@
         <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
       </div>
 
-      <details class="calc-conditions" id="calcConditions">
-        <summary>商品ごとの条件を設定する <span class="calc-conditions-hint">任意・除外／必須個数</span><span class="calc-conditions-symbol" aria-hidden="true"></span></summary>
-        <div class="calc-conditions-body">
-          <div class="calc-conditions-toolbar"><span>商品ごとの条件設定</span><button type="button" class="btn-reset" onclick="resetProductSettings()">条件設定をリセット</button></div>
-          <div id="productSettingsList" class="product-list-box"></div>
+      <section class="calc-product-section" aria-labelledby="product-condition-title">
+        <div class="calc-conditions-toolbar"><h2 id="product-condition-title">商品ごとの条件設定 <small>任意</small></h2><button type="button" class="btn-reset" onclick="resetProductSettings()">条件をリセット</button></div>
+        <p class="calc-product-help">指定したい商品だけ選択してください。未指定の商品は通常どおり計算されます。</p>
+        <label for="conditionProductSelect" class="label-accent">商品を選択</label>
+        <select id="conditionProductSelect" class="calc-select" onchange="showProductConditionEditor()"><option value="">商品を選択してください</option></select>
+        <div id="conditionEditor" class="calc-condition-editor" hidden>
+          <p id="conditionProductInfo" class="calc-selected-info"></p>
+          <fieldset class="calc-condition-fieldset"><legend>条件を選択</legend>
+            <label><input type="radio" name="conditionMode" value="exclude" checked onchange="updateConditionQuantity()"> 除外する</label>
+            <label><input type="radio" name="conditionMode" value="minimum" onchange="updateConditionQuantity()"> 必ず含める（追加購入もOK）</label>
+            <label><input type="radio" name="conditionMode" value="exact" onchange="updateConditionQuantity()"> 指定した個数だけ含める</label>
+          </fieldset>
+          <div id="conditionQuantityRow" class="calc-condition-quantity" hidden><label for="conditionQuantity">個数</label><select id="conditionQuantity" class="calc-select"></select></div>
+          <p id="conditionExplanation" class="calc-condition-explanation">この商品を計算に含めません。</p>
+          <button type="button" class="calc-add-condition" onclick="saveProductCondition()">この条件を追加する</button>
         </div>
-      </details>
+        <div id="selectedConditions" class="calc-selected-conditions" aria-live="polite"></div>
+      </section>
       <p class="calc-action-hint">対象月度と購入ポイントを入力して計算してください。商品条件の指定は任意です。</p>
       <button class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
 
@@ -83,16 +81,72 @@
   <script>
     let configData = null;
 
-    function toggleGuide() {
-      const content = document.getElementById('guideContent');
-      const arrow = document.getElementById('guideArrow');
-      if (content.style.display === 'block') {
-        content.style.display = 'none';
-        arrow.textContent = '▼';
-      } else {
-        content.style.display = 'block';
-        arrow.textContent = '▲';
-      }
+    const productConditions = new Map();
+    function showProductConditionEditor() {
+      const select = document.getElementById('conditionProductSelect');
+      const editor = document.getElementById('conditionEditor');
+      editor.hidden = !select.value;
+      if (!select.value || !configData) return;
+      const index = Number(select.value);
+      const p = configData.products[index];
+      const month = document.getElementById('monthSelect').value;
+      document.getElementById('conditionProductInfo').textContent = p.price.toLocaleString() + '円 / ' + (p.pts[month] || 0).toLocaleString() + 'PT';
+      const saved = productConditions.get(index);
+      document.querySelector('input[name="conditionMode"][value="' + (saved?.mode || 'exclude') + '"]').checked = true;
+      document.getElementById('conditionQuantity').value = String(saved?.qty || 1);
+      updateConditionQuantity();
+    }
+    function updateConditionQuantity() {
+      const mode = document.querySelector('input[name="conditionMode"]:checked').value;
+      const row = document.getElementById('conditionQuantityRow');
+      row.hidden = mode === 'exclude';
+      const qty = document.getElementById('conditionQuantity').value;
+      document.getElementById('conditionExplanation').textContent = mode === 'exclude'
+        ? 'この商品を計算に含めません。'
+        : mode === 'minimum' ? 'この商品を最低' + qty + '個含めます。計算結果によっては追加されます。'
+        : 'この商品をちょうど' + qty + '個だけ含めます。追加されません。';
+    }
+    function saveProductCondition() {
+      const index = Number(document.getElementById('conditionProductSelect').value);
+      const mode = document.querySelector('input[name="conditionMode"]:checked').value;
+      const qty = mode === 'exclude' ? 0 : Number(document.getElementById('conditionQuantity').value);
+      productConditions.set(index, { mode, qty });
+      renderSelectedConditions();
+      document.getElementById('conditionProductSelect').value = '';
+      document.getElementById('conditionEditor').hidden = true;
+      clearCalculationResult();
+    }
+    function removeProductCondition(index) {
+      productConditions.delete(index);
+      renderSelectedConditions();
+      clearCalculationResult();
+    }
+    function renderSelectedConditions() {
+      const list = document.getElementById('selectedConditions');
+      list.replaceChildren();
+      if (!productConditions.size) return;
+      const heading = document.createElement('h3');
+      heading.textContent = '設定済みの商品';
+      list.appendChild(heading);
+      productConditions.forEach((setting, index) => {
+        const row = document.createElement('div');
+        row.className = 'calc-selected-condition';
+        const info = document.createElement('span');
+        const suffix = setting.mode === 'exclude' ? '除外' : setting.mode === 'minimum' ? '最低' + setting.qty + '個' : 'ちょうど' + setting.qty + '個';
+        info.textContent = configData.products[index].name + ' ・ ' + suffix;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = '削除';
+        button.setAttribute('aria-label', configData.products[index].name + 'の条件を削除');
+        button.addEventListener('click', () => removeProductCondition(index));
+        row.append(info, button);
+        list.appendChild(row);
+      });
+    }
+    function clearCalculationResult() {
+      const result = document.getElementById('comboResult');
+      result.style.display = 'none';
+      result.innerHTML = '';
     }
 
     async function loadConfig() {
@@ -108,6 +162,14 @@
           monthSelect.appendChild(opt);
         });
 
+        const qtySelect = document.getElementById('conditionQuantity');
+        for (let i = 1; i <= 30; i++) {
+          const opt = document.createElement('option');
+          opt.value = String(i);
+          opt.textContent = i + '個';
+          qtySelect.appendChild(opt);
+        }
+        qtySelect.addEventListener('change', updateConditionQuantity);
         renderProductSettings();
       } catch (e) {
         alert('month_config.json の読み込みに失敗しました。');
@@ -115,59 +177,28 @@
     }
 
     function renderProductSettings() {
-      const month = document.getElementById('monthSelect').value;
-      const container = document.getElementById('productSettingsList');
-      container.innerHTML = '';
-
+      const select = document.getElementById('conditionProductSelect');
+      const oldValue = select.value;
+      select.innerHTML = '<option value="">商品を選択してください</option>';
       if (!configData) return;
-
       configData.products.forEach((p, index) => {
         if (p.name === 'リペアセラム') return;
-
-        const pt = p.pts[month] || 0;
-        
-        let optionsHtml = '';
-        for (let i = 0; i <= 30; i++) {
-          optionsHtml += `<option value="${i}">${i}</option>`;
-        }
-
-        const div = document.createElement('div');
-        div.className = 'product-item';
-        div.innerHTML = `
-          <div class="product-info">
-            <strong>${p.name}</strong><br>
-            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
-          </div>
-          <div class="product-controls">
-            <label><input type="checkbox" class="exclude-chk" data-index="${index}"> 除外</label>
-            <label>必須個数: 
-              <select class="mandatory-qty-select" data-index="${index}">
-                ${optionsHtml}
-              </select>
-            </label>
-          </div>
-        `;
-        container.appendChild(div);
+        const option = document.createElement('option');
+        option.value = String(index);
+        option.textContent = p.name;
+        select.appendChild(option);
       });
+      select.value = oldValue;
+      showProductConditionEditor();
+      clearCalculationResult();
     }
-
-    // 条件設定のリセット関数
     function resetProductSettings() {
-      // 目標PTを初期値に戻す
       document.getElementById('targetPt').value = 10000;
-
-      // 除外チェックをすべて解除
-      const checkboxes = document.querySelectorAll('.exclude-chk');
-      checkboxes.forEach(chk => chk.checked = false);
-
-      // 必須個数をすべて 0 にセット
-      const selects = document.querySelectorAll('.mandatory-qty-select');
-      selects.forEach(sel => sel.value = '0');
-
-      // 計算結果を非表示にする
-      const resDiv = document.getElementById('comboResult');
-      resDiv.style.display = 'none';
-      resDiv.innerHTML = '';
+      productConditions.clear();
+      document.getElementById('conditionProductSelect').value = '';
+      document.getElementById('conditionEditor').hidden = true;
+      renderSelectedConditions();
+      clearCalculationResult();
     }
 
     function calculateBestCombos() {
@@ -190,11 +221,9 @@
         const pt = p.pts[month] || 0;
         if (pt <= 0) return;
 
-        const chk = document.querySelector(`.exclude-chk[data-index="${index}"]`);
-        const qtySelect = document.querySelector(`.mandatory-qty-select[data-index="${index}"]`);
-
-        const isExcluded = chk ? chk.checked : false;
-        const mandatoryQty = qtySelect ? parseInt(qtySelect.value) || 0 : 0;
+        const condition = productConditions.get(index);
+        const isExcluded = condition?.mode === 'exclude' || condition?.mode === 'exact';
+        const mandatoryQty = condition?.qty || 0;
 
         if (mandatoryQty > 0) {
           mandatoryFixedPt += pt * mandatoryQty;
