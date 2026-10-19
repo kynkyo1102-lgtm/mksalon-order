@@ -141,3 +141,9 @@
 .calc-pt-page .calc-reaction-art{display:block;width:100%;height:auto;max-height:165px;object-fit:contain}
 .calc-pt-page .calc-complete.is-near .calc-reaction-art{max-height:125px}
 @media(max-width:520px){.calc-pt-page .calc-complete:has(.calc-reaction-art){max-width:100%;margin-top:18px}.calc-pt-page .calc-reaction-art{max-height:120px}.calc-pt-page .calc-complete.is-near .calc-reaction-art{max-height:100px}}
+
+/* v8: clean text and native emoji reactions, no SVG artwork */
+.calc-pt-page .calc-complete,.calc-pt-page .calc-complete:has(.calc-reaction-art){display:flex;justify-content:center;align-items:center;gap:7px;flex-wrap:wrap;width:100%;max-width:none;min-height:55px;margin:18px 0 0;padding:0;color:#222;font-size:clamp(19px,5vw,26px);font-weight:800;letter-spacing:-.025em;line-height:1.45}
+.calc-pt-page .calc-complete.is-perfect,.calc-pt-page .calc-complete.is-near{color:#222}
+.calc-pt-page .calc-reaction-emoji{font-family:"Apple Color Emoji","Segoe UI Emoji","Noto Color Emoji",sans-serif;font-size:1.15em;white-space:nowrap;line-height:1}
+.calc-pt-page .calc-complete.is-found{font-size:clamp(18px,4.5vw,23px)}
