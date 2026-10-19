@@ -135,3 +135,9 @@
 .calc-pt-page .calc-complete.calc-reaction-pop{animation:calc-reaction-pop .52s cubic-bezier(.2,1.5,.45,1) both}
 @keyframes calc-reaction-pop{0%{opacity:0;transform:translateY(10px) scale(.85)}65%{opacity:1;transform:translateY(-3px) scale(1.06)}100%{opacity:1;transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.calc-pt-page .calc-complete.calc-reaction-pop{animation:none}}
+
+/* v7: custom transparent SVG reaction art, responsive and motion-safe */
+.calc-pt-page .calc-complete:has(.calc-reaction-art){min-height:0;margin:16px auto 0;padding:0;width:100%;max-width:490px}
+.calc-pt-page .calc-reaction-art{display:block;width:100%;height:auto;max-height:165px;object-fit:contain}
+.calc-pt-page .calc-complete.is-near .calc-reaction-art{max-height:125px}
+@media(max-width:520px){.calc-pt-page .calc-complete:has(.calc-reaction-art){max-width:100%;margin-top:18px}.calc-pt-page .calc-reaction-art{max-height:120px}.calc-pt-page .calc-complete.is-near .calc-reaction-art{max-height:100px}}
