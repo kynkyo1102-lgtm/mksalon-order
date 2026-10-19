@@ -4,151 +4,65 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>よくある質問 | プラッス ドゥ ニナ 南熊本店</title>
-
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-
-  <!-- 共通CSS -->
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
-
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
   <style>
-    /* ==========================================
-       ヘッダー固有スタイル
-    ========================================== */
-    header::after {
-      content: "";
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      right: 8px;
-      bottom: 8px;
-      border: 1px solid rgba(200, 162, 97, 0.3);
-      border-radius: 4px;
-      pointer-events: none;
-    }
-
-    /* ==========================================
-       よくある質問（FAQ）固有スタイル
-    ========================================== */
-    .faq-item {
-      background: var(--card-bg);
-      border-radius: 12px;
-      padding: 16px;
-      margin-bottom: 12px;
-      box-shadow: 0 2px 8px rgba(35, 22, 16, 0.04);
-      border: 1px solid var(--border-color);
-    }
-
-    .faq-q {
-      font-weight: 700;
-      color: var(--wood-dark);
-      font-size: 0.95rem;
-      margin-bottom: 8px;
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-      line-height: 1.4;
-    }
-
-    .faq-q::before {
-      content: "Q.";
-      color: var(--accent-gold);
-      font-weight: bold;
-      flex-shrink: 0;
-    }
-
-    .faq-a {
-      font-size: 0.85rem;
-      color: var(--text-main);
-      line-height: 1.6;
-      display: flex;
-      align-items: flex-start;
-      gap: 6px;
-    }
-
-    .faq-a::before {
-      content: "A.";
-      color: var(--text-sub);
-      font-weight: bold;
-      flex-shrink: 0;
-    }
-
-    /* ==========================================
-       戻るボタン
-    ========================================== */
-    .back-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      margin-top: 24px;
-      padding: 12px;
-      background-color: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      color: var(--wood-dark);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      transition: all 0.2s ease;
-    }
-
-    .back-btn:active {
-      background-color: #f7f3ed;
-      transform: translateY(1px);
-    }
-
-    /* ==========================================
-       フッター
-    ========================================== */
-    footer {
-      text-align: center;
-      padding: 24px 15px;
-      font-size: 0.7rem;
-      color: var(--text-sub);
-      letter-spacing: 0.1em;
-    }
+    .app-page .faq-list{display:flex;flex-direction:column;gap:12px;}
+    .app-page .faq-item{border:1px solid #dedede;border-radius:12px;background:#fff;overflow:hidden;}
+    .app-page .faq-q{display:flex;align-items:flex-start;gap:12px;padding:18px 20px;cursor:pointer;font-size:15px;font-weight:500;line-height:1.7;color:#222;list-style:none;}
+    .app-page .faq-q::-webkit-details-marker{display:none;}
+    .app-page .faq-q::before{content:"Q.";font-size:15px;font-weight:700;color:#555;flex-shrink:0;}
+    .app-page .faq-question{flex:1;}
+    .app-page .faq-icon{position:relative;display:block;flex:0 0 18px;width:18px;height:18px;margin-top:4px;color:#666;}
+    .app-page .faq-icon::before,.app-page .faq-icon::after{content:"";position:absolute;left:3px;top:8px;width:12px;height:1.5px;background:currentColor;border-radius:2px;transition:transform .2s ease;}
+    .app-page .faq-icon::after{transform:rotate(90deg);}
+    .app-page .faq-item[open] .faq-icon::after{transform:rotate(0deg);}
+    .app-page .faq-a{display:flex;gap:12px;margin:0 20px;padding:17px 0 20px;border-top:1px solid #ededed;font-size:14px;line-height:1.9;color:#444;}
+    .app-page .faq-a::before{content:"A.";font-size:14px;font-weight:700;color:#777;flex-shrink:0;}
+    .app-page .faq-q:hover{background:#fafafa;}
+    .app-page .faq-q:focus-visible{outline:2px solid #333;outline-offset:-3px;}
+    @media(max-width:520px){.app-page .faq-q{padding:16px;gap:10px;font-size:14px}.app-page .faq-a{margin:0 16px;gap:10px;font-size:14px}}
+    @media(prefers-reduced-motion:reduce){.app-page .faq-icon::before,.app-page .faq-icon::after{transition:none}}
   </style>
 </head>
-
-<body>
-
-  <header>
-    <div class="header-logo">Place de Nina</div>
-    <h1>よくある質問（FAQ）</h1>
+<body class="app-page">
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">LINEノート用</a><a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html" aria-current="page">よくある質問</a></div>
+    </nav>
   </header>
-
-  <main>
-
-    <div class="faq-item">
-      <div class="faq-q">「コピペ用」と「画像保存用」はどちらを使えばいいですか？</div>
-      <div class="faq-a">LINEノートへ文章でサクッと送る場合は「コピペ用」、注文内容を画像・PDFで残したい場合は「画像保存用」をご利用ください。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">注文の変更やキャンセルはできますか？</div>
-      <div class="faq-a">ご注文送信後の変更・キャンセルにつきましては、注文月度内にサロンLINEのトーク画面より直接お問い合わせください。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">注文締め切り日はいつですか？</div>
-      <div class="faq-a">毎月のご注文締め切り日につきましては、トップページのお知らせ欄をご確認いただくか、インスタグラムストーリーにてご案内しております。</div>
-    </div>
-
-    <div class="faq-item">
-      <div class="faq-q">配送手数料はいくらかかりますか？</div>
-      <div class="faq-a">配送料はサイズとお届け先によって異なりますので、発送後にサロンよりご連絡いたします。30000円以上のご購入で送料無料です。</div>
-    </div>
-
-    <a href="index.html" class="back-btn">‹ トップページへ戻る</a>
-
+  <main class="app-main">
+    <h1 class="app-page-title">よくある質問</h1>
+    <section class="faq-list" aria-label="よくある質問と回答">
+      <details class="faq-item">
+        <summary class="faq-q"><span class="faq-question">「コピペ用」と「画像保存用」はどちらを使えばいいですか？</span><span class="faq-icon" aria-hidden="true"></span></summary>
+        <div class="faq-a"><span>LINEノートへ文章でサクッと送る場合は「コピペ用」、注文内容を画像・PDFで残したい場合は「画像保存用」をご利用ください。</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q"><span class="faq-question">注文の変更やキャンセルはできますか？</span><span class="faq-icon" aria-hidden="true"></span></summary>
+        <div class="faq-a"><span>ご注文送信後の変更・キャンセルにつきましては、注文月度内にサロンLINEのトーク画面より直接お問い合わせください。</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q"><span class="faq-question">注文締め切り日はいつですか？</span><span class="faq-icon" aria-hidden="true"></span></summary>
+        <div class="faq-a"><span>毎月のご注文締め切り日につきましては、トップページのお知らせ欄をご確認いただくか、インスタグラムストーリーにてご案内しております。</span></div>
+      </details>
+      <details class="faq-item">
+        <summary class="faq-q"><span class="faq-question">配送手数料はいくらかかりますか？</span><span class="faq-icon" aria-hidden="true"></span></summary>
+        <div class="faq-a"><span>配送料はサイズとお届け先によって異なりますので、発送後にサロンよりご連絡いたします。30000円以上のご購入で送料無料です。</span></div>
+      </details>
+    </section>
+    <a href="index.html" class="app-back">‹ トップページへ戻る</a>
   </main>
-
-  <footer>
-    &copy; PLACE DE NINA MINAMIKUMAMOTO
-  </footer>
-
+  <footer class="app-footer">&copy; PLACE DE NINA MINAMIKUMAMOTO</footer>
+  <script src="js/app-shell.js?v=menu-motion-2" defer></script>
 </body>
 </html>
-
