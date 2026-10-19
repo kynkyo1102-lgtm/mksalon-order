@@ -12,177 +12,40 @@
   <!-- 共通CSS -->
   <link rel="stylesheet" href="style.css">
 
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
   <style>
-    /* ==========================================
-       ヘッダー固有スタイル
-    ========================================== */
-    header::after {
-      content: "";
-      position: absolute;
-      top: 8px;
-      left: 8px;
-      right: 8px;
-      bottom: 8px;
-      border: 1px solid rgba(200, 162, 97, 0.3);
-      border-radius: 4px;
-      pointer-events: none;
-    }
-
-    /* ==========================================
-       お振込先案内 固有スタイル
-    ========================================== */
-    .bank-notice {
-      background-color: #fff9f0;
-      border: 1px solid #ebd3b0;
-      border-radius: 8px;
-      padding: 12px 14px;
-      font-size: 0.8rem;
-      color: #8c581e;
-      line-height: 1.5;
-      margin-bottom: 20px;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.02);
-    }
-
-    .bank-card {
-      background-color: var(--card-bg);
-      border: 1px solid var(--border-color);
-      border-radius: 12px;
-      padding: 18px;
-      margin-bottom: 16px;
-      box-shadow: 0 3px 10px rgba(35, 22, 16, 0.04);
-      position: relative;
-      overflow: hidden;
-    }
-
-    .bank-card.highlight-card {
-      border: 1.5px solid var(--accent-gold);
-      background: linear-gradient(180deg, #ffffff 0%, #fdfbf7 100%);
-      box-shadow: 0 4px 14px rgba(200, 162, 97, 0.12);
-    }
-
-    .bank-card-header {
-      margin-bottom: 14px;
-      padding-bottom: 8px;
-      border-bottom: 1px dashed var(--border-color);
-    }
-
-    .bank-tag {
-      display: inline-block;
-      font-size: 0.78rem;
-      font-weight: bold;
-      padding: 4px 10px;
-      border-radius: 4px;
-      letter-spacing: 0.03em;
-    }
-
-    .tag-normal {
-      background-color: #f0e9df;
-      color: var(--wood-medium);
-    }
-
-    .tag-high {
-      background-color: var(--wood-dark);
-      color: var(--gold-light);
-    }
-
-    .info-list {
-      margin: 0;
-      padding: 0;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
-    }
-
-    .info-item {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      font-size: 0.85rem;
-    }
-
-    .info-item dt {
-      color: var(--text-sub);
-      font-size: 0.78rem;
-      font-weight: 500;
-      margin: 0;
-    }
-
-    .info-item dd {
-      margin: 0;
-      font-weight: bold;
-      color: var(--text-main);
-      text-align: right;
-    }
-
-    .account-number {
-      font-family: monospace, sans-serif;
-      font-size: 1.1rem !important;
-      letter-spacing: 0.08em;
-      color: var(--wood-dark) !important;
-    }
-
-    .bank-sub-note {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      margin: 16px 0 24px;
-      padding-left: 4px;
-    }
-
-    .bank-sub-note ul {
-      margin: 0;
-      padding-left: 18px;
-    }
-
-    .bank-sub-note li {
-      margin-bottom: 4px;
-      line-height: 1.4;
-    }
-
-    /* ==========================================
-       戻るボタン
-    ========================================== */
-    .back-btn {
-      display: block;
-      width: 100%;
-      text-align: center;
-      padding: 12px;
-      background-color: #ffffff;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      color: var(--wood-dark);
-      text-decoration: none;
-      font-size: 0.85rem;
-      font-weight: bold;
-      box-shadow: 0 2px 6px rgba(0,0,0,0.03);
-      transition: all 0.2s ease;
-    }
-
-    .back-btn:active {
-      background-color: #f7f3ed;
-      transform: translateY(1px);
-    }
-
-    /* ==========================================
-       フッター
-    ========================================== */
-    footer {
-      text-align: center;
-      padding: 24px 15px;
-      font-size: 0.7rem;
-      color: var(--text-sub);
-      letter-spacing: 0.1em;
-    }
+    .app-page .bank-notice{background:#fafafa;border:1px solid #e4e4e4;color:#444;border-radius:10px;padding:14px 16px;font-size:14px;line-height:1.8;margin-bottom:22px;box-shadow:none;}
+    .app-page .bank-card,.app-page .bank-card.highlight-card{background:#fff;border:1px solid #dedede;border-radius:12px;box-shadow:none;padding:20px;margin-bottom:16px;}
+    .app-page .bank-card-header{border-bottom:1px solid #e8e8e8;padding-bottom:14px;margin-bottom:12px;}
+    .app-page .bank-tag,.app-page .bank-tag.tag-normal,.app-page .bank-tag.tag-high{background:none;color:#222;font-size:18px;font-weight:700;padding:0;letter-spacing:0;}
+    .app-page .info-list{gap:0;}
+    .app-page .info-item{display:grid;grid-template-columns:100px minmax(0,1fr);gap:12px;align-items:start;padding:10px 0;}
+    .app-page .info-item dt{font-size:13px;font-weight:400;color:#666;line-height:1.7;}
+    .app-page .info-item dd{font-size:14px;font-weight:400;color:#222;line-height:1.7;text-align:left;overflow-wrap:anywhere;}
+    .app-page .account-number{font-family:inherit;font-size:19px!important;font-weight:700!important;letter-spacing:.03em;color:#222!important;font-variant-numeric:tabular-nums;}
+    .app-page .bank-copy{margin-left:10px;padding:7px 11px;border:1px solid #d6d6d6;border-radius:7px;background:#f8f8f8;color:#333;font:500 12px "Noto Sans JP",sans-serif;cursor:pointer;}
+    .app-page .bank-copy:focus-visible{outline:2px solid #333;outline-offset:2px;}
+    .app-page .bank-sub-note{margin:18px 0 0;padding:0;color:#666;font-size:13px;line-height:1.8;}
+    .app-page .bank-sub-note li{line-height:1.8;}
+    @media(max-width:520px){.app-page .bank-card,.app-page .bank-card.highlight-card{padding:17px 16px}.app-page .info-item{grid-template-columns:88px minmax(0,1fr);gap:9px}.app-page .bank-tag{font-size:17px!important}}
   </style>
 </head>
 
-<body>
+<body class="app-page">
 
-  <header>
-    <div class="header-logo">Place de Nina</div>
-    <h1>お振込先のご案内</h1>
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">LINEノート用</a><a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html" aria-current="page">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
   </header>
 
-  <main>
+  <main class="app-main">\n    <h1 class="app-page-title">お支払いについて</h1>
 
     <div class="bank-notice">
       ※ご購入金額（税込）によって振込先口座が異なります。金額をご確認のうえ、お間違えのないようお振込みをお願いいたします。
@@ -212,7 +75,7 @@
 
         <div class="info-item">
           <dt>口座番号</dt>
-          <dd class="account-number">7723294</dd>
+          <dd><span class="account-number">7723294</span><button class="bank-copy" type="button" data-copy="7723294">コピー</button></dd>
         </div>
 
         <div class="info-item">
@@ -246,7 +109,7 @@
 
         <div class="info-item">
           <dt>口座番号</dt>
-          <dd class="account-number">202371</dd>
+          <dd><span class="account-number">202371</span><button class="bank-copy" type="button" data-copy="202371">コピー</button></dd>
         </div>
 
         <div class="info-item">
@@ -264,15 +127,29 @@
     </div>
 
     <!-- 戻るボタン -->
-    <a href="index.html" class="back-btn">
+    <a href="index.html" class="app-back">
       ‹ トップページへ戻る
     </a>
 
   </main>
 
-  <footer>
+  <footer class="app-footer">
     &copy; PLACE DE NINA MINAMIKUMAMOTO
   </footer>
 
+<script src="js/app-shell.js?v=menu-motion-2" defer></script>
+  <script>
+    document.querySelectorAll('.bank-copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy);
+          button.textContent = 'コピーしました';
+        } catch (error) {
+          button.textContent = 'コピーできませんでした';
+        }
+        setTimeout(() => { button.textContent = 'コピー'; }, 1800);
+      });
+    });
+  </script>
 </body>
 </html>
