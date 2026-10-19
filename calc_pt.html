@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=7">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=8">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -346,16 +346,16 @@
         const isNear = difference > 0 && difference <= nearLimit;
         completion.className = 'calc-complete' + (isPerfect ? ' is-perfect' : isNear ? ' is-near' : ' is-found');
         completion.replaceChildren();
+        const reactionText = document.createElement('span');
+        reactionText.className = 'calc-reaction-text';
+        reactionText.textContent = isPerfect ? 'ぴったり！' : isNear ? 'ほぼぴったり！' : '見つかりました！';
+        completion.appendChild(reactionText);
         if (isPerfect || isNear) {
-          const art = document.createElement('img');
-          art.className = 'calc-reaction-art';
-          art.src = isPerfect ? 'assets/calc-perfect.svg' : 'assets/calc-near.svg';
-          art.alt = isPerfect ? 'ぴったり！' : 'ほぼぴったり！';
-          art.width = isPerfect ? 940 : 956;
-          art.height = isPerfect ? 312 : 230;
-          completion.appendChild(art);
-        } else {
-          completion.textContent = '見つかりました！';
+          const emoji = document.createElement('span');
+          emoji.className = 'calc-reaction-emoji';
+          emoji.textContent = isPerfect ? '👍✨' : '👌';
+          emoji.setAttribute('aria-hidden', 'true');
+          completion.appendChild(emoji);
         }
         completion.classList.remove('calc-reaction-pop');
         void completion.offsetWidth;
