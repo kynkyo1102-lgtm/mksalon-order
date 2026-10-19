@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=3">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=4">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -38,6 +38,7 @@
       
       <section class="calc-steps" aria-label="使い方"><h2>使い方</h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
 
+      <section class="calc-input-section" aria-labelledby="calc-input-title"><h2 id="calc-input-title"><span>02</span> 購入条件を入力</h2>
       <div class="form-group">
         <label class="label-accent">対象月度</label>
         <select id="monthSelect" class="calc-select" onchange="renderProductSettings()"></select>
@@ -48,8 +49,10 @@
         <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
       </div>
 
+      </section>
+
       <section class="calc-product-section" aria-labelledby="product-condition-title">
-        <div class="calc-conditions-toolbar"><h2 id="product-condition-title">商品ごとの条件設定 <small>任意</small></h2><button type="button" class="btn-reset" onclick="resetProductSettings()">条件をリセット</button></div>
+        <div class="calc-conditions-toolbar"><h2 id="product-condition-title"><span class="calc-section-number">03</span> 商品ごとの条件設定 <small>任意</small></h2><button type="button" class="btn-reset" onclick="resetProductSettings()">条件をリセット</button></div>
         <p class="calc-product-help">指定したい商品だけ選択してください。未指定の商品は通常どおり計算されます。</p>
         <label for="conditionProductSelect" class="label-accent">商品を選択</label>
         <select id="conditionProductSelect" class="calc-select" onchange="showProductConditionEditor()"><option value="">商品を選択してください</option></select>
@@ -67,7 +70,9 @@
         <div id="selectedConditions" class="calc-selected-conditions" aria-live="polite"></div>
       </section>
       <p class="calc-action-hint">対象月度と購入ポイントを入力して計算してください。商品条件の指定は任意です。</p>
-      <button class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
+      <button id="calcRunButton" class="btn-copy" onclick="calculateBestCombos()">おすすめ購入パターンを計算</button>
+      <div id="calcProgress" class="calc-progress" role="status" aria-live="polite" hidden><div class="calc-progress-line"><span></span></div><p>条件を照合して、最適な組み合わせを探しています…</p></div>
+      <div id="calcComplete" class="calc-complete" role="status" aria-live="polite" hidden>✓ 3つの購入パターンを計算しました</div>
 
       <div id="comboResult" class="result-container" style="display:none;"></div>
     </div>
@@ -80,6 +85,15 @@
   <script src="js/app-shell.js?v=menu-motion-2" defer></script>
   <script>
     let configData = null;
+    let revealTimer = null;
+    function cancelResultAnimation() {
+      if (revealTimer !== null) clearTimeout(revealTimer);
+      revealTimer = null;
+      document.getElementById("calcRunButton").disabled = false;
+      document.getElementById("calcRunButton").textContent = "おすすめ購入パターンを計算";
+      document.getElementById("calcProgress").hidden = true;
+      document.getElementById("calcComplete").hidden = true;
+    }
 
     const productConditions = new Map();
     function showProductConditionEditor() {
@@ -144,6 +158,7 @@
       });
     }
     function clearCalculationResult() {
+      cancelResultAnimation();
       const result = document.getElementById('comboResult');
       result.style.display = 'none';
       result.innerHTML = '';
@@ -202,6 +217,7 @@
     }
 
     function calculateBestCombos() {
+      cancelResultAnimation();
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
       const month = document.getElementById('monthSelect').value;
 
@@ -272,7 +288,7 @@
       ];
 
       const resDiv = document.getElementById('comboResult');
-      resDiv.style.display = 'block';
+      resDiv.style.display = 'none';
       let html = '';
 
       plans.forEach((plan, index) => {
@@ -300,9 +316,23 @@
       });
 
       resDiv.innerHTML = html;
-
-      // 結果が表示された後、結果エリアへスムーズに自動スクロール
-      resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const button = document.getElementById('calcRunButton');
+      button.disabled = true;
+      button.textContent = '計算中…';
+      document.getElementById('calcProgress').hidden = reducedMotion;
+      const reveal = () => {
+        revealTimer = null;
+        button.disabled = false;
+        button.textContent = 'おすすめ購入パターンを計算';
+        document.getElementById('calcProgress').hidden = true;
+        document.getElementById('calcComplete').hidden = false;
+        resDiv.style.display = 'block';
+        if (!reducedMotion) resDiv.classList.add('calc-result-reveal');
+        else resDiv.classList.remove('calc-result-reveal');
+        resDiv.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+      };
+      revealTimer = setTimeout(reveal, reducedMotion ? 0 : 850);
     }
 
     // 目標PT以上で「最もオーバー分が少なく」「金額が最安」の構成を探す関数
