@@ -126,3 +126,12 @@
 .calc-pt-page .calc-action-hint{margin:0 0 13px}
 .calc-pt-page .result-container{margin-top:30px}
 @media(max-width:520px){.calc-pt-page .calc-steps{margin-bottom:32px;padding:17px}.calc-pt-page .calc-input-section{margin-bottom:30px;padding-bottom:29px}.calc-pt-page .calc-product-section{margin-bottom:28px}}
+
+/* v6: brief achievement reaction */
+.calc-pt-page .calc-complete{display:flex;justify-content:center;align-items:center;min-height:58px;margin:18px 0 0;font-size:24px;font-weight:700;letter-spacing:.045em;color:#333}
+.calc-pt-page .calc-complete.is-perfect{color:#297a5c}
+.calc-pt-page .calc-complete.is-near{color:#555}
+.calc-pt-page .calc-complete.is-found{font-size:21px}
+.calc-pt-page .calc-complete.calc-reaction-pop{animation:calc-reaction-pop .52s cubic-bezier(.2,1.5,.45,1) both}
+@keyframes calc-reaction-pop{0%{opacity:0;transform:translateY(10px) scale(.85)}65%{opacity:1;transform:translateY(-3px) scale(1.06)}100%{opacity:1;transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.calc-pt-page .calc-complete.calc-reaction-pop{animation:none}}
