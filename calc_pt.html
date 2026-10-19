@@ -14,7 +14,7 @@
   
   <link rel="stylesheet" href="css/calc-pt.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=5">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=6">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -340,7 +340,14 @@
         button.textContent = 'おすすめ購入パターンを計算';
         document.getElementById('calcProgress').hidden = true;
         const completion = document.getElementById('calcComplete');
-        completion.textContent = '✓ ' + plans.length + '件の購入パターンが見つかりました';
+        const difference = bestPlan.totalPt - targetPt;
+        const nearLimit = Math.max(1, targetPt * 0.05);
+        const reaction = difference === 0 ? 'ぴったり！' : difference > 0 && difference <= nearLimit ? 'ニアピン！' : '見つかりました！';
+        completion.textContent = reaction;
+        completion.className = 'calc-complete' + (difference === 0 ? ' is-perfect' : difference > 0 && difference <= nearLimit ? ' is-near' : ' is-found');
+        completion.classList.remove('calc-reaction-pop');
+        void completion.offsetWidth;
+        if (!reducedMotion) completion.classList.add('calc-reaction-pop');
         completion.hidden = false;
         resDiv.style.display = 'block';
         if (!reducedMotion) resDiv.classList.add('calc-result-reveal');
