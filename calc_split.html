@@ -46,6 +46,7 @@
       font-family: "Noto Sans JP", sans-serif !important;
     }
   </style>
+  <link rel="stylesheet" href="css/neural-generator.css?v=1">\n  <link rel="stylesheet" href="css/neural-split.css?v=1">\n  <link rel="stylesheet" href="css/neural-effects.css?v=1">
 </head>
 <body class="app-page calc-split-page">
 
@@ -61,6 +62,7 @@
     </nav>
   </header>
   <main class="app-main">
+    
     <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
     <p class="split-eyebrow">BLOCK BALANCE <span>— POINT ALLOCATION PUZZLE —</span></p>
     <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1>
@@ -669,5 +671,5 @@
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!splitGuideDialogue.hidden)setSplitGuideOpen(false);});
     window.onload = loadConfig;
   </script>
-</body>
+<script src="js/neural-effects.js?v=1" defer></script>\n</body>
 </html>
