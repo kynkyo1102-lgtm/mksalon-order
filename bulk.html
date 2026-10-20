@@ -20,11 +20,11 @@
   <!-- 外部スタイルシートの読み込み -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/bulk-shell.css?v=bulk-match-2">
+  <link rel="stylesheet" href="css/bulk-shell.css?v=bulk-sections-4">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app.js?v=members-sync-3" defer></script>
+  <script src="app.js?v=bulk-sections-4" defer></script>
 </head>
 <body class="app-page bulk-order-page">
 
@@ -48,7 +48,7 @@
         <span class="p-country-name" style="display:none;">Japan</span>
         
         <!-- 会員番号・氏名 事前登録エリア（ほかのセクションと統一） -->
-        <div class="section-title">⚙️ 会員情報の事前登録・保存</div>
+        <div class="bulk-utility-title">会員情報の事前登録・保存</div>
         <details class="card-box card-box-preset">
           <summary class="summary-preset">
             よく使う会員情報を登録
@@ -62,7 +62,7 @@
             <div class="flex-row">
               <input type="text" id="regMemberIdMain" placeholder="例: 12345" class="flex-1">
               <span>-</span>
-              <select id="regMemberIdSub" class="width-85"></select>
+              <span class="bulk-fixed-suffix">00</span><input type="hidden" id="regMemberIdSub" value="00">
             </div>
           </div>
 
@@ -72,7 +72,7 @@
           </div>
 
           <button type="button" onclick="savePreMemberInfo()" class="btn-action btn-save-member">
-            💾 この会員情報を保存する
+            この会員情報を保存する
           </button>
 
           <!-- 登録済み一覧の表示エリア -->
@@ -80,7 +80,7 @@
         </details>
 
         <!-- 基本情報エリア（スクロール戻り用ID: topOfForm） -->
-        <div id="topOfForm" class="section-title">👤 ご注文者様基本情報</div>
+        <div id="topOfForm" class="section-title">1. ご注文者様基本情報</div>
         <div class="card-box">
           <div class="form-group">
             <label for="presetMemberSelect">保存済み会員から選択</label>
@@ -112,7 +112,7 @@
         </div>
 
         <!-- お支払い方法エリア -->
-        <div class="section-title">💳 お支払い方法</div>
+        <div class="section-title">2. お支払い方法</div>
         <div class="card-box">
           <div class="form-group">
             <label for="paymentMethod">お支払い方法を選択 *</label>
@@ -145,7 +145,7 @@
         </div>
 
         <!-- お届け先エリア -->
-        <div class="section-title">📦 お届け先（配送ご希望の方のみ）</div>
+        <div class="section-title">3. お届け先（配送ご希望の方のみ）</div>
         <div style="font-size: 0.75rem; color: var(--text-sub); margin: -4px 0 10px 4px;">
           ※以前にご注文された方は宛名のみでも構いません。
         </div>
@@ -173,7 +173,7 @@
         </div>
 
         <!-- 商品一覧テーブル -->
-        <div class="section-title">🛍️ 注文商品選択</div>
+        <div class="section-title">4. 注文商品選択</div>
         <div class="sub-instruction">ご希望商品の数量を選択してください</div>
         <table class="product-table">
           <thead>
@@ -188,19 +188,19 @@
         </table>
 
         <!-- 追加済み注文リスト（確認用） -->
-        <div id="orderListContainer" class="card-box order-list-box display-none" style="margin-top: 20px; background-color: #f7f4ed; border: 1.5px solid var(--accent-gold); border-radius: 10px; padding: 14px;">
-          <div class="order-list-header" style="font-weight: bold; font-size: 0.9rem; color: var(--wood-dark); border-bottom: 1px dashed var(--accent-gold); padding-bottom: 8px; margin-bottom: 10px;">
-            📋 追加済みの注文（<span id="orderCount">0</span>件）
+        <div id="orderListContainer" class="card-box order-list-box display-none" style="margin-top: 20px;">
+          <div class="order-list-header" >
+            5. 追加済みの注文（<span id="orderCount">0</span>件）
           </div>
           <div id="addedOrdersList" class="added-orders-list" style="font-size: 0.82rem; margin-bottom: 14px;"></div>
           
           <!-- 1番上に戻るボタンを追加 -->
-          <button type="button" onclick="document.getElementById('topOfForm').scrollIntoView({behavior:'smooth'})" class="btn-action" style="background-color: #ffffff; color: var(--wood-dark); border: 1.5px solid var(--wood-dark); margin-bottom: 8px;">
+          <button type="button" onclick="document.getElementById('topOfForm').scrollIntoView({behavior:'smooth'})" class="btn-action" >
             ＋ さらに別の注文を追加する（上に戻る）
           </button>
           
           <button type="button" onclick="generateAllReceipts()" class="btn-action btn-pdf">
-            🏁 注文書の一括作成画面へ
+            注文書の一括作成画面へ
           </button>
         </div>
 
