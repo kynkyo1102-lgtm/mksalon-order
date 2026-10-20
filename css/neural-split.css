@@ -239,3 +239,33 @@ body.app-page.calc-split-page>.app-header .app-menu-secondary a{color:#666!impor
   font:500 12px/1.65 "Noto Sans JP",sans-serif!important;color:#c0d8de!important;
 }
 @media(max-width:520px){body.app-page.calc-split-page>.app-header{padding:18px 16px!important}}
+
+/* Mobile result rows: keep labels separate from right-aligned number + unit. */
+.calc-split-page .split-col .total-box .split-total-row{
+  display:grid!important;grid-template-columns:minmax(0,1fr) auto!important;
+  align-items:center!important;gap:8px!important;width:100%!important;
+  min-width:0!important;box-sizing:border-box!important;
+}
+.calc-split-page .split-col .total-box .split-total-row[style*="display:none"]{display:none!important}
+.calc-split-page .split-col .total-box .split-total-row>span:first-child{
+  min-width:0!important;white-space:nowrap!important;
+  font:500 12px/1.5 "Noto Sans JP",sans-serif!important;color:#c0d8de!important;
+}
+.calc-split-page .split-col .total-box .split-total-row>.split-total-value{
+  display:inline-flex!important;justify-content:flex-end!important;align-items:baseline!important;
+  gap:3px!important;min-width:0!important;white-space:nowrap!important;
+  font:500 12px/1.5 "Noto Sans JP",sans-serif!important;color:#c0d8de!important;
+}
+.calc-split-page .split-col .total-box .split-total-row>.split-total-value>strong{
+  font:700 15px/1.5 "Noto Sans JP",sans-serif!important;
+  color:#eaf5f6!important;letter-spacing:0!important;font-variant-numeric:tabular-nums!important;
+}
+.calc-split-page .split-col .total-box .split-total-row>.split-total-value>span{
+  font:500 12px/1.5 "Noto Sans JP",sans-serif!important;color:#c0d8de!important;
+}
+@media(max-width:390px){
+ .calc-split-page .split-col .total-box .split-total-row{gap:4px!important}
+ .calc-split-page .split-col .total-box .split-total-row>span:first-child{font-size:11px!important}
+ .calc-split-page .split-col .total-box .split-total-row>.split-total-value>strong{font-size:13px!important}
+ .calc-split-page .split-col .total-box .split-total-row>.split-total-value>span{font-size:11px!important}
+}
