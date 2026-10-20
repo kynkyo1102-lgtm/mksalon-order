@@ -26,7 +26,7 @@
   </script>
   <link rel="stylesheet" href="css/rpg-typography.css?v=2">
   <link rel="stylesheet" href="css/neural-generator-preview.css?v=1">
-  <link rel="stylesheet" href="css/neural-pt-refinement.css?v=4">
+  <link rel="stylesheet" href="css/neural-pt-refinement.css?v=5">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -507,9 +507,20 @@ document.addEventListener('DOMContentLoaded',()=>{
    el.prepend(border);
    if(reduce){el.classList.add('neural-framed');return}
    const start=()=>{
-     if(el.classList.contains('neural-framing')||el.classList.contains('neural-framed'))return;
+     if(el.dataset.borderPlayed==='1')return;
+     el.dataset.borderPlayed='1';
+     const lines=[...border.children];
      el.classList.add('neural-framing');
-     setTimeout(()=>{el.classList.remove('neural-framing');el.classList.add('neural-framed')},1450);
+     lines.forEach((line,i)=>{
+       line.style.setProperty('animation','none','important');
+       line.style.setProperty('opacity','1','important');
+       line.style.transition='width 350ms linear, height 350ms linear';
+       setTimeout(()=>{
+         if(i%2===0)line.style.setProperty('width','100%','important');
+         else line.style.setProperty('height','100%','important');
+       },i*350+50);
+     });
+     setTimeout(()=>{el.classList.remove('neural-framing');el.classList.add('neural-framed')},1580);
    };
    const watcher=new IntersectionObserver(entries=>{
      if(entries.some(entry=>entry.isIntersecting)){
