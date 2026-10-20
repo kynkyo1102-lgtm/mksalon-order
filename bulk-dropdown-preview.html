@@ -24,7 +24,7 @@
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=2" defer></script>
+  <script src="app-dropdown-preview.js?v=3" defer></script>
 <style>
 .bulk-dropdown-items{padding:8px 0 4px}.bulk-picker-row{display:grid;grid-template-columns:minmax(0,1fr) 88px 38px;gap:9px;align-items:center;margin:0 0 12px}.bulk-picker-row .item-select{width:100%;min-width:0}.bulk-picker-row .qty-select{width:100%;min-width:0}.bulk-picker-remove{border:1px solid #ddd;background:#fff;border-radius:8px;min-height:42px;font-size:18px}.bulk-picker-row select{min-height:44px}.bulk-dropdown-items .sub-btn{margin-top:4px}@media(max-width:430px){.bulk-picker-row{grid-template-columns:minmax(0,1fr) 72px 34px;gap:6px}}
 </style></head>
@@ -127,8 +127,9 @@
 
           <!-- 領収書の宛名 -->
           <div class="form-group margin-top-12">
-            <label for="receiptName">領収書の宛名 <span class="sub-label">(※必要な場合のみ)</span></label>
-            <input type="text" id="receiptName" placeholder="例: 株式会社〇〇、〇〇様">
+            <label for="receiptName">領収書の宛名 *</label>
+            <p class="line-field-help" style="margin:5px 0 8px;">宛名なしの場合は「なし」とお書きください。</p>
+            <input type="text" id="receiptName" placeholder="例：株式会社〇〇、山田太郎、なし" required>
           </div>
 
           <div id="paymentExtraFields" class="payment-extra-box">
