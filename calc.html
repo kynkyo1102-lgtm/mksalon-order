@@ -28,7 +28,15 @@ body.calc-entrance .guide-assistant{animation:calcStepIn .5s 1.55s both}
 </style>
 <script>try{if(sessionStorage.getItem('calc-launch-pending')==='1'){document.documentElement.classList.add('calc-launch-arriving');sessionStorage.removeItem('calc-launch-pending');}}catch(e){}</script>
 <style>html.calc-launch-arriving body{visibility:hidden}html.calc-launch-arriving body.calc-entrance{visibility:visible}</style>
-</head>
+<style id="calc-press-feedback">
+.calc-menu-page .menu-container>.menu-card{position:relative;will-change:transform;touch-action:manipulation}
+.calc-menu-page .menu-container>.menu-card:active,.calc-menu-page .menu-container>.menu-card.is-pressing{transform:translateY(5px) scale(.985)!important;filter:brightness(1.13);transition:transform .09s ease,filter .09s ease!important}
+.calc-menu-page .menu-container>.menu-card.is-confirmed{transform:translateY(3px) scale(.99)!important;outline:3px solid #f5d88b;outline-offset:2px;box-shadow:0 0 0 5px #142741,0 0 30px #eac979a0,inset 0 0 25px #eac97925!important;filter:brightness(1.2);transition:all .13s ease!important}
+.calc-menu-page .menu-container>.menu-card.is-confirmed .mode-card-action{color:#ffe6a2}
+.calc-menu-page .menu-container>.menu-card.is-confirmed .mode-card-action::after{content:"  ✓";font-weight:bold}
+.calc-menu-page .menu-container.is-choosing>.menu-card:not(.is-confirmed){opacity:.45;pointer-events:none;transition:opacity .2s}
+@media(prefers-reduced-motion:reduce){.calc-menu-page .menu-container>.menu-card.is-pressing,.calc-menu-page .menu-container>.menu-card.is-confirmed{transform:none!important;transition:none!important}}
+</style></head>
 <body class="app-page calc-menu-page"><script>if(document.documentElement.classList.contains("calc-launch-arriving"))document.body.classList.add("calc-entrance");</script>
 
   <header class="app-header">
@@ -120,5 +128,27 @@ body.calc-entrance .guide-assistant{animation:calcStepIn .5s 1.55s both}
       document.addEventListener('keydown', e => { if (e.key === 'Escape' && !dialogue.hidden) setOpen(false); });
     })();
   </script>
-</body>
+<script>
+(function(){
+ var cards=document.querySelectorAll('.mode-select-screen .menu-container>a.menu-card');
+ var chosen=false;
+ cards.forEach(function(card){
+  card.addEventListener('pointerdown',function(){if(!chosen)card.classList.add('is-pressing')});
+  ['pointerup','pointercancel','pointerleave'].forEach(function(type){card.addEventListener(type,function(){card.classList.remove('is-pressing')})});
+  card.addEventListener('click',function(event){
+   if(event.defaultPrevented||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||event.button!==0)return;
+   event.preventDefault();if(chosen)return;
+   chosen=true;
+   card.classList.remove('is-pressing');
+   card.classList.add('is-confirmed');
+   card.parentElement.classList.add('is-choosing');
+   var destination=card.href;
+   window.setTimeout(function(){window.location.assign(destination)},420);
+  });
+ });
+ window.addEventListener('pageshow',function(){
+  chosen=false;cards.forEach(function(card){card.classList.remove('is-confirmed','is-pressing');card.parentElement.classList.remove('is-choosing')});
+ });
+})();
+</script></body>
 </html>
