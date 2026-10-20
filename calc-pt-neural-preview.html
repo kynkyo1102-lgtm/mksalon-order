@@ -1,0 +1,479 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>【SFプレビュー】購入PT最適化ツール - Place de Nina</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- 共通CSSの読み込み -->
+  <link rel="stylesheet" href="style.css">
+  
+  <link rel="stylesheet" href="css/calc-pt.css">
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
+  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=11">
+  <script>
+    if (new URLSearchParams(location.search).get('theme') === 'blue') {
+      const themeSheet = document.createElement('link');
+      themeSheet.rel = 'stylesheet';
+      themeSheet.href = 'css/arcade-blue-preview.css?v=1';
+      document.head.appendChild(themeSheet);
+      document.addEventListener('DOMContentLoaded', () => document.body.classList.add('arcade-blue-preview'));
+    }
+  </script>
+  <link rel="stylesheet" href="css/rpg-typography.css?v=2">
+  <link rel="stylesheet" href="css/neural-generator-preview.css?v=1">
+</head>
+<body class="app-page calc-pt-page">
+
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">LINEノート用</a><a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <div class="neural-preview-note"><strong>DESIGN PREVIEW</strong> / ポイント最適化 — 計算ロジックは元ページと同じです。元の画面は変更していません。</div>
+    <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
+    
+    <p class="quest-eyebrow">POINT QUEST <span>— PURCHASE SIMULATOR —</span></p><h1 class="app-page-title">ポイント最適化シミュレーター</h1><p class="quest-lead">目標PTに向けて、最適な購入パターンを探そう。</p>
+    <div class="calc-page-layout">
+      <section class="calc-steps" aria-label="使い方"><h2>進め方 <span class="quest-mini">HOW TO PLAY</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
+
+      <div class="calc-workspace"><section class="calc-input-section" aria-labelledby="calc-input-title"><h2 id="calc-input-title"><span>STEP 1</span> 目標を決める</h2>
+      <div class="form-group">
+        <label class="label-accent">対象月度</label>
+        <select id="monthSelect" class="calc-select" onchange="renderProductSettings()"></select>
+      </div>
+
+      <div class="form-group" style="margin-top: 12px;">
+        <label class="label-accent">購入ポイント（例: 10000, 200000）</label>
+        <input type="number" id="targetPt" class="calc-input" value="10000" step="1000">
+      </div>
+
+      </section>
+
+      <section class="calc-product-section" aria-labelledby="product-condition-title">
+        <div class="calc-conditions-toolbar"><h2 id="product-condition-title"><span class="calc-section-number">STEP 2</span> アイテムの条件設定 <small>任意</small></h2><button type="button" class="btn-reset" onclick="resetProductSettings()">条件をリセット</button></div>
+        <p class="calc-product-help">指定したい商品だけ選択してください。未指定の商品は通常どおり計算されます。</p>
+        <label for="conditionProductSelect" class="label-accent">商品を選択</label>
+        <select id="conditionProductSelect" class="calc-select" onchange="showProductConditionEditor()"><option value="">商品を選択してください</option></select>
+        <div id="conditionEditor" class="calc-condition-editor" hidden>
+          <p id="conditionProductInfo" class="calc-selected-info"></p>
+          <fieldset class="calc-condition-fieldset"><legend>条件を選択</legend>
+            <label><input type="radio" name="conditionMode" value="exclude" checked onchange="updateConditionQuantity()"> 除外する</label>
+            <label><input type="radio" name="conditionMode" value="minimum" onchange="updateConditionQuantity()"> 必ず含める（追加購入もOK）</label>
+            <label><input type="radio" name="conditionMode" value="exact" onchange="updateConditionQuantity()"> 指定した個数だけ含める</label>
+          </fieldset>
+          <div id="conditionQuantityRow" class="calc-condition-quantity" hidden><label for="conditionQuantity">個数</label><select id="conditionQuantity" class="calc-select"></select></div>
+          <p id="conditionExplanation" class="calc-condition-explanation">この商品を計算に含めません。</p>
+          <button type="button" class="calc-add-condition" onclick="saveProductCondition()">この条件を追加する</button>
+        </div>
+        <div id="selectedConditions" class="calc-selected-conditions" aria-live="polite"></div>
+      </section>
+      </div>
+      <div class="calc-run-area"><p class="calc-action-hint">対象月度と購入ポイントを入力して計算してください。商品条件の指定は任意です。</p>
+      <button id="calcRunButton" class="btn-copy" onclick="calculateBestCombos()">▶ クエスト開始・組み合わせを計算</button>
+      <div id="calcProgress" class="calc-progress" role="status" aria-live="polite" hidden><div class="calc-progress-line"><span></span></div><p>最適な組み合わせを探索中…</p></div>
+      <div id="calcComplete" class="calc-complete" role="status" aria-live="polite" hidden></div>
+      </div>
+
+      <div id="comboResult" class="result-container" style="display:none;"></div>
+    </div>
+  </main>
+
+  <footer class="app-footer">
+    &copy; Place de Nina Order Support System
+  </footer>
+
+  <script src="js/app-shell.js?v=menu-motion-2" defer></script>
+  <script>
+    let configData = null;
+    let revealTimer = null;
+    function cancelResultAnimation() {
+      if (revealTimer !== null) clearTimeout(revealTimer);
+      revealTimer = null;
+      document.getElementById("calcRunButton").disabled = false;
+      document.getElementById("calcRunButton").textContent = "▶ クエスト開始・組み合わせを計算";
+      document.getElementById("calcProgress").hidden = true;
+      document.getElementById("calcComplete").hidden = true;
+    }
+
+    const productConditions = new Map();
+    function showProductConditionEditor() {
+      const select = document.getElementById('conditionProductSelect');
+      const editor = document.getElementById('conditionEditor');
+      editor.hidden = !select.value;
+      if (!select.value || !configData) return;
+      const index = Number(select.value);
+      const p = configData.products[index];
+      const month = document.getElementById('monthSelect').value;
+      document.getElementById('conditionProductInfo').textContent = p.price.toLocaleString() + '円 / ' + (p.pts[month] || 0).toLocaleString() + 'PT';
+      const saved = productConditions.get(index);
+      document.querySelector('input[name="conditionMode"][value="' + (saved?.mode || 'exclude') + '"]').checked = true;
+      document.getElementById('conditionQuantity').value = String(saved?.qty || 1);
+      updateConditionQuantity();
+    }
+    function updateConditionQuantity() {
+      const mode = document.querySelector('input[name="conditionMode"]:checked').value;
+      const row = document.getElementById('conditionQuantityRow');
+      row.hidden = mode === 'exclude';
+      const qty = document.getElementById('conditionQuantity').value;
+      document.getElementById('conditionExplanation').textContent = mode === 'exclude'
+        ? 'この商品を計算に含めません。'
+        : mode === 'minimum' ? 'この商品を最低' + qty + '個含めます。計算結果によっては追加されます。'
+        : 'この商品をちょうど' + qty + '個だけ含めます。追加されません。';
+    }
+    function saveProductCondition() {
+      const index = Number(document.getElementById('conditionProductSelect').value);
+      const mode = document.querySelector('input[name="conditionMode"]:checked').value;
+      const qty = mode === 'exclude' ? 0 : Number(document.getElementById('conditionQuantity').value);
+      productConditions.set(index, { mode, qty });
+      renderSelectedConditions();
+      document.getElementById('conditionProductSelect').value = '';
+      document.getElementById('conditionEditor').hidden = true;
+      clearCalculationResult();
+    }
+    function removeProductCondition(index) {
+      productConditions.delete(index);
+      renderSelectedConditions();
+      clearCalculationResult();
+    }
+    function renderSelectedConditions() {
+      const list = document.getElementById('selectedConditions');
+      list.replaceChildren();
+      if (!productConditions.size) return;
+      const heading = document.createElement('h3');
+      heading.textContent = '設定済みの商品';
+      list.appendChild(heading);
+      productConditions.forEach((setting, index) => {
+        const row = document.createElement('div');
+        row.className = 'calc-selected-condition';
+        const info = document.createElement('span');
+        const suffix = setting.mode === 'exclude' ? '除外' : setting.mode === 'minimum' ? '最低' + setting.qty + '個' : 'ちょうど' + setting.qty + '個';
+        info.textContent = configData.products[index].name + ' ・ ' + suffix;
+        const button = document.createElement('button');
+        button.type = 'button';
+        button.textContent = '削除';
+        button.setAttribute('aria-label', configData.products[index].name + 'の条件を削除');
+        button.addEventListener('click', () => removeProductCondition(index));
+        row.append(info, button);
+        list.appendChild(row);
+      });
+    }
+    function clearCalculationResult() {
+      cancelResultAnimation();
+      const result = document.getElementById('comboResult');
+      result.style.display = 'none';
+      result.innerHTML = '';
+    }
+
+    async function loadConfig() {
+      try {
+        const res = await fetch('month_config.json');
+        configData = await res.json();
+        
+        const monthSelect = document.getElementById('monthSelect');
+        configData.activeMonths.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          monthSelect.appendChild(opt);
+        });
+
+        const qtySelect = document.getElementById('conditionQuantity');
+        for (let i = 1; i <= 30; i++) {
+          const opt = document.createElement('option');
+          opt.value = String(i);
+          opt.textContent = i + '個';
+          qtySelect.appendChild(opt);
+        }
+        qtySelect.addEventListener('change', updateConditionQuantity);
+        renderProductSettings();
+      } catch (e) {
+        alert('month_config.json の読み込みに失敗しました。');
+      }
+    }
+
+    function renderProductSettings() {
+      const select = document.getElementById('conditionProductSelect');
+      const oldValue = select.value;
+      select.innerHTML = '<option value="">商品を選択してください</option>';
+      if (!configData) return;
+      configData.products.forEach((p, index) => {
+        if (p.name === 'リペアセラム') return;
+        const option = document.createElement('option');
+        option.value = String(index);
+        option.textContent = p.name;
+        select.appendChild(option);
+      });
+      select.value = oldValue;
+      showProductConditionEditor();
+      clearCalculationResult();
+    }
+    function resetProductSettings() {
+      document.getElementById('targetPt').value = 10000;
+      productConditions.clear();
+      document.getElementById('conditionProductSelect').value = '';
+      document.getElementById('conditionEditor').hidden = true;
+      renderSelectedConditions();
+      clearCalculationResult();
+    }
+
+    function calculateBestCombos() {
+      cancelResultAnimation();
+      const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
+      const month = document.getElementById('monthSelect').value;
+
+      if (targetPt <= 0) {
+        alert('有効な目標ポイントを入力してください。');
+        return;
+      }
+
+      let baseProducts = [];
+      let mandatoryFixedPt = 0;
+      let mandatoryFixedCost = 0;
+      let mandatoryItemsList = [];
+
+      configData.products.forEach((p, index) => {
+        if (p.name === 'リペアセラム') return;
+
+        const pt = p.pts[month] || 0;
+        if (pt <= 0) return;
+
+        const condition = productConditions.get(index);
+        const isExcluded = condition?.mode === 'exclude' || condition?.mode === 'exact';
+        const mandatoryQty = condition?.qty || 0;
+
+        if (mandatoryQty > 0) {
+          mandatoryFixedPt += pt * mandatoryQty;
+          mandatoryFixedCost += p.price * mandatoryQty;
+          mandatoryItemsList.push({ ...p, pt, count: mandatoryQty, displayName: p.name, isMandatory: true });
+        }
+
+        if (!isExcluded) {
+          baseProducts.push({ name: p.name, price: p.price, pt: pt });
+        }
+      });
+
+      let remainingTargetPt = Math.max(0, targetPt - mandatoryFixedPt);
+
+      // 1. 最適プラン（目標PT以上で差が最小、同じPTなら最安）
+      let bestPlan = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost);
+      
+      // 2. パターンA（最適プランで一番使われた動的商品を1つ除外）
+      let planA = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, [bestPlan]);
+
+      // 3. パターンB（最適プラン ＋ パターンAで使われた主力商品を累積除外して探索）
+      let planB = findAlternativeCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost, [bestPlan, planA]);
+
+      let plans = [
+        {
+          title: "★【最適】目標PTに最も近い最安構成",
+          items: bestPlan.items,
+          totalPt: bestPlan.totalPt,
+          totalCost: bestPlan.totalCost,
+          isBest: true
+        },
+        {
+          title: "【パターンA】別商品バリエーション 1",
+          items: planA.items,
+          totalPt: planA.totalPt,
+          totalCost: planA.totalCost,
+          isBest: false
+        },
+        {
+          title: "【パターンB】別商品バリエーション 2",
+          items: planB.items,
+          totalPt: planB.totalPt,
+          totalCost: planB.totalCost,
+          isBest: false
+        }
+      ];
+
+      // Deduplicate only identical product-and-quantity combinations.
+      // Preserve the original order so the recommended plan stays first.
+      const seenCombinations = new Set();
+      plans = plans.filter(plan => {
+        const key = JSON.stringify(plan.items
+          .filter(item => item.count > 0)
+          .map(item => [item.name, item.count])
+          .sort((a, b) => a[0].localeCompare(b[0], 'ja')));
+        if (seenCombinations.has(key)) return false;
+        seenCombinations.add(key);
+        return true;
+      });
+      const resDiv = document.getElementById('comboResult');
+      resDiv.style.display = 'none';
+      let html = '<div class="quest-result-heading"><span class="quest-result-rule" aria-hidden="true"></span><span>QUEST RESULT</span><span class="quest-result-rule" aria-hidden="true"></span></div>';
+
+      plans.forEach((plan, index) => {
+        const displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
+        const diffPt = plan.totalPt - targetPt;
+        const diffStr = diffPt === 0 ? '目標ちょうど' : (diffPt > 0 ? '目標より +' + diffPt.toLocaleString() + ' PT' : '目標より ' + diffPt.toLocaleString() + ' PT');
+        const planLabel = index === 0 ? 'ベストルート' : index === 1 ? 'ルート02' : 'ルート03';
+        html += `
+          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">\n            ${plan.isBest ? '<div class="quest-clear-tag">✦ QUEST CLEAR <span>RESULT 01</span></div>' : ''}
+            <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">最適な組み合わせ</span>' : '<span class="plan-variation-label">別ルート</span>'}</div>
+            <div class="plan-summary">
+              <div class="plan-summary-item"><span>合計ポイント</span><strong>${plan.totalPt.toLocaleString()} <small>PT</small></strong><em>${diffStr}</em></div>
+              <div class="plan-summary-item"><span>合計金額</span><strong>${plan.totalCost.toLocaleString()} <small>円</small></strong></div>
+            </div>
+            <h3 class="plan-items-heading">購入する商品</h3>
+            <div class="plan-items-list">
+              ${displayItems.length ? displayItems.map(i => `
+                <div class="plan-item-row">
+                  <div class="plan-item-name"><strong>${i.displayName}</strong>${i.isMandatory ? '<span class="mandatory-item-badge">必須</span>' : ''}</div>
+                  <div class="plan-item-meta"><span class="plan-item-qty">${i.count}個</span><span>${(i.pt * i.count).toLocaleString()} PT</span><span>${(i.price * i.count).toLocaleString()} 円</span></div>
+                </div>`).join('') : '<p class="plan-empty">対象の商品がありません。</p>'}
+            </div>
+          </section>
+        `;
+      });
+
+      resDiv.innerHTML = html;
+      const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const button = document.getElementById('calcRunButton');
+      button.disabled = true;
+      button.textContent = '計算中…';
+      document.getElementById('calcProgress').hidden = reducedMotion;
+      const reveal = () => {
+        revealTimer = null;
+        button.disabled = false;
+        button.textContent = '▶ クエスト開始・組み合わせを計算';
+        document.getElementById('calcProgress').hidden = true;
+        const completion = document.getElementById('calcComplete');
+        const difference = bestPlan.totalPt - targetPt;
+        const nearLimit = Math.max(1, targetPt * 0.05);
+        completion.hidden = true;
+        completion.replaceChildren();
+
+        resDiv.style.display = 'block';
+        if (!reducedMotion) resDiv.classList.add('calc-result-reveal');
+        else resDiv.classList.remove('calc-result-reveal');
+        resDiv.scrollIntoView({ behavior: reducedMotion ? 'auto' : 'smooth', block: 'start' });
+      };
+      revealTimer = setTimeout(reveal, reducedMotion ? 0 : 850);
+    }
+
+    // 目標PT以上で超過PTが最小、同じPTなら金額最安の構成を探す関数
+    function findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdNames = []) {
+      let filteredProducts = products;
+      if (excludeProdNames && excludeProdNames.length > 0) {
+        filteredProducts = products.filter(p => !excludeProdNames.includes(p.name));
+      }
+
+      if (remainingTarget <= 0 || filteredProducts.length === 0) {
+        return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
+      }
+
+      const maxPt = Math.max(...filteredProducts.map(p => p.pt), 1000);
+      const limit = remainingTarget + maxPt;
+
+      let dp = new Array(limit + 1).fill(Infinity);
+      let parent = new Array(limit + 1).fill(null);
+      dp[0] = 0;
+
+      for (let i = 0; i < filteredProducts.length; i++) {
+        const p = filteredProducts[i];
+        for (let j = p.pt; j <= limit; j++) {
+          if (dp[j - p.pt] !== Infinity) {
+            if (dp[j - p.pt] + p.price < dp[j]) {
+              dp[j] = dp[j - p.pt] + p.price;
+              parent[j] = { prev: j - p.pt, prod: p };
+            }
+          }
+        }
+      }
+
+      // First minimize PT overage (never below target); then minimize cost at that exact PT.
+      // dp[pt] already stores the lowest cost for each achievable PT.
+      let bestPt = -1;
+      for (let pt = remainingTarget; pt <= limit; pt++) {
+        if (dp[pt] !== Infinity) {
+          bestPt = pt;
+          break;
+        }
+      }
+
+      if (bestPt !== -1) {
+        let counts = {};
+        let curr = bestPt;
+        while (curr > 0 && parent[curr]) {
+          let pName = parent[curr].prod.name;
+          counts[pName] = counts[pName] || { ...parent[curr].prod, count: 0 };
+          counts[pName].count++;
+          curr = parent[curr].prev;
+        }
+        let dynamicItems = Object.values(counts);
+        
+        let mergedMap = {};
+        [...mandatoryItems, ...dynamicItems].forEach(item => {
+          if (!mergedMap[item.name]) {
+            mergedMap[item.name] = { ...item, count: item.count };
+          } else {
+            mergedMap[item.name].count += item.count;
+          }
+        });
+
+        return { items: Object.values(mergedMap), totalPt: fixedPt + bestPt, totalCost: fixedCost + dp[bestPt] };
+      }
+
+      return { items: [...mandatoryItems], totalPt: fixedPt, totalCost: fixedCost };
+    }
+
+    // 既存プランと重複しないバリエーションを作る代替関数（過去プランの主力商品を累積除外）
+    function findAlternativeCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, previousPlans) {
+      let excludeProdNames = [];
+
+      previousPlans.forEach(plan => {
+        let dynamicItems = plan.items.filter(i => !i.isMandatory);
+        if (dynamicItems.length > 0) {
+          dynamicItems.sort((a, b) => b.count - a.count);
+          let topProdName = dynamicItems[0].name;
+          if (!excludeProdNames.includes(topProdName)) {
+            excludeProdNames.push(topProdName);
+          }
+        }
+      });
+
+      let altPlan = findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdNames);
+
+      // もし候補除外によって全く同じ結果や不整合が出た場合は元に戻す
+      if (altPlan.items.length === 0) {
+        return previousPlans[0];
+      }
+
+      return altPlan;
+    }
+
+    function formatItemsWithSamePrice(items, allValidProducts) {
+      return items.map(item => {
+        let sameSpecProducts = allValidProducts.filter(p => p.pt === item.pt && p.price === item.price && p.name !== item.name);
+        if (sameSpecProducts.length > 0) {
+          let altNames = sameSpecProducts.map(p => p.name).join(' / ');
+          return {
+            ...item,
+            displayName: `${item.name} （または ${altNames}）`
+          };
+        }
+        return {
+          ...item,
+          displayName: item.name
+        };
+      });
+    }
+
+    window.onload = loadConfig;
+  </script>
+</body>
+</html>
