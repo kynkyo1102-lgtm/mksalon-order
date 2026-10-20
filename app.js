@@ -374,12 +374,13 @@ function renderOrderList() {
     let ptNote = ord.ninaPoint > 0 ? ` (ポイント利用 -¥${ord.ninaPoint.toLocaleString()})` : '';
     let receiptNote = ord.receiptName ? ` / 領収書: ${ord.receiptName}` : '';
     html += `
-      <div style="border-bottom: 1px dashed var(--border-color); padding: 8px 0; display: flex; justify-content: space-between; align-items: center;">
-        <div>
-          <strong>${i + 1}. ${ord.fullName}</strong> (${ord.memberId}) <small style="color:var(--text-sub);">[ID: ${ord.orderId}]</small> - <span style="color:var(--wood-medium); font-weight:bold;">${ord.paymentMethod}</span>${receiptNote}<br>
-          <small style="color: var(--text-sub);">支払額: ¥${ord.totalPrice.toLocaleString()}${ptNote} / ${ord.totalPt.toLocaleString()}pt</small>
+      <div class="bulk-added-order">
+        <div class="bulk-added-order-content">
+          <div class="bulk-added-order-name"><strong>${i + 1}. ${ord.fullName}</strong><span class="bulk-added-order-member">${ord.memberId}</span></div>
+          <div class="bulk-added-order-meta"><span>${ord.paymentMethod}</span><span>注文ID: ${ord.orderId}</span>${receiptNote ? `<span>${receiptNote.replace(/^ \/ /, '')}</span>` : ''}</div>
+          <div class="bulk-added-order-total">支払額 <strong>¥${ord.totalPrice.toLocaleString()}</strong><span>${ord.totalPt.toLocaleString()}pt</span>${ptNote ? `<span>${ptNote}</span>` : ''}</div>
         </div>
-        <button type="button" onclick="removeOrder(${i})" style="color: #c94b4b; border: none; background: none; cursor: pointer; font-size: 0.75rem; font-weight: bold;">削除</button>
+        <button type="button" class="bulk-added-order-delete" onclick="removeOrder(${i})">削除</button>
       </div>
     `;
   });
