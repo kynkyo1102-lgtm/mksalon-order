@@ -1,19 +1,17 @@
-/* Image-order shell: preserve legacy form, receipt, and export styles. */
+/* Image-order styles: aligned to the text-order form; receipt export kept separate. */
 .bulk-order-page{background:#fff;color:#222;font-family:"Noto Sans JP",sans-serif;}
 .bulk-order-page .app-header{flex-shrink:0;}
-.bulk-order-page .bulk-main{width:100%;max-width:640px;margin:0 auto;padding:32px 18px 55px;box-sizing:border-box;flex:1;}
+.bulk-order-page .bulk-main{width:100%;max-width:760px;margin:0 auto;padding:32px 18px 55px;box-sizing:border-box;flex:1;}
 .bulk-order-page .app-page-title{margin:0 0 25px;color:#222;}
-.bulk-order-page .bulk-main .section-title{font-family:"Noto Sans JP",sans-serif;color:#25533e;}
 .bulk-order-page .bulk-main input,.bulk-order-page .bulk-main select,.bulk-order-page .bulk-main textarea,.bulk-order-page .bulk-main button{font-family:"Noto Sans JP",sans-serif;}
 @media(max-width:520px){.bulk-order-page .bulk-main{padding:26px 16px 45px;}}
 
 /* Align image-order form styling with the completed text-order tool. */
-.bulk-order-page .bulk-main{max-width:760px;background:transparent}
 .bulk-order-page .bulk-main .section-title{font-size:16px!important;font-weight:700!important;letter-spacing:0!important;color:#25533e!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:26px 0 14px!important}
 .bulk-order-page .bulk-main .section-title::before,.bulk-order-page .bulk-main .section-title::after{display:none!important;content:none!important}
 .bulk-order-page .bulk-main .card-box{background:#fff!important;border:1px solid #e3e3e3!important;border-radius:12px!important;box-shadow:none!important;padding:20px!important;color:#222!important}
-.bulk-order-page .bulk-main input,.bulk-order-page .bulk-main select,.bulk-order-page .bulk-main textarea{font-size:14px!important;min-height:42px;border:1px solid #d8d8d8!important;border-radius:8px!important;background:#fff!important;color:#222!important;box-shadow:none!important}
-.bulk-order-page .bulk-main label{font-size:13px!important;font-weight:500!important;color:#444!important}
+.bulk-order-page .bulk-main input,.bulk-order-page .bulk-main select,.bulk-order-page .bulk-main textarea{font-size:16px!important;min-height:42px;border:1px solid #d8d8d8!important;border-radius:8px!important;background:#fff!important;color:#222!important;box-shadow:none!important}
+.bulk-order-page .bulk-main label{font-size:14px!important;font-weight:500!important;color:#444!important}
 .bulk-order-page .bulk-main button{border-radius:9px;font-weight:600}
 .bulk-order-page .bulk-main .card-box-preset{background:#f5f8f5!important;padding:14px 16px!important}
 .bulk-order-page .bulk-main .summary-preset{color:#4f6957!important;font-size:14px!important}
@@ -38,7 +36,7 @@
 .bulk-order-page #formSection #orderListContainer{background:#fff!important;border:1px solid #dce6de!important;border-radius:12px!important;padding:20px!important}
 .bulk-order-page #formSection .order-list-header{color:#25533e!important;font-size:16px!important;font-weight:700!important;border:0!important;margin-bottom:14px!important;padding:0!important}
 .bulk-order-page #formSection .added-orders-list{color:#333!important}
-.bulk-order-page #formSection .btn-add{background:#25533e!important;color:#fff!important;border:0!important;border-radius:10px!important;font-size:15px!important;font-weight:700!important;min-height:48px!important}
+.bulk-order-page #formSection .btn-add{background:#25533e!important;color:#fff!important;border:0!important;border-radius:10px!important;font-size:16px!important;font-weight:700!important;min-height:48px!important}
 .bulk-order-page #formSection .footer-bar{box-shadow:0 -3px 14px rgba(0,0,0,.06)!important;border-top:1px solid #e3e9e4!important}
 .bulk-order-page #formSection .btn-action{border-radius:9px!important;box-shadow:none!important}
 
