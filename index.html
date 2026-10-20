@@ -170,6 +170,13 @@
 @keyframes calcLaunchLine{to{width:min(280px,75vw)}}
 @media(prefers-reduced-motion:reduce){.calc-launch-screen,.calc-launch-screen::before,.calc-launch-content,.calc-launch-line{animation:none!important;transition:none!important}.calc-launch-screen.is-active .calc-launch-content{opacity:1;transform:none}}
 </style>
+
+<style id="calc-launch-loading-style">
+.calc-launch-progress{height:9px;width:min(280px,75vw);border:1px solid #71b7db;background:#101f37;padding:2px;margin:16px auto 10px;box-shadow:0 0 14px #3c9fd544}
+.calc-launch-progress-fill{height:100%;width:0;background:linear-gradient(90deg,#3588e8,#8deaff);box-shadow:0 0 12px #70dfff}
+.calc-launch-screen.is-active .calc-launch-progress-fill{animation:calcLoadFill 2.15s steps(22,end) forwards}
+@keyframes calcLoadFill{0%{width:0}15%{width:18%}40%{width:39%}60%{width:67%}85%{width:91%}100%{width:100%}}
+</style>
 </head>
 <body class="home-page">
 
@@ -388,7 +395,7 @@
   </script>
 
 <div id="calc-launch-screen" class="calc-launch-screen" role="status" aria-live="polite" aria-hidden="true">
- <div class="calc-launch-content"><div class="calc-launch-kicker">SYSTEM INITIALIZING</div><div class="calc-launch-title">CALCULATION<br>SUPPORT</div><div class="calc-launch-line"></div><div class="calc-launch-start">STARTING...</div></div>
+ <div class="calc-launch-content"><div class="calc-launch-kicker">SYSTEM INITIALIZING</div><div class="calc-launch-title">CALCULATION<br>SUPPORT</div><div class="calc-launch-line"></div><div class="calc-launch-progress"><div class="calc-launch-progress-fill"></div></div><div class="calc-launch-start">LOADING... <span id="calc-launch-percent">0%</span></div></div>
 </div>
 <script>
 (function(){
@@ -401,7 +408,15 @@
    overlay.setAttribute('aria-hidden','false');
    overlay.classList.add('is-active');
    var target=link.href;
-   window.setTimeout(function(){window.location.assign(target)},1350);
+   var percent=document.getElementById('calc-launch-percent');
+   var started=performance.now();
+   var ticker=window.setInterval(function(){
+    var t=Math.min(1,(performance.now()-started)/2150);
+    var p=t<.15?t/.15*18:t<.4?18+(t-.15)/.25*21:t<.6?39+(t-.4)/.2*28:t<.85?67+(t-.6)/.25*24:91+(t-.85)/.15*9;
+    percent.textContent=Math.min(100,Math.floor(p))+'%';
+    if(t>=1){window.clearInterval(ticker);percent.textContent='100%';}
+   },55);
+   window.setTimeout(function(){(function(){try{sessionStorage.setItem('calc-launch-pending','1')}catch(e){}window.location.assign(target)})()},2550);
   });
  });
  window.addEventListener('pageshow',function(){launching=false;overlay.classList.remove('is-active');overlay.setAttribute('aria-hidden','true')});
