@@ -6,3 +6,15 @@
 .bulk-order-page .bulk-main .section-title{font-family:"Noto Sans JP",sans-serif;color:#25533e;}
 .bulk-order-page .bulk-main input,.bulk-order-page .bulk-main select,.bulk-order-page .bulk-main textarea,.bulk-order-page .bulk-main button{font-family:"Noto Sans JP",sans-serif;}
 @media(max-width:520px){.bulk-order-page .bulk-main{padding:26px 16px 45px;}}
+
+/* Align image-order form styling with the completed text-order tool. */
+.bulk-order-page .bulk-main{max-width:760px;background:transparent}
+.bulk-order-page .bulk-main .section-title{font-size:16px!important;font-weight:700!important;letter-spacing:0!important;color:#25533e!important;background:none!important;border:0!important;box-shadow:none!important;padding:0!important;margin:26px 0 14px!important}
+.bulk-order-page .bulk-main .section-title::before,.bulk-order-page .bulk-main .section-title::after{display:none!important;content:none!important}
+.bulk-order-page .bulk-main .card-box{background:#fff!important;border:1px solid #e3e3e3!important;border-radius:12px!important;box-shadow:none!important;padding:20px!important;color:#222!important}
+.bulk-order-page .bulk-main input,.bulk-order-page .bulk-main select,.bulk-order-page .bulk-main textarea{font-size:14px!important;min-height:42px;border:1px solid #d8d8d8!important;border-radius:8px!important;background:#fff!important;color:#222!important;box-shadow:none!important}
+.bulk-order-page .bulk-main label{font-size:13px!important;font-weight:500!important;color:#444!important}
+.bulk-order-page .bulk-main button{border-radius:9px;font-weight:600}
+.bulk-order-page .bulk-main .card-box-preset{background:#f5f8f5!important;padding:14px 16px!important}
+.bulk-order-page .bulk-main .summary-preset{color:#4f6957!important;font-size:14px!important}
+@media(max-width:520px){.bulk-order-page .bulk-main .card-box{padding:17px!important}}
