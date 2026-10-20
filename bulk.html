@@ -98,6 +98,12 @@
 .bulk-order-page.bulk-final-step #topOfForm,.bulk-order-page.bulk-final-step .bulk-products-card,.bulk-order-page.bulk-final-step .bulk-member-utility,.bulk-order-page.bulk-final-step .bulk-stage-one-action,.bulk-order-page.bulk-final-step .bulk-stage-one-next,.bulk-order-page.bulk-final-step .footer-bar{display:none!important}
 .bulk-order-page.bulk-final-step #bulkFinalStage{display:block!important}
 .bulk-order-page:not(.bulk-final-step) #bulkFinalStage{display:none!important}
+</style><style>
+/* 固定フッターに入力内容・追加済み注文が隠れないよう余白を確保 */
+.bulk-order-page #orderForm{padding-bottom:190px!important}
+.bulk-order-page #orderListContainer{scroll-margin-bottom:190px}
+.bulk-order-page .bulk-stage-one-next{margin-bottom:28px!important}
+@media(max-width:600px){.bulk-order-page #orderForm{padding-bottom:220px!important}}
 </style></head>
 <body class="app-page bulk-order-page">
 
@@ -204,7 +210,7 @@
         <!-- 追加済み注文リスト（確認用） -->
         <div id="orderListContainer" class="card-box order-list-box display-none">
           <div class="order-list-header" >
-            追加済みの会員注文（<span id="orderCount">0</span>件）
+            追加済みの注文（<span id="orderCount">0</span>件）
           </div>
           <div id="addedOrdersList" class="added-orders-list"></div>
         </div>
