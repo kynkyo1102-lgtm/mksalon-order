@@ -11,7 +11,7 @@
   
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-split.css?v=split-guide-1">
+  <link rel="stylesheet" href="css/calc-split.css?v=split-guide-2">
   <script>
     if (new URLSearchParams(location.search).get('theme') === 'blue') {
       const themeSheet = document.createElement('link');
@@ -225,9 +225,9 @@
   <div class="split-guide-dialogue" id="splitGuideDialogue" hidden>
     <div class="split-guide-title"><span>GUIDE BOT</span><button type="button" id="splitGuideClose" aria-label="案内を閉じる">×</button></div>
     <p class="split-guide-intro">3つの振り分け方法を説明するよ！</p>
-    <div class="split-guide-option"><strong>01 / EASY　かんたん均等</strong><p>購入する商品の合計ポイントが、左右でできるだけ半分ずつになるように振り分けるよ。目標ポイントの入力は不要。まず均等に分けたいときにおすすめ！</p></div>
-    <div class="split-guide-option"><strong>02 / TARGET　目標PT</strong><p>左と右、それぞれの目標ポイントを指定できるよ。購入する商品を、設定した目標にできるだけ近づくように振り分けるモードだよ。</p></div>
-    <div class="split-guide-option"><strong>03 / BALANCE　保有PT合算</strong><p>すでに持っているポイントを左右それぞれに入力して、今回購入する商品のポイントを足した合計がバランスよくなるように調整するよ。</p></div>
+    <div class="split-guide-option"><strong>01 / EASY　かんたん均等</strong><p>購入する商品の合計ポイントが、<strong class="split-guide-emphasis">左右でできるだけ半分ずつ</strong>になるように振り分けるよ。<strong class="split-guide-emphasis">目標ポイントの入力は不要</strong>。まず均等に分けたいときにおすすめ！</p></div>
+    <div class="split-guide-option"><strong>02 / TARGET　目標PT</strong><p><strong class="split-guide-emphasis">左と右、それぞれの目標ポイント</strong>を指定できるよ。購入する商品を、<strong class="split-guide-emphasis">設定した目標にできるだけ近づく</strong>ように振り分けるモードだよ。</p></div>
+    <div class="split-guide-option"><strong>03 / BALANCE　保有PT合算</strong><p><strong class="split-guide-emphasis">すでに持っているポイント</strong>を左右それぞれに入力して、今回購入する商品のポイントを足した<strong class="split-guide-emphasis">合計がバランスよくなる</strong>ように調整するよ。</p></div>
     <p class="split-guide-hint">使いたいモードのカードをタップしてね！</p>
   </div>
   <button type="button" class="split-guide-trigger" id="splitGuideTrigger" aria-label="ロボットにモードの違いを聞く" aria-controls="splitGuideDialogue" aria-expanded="false">
