@@ -1,0 +1,65 @@
+/* NEURAL OPTIMIZER / point-optimization refinement (preview only).
+   Layout and presentation only. Calculation scripts are unchanged. */
+.calc-pt-page{--no-space:clamp(23px,5vw,44px);--no-cyan:#8be5ec;--no-border:#426b7b}
+.calc-pt-page .app-main{padding-top:clamp(28px,6vw,54px)!important;padding-bottom:clamp(90px,13vw,150px)!important}
+.calc-pt-page .neural-preview-note{margin-bottom:26px!important}
+.calc-pt-page .calc-back-top{display:inline-flex;margin-bottom:clamp(30px,6vw,52px)!important}
+.calc-pt-page .quest-eyebrow{margin-bottom:14px!important;color:var(--no-cyan)!important}
+.calc-pt-page .quest-eyebrow span{color:#89afbb!important}
+.calc-pt-page .app-page-title{margin:0 0 12px!important;line-height:1.38!important}
+.calc-pt-page .quest-lead{line-height:1.95!important;margin:0 0 clamp(35px,8vw,70px)!important;color:#bad1da!important}
+.calc-pt-page .calc-page-layout{display:block!important}
+.calc-pt-page .calc-workspace{display:grid!important;gap:var(--no-space)!important}
+.calc-pt-page .calc-steps,.calc-pt-page .calc-input-section,.calc-pt-page .calc-product-section,.calc-pt-page .calc-run-area{padding:clamp(21px,5vw,34px)!important;border:1px solid var(--no-border)!important;border-radius:9px!important;background:linear-gradient(140deg,#132d3b,#0a1c29)!important;box-shadow:inset 0 1px #7bdde51c,0 12px 28px #0002!important}
+.calc-pt-page .calc-steps{margin:0 0 var(--no-space)!important}
+.calc-pt-page .calc-steps h2,.calc-pt-page .calc-input-section h2,.calc-pt-page .calc-product-section h2{font-size:clamp(16px,3.8vw,20px)!important;line-height:1.5!important;margin:0 0 23px!important}
+.calc-pt-page .calc-steps h2:before{background:var(--no-cyan)!important}
+.calc-pt-page .quest-mini,.calc-pt-page .calc-section-number{color:var(--no-cyan)!important}
+.calc-pt-page .calc-steps ol{display:grid!important;gap:15px!important;margin:0!important}
+.calc-pt-page .calc-steps li{line-height:1.8!important;color:#dcecf0!important;gap:14px!important}
+.calc-pt-page .calc-steps li span{color:var(--no-cyan)!important;border-color:#416b7d!important;background:#092130!important}
+.calc-pt-page .form-group+.form-group{margin-top:25px!important}
+.calc-pt-page .form-group .label-accent,.calc-pt-page .calc-product-section .label-accent{display:block!important;margin-bottom:10px!important;color:#d5e8ed!important;line-height:1.7!important}
+.calc-pt-page .calc-select,.calc-pt-page .calc-input{min-height:51px!important;background:#071a27!important;color:#f2ffff!important;border:1px solid #4c7b8c!important;border-radius:6px!important;padding:12px 15px!important;font-size:16px!important}
+.calc-pt-page .calc-select:focus-visible,.calc-pt-page .calc-input:focus-visible{outline:2px solid #9deaf0!important;outline-offset:2px!important}
+.calc-pt-page .calc-conditions-toolbar{margin-bottom:18px!important;gap:12px!important}
+.calc-pt-page .calc-product-help{line-height:1.9!important;margin:0 0 25px!important}
+.calc-pt-page .calc-condition-editor{margin-top:20px!important;padding:20px!important;background:#0b2432!important;border-color:#426e7c!important;border-radius:7px!important}
+.calc-pt-page .calc-condition-fieldset{padding:14px!important;border-color:#4b7180!important}
+.calc-pt-page .calc-condition-fieldset label{line-height:1.9!important;color:#e5f1f3!important}
+.calc-pt-page .calc-condition-fieldset input{accent-color:var(--no-cyan)!important}
+.calc-pt-page .calc-condition-explanation{background:#143647!important;color:#d8e9ed!important;padding:12px!important;line-height:1.8!important}
+.calc-pt-page .calc-selected-conditions{margin-top:20px!important}
+.calc-pt-page .calc-selected-condition{padding-block:14px!important;border-color:#3f6677!important}
+.calc-pt-page .calc-run-area{margin-top:var(--no-space)!important;padding-block:clamp(26px,6vw,40px)!important}
+.calc-pt-page .calc-action-hint{margin-bottom:20px!important;line-height:1.9!important}
+.calc-pt-page #calcRunButton{display:block;width:100%;min-height:60px;background:linear-gradient(120deg,#19556a,#267f8e)!important;border:1px solid #9ceaf0!important;color:#f7ffff!important;border-radius:6px!important;box-shadow:inset 0 1px #d1ffff38,0 4px 0 #061720,0 0 25px #3dc8d416!important;font-size:clamp(14px,3.6vw,17px)!important;letter-spacing:.035em!important}
+.calc-pt-page #calcRunButton:disabled{opacity:.75}
+.calc-pt-page .calc-progress{margin-top:23px!important;padding:20px!important;border:1px solid #477585!important;background:#0a2231!important;border-radius:6px!important}
+.calc-pt-page .calc-progress-line{height:8px!important;border:1px solid #4a7b8a!important;background:#061a26!important;overflow:hidden!important}
+.calc-pt-page .calc-progress-line span{background:linear-gradient(90deg,#297b8b,#b1faff)!important;box-shadow:0 0 12px #71ebf2!important}
+.calc-pt-page .calc-progress p{color:#cce8ed!important;line-height:1.8!important}
+.calc-pt-page #comboResult{margin-top:clamp(40px,8vw,70px)!important}
+.calc-pt-page .quest-result-heading{color:var(--no-cyan)!important;margin-bottom:28px!important;letter-spacing:.12em!important}
+.calc-pt-page .quest-result-rule{background:linear-gradient(90deg,transparent,#79d7df)!important}
+.calc-pt-page .plan-card,.calc-pt-page .plan-card.best{padding:clamp(19px,5vw,30px)!important;margin-bottom:clamp(22px,5vw,38px)!important;border:1px solid #416d7e!important;background:linear-gradient(145deg,#102b3b,#0b1e2b)!important;border-radius:8px!important;box-shadow:0 10px 25px #0003!important}
+.calc-pt-page .plan-card.best{border:2px solid #8ae4e9!important;box-shadow:inset 0 0 0 3px #0d2533,0 0 27px #53c9d32b!important}
+.calc-pt-page .quest-clear-tag,.calc-pt-page .plan-best-label,.calc-pt-page .plan-variation-label{color:#9ce9ed!important}
+.calc-pt-page .plan-best-label,.calc-pt-page .plan-variation-label{background:#194557!important;border:1px solid #4b8292!important}
+.calc-pt-page .plan-summary,.calc-pt-page .plan-card.best .plan-summary{background:#081d2a!important;border:1px solid #426e80!important;border-radius:6px!important;padding:clamp(15px,4vw,23px)!important}
+.calc-pt-page .plan-summary-item strong,.calc-pt-page .plan-card.best .plan-summary-item:first-child strong{color:#a5f0ef!important}
+.calc-pt-page .plan-summary-item>span,.calc-pt-page .plan-summary-item em,.calc-pt-page .plan-item-meta{color:#b8cfd8!important}
+.calc-pt-page .plan-item-row{padding-block:13px!important;border-color:#355e70!important}
+.calc-pt-page .plan-item-name,.calc-pt-page .plan-item-qty{color:#effbfc!important}
+.calc-pt-page .mandatory-item-badge{background:#204b59!important;color:#a3e9e9!important}
+.calc-pt-page .plan-card:not(.best){background:#102a39!important;border-color:#416d7e!important}
+@media(min-width:850px){.calc-pt-page .calc-steps,.calc-pt-page .calc-workspace,.calc-pt-page .calc-run-area,.calc-pt-page #comboResult{max-width:780px;margin-left:auto!important;margin-right:auto!important}}
+@media(max-width:520px){.calc-pt-page .calc-steps,.calc-pt-page .calc-input-section,.calc-pt-page .calc-product-section,.calc-pt-page .calc-run-area{padding:21px!important}.calc-pt-page .calc-conditions-toolbar{align-items:flex-start!important}.calc-pt-page .plan-card,.calc-pt-page .plan-card.best{padding:19px!important}}
+@media(prefers-reduced-motion:no-preference){
+.calc-pt-page .quest-eyebrow,.calc-pt-page .app-page-title,.calc-pt-page .quest-lead,.calc-pt-page .calc-steps,.calc-pt-page .calc-input-section,.calc-pt-page .calc-product-section,.calc-pt-page .calc-run-area{animation:neural-section-in .7s both}
+.calc-pt-page .quest-eyebrow{animation-delay:.1s}.calc-pt-page .app-page-title{animation-delay:.24s}.calc-pt-page .quest-lead{animation-delay:.38s}.calc-pt-page .calc-steps{animation-delay:.52s}.calc-pt-page .calc-input-section{animation-delay:.7s}.calc-pt-page .calc-product-section{animation-delay:.85s}.calc-pt-page .calc-run-area{animation-delay:1s}
+.calc-pt-page #comboResult:not([style*="display:none"]):not([style*="display: none"]) .plan-card{animation:neural-report-in .65s both}
+.calc-pt-page #comboResult .plan-card:nth-of-type(2){animation-delay:.13s!important}.calc-pt-page #comboResult .plan-card:nth-of-type(3){animation-delay:.26s!important}
+@keyframes neural-section-in{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes neural-report-in{from{opacity:0;transform:translateY(22px);filter:brightness(1.5)}to{opacity:1;transform:translateY(0);filter:brightness(1)}}
+}
