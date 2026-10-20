@@ -1,0 +1,8 @@
+/* Image-order shell: preserve legacy form, receipt, and export styles. */
+.bulk-order-page{background:#fff;color:#222;font-family:"Noto Sans JP",sans-serif;}
+.bulk-order-page .app-header{flex-shrink:0;}
+.bulk-order-page .bulk-main{width:100%;max-width:640px;margin:0 auto;padding:32px 18px 55px;box-sizing:border-box;flex:1;}
+.bulk-order-page .app-page-title{margin:0 0 25px;color:#222;}
+.bulk-order-page .bulk-main .section-title{font-family:"Noto Sans JP",sans-serif;color:#25533e;}
+.bulk-order-page .bulk-main input,.bulk-order-page .bulk-main select,.bulk-order-page .bulk-main textarea,.bulk-order-page .bulk-main button{font-family:"Noto Sans JP",sans-serif;}
+@media(max-width:520px){.bulk-order-page .bulk-main{padding:26px 16px 45px;}}
