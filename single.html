@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=4">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/single.css?v=member-layout-2">
+  <link rel="stylesheet" href="css/single.css?v=product-compact-1">
 </head>
 <body class="app-page line-order-page">
 
@@ -43,7 +43,7 @@
     <div class="info-card card-accent line-member-area">
       <details class="member-details">
         <summary class="foldable-summary member-summary">
-          <span>よく使う会員番号を登録 <small>任意</small></span><span aria-hidden="true" class="line-expand-icon"></span>
+          <span class="line-member-utility-label"><span class="line-member-utility-icon" aria-hidden="true">＋</span>よく使う会員番号を登録 <small>任意</small></span><span aria-hidden="true" class="line-expand-icon"></span>
         </summary>
         <div class="member-content-body">
           <p class="line-member-help">会員番号と氏名を保存すると、注文時にリストから選べます。<br><small>※会員番号はポジション（00・01など）を除いて入力してください。登録内容はこのブラウザに保存されます。</small></p>
@@ -420,11 +420,25 @@ function toggleCustomPos(posId) {
     updatePreview();
 }
 
+function expandProductLabels(select) {
+    Array.from(select.options).forEach(option => {
+        if (option.dataset.fullLabel) option.textContent = option.dataset.fullLabel;
+    });
+}
+
+function compactProductLabel(select) {
+    expandProductLabels(select);
+    const selected = select.options[select.selectedIndex];
+    const product = currentMaster.products[select.value];
+    if (selected && product) selected.textContent = product.name;
+}
+
 function onMonthChange() {
     document.querySelectorAll('.item-select').forEach(select => {
         const selectedIndex = select.value;
         refreshProductOptions(select);
         select.value = selectedIndex;
+        compactProductLabel(select);
     });
     updatePreview();
 }
@@ -443,6 +457,8 @@ function refreshProductOptions(selectElement) {
         options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${ptVal.toLocaleString()}pt)</option>`;
     });
     selectElement.innerHTML = options;
+    Array.from(selectElement.options).forEach(option => { option.dataset.fullLabel = option.textContent; });
+    compactProductLabel(selectElement);
 }
 
 function addPositionBox(initialCode = '', initialSuffix = '00', initialName = '', initialItems = []) {
@@ -554,10 +570,13 @@ function addItemRowWithData(posId, prodIndexVal, qtyVal) {
     
     const select = document.createElement('select');
     select.className = 'item-select';
-    select.onchange = updatePreview;
+    select.onchange = function() { compactProductLabel(this); updatePreview(); };
+    select.onfocus = function() { expandProductLabels(this); };
+    select.onblur = function() { compactProductLabel(this); };
     refreshProductOptions(select);
     if (prodIndexVal !== '' && prodIndexVal !== null && prodIndexVal !== undefined) {
         select.value = prodIndexVal;
+        compactProductLabel(select);
     }
 
     let qtyOptions = '';
@@ -577,6 +596,7 @@ function addItemRowWithData(posId, prodIndexVal, qtyVal) {
             row.remove();
         } else {
             select.value = '';
+            compactProductLabel(select);
             row.querySelector('.item-qty').value = '1';
         }
         updatePreview();
