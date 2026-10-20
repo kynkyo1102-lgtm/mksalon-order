@@ -18,3 +18,12 @@
 .bulk-order-page .bulk-main .card-box-preset{background:#f5f8f5!important;padding:14px 16px!important}
 .bulk-order-page .bulk-main .summary-preset{color:#4f6957!important;font-size:14px!important}
 @media(max-width:520px){.bulk-order-page .bulk-main .card-box{padding:17px!important}}
+
+/* Stronger visual alignment with text-order page, without touching printable receipts. */
+.bulk-order-page{background-color:#f8faf8!important;background-image:linear-gradient(#e8eee9 1px,transparent 1px),linear-gradient(90deg,#e8eee9 1px,transparent 1px)!important;background-size:24px 24px!important;}
+.bulk-order-page .bulk-main .card-box:not(#receiptsWrapper .card-box){border-radius:12px!important;box-shadow:none!important;margin-bottom:20px!important;}
+.bulk-order-page .bulk-main .section-title{display:block!important;text-align:left!important;line-height:1.6!important;text-shadow:none!important;}
+.bulk-order-page .bulk-main .form-group{margin-bottom:17px!important;}
+.bulk-order-page .bulk-main .form-group label{display:block!important;margin-bottom:7px!important;}
+.bulk-order-page .bulk-main input:focus,.bulk-order-page .bulk-main select:focus,.bulk-order-page .bulk-main textarea:focus{outline:2px solid #7a9d85!important;outline-offset:1px!important;}
+.bulk-order-page .bulk-main .btn-add,.bulk-order-page .bulk-main .btn-action{box-shadow:none!important;letter-spacing:0!important;}
