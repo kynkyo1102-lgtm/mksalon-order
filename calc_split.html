@@ -46,7 +46,7 @@
       font-family: "Noto Sans JP", sans-serif !important;
     }
   </style>
-  <link rel="stylesheet" href="css/neural-generator.css?v=1">\n  <link rel="stylesheet" href="css/neural-split.css?v=3">\n  <link rel="stylesheet" href="css/neural-effects.css?v=1">
+  <link rel="stylesheet" href="css/neural-generator.css?v=1">\n  <link rel="stylesheet" href="css/neural-split.css?v=4">\n  <link rel="stylesheet" href="css/neural-effects.css?v=1">
 </head>
 <body class="app-page calc-split-page">
 
@@ -137,14 +137,14 @@
         <section class="balance-stage" aria-label="振り分け結果のビジュアル">
           <div class="balance-stage-title"><span id="resultVisualTitle" class="pixel-en">BALANCE RESULT</span><span id="balanceStatus" class="pixel-en">BEST BALANCE!</span></div>
           <div id="scaleVisual" class="scale-visual" hidden>
-            <div class="scale-scene" id="scaleScene">
-              <div class="scale-beam">
-                <div class="scale-pan scale-pan-left"><div id="scaleBallsLeft" class="scale-balls"></div><div class="scale-dish"></div></div>
-                <div class="scale-pan scale-pan-right"><div id="scaleBallsRight" class="scale-balls"></div><div class="scale-dish"></div></div>
-              </div>
-              <div class="scale-pivot"></div><div class="scale-pillar"></div><div class="scale-base"></div>
+            <div class="balance-score">
+              <p class="balance-score-label">均等率 <span>EVENNESS SCORE</span></p>
+              <div class="balance-score-value"><strong id="balanceEvenness">100.0</strong><span>%</span></div>
+              <div class="balance-score-track" role="progressbar" aria-label="左右のポイント均等率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="balanceEvennessTrack"><span id="balanceEvennessFill"></span></div>
+              <p class="balance-score-note" id="balanceEvennessNote">左右のPT差が小さいほど100%に近づきます。</p>
+              <div class="balance-score-breakdown"><span>LEFT <strong id="scalePtLeft">0 PT</strong></span><span>RIGHT <strong id="scalePtRight">0 PT</strong></span></div>
+              <p class="balance-score-difference">左右のPT差 <strong id="balancePtDifference">0 PT</strong></p>
             </div>
-            <div class="scale-pt-labels"><span id="scalePtLeft"></span><span id="scalePtRight"></span></div>
           </div>
           <div id="targetVisual" class="target-visual" hidden>
             <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">LEFT</strong><span id="targetLeftRate"></span></div><div class="meter-track"><div id="targetLeftFill" class="meter-fill left"></div></div><p id="targetLeftNote"></p></div>
@@ -162,7 +162,7 @@
             <h3 style="margin:0 0 6px 0; color:#a0eaf0; font-size:0.82rem; border-bottom:2px solid #426b7b; padding-bottom:3px; text-align:center;">左 (L)</h3>
             <div id="leftList"></div>
             
-            <div class="total-box">
+            <div class="total-box" aria-label="振り分け集計">
               <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="leftTotalPt">0</span> PT <span id="leftPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
               
               <p id="leftTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
@@ -188,7 +188,7 @@
             <h3 style="margin:0 0 6px 0; color:#a0eaf0; font-size:0.82rem; border-bottom:2px solid #426b7b; padding-bottom:3px; text-align:center;">右 (R)</h3>
             <div id="rightList"></div>
             
-            <div class="total-box">
+            <div class="total-box" aria-label="振り分け集計">
               <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="rightTotalPt">0</span> PT <span id="rightPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
               
               <p id="rightTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
@@ -424,31 +424,19 @@
       const title=document.getElementById('resultVisualTitle');
       const fmt=n=>Math.round(n).toLocaleString();
       if(mode==='auto') {
-        title.textContent='BALANCE SCALE';
+        title.textContent='EVENNESS ANALYSIS';
         const diff=Math.abs(leftPt-rightPt);
-        status.textContent=diff===0?'PERFECT BALANCE!':'BEST BALANCE!';
+        const total=leftPt+rightPt;
+        const score=total>0?Math.max(0,100*(1-diff/total)):100;
+        status.textContent=diff===0?'PERFECT BALANCE':'BALANCE RESULT';
         document.getElementById('scaleVisual').hidden=false;
-        document.getElementById('scalePtLeft').textContent='LEFT  '+fmt(leftPt)+' PT';
-        document.getElementById('scalePtRight').textContent='RIGHT  '+fmt(rightPt)+' PT';
-        const scene=document.getElementById('scaleScene');
-        scene.classList.remove('scale-playing');
-        // Larger PT on the left means left side descends.
-        const angle=Math.max(-11,Math.min(11,(rightPt-leftPt)/Math.max(leftPt,rightPt,1)*35));
-        scene.style.setProperty('--scale-angle',angle+'deg');
-        const max=Math.max(leftPt,rightPt,1);
-        for(const [id,value] of [['scaleBallsLeft',leftPt],['scaleBallsRight',rightPt]]) {
-          const count=value===0?0:Math.max(2,Math.round(value/max*12));
-          const container=document.getElementById(id);
-          container.replaceChildren();
-          for(let i=0;i<count;i++){
-            const ball=document.createElement('span');
-            ball.className='scale-ball';
-            ball.style.setProperty('--ball-i',i);
-            container.appendChild(ball);
-          }
-        }
-        void scene.offsetWidth;
-        scene.classList.add('scale-playing');
+        document.getElementById('balanceEvenness').textContent=score.toFixed(1);
+        document.getElementById('balanceEvennessFill').style.width=score+'%';
+        document.getElementById('balanceEvennessTrack').setAttribute('aria-valuenow',score.toFixed(1));
+        document.getElementById('scalePtLeft').textContent=fmt(leftPt)+' PT';
+        document.getElementById('scalePtRight').textContent=fmt(rightPt)+' PT';
+        document.getElementById('balancePtDifference').textContent=fmt(diff)+' PT';
+        document.getElementById('balanceEvennessNote').textContent='均等率 = 100 × (1 − 左右のPT差 ÷ 購入PT合計)';
       } else if(mode==='target') {
         title.textContent='TARGET ACHIEVEMENT';status.textContent='TARGET MATCH';
         document.getElementById('targetVisual').hidden=false;
