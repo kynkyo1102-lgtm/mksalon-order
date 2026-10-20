@@ -36,12 +36,11 @@ window.addEventListener('DOMContentLoaded', async () => {
     if (response.ok) {
       const remoteConfig = await response.json();
       currentMaster = remoteConfig;
-      safeSetStorage('salonOrderMasterConfig', currentMaster);
+      // Master configuration is not saved in browser storage.
     }
   } catch (e) {
     // ② ネットワークオフライン等で取得できなかった場合は過去のキャッシュを利用
-    const savedConfig = safeGetStorage('salonOrderMasterConfig', null);
-    if (savedConfig) currentMaster = savedConfig;
+    // Keep bundled default master if offline.
   }
 
   renderUIFromMaster();
@@ -95,16 +94,16 @@ function savePreMemberInfo() {
   }
 
   const fullId = `${mainId}-${subId}`;
-  let list = safeGetStorage('salonOrderPresetMembers', []);
+  let list = SalonMembers.read();
   
-  const existIdx = list.findIndex(m => m.id === fullId);
+  const existIdx = list.findIndex(m => m.code === mainId);
   if (existIdx >= 0) {
     list[existIdx].name = name;
   } else {
-    list.push({ id: fullId, mainId, subId, name });
+    list.push({ code: mainId, name });
   }
 
-  safeSetStorage('salonOrderPresetMembers', list);
+  SalonMembers.write(list);
   alert(`「${name} (${fullId})」様を登録しました。`);
 
   document.getElementById('regMemberIdMain').value = '';
@@ -114,7 +113,7 @@ function savePreMemberInfo() {
 
 // 登録済みリストの描画 ＆ プルダウン更新
 function renderPresetMemberList() {
-  const list = safeGetStorage('salonOrderPresetMembers', []);
+  const list = SalonMembers.read();
   
   const listContainer = document.getElementById('registeredMembersList');
   if (listContainer) {
@@ -125,7 +124,7 @@ function renderPresetMemberList() {
       list.forEach((m, idx) => {
         html += `
           <div style="display:flex; justify-content:space-between; align-items:center; padding: 4px 0; border-bottom: 1px dashed var(--border-color);">
-            <span><strong>${m.name}</strong> (${m.id})</span>
+            <span><strong>${m.name}</strong> (${m.code})</span>
             <button type="button" onclick="deletePresetMember(${idx})" style="color:#c94b4b; border:none; background:none; cursor:pointer; font-size:0.75rem;">削除</button>
           </div>
         `;
@@ -140,7 +139,7 @@ function renderPresetMemberList() {
     list.forEach((m, idx) => {
       const opt = document.createElement('option');
       opt.value = idx;
-      opt.textContent = `${m.name} (${m.id})`;
+      opt.textContent = `${m.name} (${m.code})`;
       select.appendChild(opt);
     });
   }
@@ -148,20 +147,20 @@ function renderPresetMemberList() {
 
 // 登録情報の削除
 function deletePresetMember(index) {
-  let list = safeGetStorage('salonOrderPresetMembers', []);
+  let list = SalonMembers.read();
   list.splice(index, 1);
-  safeSetStorage('salonOrderPresetMembers', list);
+  SalonMembers.write(list);
   renderPresetMemberList();
 }
 
 // フォームへの自動入力反映
 function applyPresetMember(index) {
   if (index === "") return;
-  const list = safeGetStorage('salonOrderPresetMembers', []);
+  const list = SalonMembers.read();
   const target = list[index];
   if (target) {
-    document.getElementById('memberIdMain').value = target.mainId;
-    document.getElementById('memberIdSub').value = target.subId;
+    document.getElementById('memberIdMain').value = target.code;
+    document.getElementById('memberIdSub').value = '00';
     document.getElementById('fullName').value = target.name;
   }
 }
