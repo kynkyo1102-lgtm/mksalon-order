@@ -445,28 +445,30 @@ function generateAllReceipts() {
       `;
     });
 
-    let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
-    if (ord.receiptName) paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
-    if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
-      if (ord.eservicePw) {
-        paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
-      }
-    }
-    if (ord.paymentMethod === 'ニナファームカード' && ord.ninaPoint > 0) {
-      paymentInfoBlock += `<div>ニナポイント利用: <strong>${ord.ninaPoint.toLocaleString()} pt (-¥${ord.ninaPoint.toLocaleString()})</strong></div>`;
-    }
+    const infoField = (label, value) => value ? `<div class="order-image-field"><span>${label}</span><strong>${value}</strong></div>` : '';
+    let paymentInfoBlock = `
+      <section class="order-image-section">
+        <h4>お支払い・領収書</h4>
+        <div class="order-image-details">
+          ${infoField('お支払い方法', ord.paymentMethod)}
+          ${infoField('E-Service PW', ord.eservicePw)}
+          ${ord.ninaPoint > 0 ? infoField('ニナポイント利用', ord.ninaPoint.toLocaleString() + 'pt') : ''}
+          ${infoField('領収書宛名', ord.receiptName)}
+        </div>
+      </section>`;
 
     let addressBlock = "";
     if (ord.shipName || ord.address || ord.zip || ord.phone) {
       addressBlock = `
-        <div style="margin-top: 8px; padding-top: 8px; border-top: 1px dashed var(--border-color);">
-          <div style="font-weight: bold; color: var(--wood-medium); margin-bottom: 2px;">【お届け先情報】</div>
-          <div>${ord.shipName ? "お名前: " + ord.shipName : "お名前: " + ord.fullName}</div>
-          <div>${ord.zip ? "〒" + ord.zip : ""}</div>
-          <div>${ord.address ? "住所: " + ord.address : ""}</div>
-          <div>${ord.phone ? "TEL: " + ord.phone : ""}</div>
-        </div>
-      `;
+        <section class="order-image-section">
+          <h4>お届け先</h4>
+          <div class="order-image-details">
+            ${infoField('宛名', ord.shipName || ord.fullName)}
+            ${infoField('郵便番号', ord.zip ? '〒' + ord.zip : '')}
+            ${infoField('住所', ord.address)}
+            ${infoField('電話番号', ord.phone)}
+          </div>
+        </section>`;
     }
 
     let totalBlock = "";
@@ -497,42 +499,32 @@ function generateAllReceipts() {
     const cardWrapper = document.createElement('div');
     cardWrapper.className = "card-wrapper";
     cardWrapper.innerHTML = `
-      <div id="card-target-${index}" class="receipt-box target-card">
-        <div class="receipt-header">
-          <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">南熊本サロン専用商品購入注文書</h3>
-          <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
+      <div id="card-target-${index}" class="receipt-box target-card order-image-sheet">
+        <div class="order-image-heading">
+          <div><span class="order-image-kicker">プラッスドゥニナ 南熊本店</span><h3>商品購入注文書</h3></div>
+          <div class="order-image-date">${dateStr}<br>発注月度：<strong>${ord.month}</strong></div>
         </div>
-        <div class="receipt-info">
-          <div>発注月度: <strong>${ord.month}</strong></div>
-          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 0;border-bottom:1px solid #e2e6e5;margin-bottom:9px;"><div><span style="display:block;color:#64716f;font-size:0.72rem;">購入会員番号</span><strong style="font-size:1rem;">${ord.memberId}</strong></div><div><span style="display:block;color:#64716f;font-size:0.72rem;">氏名</span><strong style="font-size:1rem;">${ord.fullName}</strong></div></div>
-          ${paymentInfoBlock}
-          ${addressBlock}
+        <div class="order-image-identity">
+          ${infoField('購入会員番号', ord.memberId)}
+          ${infoField('氏名', ord.fullName)}
         </div>
-        <table class="product-table" style="margin-bottom: 15px;">
-          <thead>
-            <tr>
-              <th>商品名</th>
-              <th style="width: 35px; text-align: center;">数量</th>
-              <th style="width: 70px; text-align: right;">小計(税込)</th>
-              <th style="width: 55px; text-align: right;">ポイント</th>
-            </tr>
-          </thead>
-          <tbody>${itemRows}</tbody>
-        </table>
-        <div style="border-top: 2px dashed var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
-          <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
-            <span>合計数量:</span>
-            <span>${totalQty} 点</span>
-          </div>
+        ${paymentInfoBlock}
+        ${addressBlock}
+        <section class="order-image-section">
+          <h4>注文商品</h4>
+          <table class="product-table order-image-products">
+            <thead><tr><th>商品名</th><th>数量</th><th>金額（税込）</th><th>ポイント</th></tr></thead>
+            <tbody>${itemRows}</tbody>
+          </table>
+        </section>
+        <section class="order-image-totals">
+          <div><span>合計数量</span><strong>${totalQty} 点</strong></div>
           ${totalBlock}
-          <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-            <span>獲得ポイント:</span>
-            <span style="color: var(--wood-medium);">${ord.totalPt.toLocaleString()}pt</span>
-          </div>
-        </div>
+          <div><span>獲得ポイント</span><strong>${ord.totalPt.toLocaleString()}pt</strong></div>
+        </section>
       </div>
       <button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-${index}')">
-        📷 この注文書（${ord.fullName}様分）を画像保存
+        この注文書（${ord.fullName}様分）を画像保存
       </button>
     `;
     wrapper.appendChild(cardWrapper);
