@@ -195,3 +195,21 @@ html:has(.calc-menu-page){background:#101a2c}
  .calc-menu-page .game-guide-start{font-size:13px;padding:9px 11px}
 }
 @media(prefers-reduced-motion:reduce){.calc-menu-page .guide-animate .game-guide-dialogue{animation:none}}
+
+/* mode-robot-2: optional floating guide; cards navigate immediately */
+.calc-menu-page .menu-card{cursor:pointer}
+.calc-menu-page .guide-assistant{position:fixed;right:max(14px,env(safe-area-inset-right));bottom:max(16px,env(safe-area-inset-bottom));z-index:180;display:flex;flex-direction:column;align-items:flex-end;gap:9px}
+.calc-menu-page .guide-assistant-trigger{display:flex;flex-direction:column;align-items:center;gap:0;border:2px solid #e7c577;background:#162945;border-radius:13px;padding:3px 5px 5px;box-shadow:0 4px 0 #0a1527,0 8px 24px #0007;cursor:pointer;color:#f4d789;font:13px "DotGothic16",monospace}
+.calc-menu-page .guide-assistant-trigger svg{width:59px;height:65px}
+.calc-menu-page .guide-assistant-trigger:hover,.calc-menu-page .guide-assistant-trigger:focus-visible{outline:2px solid #fff3bb;outline-offset:2px}
+.calc-menu-page .guide-assistant-dialogue{position:relative;width:min(350px,calc(100vw - 28px));max-height:min(66vh,480px);overflow-y:auto;box-sizing:border-box;border:3px solid #e2bc6e;background:#142640;box-shadow:inset 0 0 0 2px #334d6e,4px 5px 0 #091324;padding:14px 16px;color:#f4f6fb}
+.calc-menu-page .guide-assistant-dialogue[hidden]{display:none!important}
+.calc-menu-page .guide-assistant-title{display:flex;justify-content:space-between;align-items:center;color:#f4d789;font:16px "DotGothic16",monospace;border-bottom:1px solid #7f765e;padding-bottom:8px;margin-bottom:12px}
+.calc-menu-page .guide-assistant-close{font:24px/1 "Noto Sans JP",sans-serif;background:transparent;border:0;color:#f4d789;cursor:pointer;padding:0 3px}
+.calc-menu-page .guide-assistant-dialogue p{font:14px/1.65 "Noto Sans JP",sans-serif;margin:0 0 12px}
+.calc-menu-page .guide-assistant-options{display:grid;gap:12px}
+.calc-menu-page .guide-assistant-options>div{display:grid;gap:5px;padding:9px 10px;background:#203955;border-left:3px solid #e2bc6e}
+.calc-menu-page .guide-assistant-options strong{font:14px "DotGothic16",monospace;color:#f4d789}
+.calc-menu-page .guide-assistant-options span{font:14px/1.7 "Noto Sans JP",sans-serif}
+.calc-menu-page .guide-assistant-dialogue .guide-assistant-hint{margin:12px 0 0;color:#e5c889;font-size:13px}
+@media(max-width:680px){.calc-menu-page .guide-assistant-trigger svg{width:46px;height:51px}.calc-menu-page .guide-assistant-trigger{font-size:11px}.calc-menu-page .guide-assistant{right:10px;bottom:max(12px,env(safe-area-inset-bottom))}}
