@@ -46,7 +46,9 @@
       font-family: "Noto Sans JP", sans-serif !important;
     }
   </style>
-  <link rel="stylesheet" href="css/neural-generator.css?v=1">\n  <link rel="stylesheet" href="css/neural-split.css?v=5">\n  <link rel="stylesheet" href="css/neural-effects.css?v=1">
+  <link rel="stylesheet" href="css/neural-generator.css?v=1">
+  <link rel="stylesheet" href="css/neural-split.css?v=6">
+  <link rel="stylesheet" href="css/neural-effects.css?v=1">
 </head>
 <body class="app-page calc-split-page">
 
@@ -162,20 +164,13 @@
             <h3 style="margin:0 0 6px 0; color:#a0eaf0; font-size:0.82rem; border-bottom:2px solid #426b7b; padding-bottom:3px; text-align:center;">左 (L)</h3>
             <div id="leftList"></div>
             
-            <div class="total-box" aria-label="振り分け集計">
-              <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="leftTotalPt">0</span> PT <span id="leftPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
-              
-              <p id="leftTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
-                目標差: <span id="leftTargetDiffVal" style="font-weight:bold;">0</span>
-              </p>
-
-              <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="leftCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
-              
-              <div id="leftFinalPtRow" class="final-sum-box" style="display:none;">
-                ＝ <span id="leftFinalPtVal" style="color:#a1eff0; font-size:0.95rem;">0</span> PT
-              </div>
-
-              <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
+            <div class="total-box" aria-label="左の振り分け集計">
+              <div class="split-total-row" id="leftCurrentPtRow" style="display:none;"><span>保有PT</span><strong id="leftCurrentPtVal">0</strong><span>PT</span></div>
+              <div class="split-total-row"><span id="leftPurchaseLabel">今回PT</span><strong class="total-pt-val" id="leftTotalPt">0</strong><span>PT</span></div>
+              <span id="leftPlusSign" hidden></span>
+              <div class="split-total-row split-total-highlight" id="leftFinalPtRow" style="display:none;"><span>合計ポイント</span><strong id="leftFinalPtVal">0</strong><span>PT</span></div>
+              <div class="split-total-row split-total-money"><span>合計金額</span><strong class="total-cost-val" id="leftTotalCost">0</strong><span>円</span></div>
+              <p id="leftTargetDiffRow" class="split-target-diff" style="display:none;">目標差: <span id="leftTargetDiffVal">0</span></p>
 
               <div id="leftSuggestBox" class="suggest-box" style="display:none;">
                 ✦ <strong>追加購入の候補</strong><br>
@@ -188,20 +183,13 @@
             <h3 style="margin:0 0 6px 0; color:#a0eaf0; font-size:0.82rem; border-bottom:2px solid #426b7b; padding-bottom:3px; text-align:center;">右 (R)</h3>
             <div id="rightList"></div>
             
-            <div class="total-box" aria-label="振り分け集計">
-              <p style="font-size:0.8rem; margin:2px 0;">今回: <span class="total-pt-val" id="rightTotalPt">0</span> PT <span id="rightPlusSign" style="display:none; font-size:0.75rem; color:var(--text-sub);">＋</span></p>
-              
-              <p id="rightTargetDiffRow" style="font-size:0.78rem; margin:2px 0; display:none;">
-                目標差: <span id="rightTargetDiffVal" style="font-weight:bold;">0</span>
-              </p>
-
-              <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="rightCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
-              
-              <div id="rightFinalPtRow" class="final-sum-box" style="display:none;">
-                ＝ <span id="rightFinalPtVal" style="color:#a1eff0; font-size:0.95rem;">0</span> PT
-              </div>
-
-              <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
+            <div class="total-box" aria-label="右の振り分け集計">
+              <div class="split-total-row" id="rightCurrentPtRow" style="display:none;"><span>保有PT</span><strong id="rightCurrentPtVal">0</strong><span>PT</span></div>
+              <div class="split-total-row"><span id="rightPurchaseLabel">今回PT</span><strong class="total-pt-val" id="rightTotalPt">0</strong><span>PT</span></div>
+              <span id="rightPlusSign" hidden></span>
+              <div class="split-total-row split-total-highlight" id="rightFinalPtRow" style="display:none;"><span>合計ポイント</span><strong id="rightFinalPtVal">0</strong><span>PT</span></div>
+              <div class="split-total-row split-total-money"><span>合計金額</span><strong class="total-cost-val" id="rightTotalCost">0</strong><span>円</span></div>
+              <p id="rightTargetDiffRow" class="split-target-diff" style="display:none;">目標差: <span id="rightTargetDiffVal">0</span></p>
 
               <div id="rightSuggestBox" class="suggest-box" style="display:none;">
                 ✦ <strong>追加購入の候補</strong><br>
@@ -552,8 +540,10 @@
       document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
 
       const showCurrent = (currentMode === 'current');
-      document.getElementById('leftPlusSign').style.display = showCurrent ? 'inline' : 'none';
-      document.getElementById('rightPlusSign').style.display = showCurrent ? 'inline' : 'none';
+      document.getElementById('leftPurchaseLabel').textContent = showCurrent ? '追加分PT' : '今回PT';
+      document.getElementById('rightPurchaseLabel').textContent = showCurrent ? '追加分PT' : '今回PT';
+      document.getElementById('leftPlusSign').hidden = true;
+      document.getElementById('rightPlusSign').hidden = true;
       document.getElementById('leftCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
       document.getElementById('leftFinalPtRow').style.display = showCurrent ? 'block' : 'none';
       document.getElementById('rightCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
