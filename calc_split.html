@@ -10,18 +10,26 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/calc-split.css?v=balance-3">
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
+  <link rel="stylesheet" href="css/calc-split.css?v=balance-4">
 </head>
-<body>
+<body class="app-page calc-split-page">
 
-  <header>
-    <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>PT BALANCE PUZZLE</h1>
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">LINEノート用</a><a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
   </header>
-
-  <main>
-    <a href="calc.html" class="nav-link">&lt; メニューに戻る</a>
-    
+  <main class="app-main">
+    <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
+    <p class="split-eyebrow">BLOCK BALANCE <span>— POINT ALLOCATION PUZZLE —</span></p>
+    <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1>
     <div class="card-box">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
         <div class="section-title" style="margin-bottom: 0;">BLOCK BALANCE <small>— ポイント振り分け —</small></div>
@@ -181,11 +189,13 @@
       </div><!-- splitWorkspace -->
     </div>
   </main>
+  <footer class="app-footer">&copy; Place de Nina Order Support System</footer>
 
   <footer>
     &copy; Place de Nina Order Support System
   </footer>
 
+  <script src="js/app-shell.js?v=menu-motion-2" defer></script>
   <script>
     let configData = null;
     let currentMode = null; // mode is selected before opening the workspace
