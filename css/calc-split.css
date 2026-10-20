@@ -704,3 +704,6 @@ header h1,.section-title{color:#f4d98d!important}
 .calc-split-page .split-guide-option p{margin:0!important}
 .calc-split-page .split-guide-dialogue .split-guide-hint{color:#e5c889;margin:12px 0 0}
 @media(max-width:680px){.calc-split-page .split-guide-trigger svg{width:46px;height:51px}.calc-split-page .split-guide-trigger,.calc-split-page .split-guide-trigger span{font-size:11px!important}.calc-split-page .split-guide-assistant{right:10px;bottom:max(12px,env(safe-area-inset-bottom))}.calc-split-page .split-guide-dialogue{max-height:65vh}}
+
+/* split-guide-2: readable emphasis inside robot descriptions */
+.calc-split-page .split-guide-option .split-guide-emphasis{font-family:"Noto Sans JP",sans-serif!important;font-weight:700!important;color:#f4d789!important;text-decoration:none!important}
