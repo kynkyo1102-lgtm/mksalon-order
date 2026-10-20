@@ -192,7 +192,26 @@ function addBulkProductPicker() {
   product.className = 'item-select';
   product.setAttribute('aria-label','商品を選択');
   product.appendChild(new Option('商品を選択してください',''));
+  const refreshLabels = () => {
+    const selectedMonth = document.getElementById('month').value;
+    currentMaster.products.forEach((p,i) => {
+      const pts = p.pts?.[selectedMonth] ?? p.pt ?? 0;
+      const option = product.options[i+1];
+      option.dataset.fullLabel = p.name + ' (' + p.price.toLocaleString() + '円 / ' + Number(pts).toLocaleString() + 'pt)';
+      option.textContent = option.dataset.fullLabel;
+    });
+  };
   currentMaster.products.forEach((p,i)=>product.appendChild(new Option(p.name,String(i))));
+  refreshLabels();
+  const compactLabel = () => {
+    refreshLabels();
+    if(product.value !== '') product.options[product.selectedIndex].textContent = currentMaster.products[Number(product.value)].name;
+  };
+  product.addEventListener('focus',refreshLabels);
+  product.addEventListener('blur',compactLabel);
+  product.addEventListener('change',compactLabel);
+  document.getElementById('month').addEventListener('change',compactLabel);
+  compactLabel();
   const qty = document.createElement('select');
   qty.className = 'qty-select';
   qty.setAttribute('aria-label','数量');
