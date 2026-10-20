@@ -71,15 +71,7 @@ function initMemberSubSelect() {
 // 事前登録用のサフィックス初期化
 function initRegMemberSubSelect() {
   const regSub = document.getElementById('regMemberIdSub');
-  if (!regSub) return;
-  regSub.innerHTML = '';
-  for (let i = 0; i <= 20; i++) {
-    const opt = document.createElement('option');
-    const val = String(i).padStart(2, '0');
-    opt.value = val;
-    opt.textContent = val;
-    regSub.appendChild(opt);
-  }
+  if (regSub) regSub.value = '00';
 }
 
 // 会員情報の保存
