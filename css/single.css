@@ -169,3 +169,17 @@
 /* Remove the faint rule beside/below section headings */
 .line-order-page .app-main > .info-card > .section-title{border:0!important;border-bottom:0!important;background-image:none!important}
 .line-order-page .app-main > .info-card > .section-title::before,.line-order-page .app-main > .info-card > .section-title::after{content:none!important;display:none!important}
+
+/* Registration editor follows image-order field layout; summary styling unchanged. */
+.line-order-page .line-member-register-form{display:flex;flex-direction:column;gap:15px}
+.line-order-page .line-member-register-form .form-group{margin:0!important}
+.line-order-page .line-member-register-form label{display:block;margin-bottom:7px;font-size:13px;font-weight:500}
+.line-order-page .line-member-code-row{display:flex;gap:10px;align-items:center}
+.line-order-page .line-member-code-row input{flex:1;min-width:0}
+.line-order-page .line-member-fixed-suffix{display:inline-flex;align-items:center;justify-content:center;min-width:52px;min-height:42px;color:#48594d;font-size:15px;font-weight:600;white-space:nowrap}
+.line-order-page .line-save-member-button{width:100%;min-height:44px;border:0;border-radius:9px;background:#25533e;color:#fff;font-size:14px;font-weight:700;cursor:pointer}
+.line-order-page .line-save-member-button:hover{background:#34684d}
+.line-order-page .line-saved-member-list{font-size:13px}
+.line-order-page .line-saved-member-heading{font-weight:700;margin:3px 0 6px;color:#48594d}
+.line-order-page .line-saved-member-entry{display:flex;justify-content:space-between;gap:12px;padding:8px 0;border-bottom:1px solid #e2e9e3}
+.line-order-page .line-saved-member-entry span{white-space:nowrap;color:#647568}
