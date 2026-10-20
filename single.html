@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=4">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/single.css?v=member-layout-1">
+  <link rel="stylesheet" href="css/single.css?v=member-layout-2">
 </head>
 <body class="app-page line-order-page">
 
@@ -333,8 +333,22 @@ function saveMembers() {
         const currentVal = select.value;
         refreshMemberOptions(select);
         select.value = currentVal;
+        compactMemberLabel(select);
     });
     updatePreview();
+}
+
+function expandMemberLabels(select) {
+    Array.from(select.options).forEach(option => {
+        if (option.dataset.fullLabel) option.textContent = option.dataset.fullLabel;
+    });
+}
+
+function compactMemberLabel(select) {
+    expandMemberLabels(select);
+    const selected = select.options[select.selectedIndex];
+    const member = registeredMembers[select.value];
+    if (selected && member) selected.textContent = member.code;
 }
 
 function refreshMemberOptions(selectElement) {
@@ -344,6 +358,8 @@ function refreshMemberOptions(selectElement) {
     });
     options += '<option value="manual">＋ 新しい会員情報を直接入力する</option>';
     selectElement.innerHTML = options;
+    Array.from(selectElement.options).forEach(option => { option.dataset.fullLabel = option.textContent; });
+    compactMemberLabel(selectElement);
     const posId = selectElement.id.replace('pos_select_', '');
     const display = document.getElementById('pos_display_' + posId);
     if (display) {
@@ -361,6 +377,7 @@ function onSelectMember(posId) {
     const display = document.getElementById(`pos_display_${posId}`);
     
     const selectedVal = select.value;
+    compactMemberLabel(select);
     manualCode.style.display = selectedVal === 'manual' ? 'block' : 'none';
     display.textContent = selectedVal === 'manual' ? '新しい会員を入力' : (selectedVal !== '' && registeredMembers[selectedVal] ? registeredMembers[selectedVal].code : '会員を選択してください');
 
@@ -444,13 +461,12 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
             <div class="form-group line-member-picker">
                 <label for="pos_select_${positionCount}">会員の選択</label>
                 <div class="line-select-wrap">
-                    <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})" onfocus="this.parentElement.classList.add('is-selecting')" onblur="this.parentElement.classList.remove('is-selecting')"></select>
+                    <select class="pos-select" id="pos_select_${positionCount}" onchange="onSelectMember(${positionCount})" onfocus="expandMemberLabels(this)" onblur="compactMemberLabel(this)"></select>
                     <span class="line-select-display" id="pos_display_${positionCount}" aria-hidden="true">会員を選択してください</span>
                 </div>
             </div>
             <div class="form-group fg-num">
                 <label for="pos_num_select_${positionCount}">ポジション</label>
-                <label>ポジション</label>
                 <select id="pos_num_select_${positionCount}" onchange="toggleCustomPos(${positionCount}); updatePreview();">
                     <option value="00">00</option>
                     <option value="01">01</option>
