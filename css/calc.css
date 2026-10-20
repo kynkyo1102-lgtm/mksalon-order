@@ -106,3 +106,33 @@
  .calc-menu-page .mode-select-topline{letter-spacing:0}
 }
 @media(prefers-reduced-motion:reduce){.calc-menu-page .menu-card{transition:none!important}}
+
+/* mode-select-2: full-page game scene; shared header stays white */
+html:has(.calc-menu-page){background:#0e1b2e}
+.calc-menu-page{
+ min-height:100vh!important;
+ background:radial-gradient(ellipse at 50% 28%,#4b6684 0%,#213853 45%,#0e1b2e 100%)!important;
+ color:#f7fbff!important;
+}
+.calc-menu-page .app-main{
+ position:relative;
+ max-width:1020px;
+ background:transparent!important;
+ padding-top:34px;
+ padding-bottom:76px;
+}
+.calc-menu-page .app-page-title{color:#f3f8ff!important;text-shadow:0 2px 8px #0007}
+.calc-menu-page .app-back{color:#c9e4ff!important}
+.calc-menu-page .mode-select-screen{
+ background:transparent!important;
+ border:0!important;
+ box-shadow:none!important;
+ overflow:visible;
+ padding:22px 12px 38px;
+}
+.calc-menu-page .mode-select-screen:before{display:none}
+.calc-menu-page .app-footer{background:#0e1b2e!important;color:#b9ccdf!important;border-top:1px solid #4d6580}
+@media(max-width:680px){
+ .calc-menu-page .app-main{padding:24px 12px 55px}
+ .calc-menu-page .mode-select-screen{padding:12px 0 30px}
+}
