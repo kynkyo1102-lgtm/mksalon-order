@@ -64,36 +64,11 @@
 .calc-pt-page .neural-type-title.typing-now:after{content:"▌";color:#8be5ec;animation:neural-caret .65s steps(1) infinite}
 @keyframes neural-caret{50%{opacity:0}}
 
-/* Match selection screen's illuminated perimeter draw. */
-.calc-pt-page :is(.calc-steps,.calc-input-section,.calc-product-section,.calc-run-area,.plan-card){position:relative!important;isolation:isolate}
-
-.calc-pt-page .neural-frame-lines{position:absolute!important;inset:-1px!important;display:block!important;background:transparent!important;border:0!important;box-shadow:none!important;pointer-events:none!important;z-index:5!important;overflow:hidden!important;border-radius:inherit!important}
-.calc-pt-page .neural-frame-lines i{position:absolute!important;display:block!important;background:#8de8ed!important;border:0!important;box-shadow:0 0 8px #70dce5!important;opacity:0!important}
-.calc-pt-page .neural-frame-lines i:nth-child(1){top:0;left:0;height:2px;width:0}
-.calc-pt-page .neural-frame-lines i:nth-child(2){top:0;right:0;width:2px;height:0}
-.calc-pt-page .neural-frame-lines i:nth-child(3){bottom:0;right:0;height:2px;width:0}
-.calc-pt-page .neural-frame-lines i:nth-child(4){bottom:0;left:0;width:2px;height:0}
-.calc-pt-page .neural-framing>.neural-frame-lines i,.calc-pt-page .neural-framed>.neural-frame-lines i{opacity:1!important}
-.calc-pt-page .neural-framing>.neural-frame-lines i:nth-child(1){animation:neural-line-horizontal .3s linear forwards}
-.calc-pt-page .neural-framing>.neural-frame-lines i:nth-child(2){animation:neural-line-vertical .27s linear .3s forwards}
-.calc-pt-page .neural-framing>.neural-frame-lines i:nth-child(3){animation:neural-line-horizontal .3s linear .57s forwards}
-.calc-pt-page .neural-framing>.neural-frame-lines i:nth-child(4){animation:neural-line-vertical .27s linear .87s forwards}
-.calc-pt-page .neural-framed>.neural-frame-lines i:nth-child(1),.calc-pt-page .neural-framed>.neural-frame-lines i:nth-child(3){width:100%;background:#527d8b!important;box-shadow:none!important}
-.calc-pt-page .neural-framed>.neural-frame-lines i:nth-child(2),.calc-pt-page .neural-framed>.neural-frame-lines i:nth-child(4){height:100%;background:#527d8b!important;box-shadow:none!important}
-@keyframes neural-line-horizontal{to{width:100%}}
-@keyframes neural-line-vertical{to{height:100%}}
-.calc-pt-page .neural-typing:after{content:"▌";color:#8de8ed;animation:neural-caret .65s steps(1) infinite}
-.calc-pt-page .quest-eyebrow{min-height:1.5em}
-.calc-pt-page .quest-mini{display:inline-block;min-width:12ch}
-.calc-pt-page .quest-result-heading>span:nth-child(2){display:inline-block;min-width:15ch}
-.calc-pt-page .neural-english-label{display:inline-block;min-width:17ch}
-
 @media(prefers-reduced-motion:no-preference){
 .calc-pt-page .quest-eyebrow{animation:none!important}
 .calc-pt-page .quest-lead{animation:neural-data-in .42s steps(5,end) 2.05s both}
 @keyframes neural-data-in{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0)}}
 }
-@media(prefers-reduced-motion:reduce){.calc-pt-page .neural-frame-lines i{opacity:1!important;animation:none!important}.calc-pt-page .neural-frame-lines i:nth-child(1),.calc-pt-page .neural-frame-lines i:nth-child(3){width:100%!important}.calc-pt-page .neural-frame-lines i:nth-child(2),.calc-pt-page .neural-frame-lines i:nth-child(4){height:100%!important}.calc-pt-page .neural-typing:after{display:none}}
 
 /* Frames remain visible during border tracing; never hide the first panels. */
 @media(prefers-reduced-motion:no-preference){.calc-pt-page :is(.calc-steps,.calc-input-section,.calc-product-section,.calc-run-area){animation:none!important;opacity:1!important;clip-path:none!important}}
