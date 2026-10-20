@@ -140,3 +140,13 @@
 /* Use native selected-option label, not an overlay: reliably show only member number */
 .line-order-page .line-select-wrap select{color:#222!important;text-shadow:none!important}
 .line-order-page .line-select-wrap .line-select-display{display:none!important}
+
+/* Optional member utility: visually separate from numbered order steps */
+.line-order-page .line-member-area{background:#f5f8f5!important;border:1px solid #c7d4ca!important;box-shadow:none!important}
+.line-order-page .member-summary{padding:14px 17px!important;color:#4f6957!important}
+.line-order-page .member-summary .line-member-utility-label{display:inline-flex;align-items:center;flex-wrap:wrap;gap:8px;font-size:14px!important;font-weight:500!important;color:#4f6957!important}
+.line-order-page .member-summary .line-member-utility-icon{display:inline-grid;place-items:center;width:25px;height:25px;border-radius:7px;background:#e0ebe2;color:#496e53;font-size:18px;font-weight:400;line-height:1}
+.line-order-page .member-summary .line-member-utility-label small{margin-left:0;color:#7d8e80;font-size:11px}
+.line-order-page .member-summary .line-expand-icon{color:#6d8572}
+.line-order-page .member-content-body{background:#fff}
+@media(max-width:520px){.line-order-page .member-summary{padding:13px 14px!important}}
