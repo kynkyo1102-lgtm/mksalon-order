@@ -1,0 +1,54 @@
+/* Shared RPG typography for both calculators. Decorative/UI text uses DotGothic16; product data and descriptions remain Noto Sans JP. */
+.calc-pt-page .app-page-title,
+.calc-split-page .app-page-title,
+.calc-pt-page .quest-eyebrow,
+.calc-pt-page .quest-eyebrow span,
+.calc-pt-page .quest-mini,
+.calc-split-page .split-eyebrow,
+.calc-split-page .split-eyebrow span,
+.calc-pt-page .calc-steps h2,
+.calc-pt-page .calc-input-section h2,
+.calc-pt-page .calc-product-section h2,
+.calc-pt-page .calc-conditions-toolbar h2,
+.calc-pt-page .calc-run-area h2,
+.calc-split-page .difficulty-select h2,
+.calc-split-page .split-product-editor h2,
+.calc-split-page .balance-stage-title,
+.calc-split-page .split-col h3,
+.calc-pt-page .quest-result-heading,
+.calc-pt-page .quest-clear-tag,
+.calc-pt-page .plan-heading .plan-title,
+.calc-pt-page .plan-items-heading,
+.calc-pt-page .plan-best-label,
+.calc-pt-page .plan-variation-label,
+.calc-split-page .difficulty-number,
+.calc-split-page .difficulty-option strong,
+.calc-split-page .selected-mode-bar,
+.calc-split-page .meter-heading,
+.calc-split-page .split-grand-summary,
+.calc-pt-page button,
+.calc-split-page button,
+.calc-pt-page .btn-copy,
+.calc-split-page .btn-copy{
+ font-family:"DotGothic16","Noto Sans JP",sans-serif!important;
+ font-weight:400!important;
+}
+.calc-pt-page .app-page-title,
+.calc-split-page .app-page-title{line-height:1.55;letter-spacing:.025em}
+.calc-pt-page .quest-result-heading,
+.calc-pt-page .quest-clear-tag,
+.calc-split-page .balance-stage-title{letter-spacing:.075em}
+.calc-pt-page .plan-heading .plan-title{line-height:1.5;letter-spacing:.03em}
+.calc-pt-page button,
+.calc-split-page button{line-height:1.55}
+.calc-pt-page .calc-select,
+.calc-pt-page .calc-input,
+.calc-split-page input,
+.calc-split-page select,
+.calc-pt-page .plan-item-name,
+.calc-pt-page .plan-item-row,
+.calc-split-page .split-item-name,
+.calc-split-page .split-item-sub,
+.calc-split-page .selected-product-row,
+.calc-split-page .scale-caption,
+.calc-pt-page .plan-empty{font-family:"Noto Sans JP",sans-serif!important}
