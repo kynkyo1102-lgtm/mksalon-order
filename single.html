@@ -238,7 +238,7 @@ window.onload = async function() {
     togglePwField();
 
     const savedMembers = JSON.stringify(SalonMembers.read());
-    if (savedMembers) {
+    if (SalonMembers.read().length) {
         registeredMembers = JSON.parse(savedMembers);
         registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
     } else {
