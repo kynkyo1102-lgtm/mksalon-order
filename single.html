@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=4">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/single.css?v=refine-2">
+  <link rel="stylesheet" href="css/single.css?v=refine-3">
 </head>
 <body class="app-page line-order-page">
 
@@ -57,7 +57,7 @@
     <!-- 01 <span class="line-section-caption">お届け先情報</span> -->
     <div class="info-card">
       <div class="section-title">1. お届け先情報</div>
-      <div class="line-returning-note"><strong>以前ご注文いただいた方へ</strong><span>お届け先は<strong>宛名だけ</strong>でOK。変更やご希望がある場合のみ、ほかの項目も入力してください。</span></div>
+      <div class="line-returning-note"><strong>以前ご注文いただいた方へ</strong><span>お届け先は<strong>宛名だけ</strong>でOKです。変更やご希望がある場合のみ、ほかの項目も入力してください。</span></div>
       <div class="form-group">
         <label>お届け先氏名（宛名）</label>
         <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
@@ -103,8 +103,9 @@
         </div>
       </div>
       <div class="form-group mt-10">
-        <label>🧾 領収書が必要な場合は宛名をお書きください</label>
-        <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎（空欄の場合は発行なし）" oninput="saveBasicInfo(); updatePreview();">
+        <label>🧾 領収書の宛名（必要な場合のみ）</label>
+        <p class="line-field-help">空欄の場合、領収書は発行されません。</p>
+        <input type="text" id="receipt_name" placeholder="例：株式会社〇〇、山田太郎" oninput="saveBasicInfo(); updatePreview();">
       </div>
     </div>
 
