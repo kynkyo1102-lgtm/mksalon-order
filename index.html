@@ -127,7 +127,7 @@
 
     /* robot-sign-2: suppress persistent focus rectangle after returning via browser history */
     .home-page .home-floating-calc.home-floating-robot:focus:not(:focus-visible){outline:none!important;box-shadow:none!important}
-    .home-page .home-floating-calc.home-floating-robot:focus-visible{outline:2px solid #73869a!important;outline-offset:3px}
+    .home-page .home-floating-calc.home-floating-robot:focus-visible{outline:none!important;box-shadow:none!important;filter:drop-shadow(0 0 4px #7997b3)}
 
     /* robot-sign-3: gentle idle bob; sign and robot move together */
     .home-page .home-floating-robot .home-robot-art{animation:home-robot-idle 4.8s ease-in-out infinite;transform-origin:55% 85%}
@@ -146,6 +146,11 @@
     .home-page .home-floating-robot .home-robot-peek{animation:home-robot-peek-small 6s ease-in-out infinite!important;transform:translateY(10px)}
     @keyframes home-robot-peek-small{0%,17%,38%,100%{transform:translateY(10px)}25%,30%{transform:translateY(5px)}}
     @media(prefers-reduced-motion:reduce){.home-page .home-floating-robot .home-robot-peek{animation:none!important;transform:translateY(8px)}}
+
+    /* Keep browser-restored focus from drawing a rectangular frame around SVG artwork. */
+    .home-page .home-floating-calc.home-floating-robot:focus,
+    .home-page .home-floating-calc.home-floating-robot:focus-visible{outline:none!important;outline-offset:0!important;box-shadow:none!important}
+    .home-page .home-floating-calc.home-floating-robot:focus-visible .home-robot-art{filter:drop-shadow(0 0 5px rgba(65,106,145,.65))}
 </style>
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">\n</head>
 <body class="home-page">
