@@ -7,11 +7,11 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc.css?v=shared-1">
+  <link rel="stylesheet" href="css/calc.css?v=mode-select-1">
 </head>
 <body class="app-page calc-menu-page">
 
@@ -31,24 +31,36 @@
     <a href="index.html" class="app-back">‹ ホームに戻る</a>
     <h1 class="app-page-title">計算サポートツール</h1>
 
-    <div class="card-box">
-      <div class="section-title">利用する機能を選択してください</div>
-      <p class="usage-guide">ご希望のサポートツールを選んでください。</p>
-      
+    <section class="mode-select-screen" aria-labelledby="mode-select-heading">
+      <div class="mode-select-topline"><span>CALCULATION SUPPORT</span><span>SELECT 01 / 02</span></div>
+      <h2 id="mode-select-heading" class="mode-select-heading">SELECT MODE</h2>
+      <p class="mode-select-lead">使用するツールを選択してください</p>
       <div class="menu-container">
-        <!-- 1. 購入PT最適化ページへ -->
-        <a href="calc_pt.html" class="menu-card">
-          <div class="menu-card-title">1. ポイント最適化シミュレーター</div>
-          <p class="menu-card-desc">目標ポイントに最も効率よく到達できる商品の組み合わせを自動計算します。商品の除外や必ず含める個数の指定も可能です。</p>
+        <a href="calc_pt.html" class="menu-card menu-card-quest">
+          <span class="mode-card-outline" aria-hidden="true"></span>
+          <span class="mode-card-content">
+            <span class="mode-card-number">01</span>
+            <span class="mode-card-symbol" aria-hidden="true">✦</span>
+            <span class="mode-card-en">POINT QUEST</span>
+            <span class="menu-card-title">ポイント最適化</span>
+            <span class="menu-card-desc">目標PTに向けて、商品の組み合わせを自動計算。除外商品や必須個数も指定できます。</span>
+            <span class="mode-card-action">START <span aria-hidden="true">›</span></span>
+          </span>
         </a>
-
-        <!-- 2. 左右バランス分配ページへ -->
-        <a href="calc_split.html" class="menu-card">
-          <div class="menu-card-title">2. 購入商品のバランス分配</div>
-          <p class="menu-card-desc">購入したい商品と個数を指定して、バランスよく商品を振り分けます。目標PTの指定や今あるポイントも合わせた計算もできます。</p>
+        <a href="calc_split.html" class="menu-card menu-card-balance">
+          <span class="mode-card-outline" aria-hidden="true"></span>
+          <span class="mode-card-content">
+            <span class="mode-card-number">02</span>
+            <span class="mode-card-symbol" aria-hidden="true">⚖</span>
+            <span class="mode-card-en">BLOCK BALANCE</span>
+            <span class="menu-card-title">ポイント振り分け</span>
+            <span class="menu-card-desc">購入する商品と個数を左右に振り分け。目標PTや保有PTを使った調整もできます。</span>
+            <span class="mode-card-action">START <span aria-hidden="true">›</span></span>
+          </span>
         </a>
       </div>
-    </div>
+      <p class="mode-select-note">カードを選ぶと各ツールへ進みます</p>
+    </section>
   </main>
 
   <footer class="app-footer">&copy; Place de Nina Order Support System</footer>
