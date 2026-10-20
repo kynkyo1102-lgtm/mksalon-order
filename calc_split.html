@@ -10,13 +10,13 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/calc-split.css">
+  <link rel="stylesheet" href="css/calc-split.css?v=balance-1">
 </head>
 <body>
 
   <header>
     <a href="index.html" class="header-logo">Place de Nina</a>
-    <h1>ポイント振り分けメーカー</h1>
+    <h1>PT BALANCE PUZZLE</h1>
   </header>
 
   <main>
@@ -24,13 +24,13 @@
     
     <div class="card-box">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <div class="section-title" style="margin-bottom: 0;">購入商品のポイント振り分け</div>
-        <button type="button" class="btn-reset" onclick="resetSplitSelection()">🔄 リセット</button>
+        <div class="section-title" style="margin-bottom: 0;">BLOCK BALANCE <small>— ポイント振り分け —</small></div>
+        <button type="button" class="btn-reset" onclick="resetSplitSelection()">↺ リセット</button>
       </div>
 
       <!-- モード選び方ガイド（新規追加） -->
       <div class="mode-guide-box">
-        <div class="mode-guide-title">💡 どのモードを選べばいい？</div>
+        <div class="mode-guide-title">SELECT MODE — 振り分け方法を選ぶ</div>
         <ul class="mode-guide-list">
           <li><span class="mode-badge">① かんたん均等</span>：今回の購入分を左右半々に分けたいとき</li>
           <li><span class="mode-badge">② 目標PT</span>：左右に狙いたいポイント数（目標）があるとき</li>
@@ -89,10 +89,10 @@
         <!-- JSで動的生成 -->
       </div>
 
-      <button class="btn-copy" onclick="calculateBinarySplit()">計算を実行する</button>
+      <button class="btn-copy" onclick="calculateBinarySplit()">▶ ブロックを振り分ける</button>
 
       <div id="splitResult" class="result-container" style="display:none;">
-        <div class="split-container">
+        <div class="balance-stage"><div class="balance-stage-title">BALANCE RESULT <span id="balanceStatus">BEST BALANCE</span></div><div class="balance-boards"><div class="balance-board"><span>LEFT</span><div id="balanceLeft" class="balance-blocks"></div></div><div class="balance-board"><span>RIGHT</span><div id="balanceRight" class="balance-blocks"></div></div></div><p class="balance-stage-note">ブロックの高さは左右のPTに比例します</p></div><div class="split-container">
           <div class="split-col">
             <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">左 (L)</h3>
             <div id="leftList"></div>
@@ -510,6 +510,21 @@
 
       document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
 
+      // Decorative block columns reflect actual PT proportions; exact values remain in the lists.
+      const boardMax = Math.max(leftPt, rightPt, 1);
+      const drawBlocks = (id, pt) => {
+        const board = document.getElementById(id);
+        const count = pt <= 0 ? 0 : Math.max(1, Math.round(pt / boardMax * 48));
+        board.innerHTML = Array.from({length:count}, (_,i) =>
+          '<span class="balance-tile" style="--tile-index:'+i+'"></span>').join('');
+      };
+      drawBlocks('balanceLeft', leftPt);
+      drawBlocks('balanceRight', rightPt);
+      const difference = currentMode === 'current'
+        ? Math.abs((curLeftPt + leftPt) - (curRightPt + rightPt))
+        : Math.abs(leftPt - rightPt);
+      document.getElementById('balanceStatus').textContent =
+        currentMode === 'target' ? 'TARGET MATCH' : difference === 0 ? 'PERFECT BALANCE!' : 'BEST BALANCE!';
       const resDiv = document.getElementById('splitResult');
       resDiv.style.display = 'block';
       resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
