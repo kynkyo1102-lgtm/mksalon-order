@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/calc-split.css?v=balance-1">
+  <link rel="stylesheet" href="css/calc-split.css?v=balance-2">
 </head>
 <body>
 
@@ -28,23 +28,16 @@
         <button type="button" class="btn-reset" onclick="resetSplitSelection()">↺ リセット</button>
       </div>
 
-      <!-- モード選び方ガイド（新規追加） -->
-      <div class="mode-guide-box">
-        <div class="mode-guide-title">SELECT MODE — 振り分け方法を選ぶ</div>
-        <ul class="mode-guide-list">
-          <li><span class="mode-badge">① かんたん均等</span>：今回の購入分を左右半々に分けたいとき</li>
-          <li><span class="mode-badge">② 目標PT</span>：左右に狙いたいポイント数（目標）があるとき</li>
-          <li><span class="mode-badge">③ 保有PT合算</span>：手持ちのPTと足して左右差を無くしたいとき</li>
-        </ul>
-      </div>
-      
-      <!-- モード切り替えタブ -->
-      <div class="mode-tabs">
-        <button class="tab-btn active" onclick="switchMode('auto')">① かんたん均等</button>
-        <button class="tab-btn" onclick="switchMode('target')">② 目標PT</button>
-        <button class="tab-btn" onclick="switchMode('current')">③ 保有PT合算</button>
-      </div>
-
+      <section class="difficulty-select" id="difficultySelect">
+        <h2>SELECT MODE <small>— 振り分け方法を選ぶ —</small></h2>
+        <div class="difficulty-options">
+          <button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>かんたん均等</strong><small>購入分を左右半分ずつに</small></button>
+          <button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>目標PT</strong><small>左右それぞれの目標に近づける</small></button>
+          <button type="button" class="difficulty-option" data-mode="current" onclick="switchMode('current')"><span class="difficulty-number">03 / BALANCE</span><strong>保有PT合算</strong><small>手持ちのPTも含めて調整</small></button>
+        </div>
+      </section>
+      <div id="splitWorkspace" hidden>
+        <div class="selected-mode-bar"><span id="selectedModeLabel"></span><button type="button" onclick="backToModeSelection()">モードを変更</button></div>
       <!-- ① かんたん均等の説明パネル -->
       <div id="panel-auto" class="mode-panel active">
         <p class="usage-guide" style="margin:0; font-size:0.78rem;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
@@ -85,9 +78,15 @@
         <select id="monthSelect" class="calc-select"></select>
       </div>
 
-      <div id="productQtyList" class="product-list-box">
-        <!-- JSで動的生成 -->
-      </div>
+      <section class="split-product-editor">
+        <h2>ITEM SELECT <small>— 購入商品を追加 —</small></h2>
+        <div class="split-product-controls">
+          <label>商品<select id="splitProductSelect" class="calc-select"><option value="">商品を選択してください</option></select></label>
+          <label>個数<select id="splitProductQuantity" class="calc-select"></select></label>
+          <button type="button" class="split-add-button" onclick="addSplitProduct()">＋ 追加</button>
+        </div>
+        <div id="productQtyList" class="selected-product-list" aria-live="polite"><p class="split-empty">商品はまだ追加されていません。</p></div>
+      </section>
 
       <button class="btn-copy" onclick="calculateBinarySplit()">▶ ブロックを振り分ける</button>
 
@@ -155,6 +154,7 @@
           </div>
         </div>
       </div>
+      </div><!-- splitWorkspace -->
     </div>
   </main>
 
@@ -164,24 +164,24 @@
 
   <script>
     let configData = null;
-    let currentMode = 'auto'; // 'auto', 'target', 'current'
+    let currentMode = null; // mode is selected before opening the workspace
+    const selectedSplitProducts = new Map();
 
     function switchMode(mode) {
       currentMode = mode;
-      const tabs = document.querySelectorAll('.tab-btn');
-      tabs.forEach((tab, idx) => {
-        const modeNames = ['auto', 'target', 'current'];
-        if (modeNames[idx] === mode) {
-          tab.classList.add('active');
-        } else {
-          tab.classList.remove('active');
-        }
+      document.getElementById('difficultySelect').hidden = true;
+      document.getElementById('splitWorkspace').hidden = false;
+      document.getElementById('selectedModeLabel').textContent =
+        ({auto:'01 / かんたん均等',target:'02 / 目標PT',current:'03 / 保有PT合算'})[mode];
+      ['auto','target','current'].forEach(m => {
+        document.getElementById('panel-'+m).classList.toggle('active',m===mode);
       });
-
-      document.getElementById('panel-auto').classList.toggle('active', mode === 'auto');
-      document.getElementById('panel-target').classList.toggle('active', mode === 'target');
-      document.getElementById('panel-current').classList.toggle('active', mode === 'current');
-
+      document.getElementById('splitResult').style.display = 'none';
+    }
+    function backToModeSelection() {
+      currentMode = null;
+      document.getElementById('difficultySelect').hidden = false;
+      document.getElementById('splitWorkspace').hidden = true;
       document.getElementById('splitResult').style.display = 'none';
     }
 
@@ -205,60 +205,59 @@
     }
 
     function renderProductQtyList() {
+      if (!configData) return;
       const month = document.getElementById('monthSelect').value;
-      const container = document.getElementById('productQtyList');
-      container.innerHTML = '';
-
-      configData.products.forEach((p, index) => {
+      const picker = document.getElementById('splitProductSelect');
+      picker.innerHTML = '<option value="">商品を選択してください</option>';
+      configData.products.forEach((p,i) => {
         if (p.name === 'リペアセラム') return;
-
-        const pt = p.pts[month] || 0;
-        const div = document.createElement('div');
-        div.className = 'product-item';
-        div.id = `item-row-${index}`;
-
-        let optionsHtml = '';
-        for (let i = 0; i <= 30; i++) {
-          optionsHtml += `<option value="${i}">${i}</option>`;
-        }
-
-        div.innerHTML = `
-          <span style="font-size:0.82rem;">
-            <strong>${p.name}</strong><br>
-            <small style="color:var(--text-sub);">${p.price.toLocaleString()}円 / ${pt.toLocaleString()}PT</small>
-          </span>
-          <select class="prod-qty" data-index="${index}" onchange="highlightSelected(${index})">
-            ${optionsHtml}
-          </select>
-        `;
-        container.appendChild(div);
+        const option = document.createElement('option');
+        option.value = String(i);
+        option.textContent = p.name+' — '+(p.pts[month]||0).toLocaleString()+'PT';
+        picker.appendChild(option);
       });
+      renderSelectedSplitProducts();
+      document.getElementById('splitResult').style.display='none';
     }
-
-    function highlightSelected(index) {
-      const row = document.getElementById(`item-row-${index}`);
-      const select = row.querySelector('.prod-qty');
-      if (parseInt(select.value) > 0) {
-        row.classList.add('selected');
-      } else {
-        row.classList.remove('selected');
+    function renderSelectedSplitProducts() {
+      const month = document.getElementById('monthSelect').value;
+      const list = document.getElementById('productQtyList');
+      list.replaceChildren();
+      if (selectedSplitProducts.size === 0) {
+        const p = document.createElement('p'); p.className='split-empty';
+        p.textContent='商品はまだ追加されていません。';list.appendChild(p);return;
       }
-    }
-
-    function resetSplitSelection() {
-      const selects = document.querySelectorAll('.prod-qty');
-      selects.forEach(select => {
-        select.value = '0';
-        const idx = select.getAttribute('data-index');
-        highlightSelected(idx);
+      selectedSplitProducts.forEach((qty,index) => {
+        const p=configData.products[index];
+        const row=document.createElement('div');row.className='selected-product-row';
+        const info=document.createElement('div');
+        const name=document.createElement('strong');name.textContent=p.name+' × '+qty;
+        const detail=document.createElement('small');
+        detail.textContent=((p.pts[month]||0)*qty).toLocaleString()+'PT / '+(p.price*qty).toLocaleString()+'円';
+        info.append(name,detail);
+        const remove=document.createElement('button');remove.type='button';remove.textContent='削除';
+        remove.onclick=()=>{selectedSplitProducts.delete(index);renderSelectedSplitProducts();document.getElementById('splitResult').style.display='none';};
+        row.append(info,remove);list.appendChild(row);
       });
-
-      document.getElementById('targetLeftPt').value = '';
-      document.getElementById('targetRightPt').value = '';
-      document.getElementById('currentLeftPt').value = '0';
-      document.getElementById('currentRightPt').value = '0';
-
-      document.getElementById('splitResult').style.display = 'none';
+    }
+    function addSplitProduct() {
+      const indexStr=document.getElementById('splitProductSelect').value;
+      if(indexStr===''){alert('商品を選択してください。');return;}
+      const index=Number(indexStr);
+      const qty=Number(document.getElementById('splitProductQuantity').value);
+      selectedSplitProducts.set(index,(selectedSplitProducts.get(index)||0)+qty);
+      renderSelectedSplitProducts();
+      document.getElementById('splitResult').style.display='none';
+      document.getElementById('splitProductSelect').value='';
+    }
+    function resetSplitSelection() {
+      selectedSplitProducts.clear();
+      renderSelectedSplitProducts();
+      document.getElementById('targetLeftPt').value='';
+      document.getElementById('targetRightPt').value='';
+      document.getElementById('currentLeftPt').value='0';
+      document.getElementById('currentRightPt').value='0';
+      document.getElementById('splitResult').style.display='none';
     }
 
     function findOptimalSubset(items, targetPt) {
@@ -327,20 +326,11 @@
 
     function calculateBinarySplit() {
       const month = document.getElementById('monthSelect').value;
-      const selects = document.querySelectorAll('.prod-qty');
-      
       let allUnitItems = [];
-
-      selects.forEach(select => {
-        const qty = parseInt(select.value) || 0;
-        if (qty > 0) {
-          const idx = select.getAttribute('data-index');
-          const p = configData.products[idx];
-          const pt = p.pts[month] || 0;
-          for (let i = 0; i < qty; i++) {
-            allUnitItems.push({ name: p.name, pt: pt, price: p.price });
-          }
-        }
+      selectedSplitProducts.forEach((qty,index) => {
+        const p=configData.products[index];
+        const pt=p.pts[month]||0;
+        for(let i=0;i<qty;i++) allUnitItems.push({name:p.name,pt,price:p.price});
       });
 
       if (allUnitItems.length === 0) {
@@ -531,6 +521,8 @@
     }
 
     document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
+    const qtyPicker=document.getElementById('splitProductQuantity');
+    for(let i=1;i<=30;i++){const option=document.createElement('option');option.value=i;option.textContent=i+'個';qtyPicker.appendChild(option);}
     window.onload = loadConfig;
   </script>
 </body>
