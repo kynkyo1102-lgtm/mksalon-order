@@ -151,25 +151,6 @@
 .line-order-page .member-content-body{background:#fff}
 @media(max-width:520px){.line-order-page .member-summary{padding:13px 14px!important}}
 
-/* Experiment: outlined tab title overlapping the upper card border */
-.line-order-page .app-main > .info-card{position:relative!important;margin-top:31px!important;padding-top:38px!important;overflow:visible!important}
-.line-order-page .app-main > .info-card > .section-title{
- position:absolute!important;top:-19px!important;left:22px!important;
- display:inline-flex!important;width:auto!important;max-width:calc(100% - 44px)!important;
- align-items:center!important;justify-content:center!important;
- margin:0!important;padding:7px 21px!important;min-height:38px!important;
- border:1.5px solid #aeb8b1!important;border-radius:999px!important;
- background:#fff!important;box-shadow:none!important;
- color:#303b34!important;font-size:16px!important;font-weight:700!important;
- line-height:1.45!important;letter-spacing:0!important;white-space:normal!important;
- z-index:1!important;
-}
-@media(max-width:520px){
- .line-order-page .app-main > .info-card > .section-title{left:16px!important;max-width:calc(100% - 32px)!important;padding:7px 15px!important;font-size:15px!important}
-}
-
-/* Tab title refinement: unnumbered deep green */
-.line-order-page .app-main > .info-card > .section-title{color:#25533e!important;border-color:#91a99b!important;font-weight:700!important}
 /* Optional preregistration must remain a compact utility, not a full step card */
 .line-order-page .app-main > .info-card.line-member-area{
  margin:0 0 22px!important;padding:0!important;min-height:0!important;
@@ -181,5 +162,6 @@
 .line-order-page .line-member-area .member-summary .line-member-utility-icon{font-size:18px!important;font-weight:400!important}
 @media(max-width:520px){.line-order-page .line-member-area .member-summary{padding:11px 13px!important}}
 
-/* Experiment 3: forest-green title tabs with white lettering */
-.line-order-page .app-main > .info-card > .section-title{background:#25533e!important;color:#fff!important;border-color:#25533e!important;box-shadow:none!important}
+
+/* Original flat section heading with deep green text */
+.line-order-page .app-main > .info-card > .section-title{color:#25533e!important}
