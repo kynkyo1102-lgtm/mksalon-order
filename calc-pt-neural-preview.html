@@ -26,7 +26,7 @@
   </script>
   <link rel="stylesheet" href="css/rpg-typography.css?v=2">
   <link rel="stylesheet" href="css/neural-generator-preview.css?v=1">
-  <link rel="stylesheet" href="css/neural-pt-refinement.css?v=1">
+  <link rel="stylesheet" href="css/neural-pt-refinement.css?v=3">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -506,7 +506,18 @@ document.addEventListener('DOMContentLoaded',()=>{
    for(let i=0;i<4;i++){const line=document.createElement('i');border.appendChild(line)}
    el.prepend(border);
    if(reduce){el.classList.add('neural-framed');return}
-   setTimeout(()=>{el.classList.add('neural-framing');setTimeout(()=>el.classList.add('neural-framed'),1150)},delay);
+   const start=()=>{
+     if(el.classList.contains('neural-framing')||el.classList.contains('neural-framed'))return;
+     el.classList.add('neural-framing');
+     setTimeout(()=>{el.classList.remove('neural-framing');el.classList.add('neural-framed')},1450);
+   };
+   const watcher=new IntersectionObserver(entries=>{
+     if(entries.some(entry=>entry.isIntersecting)){
+       watcher.disconnect();
+       setTimeout(start,Math.min(delay,320));
+     }
+   },{threshold:0.08});
+   watcher.observe(el);
  }
  frames.forEach((el,i)=>frame(el,2450+i*400));
  function type(el,delay=0,speed=35){
