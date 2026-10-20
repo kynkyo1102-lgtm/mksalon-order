@@ -363,10 +363,7 @@ function addOrderToList() {
   togglePaymentFields(); // 支払い入力エリアを非表示・リセット
   document.getElementById('receiptName').value = "";
   document.getElementById('presetMemberSelect').value = "";
-  document.getElementById('shipName').value = "";
-  document.getElementById('zip').value = "";
-  document.getElementById('address').value = "";
-  document.getElementById('phone').value = "";
+  // 同じお届け先への続けての注文に備え、配送先の入力値は維持する。
   updateCalc();
 
   renderOrderList();
@@ -530,6 +527,7 @@ function generateAllReceipts() {
     wrapper.appendChild(cardWrapper);
   });
 
+  if (allOrders.length > 1) {
   const summaryItems = {};
   let totalAllSubtotal = 0;
   let totalAllNinaPoint = 0;
@@ -594,16 +592,13 @@ function generateAllReceipts() {
   const summaryWrapper = document.createElement('div');
   summaryWrapper.className = "card-wrapper";
   summaryWrapper.innerHTML = `
-    <div id="card-target-summary" class="receipt-box target-card">
-      <div class="receipt-header">
-        <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">【全体合算】注文集計まとめ</h3>
-        <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">対象注文数: ${allOrders.length} 件 | ${dateStr}</p>
-      </div>
-      <div style="font-size: 0.75rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1.0px solid var(--border-color);">
+    <div id="card-target-summary" class="receipt-box target-card order-image-sheet">
+      <div class="order-image-heading"><div><span class="order-image-kicker">プラッスドゥニナ 南熊本店</span><h3>全体合算・注文集計</h3></div><div class="order-image-date">${dateStr}<br>対象注文：<strong>${allOrders.length}件</strong></div></div>
+      <div class="order-image-members">
         <strong>対象会員一覧:</strong><br>
         ${allOrders.map(o => `${o.fullName} 様 (${o.memberId})`).join('<br>')}
       </div>
-      <table class="product-table" style="margin-bottom: 15px;">
+      <section class="order-image-section"><h4>全体の商品明細</h4><table class="product-table order-image-products">
         <thead>
           <tr>
             <th>商品名（全体合計）</th>
@@ -613,8 +608,8 @@ function generateAllReceipts() {
           </tr>
         </thead>
         <tbody>${summaryRows}</tbody>
-      </table>
-      <div style="border-top: 2.0px solid var(--accent-gold); padding-top: 10px; font-size: 0.88rem;">
+      </table></section>
+      <div class="order-image-totals">
         <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
           <span>全合算 総数量:</span>
           <span>${grandTotalQty} 点</span>
@@ -626,11 +621,12 @@ function generateAllReceipts() {
         </div>
       </div>
     </div>
-    <button type="button" class="btn-card-download" style="background-color: var(--wood-dark); color: var(--gold-light);" onclick="downloadSingleCard('card-target-summary')">
+    <button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-summary')">
       📊 「全体まとめ」を画像保存
     </button>
   `;
   wrapper.appendChild(summaryWrapper);
+  }
 
   document.getElementById('formSection').style.display = "none";
   document.querySelector('.footer-bar').style.display = "none";
