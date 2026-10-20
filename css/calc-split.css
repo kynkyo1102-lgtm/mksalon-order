@@ -646,3 +646,22 @@ header h1,.section-title{color:#f4d98d!important}
 .calc-split-page .app-main button{letter-spacing:.02em}
 .calc-split-page .difficulty-number{letter-spacing:.08em}
 @media(max-width:600px){.calc-split-page .difficulty-option strong{font-size:17px!important}.calc-split-page .split-col h3{font-size:14px!important}}
+
+/* balance-10: retro lettering on section labels and primary actions */
+.calc-split-page .difficulty-select h2,
+.calc-split-page .difficulty-select h2 small,
+.calc-split-page .split-product-editor h2,
+.calc-split-page .split-product-editor h2 small,
+.calc-split-page .split-add-button,
+.calc-split-page .btn-copy,
+.calc-split-page .workspace-reset,
+.calc-split-page .selected-mode-bar button,
+.calc-split-page .selected-product-row button{
+ font-family:"DotGothic16","Noto Sans JP",sans-serif!important;
+ letter-spacing:.045em;
+}
+.calc-split-page .split-product-editor h2{font-size:clamp(18px,3.3vw,22px)!important;font-weight:400!important}
+.calc-split-page .difficulty-select h2{font-weight:400!important}
+.calc-split-page .split-add-button{font-size:16px!important}
+.calc-split-page .btn-copy{font-size:clamp(16px,3vw,19px)!important;font-weight:400!important;line-height:1.7}
+.calc-split-page .difficulty-select h2 small,.calc-split-page .split-product-editor h2 small{font-weight:400!important}
