@@ -153,3 +153,22 @@
 .line-order-page .total-preview{color:#222}
 .line-order-page #output_text{min-height:185px;background:#fafafa;line-height:1.75}
 @media(max-width:520px){.line-order-page .app-main{padding:25px 16px 150px}.line-order-page .info-card{padding:16px}.line-order-page .line-utilities-heading span{display:block;margin:4px 0 0}}
+
+/* Text order readability and separate utility sections */
+.line-order-page .app-page-title{font-size:clamp(24px,3.5vw,28px)}
+.line-order-page .line-page-intro p{font-size:15px;line-height:1.85}
+.line-order-page .line-restore-area{border:1px solid #e3e3e3;border-radius:14px;padding:18px 20px;margin:22px 0 18px;background:#fafafa}
+.line-order-page .line-restore-area .line-utilities-heading{font-size:15px;font-weight:700;margin-bottom:12px}
+.line-order-page .line-restore-area .line-utilities-heading span{display:block;font-size:13px;font-weight:400;color:#777;margin-top:3px}
+.line-order-page .line-member-area{margin-top:0!important;margin-bottom:28px!important}
+.line-order-page .info-card{padding:24px!important;margin-bottom:24px!important}
+.line-order-page .section-title{font-size:18px!important;line-height:1.55!important;margin-bottom:18px!important}
+.line-order-page .member-summary span{font-size:17px!important}
+.line-order-page .form-group label,.line-order-page label{font-size:15px;line-height:1.65}
+.line-order-page input:not([type=checkbox]):not([type=radio]),.line-order-page select{min-height:50px;font-size:16px!important;padding:11px 13px}
+.line-order-page textarea{font-size:16px!important;line-height:1.7;padding:12px 13px}
+.line-order-page .sub-note,.line-order-page .usage-guide{font-size:14px!important;line-height:1.85}
+.line-order-page .sub-btn{min-height:46px;font-size:15px!important}
+.line-order-page .tiny-restore-summary{font-size:15px!important;line-height:1.6;padding:12px 8px}
+.line-order-page .line-restore-area .tiny-restore-box{margin:0}
+@media(max-width:520px){.line-order-page .line-restore-area{padding:14px 15px}.line-order-page .info-card{padding:19px 16px!important}.line-order-page .section-title{font-size:17px!important}}
