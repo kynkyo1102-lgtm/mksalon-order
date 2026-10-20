@@ -24,7 +24,7 @@
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=11" defer></script>
+  <script src="app-dropdown-preview.js?v=12" defer></script>
 <style>
 .bulk-dropdown-items{padding:8px 0 4px}.bulk-picker-row{display:grid;grid-template-columns:minmax(0,1fr) 88px 38px;gap:9px;align-items:center;margin:0 0 12px}.bulk-picker-row .item-select{width:100%;min-width:0}.bulk-picker-row .qty-select{width:100%;min-width:0}.bulk-picker-remove{border:1px solid #ddd;background:#fff;border-radius:8px;min-height:42px;font-size:18px}.bulk-picker-row select{min-height:44px}.bulk-dropdown-items .sub-btn{margin-top:4px}@media(max-width:430px){.bulk-picker-row{grid-template-columns:minmax(0,1fr) 72px 34px;gap:6px}}
 </style><style>
@@ -86,6 +86,18 @@
 .bulk-order-page .bulk-combined-member-items>div{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
 .bulk-order-page .bulk-combined-member-total{text-align:right;font-size:13px;font-weight:700}
 .bulk-order-page .bulk-combined-summary{display:flex;justify-content:space-between;background:#edf4ee;border-radius:8px;padding:13px;margin-top:12px;font-weight:700}
+</style><style>
+.bulk-order-page .bulk-stage-one-action{margin:18px 0 10px}
+.bulk-order-page .bulk-stage-one-action .btn-add{width:100%;min-height:49px}
+.bulk-order-page .bulk-stage-one-next{margin:10px 0 22px}
+.bulk-order-page #bulkGoPayment,.bulk-order-page .bulk-final-export{width:100%;min-height:52px;background:#315b43;border:1px solid #315b43;border-radius:9px;color:#fff;font:inherit;font-weight:700;cursor:pointer}
+.bulk-order-page #bulkGoPayment:disabled{opacity:.4;cursor:not-allowed}
+.bulk-order-page .bulk-stage-back{margin:14px 0}
+.bulk-order-page .bulk-stage-back button{background:none;border:0;color:#315b43;font:inherit;cursor:pointer}
+.bulk-order-page .bulk-final-export{margin:16px 0 32px}
+.bulk-order-page.bulk-final-step #topOfForm,.bulk-order-page.bulk-final-step .bulk-products-card,.bulk-order-page.bulk-final-step .bulk-member-utility,.bulk-order-page.bulk-final-step .bulk-stage-one-action,.bulk-order-page.bulk-final-step .bulk-stage-one-next,.bulk-order-page.bulk-final-step .footer-bar{display:none!important}
+.bulk-order-page.bulk-final-step #bulkFinalStage{display:block!important}
+.bulk-order-page:not(.bulk-final-step) #bulkFinalStage{display:none!important}
 </style></head>
 <body class="app-page bulk-order-page">
 
@@ -141,7 +153,7 @@
         </details>
 
         <!-- 基本情報エリア（スクロール戻り用ID: topOfForm） -->
-        <div class="card-box bulk-step-card" id="topOfForm"><div class="section-title">1. 会員ごとの注文情報</div>
+        <div class="card-box bulk-step-card" id="topOfForm"><div class="section-title">1. 会員番号・氏名</div>
           <div class="form-group">
             <label for="presetMemberSelect">保存済み会員から選択</label>
             <select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
@@ -171,8 +183,37 @@
           </div>
         </div>
 
+        <!-- 商品一覧テーブル -->
+        <div class="bulk-step-card bulk-products-card">
+        <div class="section-title">2. 商品を選択</div>
+        <div class="sub-instruction">ご希望商品の数量を選択してください</div>
+        <div class="bulk-dropdown-items"><div id="productPickerRows"></div><button type="button" class="sub-btn mt-8" id="addProductPicker">＋ 商品を追加</button></div><table class="product-table" style="display:none">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th class="width-65">価格(税込)</th>
+              <th class="width-55">獲得Pt</th>
+              <th class="qty-col">数量</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody"></tbody>
+        </table>
+        </div>
+
+        <!-- 追加済み注文リスト（確認用） -->
+        <div id="orderListContainer" class="card-box order-list-box display-none">
+          <div class="order-list-header" >
+            追加済みの会員注文（<span id="orderCount">0</span>件）
+          </div>
+          <div id="addedOrdersList" class="added-orders-list"></div>
+        </div>
+
+        <div class="bulk-stage-one-action"><button type="button" class="btn-add" onclick="addOrderToList()">＋ この会員の注文を追加</button></div>
+        <div class="bulk-stage-one-next"><button type="button" id="bulkGoPayment" onclick="goToBulkPayment()" disabled>お支払い・お届け先の入力へ →</button></div>
+        <div id="bulkFinalStage" class="display-none">
+          <div class="bulk-stage-back"><button type="button" onclick="backToBulkOrders()">← 会員注文の入力に戻る</button></div>
         <!-- お支払い方法エリア -->
-        <div class="card-box bulk-step-card"><div class="section-title">2. お支払い方法</div>
+        <div class="card-box bulk-step-card"><div class="section-title">3. お支払い方法（共通）</div>
         
           <div class="bulk-payment-heading"><button type="button" class="bulk-reset-payment" onclick="resetBulkPayment()">お支払い情報をリセット</button></div>
           <div class="form-group">
@@ -207,25 +248,9 @@
 
         </div>
 
-        <!-- 商品一覧テーブル -->
-        <div class="bulk-step-card bulk-products-card">
-        <div class="section-title">2. 注文商品選択</div>
-        <div class="sub-instruction">ご希望商品の数量を選択してください</div>
-        <div class="bulk-dropdown-items"><div id="productPickerRows"></div><button type="button" class="sub-btn mt-8" id="addProductPicker">＋ 商品を追加</button></div><table class="product-table" style="display:none">
-          <thead>
-            <tr>
-              <th>商品名</th>
-              <th class="width-65">価格(税込)</th>
-              <th class="width-55">獲得Pt</th>
-              <th class="qty-col">数量</th>
-            </tr>
-          </thead>
-          <tbody id="productTableBody"></tbody>
-        </table>
-        </div>
 
         <!-- お届け先エリア -->
-        <div class="card-box bulk-step-card"><div class="section-title">3. 共通のお届け先（配送ご希望の方のみ）</div>
+        <div class="card-box bulk-step-card"><div class="section-title">4. 共通のお届け先（配送ご希望の方のみ）</div>
         <div class="bulk-returning-note"><strong>以前ご注文いただいた方へ</strong><span>お届け先は<strong>宛名だけ</strong>でOKです。変更やご希望がある場合のみ、ほかの項目も入力してください。</span></div>
         
           <div class="form-group">
@@ -251,14 +276,9 @@
         </div>
 
 
-        <!-- 追加済み注文リスト（確認用） -->
-        <div id="orderListContainer" class="card-box order-list-box display-none">
-          <div class="order-list-header" >
-            追加済みの会員注文（<span id="orderCount">0</span>件）
-          </div>
-          <div id="addedOrdersList" class="added-orders-list"></div>
-        </div>
 
+          <button type="button" class="bulk-final-export" onclick="generateAllReceipts()">注文書の画像を作成 →</button>
+        </div>
         <!-- 下部固定フッター -->
         <div class="footer-bar">
           <div class="footer-content">
@@ -272,10 +292,10 @@
               </div>
             </div>
             <div class="bulk-footer-actions">
-            <button type="button" onclick="addOrderToList()" class="btn-add">
-              ＋ 会員の注文を追加
+            <button type="button" onclick="addOrderToList()" class="btn-add" id="bulkFooterAdd">
+              ＋ この会員の注文を追加
             </button>
-            <button type="button" id="bulkFooterExport" onclick="generateAllReceipts()" class="btn-action bulk-footer-export display-none">まとめて注文書を作成 →</button>
+
             </div>
           </div>
         </div>
