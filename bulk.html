@@ -24,8 +24,69 @@
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app.js?v=utility-orders-1" defer></script>
-</head>
+  <script src="app-dropdown-preview.js?v=11" defer></script>
+<style>
+.bulk-dropdown-items{padding:8px 0 4px}.bulk-picker-row{display:grid;grid-template-columns:minmax(0,1fr) 88px 38px;gap:9px;align-items:center;margin:0 0 12px}.bulk-picker-row .item-select{width:100%;min-width:0}.bulk-picker-row .qty-select{width:100%;min-width:0}.bulk-picker-remove{border:1px solid #ddd;background:#fff;border-radius:8px;min-height:42px;font-size:18px}.bulk-picker-row select{min-height:44px}.bulk-dropdown-items .sub-btn{margin-top:4px}@media(max-width:430px){.bulk-picker-row{grid-template-columns:minmax(0,1fr) 72px 34px;gap:6px}}
+</style><style>
+  .bulk-field-help{font-size:13px;line-height:1.65;color:#626d65;margin:0 0 8px;font-weight:400}
+  .bulk-returning-note{display:flex;flex-direction:column;gap:5px;margin:0 0 21px;padding:13px 15px;border:1px solid #b8c9bd;border-left:4px solid #7b9b86;border-radius:8px;background:#f2f7f3;color:#304438}
+  .bulk-returning-note>strong,.bulk-returning-note>span{font-size:14px;line-height:1.75}
+  .bulk-returning-note span strong{font-weight:700}
+</style>
+<style>
+.bulk-order-page #formSection .bulk-footer-actions{display:flex;gap:8px;flex:1;min-width:0}
+.bulk-order-page #formSection .bulk-footer-actions .btn-add,.bulk-order-page #formSection .bulk-footer-actions .bulk-footer-export{flex:1;min-width:0;width:auto!important;margin:0!important;display:flex;align-items:center;justify-content:center;text-align:center;font-size:clamp(11px,2.9vw,14px)!important;line-height:1.35;padding:12px 7px!important;white-space:normal}
+.bulk-order-page #formSection .bulk-footer-actions .bulk-footer-export{background:#2e5541!important;color:#fff!important;border:1px solid #2e5541!important;border-radius:8px;font-weight:700;cursor:pointer}
+.bulk-order-page #formSection .bulk-footer-actions .bulk-footer-export.display-none{display:none!important}
+@media(max-width:600px){.bulk-order-page #formSection .footer-content{flex-wrap:wrap!important}.bulk-order-page #formSection .bulk-footer-actions{width:100%;flex-basis:100%}}
+</style>
+
+<style>
+/* Preview-only: legible order sheet for manual headquarters entry */
+.bulk-order-page .order-image-sheet{font-family:"Noto Sans JP",sans-serif!important;background:#fff!important;color:#25332b!important;border:1px solid #cad8ce!important;border-radius:12px!important;padding:22px!important;box-shadow:none!important;line-height:1.65}
+.bulk-order-page .order-image-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:2px solid #35654c;padding-bottom:14px;margin-bottom:15px}
+.bulk-order-page .order-image-kicker{display:block;font-size:11px;color:#527360;font-weight:600}
+.bulk-order-page .order-image-heading h3{font-size:20px!important;margin:2px 0 0!important;color:#214b36!important;line-height:1.35}
+.bulk-order-page .order-image-date{text-align:right;font-size:11px;color:#65746b;flex-shrink:0}
+.bulk-order-page .order-image-date strong{color:#243f30;font-size:13px}
+.bulk-order-page .order-image-identity{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 14px;margin:0 0 17px;border-radius:8px;background:#edf4ee}
+.bulk-order-page .order-image-field{display:flex;flex-direction:column;gap:2px;min-width:0;overflow-wrap:anywhere}
+.bulk-order-page .order-image-field>span{font-size:11px;color:#65766a;font-weight:500}
+.bulk-order-page .order-image-field>strong{font-size:14px;font-weight:700;color:#20392a}
+.bulk-order-page .order-image-identity .order-image-field>strong{font-size:17px}
+.bulk-order-page .order-image-section{margin:0 0 17px}
+.bulk-order-page .order-image-section h4{font-size:13px;font-weight:700;color:#28563b;margin:0 0 9px;padding-bottom:5px;border-bottom:1px solid #d6e2d8}
+.bulk-order-page .order-image-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.bulk-order-page .order-image-products{width:100%!important;margin:0!important;border-collapse:collapse!important;table-layout:auto!important}
+.bulk-order-page .order-image-products th{background:#eaf2eb!important;color:#304a37!important;font-size:11px!important;padding:9px 6px!important;border-bottom:1px solid #cbd8ce!important}
+.bulk-order-page .order-image-products td{font-size:12px!important;padding:10px 6px!important;border-bottom:1px solid #e2e9e3!important;color:#29362d!important}
+.bulk-order-page .order-image-products th:first-child,.bulk-order-page .order-image-products td:first-child{text-align:left!important}
+.bulk-order-page .order-image-products th:not(:first-child),.bulk-order-page .order-image-products td:not(:first-child){white-space:nowrap}
+.bulk-order-page .order-image-totals{background:#f4f8f4;border-top:2px solid #35654c;padding:12px 14px;border-radius:0 0 8px 8px;font-size:12px}
+.bulk-order-page .order-image-totals>div{display:flex;justify-content:space-between;gap:12px;margin:4px 0;font-size:12px!important;color:#36483b!important}
+.bulk-order-page .order-image-totals>div>span:last-child,.bulk-order-page .order-image-totals>div>strong{font-weight:700}
+@media(max-width:450px){.bulk-order-page .order-image-sheet{padding:14px!important}.bulk-order-page .order-image-heading h3{font-size:17px!important}.bulk-order-page .order-image-identity{gap:7px;padding:10px}.bulk-order-page .order-image-identity .order-image-field>strong{font-size:14px}.bulk-order-page .order-image-products td{font-size:11px!important}}
+</style>
+
+<style>
+.bulk-order-page #completeSection .btn-card-download{display:flex!important;align-items:center;justify-content:center;width:100%!important;max-width:none!important;min-height:48px;margin:12px 0 30px!important;padding:13px 20px!important;background:#315b43!important;color:#fff!important;border:1px solid #315b43!important;border-radius:9px!important;box-shadow:none!important;font-family:"Noto Sans JP",sans-serif!important;font-size:14px!important;font-weight:700!important;letter-spacing:0!important;cursor:pointer;transition:background .2s}
+.bulk-order-page #completeSection .btn-card-download:hover{background:#244a34!important}
+.bulk-order-page #completeSection .btn-card-download:disabled{opacity:.6;cursor:wait}
+.bulk-order-page .order-image-members{background:#edf4ee;border-radius:8px;padding:13px 15px;margin:0 0 17px;font-size:12px;line-height:1.9;color:#314538}
+.bulk-order-page #completeSection .card-wrapper{margin-bottom:20px}
+</style>
+<style>
+.bulk-order-page .bulk-payment-heading{display:flex;justify-content:flex-end;margin-bottom:9px}
+.bulk-order-page .bulk-reset-payment{font:inherit;font-size:12px;background:#fff;color:#4e6555;border:1px solid #b8c9bd;border-radius:7px;padding:7px 11px;cursor:pointer}
+.bulk-order-page .bulk-combined-member{border-bottom:1px solid #dce7de;padding:14px 0}
+.bulk-order-page .bulk-combined-member:last-child{border-bottom:0}
+.bulk-order-page .bulk-combined-member-head{display:flex;justify-content:space-between;gap:10px;align-items:baseline;font-size:14px;font-weight:700;color:#264a34}
+.bulk-order-page .bulk-combined-member-meta{font-size:12px;color:#4b6052;margin:8px 0}
+.bulk-order-page .bulk-combined-member-items{font-size:12px;margin:7px 0 10px}
+.bulk-order-page .bulk-combined-member-items>div{display:flex;justify-content:space-between;gap:10px;padding:4px 0}
+.bulk-order-page .bulk-combined-member-total{text-align:right;font-size:13px;font-weight:700}
+.bulk-order-page .bulk-combined-summary{display:flex;justify-content:space-between;background:#edf4ee;border-radius:8px;padding:13px;margin-top:12px;font-weight:700}
+</style></head>
 <body class="app-page bulk-order-page">
 
   <header class="app-header">
@@ -80,7 +141,7 @@
         </details>
 
         <!-- 基本情報エリア（スクロール戻り用ID: topOfForm） -->
-        <div class="card-box bulk-step-card" id="topOfForm"><div class="section-title">1. ご注文者様基本情報</div>
+        <div class="card-box bulk-step-card" id="topOfForm"><div class="section-title">1. 会員ごとの注文情報</div>
           <div class="form-group">
             <label for="presetMemberSelect">保存済み会員から選択</label>
             <select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
@@ -113,6 +174,7 @@
         <!-- お支払い方法エリア -->
         <div class="card-box bulk-step-card"><div class="section-title">2. お支払い方法</div>
         
+          <div class="bulk-payment-heading"><button type="button" class="bulk-reset-payment" onclick="resetBulkPayment()">お支払い情報をリセット</button></div>
           <div class="form-group">
             <label for="paymentMethod">お支払い方法を選択 *</label>
             <select id="paymentMethod" required onchange="togglePaymentFields()">
@@ -121,12 +183,6 @@
               <option value="クレジットカード">クレジットカード</option>
               <option value="PayPay">PayPay</option>
             </select>
-          </div>
-
-          <!-- 領収書の宛名 -->
-          <div class="form-group margin-top-12">
-            <label for="receiptName">領収書の宛名 <span class="sub-label">(※必要な場合のみ)</span></label>
-            <input type="text" id="receiptName" placeholder="例: 株式会社〇〇、〇〇様">
           </div>
 
           <div id="paymentExtraFields" class="payment-extra-box">
@@ -141,13 +197,36 @@
               <small class="sub-label">※1pt ＝ 1円としてお値引きされます</small>
             </div>
           </div>
+
+          <!-- 領収書の宛名 -->
+          <div class="form-group margin-top-12">
+            <label for="receiptName">領収書の宛名（必要な場合のみ）</label>
+            <p class="bulk-field-help">宛名なしの場合は「なし」とお書きください。</p>
+            <input type="text" id="receiptName" placeholder="例：株式会社〇〇、山田太郎">
+          </div>
+
+        </div>
+
+        <!-- 商品一覧テーブル -->
+        <div class="bulk-step-card bulk-products-card">
+        <div class="section-title">2. 注文商品選択</div>
+        <div class="sub-instruction">ご希望商品の数量を選択してください</div>
+        <div class="bulk-dropdown-items"><div id="productPickerRows"></div><button type="button" class="sub-btn mt-8" id="addProductPicker">＋ 商品を追加</button></div><table class="product-table" style="display:none">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th class="width-65">価格(税込)</th>
+              <th class="width-55">獲得Pt</th>
+              <th class="qty-col">数量</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody"></tbody>
+        </table>
         </div>
 
         <!-- お届け先エリア -->
-        <div class="card-box bulk-step-card"><div class="section-title">3. お届け先（配送ご希望の方のみ）</div>
-        <div style="font-size: 0.75rem; color: var(--text-sub); margin: -4px 0 10px 4px;">
-          ※以前にご注文された方は宛名のみでも構いません。
-        </div>
+        <div class="card-box bulk-step-card"><div class="section-title">3. 共通のお届け先（配送ご希望の方のみ）</div>
+        <div class="bulk-returning-note"><strong>以前ご注文いただいた方へ</strong><span>お届け先は<strong>宛名だけ</strong>でOKです。変更やご希望がある場合のみ、ほかの項目も入力してください。</span></div>
         
           <div class="form-group">
             <label for="shipName">お届け先お名前</label>
@@ -171,38 +250,13 @@
           </div>
         </div>
 
-        <!-- 商品一覧テーブル -->
-        <div class="bulk-step-card bulk-products-card">
-        <div class="section-title">4. 注文商品選択</div>
-        <div class="sub-instruction">ご希望商品の数量を選択してください</div>
-        <table class="product-table">
-          <thead>
-            <tr>
-              <th>商品名</th>
-              <th class="width-65">価格(税込)</th>
-              <th class="width-55">獲得Pt</th>
-              <th class="qty-col">数量</th>
-            </tr>
-          </thead>
-          <tbody id="productTableBody"></tbody>
-        </table>
-        </div>
 
         <!-- 追加済み注文リスト（確認用） -->
         <div id="orderListContainer" class="card-box order-list-box display-none">
           <div class="order-list-header" >
-            5. 追加済みの注文（<span id="orderCount">0</span>件）
+            追加済みの会員注文（<span id="orderCount">0</span>件）
           </div>
           <div id="addedOrdersList" class="added-orders-list"></div>
-          
-          <!-- 1番上に戻るボタンを追加 -->
-          <button type="button" onclick="document.getElementById('topOfForm').scrollIntoView({behavior:'smooth'})" class="btn-action bulk-order-again" >
-            ＋ さらに別の注文を追加する（上に戻る）
-          </button>
-          
-          <button type="button" onclick="generateAllReceipts()" class="btn-action btn-pdf bulk-order-export">
-            注文書の一括作成画面へ
-          </button>
         </div>
 
         <!-- 下部固定フッター -->
@@ -217,9 +271,12 @@
                 (小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span id="displayPt" class="pt-highlight">0pt</span>)
               </div>
             </div>
+            <div class="bulk-footer-actions">
             <button type="button" onclick="addOrderToList()" class="btn-add">
-              ＋ この注文を追加
+              ＋ 会員の注文を追加
             </button>
+            <button type="button" id="bulkFooterExport" onclick="generateAllReceipts()" class="btn-action bulk-footer-export display-none">まとめて注文書を作成 →</button>
+            </div>
           </div>
         </div>
 
