@@ -46,7 +46,7 @@
       font-family: "Noto Sans JP", sans-serif !important;
     }
   </style>
-  <link rel="stylesheet" href="css/neural-generator-preview.css?v=1">
+  <link rel="stylesheet" href="css/neural-generator-preview.css?v=1">\n  <link rel="stylesheet" href="css/neural-split-refinement.css?v=1">\n  <link rel="stylesheet" href="css/neural-effects-preview.css?v=1">
 </head>
 <body class="app-page calc-split-page">
 
@@ -63,7 +63,7 @@
   </header>
   <main class="app-main">
     <div class="neural-preview-note"><strong>DESIGN PREVIEW</strong> / ポイント振り分け — 計算ロジックは元ページと同じです。元の画面は変更していません。</div>
-    <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
+    <a href="calc-neural-connected-preview.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
     <p class="split-eyebrow">BLOCK BALANCE <span>— POINT ALLOCATION PUZZLE —</span></p>
     <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1>
     <div class="card-box">
@@ -671,5 +671,5 @@
     document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!splitGuideDialogue.hidden)setSplitGuideOpen(false);});
     window.onload = loadConfig;
   </script>
-</body>
+<script src="js/neural-effects-preview.js?v=1" defer></script>\n</body>
 </html>
