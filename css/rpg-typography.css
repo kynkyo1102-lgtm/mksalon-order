@@ -39,3 +39,34 @@
 }
 .calc-pt-page .quest-result-heading,
 .calc-split-page .pixel-en{letter-spacing:.065em}
+
+/* split-specific final overrides: restore Japanese Noto, preserve pixel English */
+.calc-split-page .app-main h1,
+.calc-split-page .app-main h2,
+.calc-split-page .app-main h3,
+.calc-split-page .app-main h4,
+.calc-split-page .app-main button,
+.calc-split-page .app-main button strong,
+.calc-split-page .app-main button small,
+.calc-split-page .app-main .selected-mode-bar,
+.calc-split-page .app-main .selected-product-row,
+.calc-split-page .app-main .selected-product-row button,
+.calc-split-page .app-main .split-add-button,
+.calc-split-page .app-main .btn-copy,
+.calc-split-page .app-main .workspace-reset,
+.calc-split-page .app-main .difficulty-option strong,
+.calc-split-page .app-main .difficulty-option small,
+.calc-split-page .app-main .split-product-editor h2 small,
+.calc-split-page .app-main .difficulty-select h2 small{
+ font-family:"Noto Sans JP",sans-serif!important;
+}
+.calc-split-page .app-main .pixel-en,
+.calc-split-page .app-main .split-eyebrow,
+.calc-split-page .app-main .split-eyebrow span,
+.calc-split-page .app-main .difficulty-number,
+.calc-split-page .app-main .meter-heading strong,
+.calc-split-page .app-main .balance-stage-title .pixel-en{
+ font-family:"DotGothic16",sans-serif!important;
+ font-weight:400!important;
+ letter-spacing:.06em;
+}
