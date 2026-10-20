@@ -7,22 +7,14 @@
 <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
 <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
 <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
-</nav></header></div><div class="boot" id="boot"><div class="bootinner"><strong>INITIALIZING_</strong><p>NEURAL OPTIMIZER / SYSTEM STARTUP</p><p>解析モジュールを起動しています…</p><div class="bar"><div class="fill" id="fill"></div></div><div class="pct" id="pct">0%</div></div></div><div class="wrap"><div class="status"><span>NO / NEURAL OPTIMIZER</span><span class="online">SYSTEM ONLINE</span></div><h1 class="heading-type" aria-label="CALCULATION ENGINE"><span id="titleLine1">CALCULATION</span><br><span id="titleLine2">ENGINE</span><span style="color:#8de8ed">_</span><span class="type-cursor" aria-hidden="true">▌</span></h1><p class="jp-title">計算サポートシステム</p><p class="lead">入力条件を解析し、最適な組み合わせを導き出す。<br>解析モジュールを選択して、計算を開始してください。</p><section class="panel"><svg class="border-trace" aria-hidden="true" preserveAspectRatio="none"><rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" pathLength="100"/></svg><p class="kicker">01 / SELECT MODULE</p><h2>解析モジュールを選択</h2><div class="options"><a class="option" href="calc_pt.html"><span class="symbol">◎</span><strong>ポイント最適化</strong><small>目標PTから購入の組み合わせを算出</small><span class="id">MODULE_01</span></a><a class="option" href="calc_split.html"><span class="symbol">⌘</span><strong>ポイント振り分け</strong><small>商品の左右PT配分を算出</small><span class="id">MODULE_02</span></a></div><details class="module-help"><summary>MODULE INFO / 2つの機能を確認</summary><div class="module-help-body"><h3>MODULE_01 / ポイント最適化</h3><p>目標の購入ポイントに合わせて、商品の購入パターンを計算。特定商品の除外や、必ず含めたい商品・個数も指定できます。</p><h3>MODULE_02 / ポイント振り分け</h3><p>選んだ商品を左右に振り分け。均等にする方法、目標PTに近づける方法、現在の保有PTを加味する方法から選べます。</p></div></details><div class="telemetry"><span>ENGINE: READY</span><span>MODULES: 02</span></div></section><div class="readout"><b>&gt;</b> SYSTEM READY<br><b>&gt;</b> SELECT A MODULE TO CONTINUE_</div><p class="footer">PLACE DE NINA / CALCULATION SUPPORT</p></div><script>
-const f=document.getElementById("fill"),p=document.getElementById("pct"),b=document.getElementById("boot");
-const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-const wrap=document.querySelector(".wrap");
-const sequence=[null,wrap.querySelector(".status"),wrap.querySelector("h1"),wrap.querySelector(".jp-title"),wrap.querySelector(".lead"),wrap.querySelector(".panel"),wrap.querySelector(".readout"),wrap.querySelector(".footer"),null];
-if(!reduced)sequence.filter(Boolean).forEach(el=>el.classList.add("reveal"));
-const heading=wrap.querySelector(".heading-type"),titleLine1=document.getElementById("titleLine1"),titleLine2=document.getElementById("titleLine2"),panel=wrap.querySelector(".panel");
-if(!reduced){titleLine1.textContent="";titleLine2.textContent="";}
-function typeHeading(){const full="CALCULATION\nENGINE";let i=0;const timer=setInterval(()=>{i++;const visible=full.slice(0,i).split("\n");titleLine1.textContent=visible[0]||"";titleLine2.textContent=visible[1]||"";if(i>=full.length){clearInterval(timer);heading.classList.add("finished")}},58)}
-
-const readout=wrap.querySelector(".readout");
-const fullText="> SYSTEM READY\n> SELECT A MODULE TO CONTINUE_";
-function typeTerminal(){if(reduced)return;readout.textContent="";const line=document.createElement("span");line.className="typing active";readout.appendChild(line);let i=0;const timer=setInterval(()=>{line.textContent=fullText.slice(0,++i);if(i>=fullText.length){clearInterval(timer);line.classList.remove("active")}},28)}
-function reveal(){b.classList.add("off");if(reduced)return;
-const timings=[0,140,310,1550,1690,1860,3110,3330,3440];
-sequence.forEach((el,i)=>setTimeout(()=>{if(!el)return;el.classList.add("shown");if(el===heading)typeHeading();if(el===panel){panel.classList.add("tracing");setTimeout(()=>panel.classList.add("traced"),1180)}if(el===readout)typeTerminal()},timings[i]));
-}
-if(reduced){f.style.width="100%";p.textContent="100%";b.classList.add("off")}else{let n=0;const t=setInterval(()=>{n=Math.min(100,n+5);f.style.width=n+"%";p.textContent=n+"%";if(n===100){clearInterval(t);setTimeout(reveal,220)}},65)}
+</nav></header></div><div class="wrap"><div class="status"><span>NO / NEURAL OPTIMIZER</span><span class="online">SYSTEM ONLINE</span></div><h1 class="heading-type" aria-label="CALCULATION ENGINE"><span id="titleLine1">CALCULATION</span><br><span id="titleLine2">ENGINE</span><span style="color:#8de8ed">_</span><span class="type-cursor" aria-hidden="true">▌</span></h1><p class="jp-title">計算サポートシステム</p><p class="lead">入力条件を解析し、最適な組み合わせを導き出す。<br>解析モジュールを選択して、計算を開始してください。</p><section class="panel"><svg class="border-trace" aria-hidden="true" preserveAspectRatio="none"><rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" pathLength="100"/></svg><p class="kicker">01 / SELECT MODULE</p><h2>解析モジュールを選択</h2><div class="options"><a class="option" href="calc_pt.html"><span class="symbol">◎</span><strong>ポイント最適化</strong><small>目標PTから購入の組み合わせを算出</small><span class="id">MODULE_01</span></a><a class="option" href="calc_split.html"><span class="symbol">⌘</span><strong>ポイント振り分け</strong><small>商品の左右PT配分を算出</small><span class="id">MODULE_02</span></a></div><details class="module-help"><summary>MODULE INFO / 2つの機能を確認</summary><div class="module-help-body"><h3>MODULE_01 / ポイント最適化</h3><p>目標の購入ポイントに合わせて、商品の購入パターンを計算。特定商品の除外や、必ず含めたい商品・個数も指定できます。</p><h3>MODULE_02 / ポイント振り分け</h3><p>選んだ商品を左右に振り分け。均等にする方法、目標PTに近づける方法、現在の保有PTを加味する方法から選べます。</p></div></details><div class="telemetry"><span>ENGINE: READY</span><span>MODULES: 02</span></div></section><div class="readout"><b>&gt;</b> SYSTEM READY<br><b>&gt;</b> SELECT A MODULE TO CONTINUE_</div><p class="footer">PLACE DE NINA / CALCULATION SUPPORT</p></div><script>
+(() => {
+  const panel = document.querySelector('.panel');
+  if (panel && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    requestAnimationFrame(() => {
+      panel.classList.add('tracing');
+      setTimeout(() => panel.classList.add('traced'), 1180);
+    });
+  }
+})();
 </script><script src="js/app-shell.js?v=menu-motion-2" defer></script></body></html>
