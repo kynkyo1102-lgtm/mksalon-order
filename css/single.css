@@ -1,131 +1,6 @@
-/* スマホ崩れ防止・共通調整 */
-    * {
-      box-sizing: border-box;
-    }
-    body {
-      overflow-x: hidden;
-      width: 100%;
-    }
-    .info-card, .tiny-restore-box {
-      width: 100%;
-      max-width: 100%;
-      overflow: hidden;
-    }
-
-    /* 控えめな復元補助ツール（トーンダウン＆点線） */
-    details.tiny-restore-box {
-      background: #faf8f5;
-      border: 1px dashed var(--accent-gold, #c8a261);
-      border-radius: 8px;
-      margin-bottom: 16px;
-      padding: 0;
-      overflow: hidden;
-      opacity: 0.92;
-    }
-    .tiny-restore-summary {
-      font-size: 0.82rem;
-      font-weight: 500;
-      color: #8c7355;
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      outline: none;
-      padding: 12px 16px;
-      user-select: none;
-      background: rgba(200, 162, 97, 0.05);
-    }
-    .tiny-restore-summary::-webkit-details-marker {
-      display: none;
-    }
-    .tiny-restore-summary::after {
-      content: "＋ 開く";
-      font-size: 0.75rem;
-      color: #8c7355;
-      background: rgba(140, 115, 85, 0.1);
-      padding: 3px 8px;
-      border-radius: 4px;
-      font-weight: 400;
-      white-space: nowrap;
-    }
-    details[open] .tiny-restore-summary::after {
-      content: "− 閉じる";
-    }
-    .tiny-restore-body {
-      padding: 14px 16px;
-      border-top: 1px dashed rgba(200, 162, 97, 0.3);
-      background: #fff;
-    }
-    #import_text_input {
-      width: 100%;
-      font-size: 0.85rem;
-      padding: 10px;
-      border: 1px solid #ccc;
-      border-radius: 6px;
-      box-sizing: border-box;
-      line-height: 1.5;
-      resize: vertical;
-    }
-
-    /* 折り畳み共通スタイル（会員事前登録用） */
-    details.info-card {
-      padding: 0;
-      overflow: hidden;
-    }
-    .foldable-summary {
-      font-size: 0.88rem;
-      font-weight: 700;
-      color: var(--wood-medium);
-      cursor: pointer;
-      list-style: none;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      outline: none;
-      padding: 16px 20px;
-      user-select: none;
-    }
-    .foldable-summary::-webkit-details-marker {
-      display: none;
-    }
-    .foldable-summary::after {
-      content: "＋ 開く";
-      font-size: 0.78rem;
-      color: var(--accent-gold);
-      background: rgba(200, 162, 97, 0.12);
-      padding: 4px 10px;
-      border-radius: 6px;
-      border: 1px solid var(--accent-gold);
-      font-weight: 500;
-      white-space: nowrap;
-    }
-    details[open] .foldable-summary::after {
-      content: "− 閉じる";
-    }
-    .foldable-body {
-      padding: 0 20px 16px 20px;
-      border-top: 1px dashed var(--border-color);
-      margin-top: 4px;
-    }
-    .member-content-body {
-      margin-top: 14px;
-      padding-top: 12px;
-      border-top: 1px dashed var(--border-color);
-    }
-
-    /* モバイル向けフォーム・テーブル調整補強 */
-    @media (max-width: 600px) {
-      .form-row {
-        flex-direction: column;
-        gap: 8px;
-      }
-      .item-row {
-        flex-wrap: wrap;
-      }
-    }
-
-
+/* Text order page styles, extending existing shared CSS */
+.line-order-page *{box-sizing:border-box}
+.line-order-page{overflow-x:hidden}
 /* LINE page: reuse the existing app-shell design language. */
 .line-order-page{background:#fff;color:#222;font-family:"Noto Sans JP",sans-serif}
 .line-order-page .app-main{max-width:760px;padding-top:30px;padding-bottom:155px}
@@ -193,3 +68,49 @@
 .line-order-page .position-box .btn-danger{background:#fff!important;border:1px solid #c7c7c7!important;color:#555!important;box-shadow:none!important;border-radius:8px!important;min-height:40px}
 .line-order-page .position-box input,.line-order-page .position-box select{background:#fff!important;border:1px solid #bbc6bd!important;color:#222!important;box-shadow:none!important}
 @media(max-width:520px){.line-order-page .position-box{padding:14px!important}.line-order-page .item-row{padding:10px!important}.line-order-page .item-row .item-select{flex-basis:100%}}
+
+/* Refined optional actions, notices, and one-line product entries */
+.line-order-page .line-restore-shortcut{margin:6px 0 20px;background:#fff;border:1px solid #cbd4cd;border-radius:10px;overflow:hidden}
+.line-order-page .line-restore-shortcut>summary{list-style:none;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:12px 17px;cursor:pointer;color:#515d55;font-size:14px;font-weight:600}
+.line-order-page .line-restore-shortcut>summary::-webkit-details-marker,.line-order-page .member-summary::-webkit-details-marker{display:none}
+.line-order-page .line-expand-icon{width:9px;height:9px;flex-shrink:0;border-right:1.8px solid currentColor;border-bottom:1.8px solid currentColor;transform:rotate(45deg);transition:transform .2s}
+.line-order-page details[open]>.line-restore-shortcut,.line-order-page details[open]>.member-summary{border-bottom:1px solid #e0e5e0}
+.line-order-page details[open]>summary .line-expand-icon{transform:rotate(225deg)}
+.line-order-page .line-restore-content{padding:16px;border-top:1px solid #e1e6e1}
+.line-order-page .line-restore-content p{font-size:14px;line-height:1.7;color:#555;margin:0 0 10px}
+.line-order-page .line-restore-content .line-restore-caution{font-size:12px;color:#777;margin:8px 0 12px}
+.line-order-page .line-restore-content textarea{width:100%;resize:vertical}
+.line-order-page .line-restore-content .sub-btn{width:100%}
+.line-order-page .line-member-area{padding:0!important;overflow:hidden!important}
+.line-order-page .member-summary{padding:18px 20px!important;display:flex;align-items:center;justify-content:space-between;gap:12px;color:#222!important;cursor:pointer}
+.line-order-page .member-summary span:first-child{font-size:16px!important;font-weight:700;color:#222!important}
+.line-order-page .member-summary small{font-size:12px;color:#7a847e;font-weight:400;margin-left:6px}
+.line-order-page .member-summary::after,.line-order-page .tiny-restore-summary::after{content:none!important;display:none!important}
+.line-order-page .member-content-body{padding:18px 20px 20px;margin:0!important;border-top:1px solid #d9dfda!important}
+.line-order-page .line-member-help{font-size:14px;line-height:1.75;color:#444;margin:0 0 17px}
+.line-order-page .line-member-help small{font-size:12px;color:#68736c}
+.line-order-page .member-reg-row{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr) 42px;gap:8px;align-items:center;margin-bottom:10px}
+.line-order-page .member-reg-row input{width:100%;min-width:0}
+.line-order-page .member-reg-row .btn-danger{min-height:44px;border:1px solid #cbd4cd;border-radius:8px;background:#fff;color:#555}
+.line-order-page .line-returning-note{display:flex;flex-direction:column;gap:5px;margin:0 0 21px;padding:13px 15px;border:1px solid #b8c9bd;border-left:4px solid #7b9b86;border-radius:8px;background:#f2f7f3;color:#304438}
+.line-order-page .line-returning-note>strong{font-size:14px}
+.line-order-page .line-returning-note>span{font-size:14px;line-height:1.75}
+.line-order-page .line-returning-note span strong{font-weight:700}
+.line-order-page .item-row{display:grid!important;grid-template-columns:minmax(0,1fr) 90px 42px;gap:8px!important;align-items:center!important}
+.line-order-page .item-row .item-select{width:100%!important;min-width:0!important;max-width:100%;flex:none!important;font-size:14px!important;padding:8px 7px!important}
+.line-order-page .item-row .item-qty-container{min-width:0;display:flex;align-items:center;gap:3px;white-space:nowrap}
+.line-order-page .item-row .item-qty{width:65px!important;min-width:0!important;padding:8px 4px!important;font-size:14px!important}
+.line-order-page .item-row .btn-del-item{width:42px;min-width:0;margin:0!important;padding:0!important}
+.line-order-page .line-back-link{display:block;width:max-content;max-width:100%;margin:18px auto 0;padding:8px 3px;border:0;background:transparent;color:#555;text-decoration:none;font-size:14px;text-align:center}
+.line-order-page .line-back-link:hover{text-decoration:underline;color:#222}
+@media(max-width:520px){
+ .line-order-page .member-summary{padding:16px!important}
+ .line-order-page .member-content-body{padding:15px!important}
+ .line-order-page .member-reg-row{grid-template-columns:minmax(0,1fr) minmax(0,1fr) 36px;gap:5px}
+ .line-order-page .member-reg-row input{font-size:14px!important;padding:8px 6px!important}
+ .line-order-page .item-row{grid-template-columns:minmax(0,1fr) 69px 34px;gap:5px!important;padding:7px!important}
+ .line-order-page .item-row .item-select{flex-basis:auto!important;font-size:13px!important;padding:7px 3px!important}
+ .line-order-page .item-row .item-qty{width:49px!important;font-size:13px!important;padding:6px 1px!important}
+ .line-order-page .item-row .item-qty-container{font-size:12px!important;gap:1px}
+ .line-order-page .item-row .btn-del-item{width:34px;min-height:40px}
+}
