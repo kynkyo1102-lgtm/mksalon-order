@@ -174,3 +174,22 @@
 .calc-split-page .current-difference{color:#c7dfe4!important}
 .calc-split-page .current-difference strong{color:#a1eff0!important}
 @media(max-width:520px){.calc-split-page .split-col .total-box{padding-top:12px!important}.calc-split-page .meter-track{height:13px!important}}
+
+/* Owned-point mode: straightforward, aligned data rows instead of equations. */
+.calc-split-page .split-col .total-box .split-total-row{
+  display:grid;grid-template-columns:minmax(0,1fr) auto auto;align-items:baseline;gap:5px;
+  margin:0!important;padding:7px 0!important;border:0!important;background:transparent!important;
+  color:#c5dce2!important;font:13px/1.65 "Noto Sans JP",sans-serif!important;
+}
+.calc-split-page .split-col .total-box .split-total-row[style*="display:none"]{display:none!important}
+.calc-split-page .split-col .total-box .split-total-row>span:first-child{font-size:12px;color:#b7d2da}
+.calc-split-page .split-col .total-box .split-total-row>strong{
+  color:#eaf5f6!important;font-size:15px!important;font-weight:700!important;
+  font-variant-numeric:tabular-nums;text-align:right;
+}
+.calc-split-page .split-col .total-box .split-total-highlight{
+  border-top:1px solid #416d7c!important;margin-top:6px!important;padding-top:13px!important;
+}
+.calc-split-page .split-col .total-box .split-total-highlight>strong{color:#9fe7ea!important;font-size:17px!important}
+.calc-split-page .split-col .total-box .split-total-money>strong{font-size:15px!important}
+.calc-split-page .split-col .total-box .split-target-diff{padding-top:8px!important;border-top:1px dashed #416d7c!important}
