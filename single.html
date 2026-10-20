@@ -10,6 +10,7 @@
   <link rel="stylesheet" href="style.css?v=4">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
   <link rel="stylesheet" href="css/single.css?v=classic-green-2">
+  <script src="js/shared-members.js?v=1"></script>
 </head>
 <body class="app-page line-order-page">
 
@@ -234,13 +235,9 @@ window.onload = async function() {
 
     renderMonthOptions();
 
-    if(localStorage.getItem('ship_name')) document.getElementById('ship_name').value = localStorage.getItem('ship_name');
-    if(localStorage.getItem('payment_method')) document.getElementById('payment_method').value = localStorage.getItem('payment_method');
-    if(localStorage.getItem('receipt_name')) document.getElementById('receipt_name').value = localStorage.getItem('receipt_name');
-    
     togglePwField();
 
-    const savedMembers = localStorage.getItem('registered_members');
+    const savedMembers = JSON.stringify(SalonMembers.read());
     if (savedMembers) {
         registeredMembers = JSON.parse(savedMembers);
         registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
@@ -270,11 +267,7 @@ function renderMonthOptions() {
     }
 }
 
-function saveBasicInfo() {
-    localStorage.setItem('ship_name', document.getElementById('ship_name').value);
-    localStorage.setItem('payment_method', document.getElementById('payment_method').value);
-    localStorage.setItem('receipt_name', document.getElementById('receipt_name').value);
-}
+function saveBasicInfo() { /* Personal order details are intentionally not persisted. */ }
 
 function togglePwField() {
     const payMethod = document.getElementById('payment_method').value;
@@ -327,7 +320,7 @@ function saveMembers() {
             registeredMembers.push({ code, name });
         }
     });
-    localStorage.setItem('registered_members', JSON.stringify(registeredMembers));
+    registeredMembers = SalonMembers.write(registeredMembers);
     
     document.querySelectorAll('.pos-select').forEach(select => {
         const currentVal = select.value;
