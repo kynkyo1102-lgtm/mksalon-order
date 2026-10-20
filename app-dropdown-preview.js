@@ -326,10 +326,7 @@ function addOrderToList() {
   const eservicePw = document.getElementById('eservicePw').value.trim();
   const ninaPoint = parseInt(document.getElementById('ninaPoint').value) || 0;
 
-  const shipName = document.getElementById('shipName').value.trim();
-  const zip = document.getElementById('zip').value.trim();
-  const address = document.getElementById('address').value.trim();
-  const phone = document.getElementById('phone').value.trim();
+  // 配送先は注文書全体で共通。画像作成時に一度だけ取得する。
 
   const today = new Date();
   const yy = String(today.getFullYear()).slice(-2);
@@ -347,7 +344,6 @@ function addOrderToList() {
     receiptName,
     eservicePw: (paymentMethod === 'ニナファームカード' || paymentMethod === 'クレジットカード') ? eservicePw : '',
     ninaPoint: paymentMethod === 'ニナファームカード' ? ninaPoint : 0,
-    shipName, zip, address, phone,
     items: [...currentItemsData],
     subtotalPrice: currentSubtotal,
     totalPrice: currentGrandTotal,
@@ -358,10 +354,9 @@ function addOrderToList() {
   document.getElementById("productPickerRows").replaceChildren();
   addBulkProductPicker();
   document.getElementById('memberIdMain').value = "";
-  document.getElementById('fullName').value = "";
-  document.getElementById('paymentMethod').value = "現金";
-  togglePaymentFields(); // 支払い入力エリアを非表示・リセット
-  document.getElementById('receiptName').value = "";
+  document.getElementById("memberIdSub").selectedIndex = 0;
+  document.getElementById("ninaPoint").value = "";
+  // 氏名・決済方法・E-Service PW・領収書は同じ画面内で引き継ぐ。
   document.getElementById('presetMemberSelect').value = "";
   // 同じお届け先への続けての注文に備え、配送先の入力値は維持する。
   updateCalc();
@@ -416,221 +411,61 @@ function removeOrder(index) {
   renderOrderList();
 }
 
+function resetBulkPayment() {
+  document.getElementById('paymentMethod').value = '現金';
+  document.getElementById('eservicePw').value = '';
+  document.getElementById('ninaPoint').value = '';
+  document.getElementById('receiptName').value = '';
+  togglePaymentFields();
+  updateCalc();
+}
+
 function generateAllReceipts() {
-  if (allOrders.length === 0) return;
-
+  if (!allOrders.length) return;
   const wrapper = document.getElementById('receiptsWrapper');
-  wrapper.innerHTML = "";
-
-  const now = new Date();
-  const dateStr = "作成日時: " + now.getFullYear() + "/" + (now.getMonth()+1) + "/" + now.getDate() + " " + now.getHours() + ":" + String(now.getMinutes()).padStart(2, '0');
-
-  allOrders.forEach((ord, index) => {
-    const orderId = ord.orderId;
-    
-    let totalQty = 0;
-    let itemRows = "";
-    ord.items.forEach(item => {
-      totalQty += item.quantity;
-      itemRows += `
-        <tr>
-          <td><strong>${item.product}</strong></td>
-          <td style="text-align: center;">${item.quantity}</td>
-          <td style="text-align: right;">¥${item.price.toLocaleString()}</td>
-          <td style="text-align: right; color: var(--wood-medium);">${item.pt ? item.pt.toLocaleString() + 'pt' : '-'}</td>
-        </tr>
-      `;
-    });
-
-    const infoField = (label, value) => value ? `<div class="order-image-field"><span>${label}</span><strong>${value}</strong></div>` : '';
-    let paymentInfoBlock = `
-      <section class="order-image-section">
-        <h4>お支払い・領収書</h4>
-        <div class="order-image-details">
-          ${infoField('お支払い方法', ord.paymentMethod)}
-          ${infoField('E-Service PW', ord.eservicePw)}
-          ${ord.ninaPoint > 0 ? infoField('ニナポイント利用', ord.ninaPoint.toLocaleString() + 'pt') : ''}
-          ${infoField('領収書宛名', ord.receiptName)}
-        </div>
-      </section>`;
-
-    let addressBlock = "";
-    if (ord.shipName || ord.address || ord.zip || ord.phone) {
-      addressBlock = `
-        <section class="order-image-section">
-          <h4>お届け先</h4>
-          <div class="order-image-details">
-            ${infoField('宛名', ord.shipName || ord.fullName)}
-            ${infoField('郵便番号', ord.zip ? '〒' + ord.zip : '')}
-            ${infoField('住所', ord.address)}
-            ${infoField('電話番号', ord.phone)}
-          </div>
-        </section>`;
-    }
-
-    let totalBlock = "";
-    if (ord.ninaPoint > 0) {
-      totalBlock = `
-        <div style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.78rem;">
-          <span>小計金額:</span>
-          <span>¥${ord.subtotalPrice.toLocaleString()}</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; color: #c94b4b; font-size: 0.78rem;">
-          <span>ニナポイント値引き:</span>
-          <span>-¥${ord.ninaPoint.toLocaleString()}</span>
-        </div>
-        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-          <span>お支払い合計金額:</span>
-          <span style="color: #c94b4b; font-size: 1rem;">¥${ord.totalPrice.toLocaleString()}</span>
-        </div>
-      `;
-    } else {
-      totalBlock = `
-        <div style="display: flex; justify-content: space-between; font-weight: bold;">
-          <span>合計金額:</span>
-          <span style="color: #c94b4b;">¥${ord.totalPrice.toLocaleString()}</span>
-        </div>
-      `;
-    }
-
-    const cardWrapper = document.createElement('div');
-    cardWrapper.className = "card-wrapper";
-    cardWrapper.innerHTML = `
-      <div id="card-target-${index}" class="receipt-box target-card order-image-sheet">
-        <div class="order-image-heading">
-          <div><span class="order-image-kicker">プラッスドゥニナ 南熊本店</span><h3>商品購入注文書</h3></div>
-          <div class="order-image-date">${dateStr}<br>発注月度：<strong>${ord.month}</strong></div>
-        </div>
-        <div class="order-image-identity">
-          ${infoField('購入会員番号', ord.memberId)}
-          ${infoField('氏名', ord.fullName)}
-        </div>
-        ${paymentInfoBlock}
-        ${addressBlock}
-        <section class="order-image-section">
-          <h4>注文商品</h4>
-          <table class="product-table order-image-products">
-            <thead><tr><th>商品名</th><th>数量</th><th>金額（税込）</th><th>ポイント</th></tr></thead>
-            <tbody>${itemRows}</tbody>
-          </table>
-        </section>
-        <section class="order-image-totals">
-          <div><span>合計数量</span><strong>${totalQty} 点</strong></div>
-          ${totalBlock}
-          <div><span>獲得ポイント</span><strong>${ord.totalPt.toLocaleString()}pt</strong></div>
-        </section>
-      </div>
-      <button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-${index}')">
-        この注文書（${ord.fullName}様分）を画像保存
-      </button>
-    `;
-    wrapper.appendChild(cardWrapper);
-  });
-
-  if (allOrders.length > 1) {
-  const summaryItems = {};
-  let totalAllSubtotal = 0;
-  let totalAllNinaPoint = 0;
-  let totalAllPayPrice = 0;
-  let totalAllPt = 0;
-  let grandTotalQty = 0;
-
-  allOrders.forEach(ord => {
-    totalAllSubtotal += ord.subtotalPrice;
-    totalAllNinaPoint += ord.ninaPoint;
-    totalAllPayPrice += ord.totalPrice;
-    totalAllPt += ord.totalPt;
-
-    ord.items.forEach(item => {
-      grandTotalQty += item.quantity;
-      if (!summaryItems[item.product]) {
-        summaryItems[item.product] = { quantity: 0, price: 0, pt: 0 };
-      }
-      summaryItems[item.product].quantity += item.quantity;
-      summaryItems[item.product].price += item.price;
-      summaryItems[item.product].pt += (item.pt || 0);
-    });
-  });
-
-  let summaryRows = "";
-  for (let prod in summaryItems) {
-    summaryRows += `
-      <tr>
-        <td><strong>${prod}</strong></td>
-        <td style="text-align: center;">${summaryItems[prod].quantity}</td>
-        <td style="text-align: right;">¥${summaryItems[prod].price.toLocaleString()}</td>
-        <td style="text-align: right; color: var(--wood-medium);">${summaryItems[prod].pt ? summaryItems[prod].pt.toLocaleString() + 'pt' : '-'}</td>
-      </tr>
-    `;
-  }
-
-  let summaryTotalBlock = "";
-  if (totalAllNinaPoint > 0) {
-    summaryTotalBlock = `
-      <div style="display: flex; justify-content: space-between; color: var(--text-sub); font-size: 0.78rem;">
-        <span>全商品 定価総額:</span>
-        <span>¥${totalAllSubtotal.toLocaleString()}</span>
-      </div>
-      <div style="display: flex; justify-content: space-between; color: #c94b4b; font-size: 0.78rem;">
-        <span>ニナポイント利用総額:</span>
-        <span>-¥${totalAllNinaPoint.toLocaleString()}</span>
-      </div>
-      <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-        <span>全合算 実際の支払総合計:</span>
-        <span style="color: #c94b4b; font-size: 1.05rem;">¥${totalAllPayPrice.toLocaleString()}</span>
-      </div>
-    `;
-  } else {
-    summaryTotalBlock = `
-      <div style="display: flex; justify-content: space-between; font-weight: bold;">
-        <span>全合算 総合計金額:</span>
-        <span style="color: #c94b4b; font-size: 1.05rem;">¥${totalAllPayPrice.toLocaleString()}</span>
-      </div>
-    `;
-  }
-
-  const summaryWrapper = document.createElement('div');
-  summaryWrapper.className = "card-wrapper";
-  summaryWrapper.innerHTML = `
-    <div id="card-target-summary" class="receipt-box target-card order-image-sheet">
-      <div class="order-image-heading"><div><span class="order-image-kicker">プラッスドゥニナ 南熊本店</span><h3>全体合算・注文集計</h3></div><div class="order-image-date">${dateStr}<br>対象注文：<strong>${allOrders.length}件</strong></div></div>
-      <div class="order-image-members">
-        <strong>対象会員一覧:</strong><br>
-        ${allOrders.map(o => `${o.fullName} 様 (${o.memberId})`).join('<br>')}
-      </div>
-      <section class="order-image-section"><h4>全体の商品明細</h4><table class="product-table order-image-products">
-        <thead>
-          <tr>
-            <th>商品名（全体合計）</th>
-            <th style="width: 45px; text-align: center;">総数量</th>
-            <th style="width: 75px; text-align: right;">総合計(税込)</th>
-            <th style="width: 60px; text-align: right;">総ポイント</th>
-          </tr>
-        </thead>
-        <tbody>${summaryRows}</tbody>
-      </table></section>
-      <div class="order-image-totals">
-        <div style="display: flex; justify-content: space-between; font-weight: bold; color: var(--wood-dark); margin-bottom: 4px;">
-          <span>全合算 総数量:</span>
-          <span>${grandTotalQty} 点</span>
-        </div>
-        ${summaryTotalBlock}
-        <div style="display: flex; justify-content: space-between; font-weight: bold; margin-top: 4px;">
-          <span>全合算 総獲得ポイント:</span>
-          <span style="color: var(--wood-medium);">${totalAllPt.toLocaleString()}pt</span>
-        </div>
-      </div>
-    </div>
-    <button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-summary')">
-      📊 「全体まとめ」を画像保存
-    </button>
-  `;
-  wrapper.appendChild(summaryWrapper);
-  }
-
-  document.getElementById('formSection').style.display = "none";
-  document.querySelector('.footer-bar').style.display = "none";
-  document.getElementById('completeSection').style.display = "block";
+  wrapper.replaceChildren();
+  const escapeText = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+  const yen = value => '¥' + Number(value || 0).toLocaleString();
+  const month = allOrders[0].month;
+  const shipName = document.getElementById('shipName').value.trim();
+  const zip = document.getElementById('zip').value.trim();
+  const address = document.getElementById('address').value.trim();
+  const phone = document.getElementById('phone').value.trim();
+  const addressRows = [
+    shipName ? '宛名：' + escapeText(shipName) : '',
+    zip ? '〒' + escapeText(zip) : '',
+    address ? escapeText(address) : '',
+    phone ? 'TEL：' + escapeText(phone) : ''
+  ].filter(Boolean).join('<br>');
+  const memberRows = allOrders.map((ord, index) => {
+    const items = ord.items.map(item => `<div><span>${escapeText(item.product)} × ${item.quantity}</span><strong>${yen(item.price)}</strong></div>`).join('');
+    const meta = [
+      '決済：' + escapeText(ord.paymentMethod),
+      ord.eservicePw ? 'E-Service PW：' + escapeText(ord.eservicePw) : '',
+      ord.receiptName ? '領収書：' + escapeText(ord.receiptName) : '',
+      ord.ninaPoint > 0 ? 'ポイント値引き：-' + yen(ord.ninaPoint) : ''
+    ].filter(Boolean).join('　/　');
+    return `<section class="bulk-combined-member">
+      <div class="bulk-combined-member-head"><span>${index + 1}. ${escapeText(ord.fullName)}</span><span>会員番号 ${escapeText(ord.memberId)}</span></div>
+      <div class="bulk-combined-member-meta">${meta}</div>
+      <div class="bulk-combined-member-items">${items}</div>
+      <div class="bulk-combined-member-total">お支払い ${yen(ord.totalPrice)}　/　獲得 ${ord.totalPt.toLocaleString()}pt</div>
+    </section>`;
+  }).join('');
+  const totalPrice = allOrders.reduce((sum, ord) => sum + ord.totalPrice, 0);
+  const totalPt = allOrders.reduce((sum, ord) => sum + ord.totalPt, 0);
+  const card = document.createElement('div');
+  card.className = 'card-wrapper';
+  card.innerHTML = `<div id="card-target-combined" class="receipt-box target-card order-image-sheet">
+    <div class="order-image-heading"><div><span class="order-image-kicker">プラッスドゥニナ 南熊本店</span><h3>商品購入注文書</h3></div><div class="order-image-date">発注月度：<strong>${escapeText(month)}</strong><br>${allOrders.length}件の会員注文</div></div>
+    <section class="order-image-section"><h4>会員ごとの注文</h4>${memberRows}</section>
+    ${addressRows ? `<section class="order-image-section"><h4>共通のお届け先</h4><div class="order-image-members">${addressRows}</div></section>` : ''}
+    <div class="bulk-combined-summary"><span>総合計 ${yen(totalPrice)}</span><span>獲得 ${totalPt.toLocaleString()}pt</span></div>
+  </div><button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-combined')">注文書を1枚の画像で保存</button>`;
+  wrapper.appendChild(card);
+  document.getElementById('formSection').style.display = 'none';
+  document.querySelector('.footer-bar').style.display = 'none';
+  document.getElementById('completeSection').style.display = 'block';
   window.scrollTo(0, 0);
 }
 
