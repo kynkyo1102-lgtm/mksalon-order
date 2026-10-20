@@ -11,7 +11,7 @@
   
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc.css?v=mode-robot-3">
+  <link rel="stylesheet" href="css/calc.css?v=mode-robot-4">
 <style>
 /* Staggered game-style arrival; only when launched from the floating shortcut. */
 body.calc-entrance .mode-select-screen{animation:calcStageIn .65s both}
@@ -36,6 +36,24 @@ body.calc-entrance .guide-assistant{animation:calcStepIn .5s 1.55s both}
 .calc-menu-page .menu-container>.menu-card.is-confirmed .mode-card-action::after{content:"  ✓";font-weight:bold}
 .calc-menu-page .menu-container.is-choosing>.menu-card:not(.is-confirmed){opacity:.45;pointer-events:none;transition:opacity .2s}
 @media(prefers-reduced-motion:reduce){.calc-menu-page .menu-container>.menu-card.is-pressing,.calc-menu-page .menu-container>.menu-card.is-confirmed{transform:none!important;transition:none!important}}
+</style><style id="calc-mode-viewport-fix">
+/* Compact the game scene on phones without clipping either option. */
+@media(max-width:680px){
+.calc-menu-page .app-main{padding-top:12px!important;padding-bottom:45px!important}
+.calc-menu-page .app-page-title{margin:2px 0 10px!important}
+.calc-menu-page .mode-select-screen{padding:8px 0 25px!important}
+.calc-menu-page .mode-select-heading{margin-top:10px!important;margin-bottom:5px!important}
+.calc-menu-page .mode-select-lead{margin:4px 0 12px!important}
+.calc-menu-page .menu-container{gap:12px!important;margin-top:12px!important}
+.calc-menu-page .menu-container>.menu-card{min-height:0!important}
+.calc-menu-page .mode-card-content{min-height:155px!important;padding:14px 30px!important}
+.calc-menu-page .mode-card-number{top:10px!important;left:12px!important;width:28px!important;height:28px!important;font-size:16px!important}
+.calc-menu-page .mode-card-symbol{font-size:21px!important}
+.calc-menu-page .mode-card-en{font-size:19px!important}
+.calc-menu-page .mode-card-action{margin-top:7px!important}
+.calc-menu-page .mode-select-note{padding-right:62px}
+}
+.calc-menu-page .guide-assistant{position:fixed!important;right:max(10px,env(safe-area-inset-right))!important;bottom:max(12px,env(safe-area-inset-bottom))!important;z-index:900!important}
 </style></head>
 <body class="app-page calc-menu-page"><script>if(document.documentElement.classList.contains("calc-launch-arriving"))document.body.classList.add("calc-entrance");</script>
 
@@ -116,6 +134,8 @@ body.calc-entrance .guide-assistant{animation:calcStepIn .5s 1.55s both}
   <script src="js/app-shell.js?v=menu-motion-2" defer></script>
   <script>
     (() => {
+      const assistant = document.getElementById('guideAssistant');
+      if (assistant && assistant.parentElement !== document.body) document.body.appendChild(assistant);
       const trigger = document.getElementById('guideAssistantTrigger');
       const dialogue = document.getElementById('guideAssistantDialogue');
       const close = document.getElementById('guideAssistantClose');
