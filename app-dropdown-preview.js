@@ -321,13 +321,6 @@ function addOrderToList() {
     return;
   }
 
-  const paymentMethod = document.getElementById('paymentMethod').value;
-  const receiptName = document.getElementById('receiptName').value.trim();
-  const eservicePw = document.getElementById('eservicePw').value.trim();
-  const ninaPoint = parseInt(document.getElementById('ninaPoint').value) || 0;
-
-  // 配送先は注文書全体で共通。画像作成時に一度だけ取得する。
-
   const today = new Date();
   const yy = String(today.getFullYear()).slice(-2);
   const mm = String(today.getMonth() + 1).padStart(2, '0');
@@ -340,10 +333,6 @@ function addOrderToList() {
     month,
     memberId: memberIdMain + "-" + memberIdSub,
     fullName,
-    paymentMethod,
-    receiptName,
-    eservicePw: (paymentMethod === 'ニナファームカード' || paymentMethod === 'クレジットカード') ? eservicePw : '',
-    ninaPoint: paymentMethod === 'ニナファームカード' ? ninaPoint : 0,
     items: [...currentItemsData],
     subtotalPrice: currentSubtotal,
     totalPrice: currentGrandTotal,
@@ -355,7 +344,6 @@ function addOrderToList() {
   addBulkProductPicker();
   document.getElementById('memberIdMain').value = "";
   document.getElementById("memberIdSub").selectedIndex = 0;
-  document.getElementById("ninaPoint").value = "";
   // 氏名・決済方法・E-Service PW・領収書は同じ画面内で引き継ぐ。
   document.getElementById('presetMemberSelect').value = "";
   // 同じお届け先への続けての注文に備え、配送先の入力値は維持する。
@@ -372,8 +360,8 @@ function renderOrderList() {
   const listDiv = document.getElementById('addedOrdersList');
   const badge = document.getElementById('footerOrderBadge');
   
-  const exportButton = document.getElementById("bulkFooterExport");
-  if (exportButton) exportButton.classList.toggle("display-none", allOrders.length === 0);
+  const nextButton = document.getElementById("bulkGoPayment");
+  if (nextButton) nextButton.disabled = allOrders.length === 0;
   if (allOrders.length === 0) {
     container.style.display = "none";
     if (badge) badge.style.display = "none";
@@ -390,13 +378,13 @@ function renderOrderList() {
 
   let html = "";
   allOrders.forEach((ord, i) => {
-    let ptNote = ord.ninaPoint > 0 ? ` (ポイント利用 -¥${ord.ninaPoint.toLocaleString()})` : '';
-    let receiptNote = ord.receiptName ? ` / 領収書: ${ord.receiptName}` : '';
+    let ptNote = '';
+    let receiptNote = '';
     html += `
       <div class="bulk-added-order">
         <div class="bulk-added-order-content">
           <div class="bulk-added-order-name"><strong>${i + 1}. ${ord.fullName}</strong><span class="bulk-added-order-member">${ord.memberId}</span></div>
-          <div class="bulk-added-order-meta"><span>${ord.paymentMethod}</span>${receiptNote ? `<span>${receiptNote.replace(/^ \/ /, '')}</span>` : ''}</div>
+          <div class="bulk-added-order-meta"><span>決済は次の画面で指定</span>${receiptNote ? `<span>${receiptNote.replace(/^ \/ /, '')}</span>` : ''}</div>
           <div class="bulk-added-order-total">支払額 <strong>¥${ord.totalPrice.toLocaleString()}</strong><span>${ord.totalPt.toLocaleString()}pt</span>${ptNote ? `<span>${ptNote}</span>` : ''}</div>
         </div>
         <button type="button" class="bulk-added-order-delete" onclick="removeOrder(${i})">削除</button>
@@ -409,6 +397,18 @@ function renderOrderList() {
 function removeOrder(index) {
   allOrders.splice(index, 1);
   renderOrderList();
+}
+
+function goToBulkPayment() {
+  if (!allOrders.length) return;
+  document.body.classList.add('bulk-final-step');
+  document.getElementById('bulkFinalStage').classList.remove('display-none');
+  window.scrollTo(0,0);
+}
+function backToBulkOrders() {
+  document.body.classList.remove('bulk-final-step');
+  document.getElementById('bulkFinalStage').classList.add('display-none');
+  window.scrollTo(0,0);
 }
 
 function resetBulkPayment() {
@@ -427,6 +427,10 @@ function generateAllReceipts() {
   const escapeText = value => String(value ?? '').replace(/[&<>"']/g, ch => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
   const yen = value => '¥' + Number(value || 0).toLocaleString();
   const month = allOrders[0].month;
+  const paymentMethod = document.getElementById("paymentMethod").value;
+  const eservicePw = document.getElementById("eservicePw").value.trim();
+  const receiptName = document.getElementById("receiptName").value.trim();
+  const ninaPoint = paymentMethod === "ニナファームカード" ? Math.max(0,Number(document.getElementById("ninaPoint").value)||0) : 0;
   const shipName = document.getElementById('shipName').value.trim();
   const zip = document.getElementById('zip').value.trim();
   const address = document.getElementById('address').value.trim();
@@ -440,10 +444,9 @@ function generateAllReceipts() {
   const memberRows = allOrders.map((ord, index) => {
     const items = ord.items.map(item => `<div><span>${escapeText(item.product)} × ${item.quantity}</span><strong>${yen(item.price)}</strong></div>`).join('');
     const meta = [
-      '決済：' + escapeText(ord.paymentMethod),
-      ord.eservicePw ? 'E-Service PW：' + escapeText(ord.eservicePw) : '',
-      ord.receiptName ? '領収書：' + escapeText(ord.receiptName) : '',
-      ord.ninaPoint > 0 ? 'ポイント値引き：-' + yen(ord.ninaPoint) : ''
+      '決済：' + escapeText(paymentMethod),
+      eservicePw && (paymentMethod === 'ニナファームカード' || paymentMethod === 'クレジットカード') ? 'E-Service PW：' + escapeText(eservicePw) : '',
+      receiptName ? '領収書：' + escapeText(receiptName) : ''
     ].filter(Boolean).join('　/　');
     return `<section class="bulk-combined-member">
       <div class="bulk-combined-member-head"><span>${index + 1}. ${escapeText(ord.fullName)}</span><span>会員番号 ${escapeText(ord.memberId)}</span></div>
@@ -452,7 +455,7 @@ function generateAllReceipts() {
       <div class="bulk-combined-member-total">お支払い ${yen(ord.totalPrice)}　/　獲得 ${ord.totalPt.toLocaleString()}pt</div>
     </section>`;
   }).join('');
-  const totalPrice = allOrders.reduce((sum, ord) => sum + ord.totalPrice, 0);
+  const totalPrice = Math.max(0,allOrders.reduce((sum, ord) => sum + ord.totalPrice, 0) - ninaPoint);
   const totalPt = allOrders.reduce((sum, ord) => sum + ord.totalPt, 0);
   const card = document.createElement('div');
   card.className = 'card-wrapper';
@@ -460,7 +463,7 @@ function generateAllReceipts() {
     <div class="order-image-heading"><div><span class="order-image-kicker">プラッスドゥニナ 南熊本店</span><h3>商品購入注文書</h3></div><div class="order-image-date">発注月度：<strong>${escapeText(month)}</strong><br>${allOrders.length}件の会員注文</div></div>
     <section class="order-image-section"><h4>会員ごとの注文</h4>${memberRows}</section>
     ${addressRows ? `<section class="order-image-section"><h4>共通のお届け先</h4><div class="order-image-members">${addressRows}</div></section>` : ''}
-    <div class="bulk-combined-summary"><span>総合計 ${yen(totalPrice)}</span><span>獲得 ${totalPt.toLocaleString()}pt</span></div>
+    <div class="bulk-combined-summary"><span>総合計 ${yen(totalPrice)}${ninaPoint ? "（ポイント値引き -" + yen(ninaPoint) + "）" : ""}</span><span>獲得 ${totalPt.toLocaleString()}pt</span></div>
   </div><button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-combined')">注文書を1枚の画像で保存</button>`;
   wrapper.appendChild(card);
   document.getElementById('formSection').style.display = 'none';
