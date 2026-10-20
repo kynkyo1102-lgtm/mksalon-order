@@ -269,3 +269,17 @@ body.app-page.calc-split-page>.app-header .app-menu-secondary a{color:#666!impor
  .calc-split-page .split-col .total-box .split-total-row>.split-total-value>strong{font-size:13px!important}
  .calc-split-page .split-col .total-box .split-total-row>.split-total-value>span{font-size:11px!important}
 }
+
+/* Subtle hierarchy: owned and added PT are supporting figures; totals stay prominent. */
+.calc-split-page .split-col .total-box .split-total-row:not(.split-total-highlight):not(.split-total-money)>.split-total-value>strong{
+  font-size:13px!important;font-weight:600!important;color:#c8dce1!important;
+}
+.calc-split-page .split-col .total-box .split-total-row.split-total-highlight>.split-total-value>strong,
+.calc-split-page .split-col .total-box .split-total-row.split-total-money>.split-total-value>strong{
+  font-size:15px!important;font-weight:700!important;color:#eaf5f6!important;
+}
+@media(max-width:390px){
+ .calc-split-page .split-col .total-box .split-total-row:not(.split-total-highlight):not(.split-total-money)>.split-total-value>strong{font-size:12px!important}
+ .calc-split-page .split-col .total-box .split-total-row.split-total-highlight>.split-total-value>strong,
+ .calc-split-page .split-col .total-box .split-total-row.split-total-money>.split-total-value>strong{font-size:14px!important}
+}
