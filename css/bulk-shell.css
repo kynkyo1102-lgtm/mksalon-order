@@ -27,3 +27,17 @@
 .bulk-order-page .bulk-main .form-group label{display:block!important;margin-bottom:7px!important;}
 .bulk-order-page .bulk-main input:focus,.bulk-order-page .bulk-main select:focus,.bulk-order-page .bulk-main textarea:focus{outline:2px solid #7a9d85!important;outline-offset:1px!important;}
 .bulk-order-page .bulk-main .btn-add,.bulk-order-page .bulk-main .btn-action{box-shadow:none!important;letter-spacing:0!important;}
+
+/* Modern input-only sections; exported receipts stay untouched. */
+.bulk-order-page #formSection .bulk-utility-title{font-size:14px;font-weight:600;color:#4f6957;margin:8px 0 10px}
+.bulk-order-page #formSection .bulk-fixed-suffix{min-height:42px;display:inline-flex;align-items:center;justify-content:center;min-width:38px;color:#48594d;font-weight:600}
+.bulk-order-page #formSection .product-table{width:100%;border-collapse:separate!important;border-spacing:0!important;border:1px solid #e3e9e4!important;border-radius:11px!important;overflow:hidden;background:#fff!important;box-shadow:none!important}
+.bulk-order-page #formSection .product-table th{background:#f0f5f1!important;color:#25533e!important;font-size:12px!important;font-weight:700!important;border-bottom:1px solid #dce6de!important}
+.bulk-order-page #formSection .product-table td{background:#fff!important;color:#333!important;border-bottom:1px solid #edf0ed!important;font-size:13px!important}
+.bulk-order-page #formSection .sub-instruction{color:#66746b!important;font-size:13px!important;margin:0 0 12px!important}
+.bulk-order-page #formSection #orderListContainer{background:#fff!important;border:1px solid #dce6de!important;border-radius:12px!important;padding:20px!important}
+.bulk-order-page #formSection .order-list-header{color:#25533e!important;font-size:16px!important;font-weight:700!important;border:0!important;margin-bottom:14px!important;padding:0!important}
+.bulk-order-page #formSection .added-orders-list{color:#333!important}
+.bulk-order-page #formSection .btn-add{background:#25533e!important;color:#fff!important;border:0!important;border-radius:10px!important;font-size:15px!important;font-weight:700!important;min-height:48px!important}
+.bulk-order-page #formSection .footer-bar{box-shadow:0 -3px 14px rgba(0,0,0,.06)!important;border-top:1px solid #e3e9e4!important}
+.bulk-order-page #formSection .btn-action{border-radius:9px!important;box-shadow:none!important}
