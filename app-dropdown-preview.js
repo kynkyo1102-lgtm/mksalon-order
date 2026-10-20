@@ -323,11 +323,6 @@ function addOrderToList() {
 
   const paymentMethod = document.getElementById('paymentMethod').value;
   const receiptName = document.getElementById('receiptName').value.trim();
-  if (!receiptName) {
-    alert('領収書の宛名を入力してください。不要な場合は「なし」とお書きください。');
-    document.getElementById('receiptName').focus();
-    return;
-  }
   const eservicePw = document.getElementById('eservicePw').value.trim();
   const ninaPoint = parseInt(document.getElementById('ninaPoint').value) || 0;
 
@@ -452,7 +447,7 @@ function generateAllReceipts() {
     });
 
     let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
-    paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
+    if (ord.receiptName) paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
     if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
       if (ord.eservicePw) {
         paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
