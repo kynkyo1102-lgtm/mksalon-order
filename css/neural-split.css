@@ -193,3 +193,49 @@
 .calc-split-page .split-col .total-box .split-total-highlight>strong{color:#9fe7ea!important;font-size:17px!important}
 .calc-split-page .split-col .total-box .split-total-money>strong{font-size:15px!important}
 .calc-split-page .split-col .total-box .split-target-diff{padding-top:8px!important;border-top:1px dashed #416d7c!important}
+
+/* Shared header: isolate the site chrome from distribution's dark workspace skin. */
+body.app-page.calc-split-page>.app-header{
+  position:relative!important;display:flex!important;align-items:center!important;
+  justify-content:space-between!important;gap:10px!important;
+  padding:18px 22px!important;margin:0!important;
+  background:#fff!important;color:#222!important;
+  border:0!important;border-bottom:1px solid #e6e6e6!important;
+  box-shadow:none!important;text-align:left!important;
+  font-family:"Noto Sans JP",sans-serif!important;z-index:250!important;
+}
+body.app-page.calc-split-page>.app-header .app-brand{display:flex!important;align-items:baseline!important;gap:9px!important;white-space:nowrap!important}
+body.app-page.calc-split-page>.app-header .app-brand-name{color:#222!important;font:700 16px/1.5 "Noto Sans JP",sans-serif!important;text-decoration:none!important;text-shadow:none!important}
+body.app-page.calc-split-page>.app-header .app-brand-shop{color:#666!important;font-size:12px!important}
+body.app-page.calc-split-page>.app-header .app-menu-toggle{
+  display:grid!important;place-items:center!important;width:42px!important;height:42px!important;
+  background:transparent!important;border:0!important;color:#222!important;box-shadow:none!important;
+}
+body.app-page.calc-split-page>.app-header .app-menu[hidden]{display:none!important}
+body.app-page.calc-split-page>.app-header .app-menu{background:#fff!important;color:#222!important;border:1px solid #e2e2e2!important;z-index:300!important}
+body.app-page.calc-split-page>.app-header .app-menu a{color:#222!important}
+body.app-page.calc-split-page>.app-header .app-menu-secondary a{color:#666!important}
+/* Target differences: clear labels and legible numbers on the dark surface. */
+.calc-split-page .split-col .total-box .split-target-diff{
+  display:block;color:#d4e8ec!important;font-size:13px!important;line-height:1.8!important;
+  padding:10px 0 2px!important;margin:7px 0 0!important;border-top:1px dashed #416d7c!important;
+}
+.calc-split-page .split-col .total-box .split-target-diff[style*="display:none"]{display:none!important}
+.calc-split-page .split-col .total-box .split-target-diff span{
+  color:#a7f0ef!important;font-size:15px!important;font-weight:700!important;
+  font-variant-numeric:tabular-nums;text-shadow:none!important;
+}
+/* Equal numeric hierarchy for all four owned-point summary rows. */
+.calc-split-page .split-col .total-box .split-total-row>strong,
+.calc-split-page .split-col .total-box .split-total-row.split-total-highlight>strong,
+.calc-split-page .split-col .total-box .split-total-row.split-total-money>strong,
+.calc-split-page .split-col .total-box .split-total-row .total-pt-val,
+.calc-split-page .split-col .total-box .split-total-row .total-cost-val{
+  font:700 15px/1.65 "Noto Sans JP",sans-serif!important;
+  color:#eaf5f6!important;letter-spacing:0!important;
+  font-variant-numeric:tabular-nums!important;text-shadow:none!important;
+}
+.calc-split-page .split-col .total-box .split-total-row>span:first-child{
+  font:500 12px/1.65 "Noto Sans JP",sans-serif!important;color:#c0d8de!important;
+}
+@media(max-width:520px){body.app-page.calc-split-page>.app-header{padding:18px 16px!important}}
