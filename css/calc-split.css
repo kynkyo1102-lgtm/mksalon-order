@@ -477,3 +477,37 @@ header h1,.section-title{color:#f4d98d!important}
 .calc-split-page .split-grand-summary strong{font-size:19px;color:#f6d889;font-variant-numeric:tabular-nums}
 .calc-split-page .split-grand-summary #grandTotalCost{color:#f6d889!important;font-size:22px}
 .calc-split-page .split-grand-summary #ptDiff{color:#a6ddff!important}
+
+/* Balance 6: warmer metallic gold and restrained retro game headings */
+.calc-split-page{
+ --game-gold:#d9ad53;
+ --game-gold-bright:#f4d789;
+ --game-gold-dark:#946a2c;
+}
+.calc-split-page .workspace-reset{display:inline-flex!important;align-items:center;justify-content:center;white-space:nowrap;min-height:38px;padding:8px 15px;border:1px solid #cda352;border-radius:6px;background:#283b54;color:#f4d789;font-size:13px;font-weight:700}
+.calc-split-page .workspace-reset:hover,.calc-split-page .workspace-reset:focus-visible{background:#394e6b;border-color:#f4d789}
+.calc-split-page .split-workspace-heading{justify-content:flex-end;margin:0 0 14px}
+.calc-split-page .difficulty-select h2,.calc-split-page .split-product-editor h2,.calc-split-page .difficulty-number,.calc-split-page .balance-stage-title,.calc-split-page .split-eyebrow{
+ font-family:"DotGothic16","Noto Sans JP",sans-serif;
+}
+.calc-split-page .difficulty-select h2{font-size:clamp(18px,3.3vw,23px);letter-spacing:.055em}
+.calc-split-page .difficulty-number{font-size:13px;letter-spacing:.035em}
+.calc-split-page .difficulty-option strong{font-weight:700}
+.calc-split-page .split-eyebrow{color:var(--game-gold-bright);font-size:14px}
+.calc-split-page .difficulty-select h2,.calc-split-page .split-product-editor h2,.calc-split-page .balance-stage-title,.calc-split-page .selected-mode-bar{color:var(--game-gold-bright)}
+.calc-split-page .difficulty-option{border-color:#9d7b40;box-shadow:inset 0 0 0 1px #5c4c35}
+.calc-split-page .difficulty-option:hover,.calc-split-page .difficulty-option:focus-visible{border-color:var(--game-gold-bright);box-shadow:0 0 0 2px #d9ad5340,inset 0 0 0 1px #d9ad53}
+.calc-split-page .difficulty-number,.calc-split-page .split-col h3{color:var(--game-gold-bright)!important}
+.calc-split-page .btn-copy,.calc-split-page .split-add-button,.calc-split-page .tab-btn.active{
+ background:linear-gradient(135deg,#f8e2a2 0%,#d6a74a 43%,#b58334 68%,#e5c578 100%)!important;
+ color:#231c13!important;border:1px solid #f7db8c!important;
+ box-shadow:inset 0 1px 0 #fff4cf,0 3px 10px #00000038;
+}
+.calc-split-page .total-pt-val,.calc-split-page #leftFinalPtVal,.calc-split-page #rightFinalPtVal,.calc-split-page #grandTotalCost,.calc-split-page .split-grand-summary strong{color:#f4d789!important}
+.calc-split-page .suggest-box{border-left-color:var(--game-gold)!important;border-color:#b88b41!important;background:#263b55!important}
+.calc-split-page .suggest-box strong{color:var(--game-gold-bright)!important}
+.calc-split-page .scale-pivot{background:linear-gradient(130deg,#fff1b7,#d9ad53 60%,#966e2f);border-color:#8f662d}
+.calc-split-page .scale-beam{background:linear-gradient(#fff0ae,#bd8b3a)}
+.calc-split-page .scale-dish{background:linear-gradient(#f6dc92,#b7863c);border-color:#e9c76f}
+.calc-split-page .scale-base{background:linear-gradient(#e9ca78,#936a30)}
+@media(max-width:600px){.calc-split-page .split-workspace-heading{margin-bottom:12px}.calc-split-page .workspace-reset{font-size:12px;padding:8px 12px}}
