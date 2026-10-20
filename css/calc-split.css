@@ -602,8 +602,7 @@ header h1,.section-title{color:#f4d98d!important}
 }
 
 /* balance-9: readable Japanese content, pixel UI controls and English labels */
-.calc-split-page .app-main,
-.calc-split-page .app-main *:not(.menu-icon):not(.menu-icon *){
+.calc-split-page .app-main{
  font-family:"Noto Sans JP",sans-serif!important;
 }
 .calc-split-page .app-main button,
