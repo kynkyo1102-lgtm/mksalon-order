@@ -376,3 +376,23 @@ header h1,.section-title{color:#f4d98d!important}
 @keyframes scaleSettle{0%{transform:rotate(0deg)}40%{transform:rotate(calc(var(--scale-angle)*1.25))}70%{transform:rotate(calc(var(--scale-angle)*.85))}100%{transform:rotate(var(--scale-angle))}}
 @media(prefers-reduced-motion:reduce){.scale-playing .scale-beam,.scale-playing .scale-ball{animation:none}.meter-fill,.meter-owned,.meter-bought{transition:none}}
 @media(max-width:480px){.scale-scene{height:215px}.scale-pan{width:76px}.scale-pan-left{left:-30px}.scale-pan-right{right:-30px}.scale-dish{width:76px}.scale-balls{width:62px;left:7px}.scale-ball{width:13px;height:13px}.scale-pt-labels{font-size:.7rem}}
+
+/* Shared shell integration: only the puzzle workspace retains game colors. */
+.calc-split-page{background:#fff!important;color:#222!important;font-family:"Noto Sans JP",sans-serif}
+.calc-split-page .app-header{background:#fff!important;color:#222!important;border-bottom:1px solid #e6e6e6!important;box-shadow:none!important}
+.calc-split-page .app-header .app-brand-name{color:#222!important}
+.calc-split-page .app-main{max-width:800px}
+.calc-split-page .app-page-title.split-page-title{color:#222!important;margin:0 0 20px;font-size:22px;letter-spacing:0}
+.calc-split-page .split-eyebrow{color:#626262;font-size:11px;letter-spacing:.13em;font-weight:700;margin:20px 0 8px}
+.calc-split-page .split-eyebrow span{font-weight:400}
+.calc-split-page .card-box{background:#17253c!important;color:#edf4ff!important}
+.calc-split-page .app-footer{background:#fff;color:#777}
+.calc-split-page .calc-back-top{display:inline-block;margin:0 0 5px;padding:0;font-size:13px;text-decoration:none;color:#555}
+.calc-split-page .calc-back-top:hover{text-decoration:underline}
+.calc-split-page .app-menu{background:#fff;color:#222}
+.calc-split-page .app-menu a{color:#222}
+.calc-split-page .app-menu-secondary a{color:#666}
+.calc-split-page .app-menu-toggle{background:transparent;color:#222}
+.calc-split-page .calc-select,.calc-split-page .input-pt{font-family:inherit;font-size:16px}
+.calc-split-page .btn-copy,.calc-split-page button{font-family:inherit}
+@media(max-width:600px){.calc-split-page .app-main{padding:24px 16px 42px}.calc-split-page .app-page-title.split-page-title{font-size:20px}}
