@@ -665,3 +665,28 @@ header h1,.section-title{color:#f4d98d!important}
 .calc-split-page .split-add-button{font-size:16px!important}
 .calc-split-page .btn-copy{font-size:clamp(16px,3vw,19px)!important;font-weight:400!important;line-height:1.7}
 .calc-split-page .difficulty-select h2 small,.calc-split-page .split-product-editor h2 small{font-weight:400!important}
+
+/* balance-11: pixel-art gems instead of glossy spheres */
+.calc-split-page .scale-ball{
+ position:relative;
+ flex:0 0 auto;
+ width:16px;height:16px;
+ border:0!important;border-radius:0!important;
+ clip-path:polygon(25% 0,75% 0,100% 25%,100% 75%,75% 100%,25% 100%,0 75%,0 25%);
+ background:linear-gradient(135deg,#d6f3ff 0 23%,#7dc7ee 23% 47%,#3579b1 47% 76%,#17456f 76%)!important;
+ box-shadow:inset -2px -2px 0 #102f52,inset 2px 2px 0 #b8e7ff;
+ image-rendering:pixelated;
+}
+.calc-split-page .scale-ball:after{
+ content:"";position:absolute;top:3px;left:4px;width:4px;height:4px;background:#ecfaff;box-shadow:4px 0 0 #a6e2ff;
+}
+.calc-split-page .scale-pan-right .scale-ball{
+ background:linear-gradient(135deg,#ffe8f5 0 23%,#e6a6d6 23% 47%,#b76fa8 47% 76%,#713c78 76%)!important;
+ box-shadow:inset -2px -2px 0 #572b61,inset 2px 2px 0 #ffe0f4;
+}
+.calc-split-page .scale-pan-right .scale-ball:after{background:#fff1fc;box-shadow:4px 0 0 #f2c2e7}
+@media(max-width:480px){
+ .calc-split-page .scale-ball{width:13px;height:13px}
+ .calc-split-page .scale-ball:after{top:2px;left:3px;width:3px;height:3px;box-shadow:3px 0 0 #a6e2ff}
+ .calc-split-page .scale-pan-right .scale-ball:after{box-shadow:3px 0 0 #f2c2e7}
+}
