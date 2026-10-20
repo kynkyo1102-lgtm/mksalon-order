@@ -1,0 +1,54 @@
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>STARSHIP CONTROL | デザイン案A</title><link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><style>
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;min-height:100dvh;font-family:"Noto Sans JP",system-ui,sans-serif}a{color:inherit}button{font:inherit}
+.app-page.calc-selection-shell{position:relative;z-index:20}.app-header{position:relative;z-index:20}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style><style>
+:root{color-scheme:dark}body{color:#f4e4c4;background:#080b0f}
+.app-page.calc-selection-shell .app-header{background:#1a2228!important;border-bottom:4px solid #8c6c3d!important}
+.app-page.calc-selection-shell .app-brand-name{color:#f2d49a!important}
+.app-page.calc-selection-shell .app-brand-shop{color:#cab995!important}
+.app-page.calc-selection-shell .app-menu-toggle{color:#f2d49a!important}
+.deck{min-height:calc(100dvh - 74px);position:relative;overflow:hidden;padding:24px 16px 55px;background:radial-gradient(ellipse at 50% -20%,#59626a 0%,#28333b 24%,#121a21 53%,#06090d 100%)}
+.deck:before{content:"";position:absolute;inset:0;pointer-events:none;background:repeating-linear-gradient(0deg,transparent 0 6px,#0004 7px 8px),repeating-linear-gradient(90deg,transparent 0 68px,#7e83821b 69px 70px);opacity:.6}
+.deck:after{content:"";position:absolute;inset:0;pointer-events:none;box-shadow:inset 0 0 120px 25px #000b}
+.console{position:relative;z-index:1;max-width:930px;margin:auto}
+.deck-top{display:flex;justify-content:space-between;align-items:center;gap:10px;font:700 11px/1.6 ui-monospace,monospace;letter-spacing:.16em;color:#d2b87e;border-bottom:2px solid #a38754;padding:9px 5px 16px}
+.lamp{display:inline-block;width:9px;height:9px;margin-right:8px;background:#b9d68c;border-radius:50%;box-shadow:0 0 13px #9acb66}
+.hero{display:grid;grid-template-columns:1fr 160px;align-items:center;gap:10px;padding:38px 0 24px}
+.eyebrow{font:700 11px ui-monospace,monospace;letter-spacing:.2em;color:#dfb86e}
+.hero h1{font:900 clamp(38px,7vw,77px)/.96 Impact,"Arial Narrow",sans-serif;letter-spacing:.035em;color:#f0e0bd;margin:14px 0;text-shadow:4px 4px #080b0d}
+.hero h1 em{font-style:normal;color:#e6aa4e}
+.hero p{color:#d3cbb7;font-size:14px;line-height:1.9;margin:0}
+.radar{height:148px;width:148px;border:4px solid #a28d67;border-radius:50%;background:repeating-radial-gradient(circle at center,transparent 0 22px,#71877477 23px 24px),conic-gradient(from 0deg,#a5c28b50,transparent 75deg,transparent 360deg),#172a2b;position:relative;box-shadow:0 0 0 7px #182129,0 0 0 10px #6c6454,inset 0 0 35px #000}
+.radar:after{content:"";position:absolute;inset:8px;border-radius:50%;background:conic-gradient(from 0deg,#c7e6a577,transparent 58deg,transparent 360deg);animation:sweep 5s linear infinite}
+.radar:before{content:"";position:absolute;left:67%;top:33%;width:7px;height:7px;background:#d7f4b0;border-radius:50%;box-shadow:0 0 12px #c6f09d;z-index:1}
+@keyframes sweep{to{transform:rotate(360deg)}}
+.control-frame{padding:7px;background:#0d1218;border:3px solid #777263;box-shadow:0 14px 30px #000b,inset 0 0 0 2px #171d23}
+.control-inner{border:2px solid #4d585c;background:linear-gradient(145deg,#313b42,#1b252c 55%,#131c22);padding:22px}
+.control-heading{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:2px solid #59636a;padding-bottom:17px;margin-bottom:20px}
+.control-heading h2{margin:0;font-size:18px;color:#f0e3c8}.serial{font:11px ui-monospace,monospace;color:#d5b374}
+.modules{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.module{display:block;position:relative;text-decoration:none;padding:21px 19px 17px;min-height:250px;background:linear-gradient(160deg,#1b2d31,#0b171c);border:3px solid #8b7758;box-shadow:inset 0 0 0 3px #314349,0 6px #0b1014;transition:transform .2s,border-color .2s}
+.module:hover,.module:focus-visible{transform:translateY(-4px);border-color:#e8bc68;outline:none}
+.module .id{display:flex;justify-content:space-between;color:#b5ad93;font:11px ui-monospace,monospace;letter-spacing:.1em}
+.module .id b{color:#a8d28e}.glyph{display:flex;align-items:center;justify-content:center;height:87px;margin:15px 0;background:#101d22;border:1px solid #53665e;color:#c4dcac;font:50px ui-monospace,monospace;text-shadow:0 0 16px #a8c887}
+.module strong{display:block;color:#f1dbab;font-size:21px;margin-bottom:8px}
+.module small{display:block;color:#c7c6b8;font-size:12px;line-height:1.7}
+.module .go{display:block;margin-top:16px;color:#e9bd74;font:700 12px ui-monospace,monospace;letter-spacing:.08em}
+.instrument{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px 5px 0;font:11px ui-monospace,monospace;color:#b6c7b3}
+.leds{display:flex;gap:7px}.leds i{width:9px;height:9px;background:#d9b167;border:1px solid #f4dc9d;box-shadow:0 0 7px #d9b167}
+.help{margin-top:18px;border:1px solid #5c655f;background:#131d23;padding:0 15px}
+.help summary{cursor:pointer;padding:15px 0;color:#d9c49e;font-size:13px;font-weight:700}
+.help p{font-size:12px;line-height:1.9;color:#c5c8bf}
+.preview-tag{position:fixed;z-index:25;bottom:10px;left:10px;background:#b7843d;color:#10161b;padding:7px 10px;font:700 10px ui-monospace,monospace;letter-spacing:.1em}
+@media(max-width:620px){.hero{grid-template-columns:1fr 88px;padding:25px 0}.radar{width:82px;height:82px;border-width:2px;box-shadow:0 0 0 4px #182129,0 0 0 6px #6c6454}.radar:before{width:5px;height:5px}.hero h1{font-size:clamp(36px,9vw,58px)}.hero p{font-size:12px}.control-inner{padding:13px}.modules{gap:9px}.module{padding:12px 10px;min-height:225px;border-width:2px}.module strong{font-size:15px}.module small{font-size:11px}.glyph{height:76px;font-size:39px}.control-heading h2{font-size:15px}.serial{font-size:9px}}
+</style></head><body><div class="app-page calc-selection-shell"><header class="app-header">
+<div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+<button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+<nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+<a class="app-menu-primary" href="index.html">ホーム</a>
+<div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">LINEノート用</a><a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a></div>
+<a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+<span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+<div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+</nav></header></div><main class="deck"><div class="console"><div class="deck-top"><span>DECK 07 / CALCULATION CONTROL</span><span><i class="lamp"></i> SYSTEM READY</span></div><section class="hero"><div><div class="eyebrow">PLACE DE NINA / OPERATIONS TERMINAL</div><h1>STARSHIP<br><em>CONTROL</em></h1><p>計算サポートツール<br>操作モジュールを選択してください。</p></div><div class="radar" aria-hidden="true"></div></section><div class="control-frame"><section class="control-inner"><div class="control-heading"><h2>操作モジュール選択</h2><span class="serial">CONTROL UNIT / 02</span></div><div class="modules"><a class="module" href="calc_pt.html"><span class="id">MODULE 01 <b>● ACTIVE</b></span><span class="glyph" aria-hidden="true">◎</span><strong>ポイント最適化</strong><small>目標PTに合わせて購入商品の組み合わせを計算します。</small><span class="go">ENGAGE SYSTEM →</span></a><a class="module" href="calc_split.html"><span class="id">MODULE 02 <b>● ACTIVE</b></span><span class="glyph" aria-hidden="true">⇄</span><strong>ポイント振り分け</strong><small>購入商品のポイントを左右に配分し、バランスを計算します。</small><span class="go">ENGAGE SYSTEM →</span></a></div><div class="instrument"><span>POWER / NORMAL</span><div class="leds" aria-hidden="true"><i></i><i></i><i></i><i></i></div><span>MODULES 02 / 02</span></div></section></div><details class="help"><summary>▸ 各モジュールの機能を確認する</summary><p><b>ポイント最適化：</b>目標ポイントに合わせて商品の購入パターンを算出。必須商品・除外商品も指定できます。</p><p><b>ポイント振り分け：</b>左右均等、目標PT、保有PTを加味した振り分けに対応します。</p></details></div></main><div class="preview-tag">DESIGN A / PREVIEW ONLY</div><script src="js/app-shell.js?v=menu-motion-2" defer></script></body></html>
