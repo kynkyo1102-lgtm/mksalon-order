@@ -511,3 +511,42 @@ header h1,.section-title{color:#f4d98d!important}
 .calc-split-page .scale-dish{background:linear-gradient(#f6dc92,#b7863c);border-color:#e9c76f}
 .calc-split-page .scale-base{background:linear-gradient(#e9ca78,#936a30)}
 @media(max-width:600px){.calc-split-page .split-workspace-heading{margin-bottom:12px}.calc-split-page .workspace-reset{font-size:12px;padding:8px 12px}}
+
+/* balance-7: visibly game-like display typography; keep data legible */
+.calc-split-page .difficulty-option strong,
+.calc-split-page .difficulty-select h2,
+.calc-split-page .difficulty-number,
+.calc-split-page .split-product-editor h2,
+.calc-split-page .balance-stage-title,
+.calc-split-page .split-col h3,
+.calc-split-page .selected-mode-bar #selectedModeLabel,
+.calc-split-page .split-eyebrow,
+.calc-split-page .meter-heading strong{
+ font-family:"DotGothic16","Noto Sans JP",sans-serif!important;
+ font-weight:400!important;
+ letter-spacing:.075em;
+}
+.calc-split-page .difficulty-option strong{font-size:clamp(18px,3.5vw,23px)!important;line-height:1.5;color:#f4d789;text-shadow:0 0 12px #d6a74a38}
+.calc-split-page .difficulty-number{font-size:14px!important;color:#e8c476!important}
+.calc-split-page .difficulty-select h2{font-size:clamp(21px,4vw,27px)!important;letter-spacing:.11em}
+.calc-split-page .split-product-editor h2{font-size:clamp(18px,3vw,22px)!important}
+.calc-split-page .balance-stage-title{font-size:clamp(14px,2.7vw,17px)!important;line-height:1.65}
+.calc-split-page .split-col h3{font-size:18px!important;letter-spacing:.12em}
+.calc-split-page .selected-mode-bar #selectedModeLabel{font-size:17px}
+.calc-split-page .difficulty-option small,
+.calc-split-page .split-item-card,
+.calc-split-page .split-item-name,
+.calc-split-page .split-item-sub,
+.calc-split-page .total-box,
+.calc-split-page .total-box *,
+.calc-split-page .split-grand-summary,
+.calc-split-page .split-grand-summary *,
+.calc-split-page .suggest-box,
+.calc-split-page .suggest-box *,
+.calc-split-page select,
+.calc-split-page input{font-family:"Noto Sans JP",sans-serif!important;letter-spacing:normal}
+@media(max-width:600px){
+ .calc-split-page .difficulty-option strong{font-size:20px!important}
+ .calc-split-page .difficulty-select h2{font-size:22px!important}
+ .calc-split-page .split-col h3{font-size:16px!important}
+}
