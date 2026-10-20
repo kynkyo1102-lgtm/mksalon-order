@@ -687,3 +687,20 @@ header h1,.section-title{color:#f4d98d!important}
  .calc-split-page .scale-ball:after{top:2px;left:3px;width:3px;height:3px;box-shadow:3px 0 0 #a6e2ff}
  .calc-split-page .scale-pan-right .scale-ball:after{box-shadow:3px 0 0 #f2c2e7}
 }
+
+/* split-guide-1: optional mobile-visible RPG guide for mode selection */
+.calc-split-page .split-guide-assistant{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(14px,env(safe-area-inset-bottom));z-index:180;display:flex;flex-direction:column;align-items:flex-end;gap:9px}
+.calc-split-page .split-guide-assistant[hidden],.calc-split-page .split-guide-dialogue[hidden]{display:none!important}
+.calc-split-page .split-guide-trigger{display:flex;flex-direction:column;align-items:center;border:2px solid #e7c577;background:#162945;border-radius:13px;padding:3px 5px 5px;box-shadow:0 4px 0 #0a1527,0 8px 24px #0007;cursor:pointer;color:#f4d789;font:13px "DotGothic16",monospace!important}
+.calc-split-page .split-guide-trigger svg{width:59px;height:65px}
+.calc-split-page .split-guide-trigger span{font:13px "DotGothic16",monospace!important}
+.calc-split-page .split-guide-dialogue{width:min(390px,calc(100vw - 24px));max-height:min(72vh,570px);overflow-y:auto;box-sizing:border-box;border:3px solid #e2bc6e;background:#142640;box-shadow:inset 0 0 0 2px #334d6e,4px 5px 0 #091324;padding:14px 16px;color:#f4f6fb}
+.calc-split-page .split-guide-title{display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #7f765e;padding-bottom:8px;margin-bottom:12px}
+.calc-split-page .split-guide-title span{color:#f4d789;font:16px "DotGothic16",monospace!important}
+.calc-split-page .split-guide-title button{font:24px/1 "Noto Sans JP",sans-serif!important;background:transparent;border:0;color:#f4d789;cursor:pointer;padding:0 3px}
+.calc-split-page .split-guide-dialogue p{font:14px/1.7 "Noto Sans JP",sans-serif!important;margin:0 0 11px;color:#edf2fb}
+.calc-split-page .split-guide-option{padding:10px 11px;margin-bottom:9px;background:#203955;border-left:3px solid #e2bc6e}
+.calc-split-page .split-guide-option strong{display:block;font:14px "DotGothic16",monospace!important;color:#f4d789;margin-bottom:7px}
+.calc-split-page .split-guide-option p{margin:0!important}
+.calc-split-page .split-guide-dialogue .split-guide-hint{color:#e5c889;margin:12px 0 0}
+@media(max-width:680px){.calc-split-page .split-guide-trigger svg{width:46px;height:51px}.calc-split-page .split-guide-trigger,.calc-split-page .split-guide-trigger span{font-size:11px!important}.calc-split-page .split-guide-assistant{right:10px;bottom:max(12px,env(safe-area-inset-bottom))}.calc-split-page .split-guide-dialogue{max-height:65vh}}
