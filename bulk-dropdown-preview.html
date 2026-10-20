@@ -24,7 +24,7 @@
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=7" defer></script>
+  <script src="app-dropdown-preview.js?v=8" defer></script>
 <style>
 .bulk-dropdown-items{padding:8px 0 4px}.bulk-picker-row{display:grid;grid-template-columns:minmax(0,1fr) 88px 38px;gap:9px;align-items:center;margin:0 0 12px}.bulk-picker-row .item-select{width:100%;min-width:0}.bulk-picker-row .qty-select{width:100%;min-width:0}.bulk-picker-remove{border:1px solid #ddd;background:#fff;border-radius:8px;min-height:42px;font-size:18px}.bulk-picker-row select{min-height:44px}.bulk-dropdown-items .sub-btn{margin-top:4px}@media(max-width:430px){.bulk-picker-row{grid-template-columns:minmax(0,1fr) 72px 34px;gap:6px}}
 </style><style>
@@ -39,6 +39,33 @@
 .bulk-order-page #formSection .bulk-footer-actions .bulk-footer-export{background:#2e5541!important;color:#fff!important;border:1px solid #2e5541!important;border-radius:8px;font-weight:700;cursor:pointer}
 .bulk-order-page #formSection .bulk-footer-actions .bulk-footer-export.display-none{display:none!important}
 @media(max-width:600px){.bulk-order-page #formSection .footer-content{flex-wrap:wrap!important}.bulk-order-page #formSection .bulk-footer-actions{width:100%;flex-basis:100%}}
+</style>
+
+<style>
+/* Preview-only: legible order sheet for manual headquarters entry */
+.bulk-order-page .order-image-sheet{font-family:"Noto Sans JP",sans-serif!important;background:#fff!important;color:#25332b!important;border:1px solid #cad8ce!important;border-radius:12px!important;padding:22px!important;box-shadow:none!important;line-height:1.65}
+.bulk-order-page .order-image-heading{display:flex;justify-content:space-between;align-items:flex-start;gap:12px;border-bottom:2px solid #35654c;padding-bottom:14px;margin-bottom:15px}
+.bulk-order-page .order-image-kicker{display:block;font-size:11px;color:#527360;font-weight:600}
+.bulk-order-page .order-image-heading h3{font-size:20px!important;margin:2px 0 0!important;color:#214b36!important;line-height:1.35}
+.bulk-order-page .order-image-date{text-align:right;font-size:11px;color:#65746b;flex-shrink:0}
+.bulk-order-page .order-image-date strong{color:#243f30;font-size:13px}
+.bulk-order-page .order-image-identity{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:12px 14px;margin:0 0 17px;border-radius:8px;background:#edf4ee}
+.bulk-order-page .order-image-field{display:flex;flex-direction:column;gap:2px;min-width:0;overflow-wrap:anywhere}
+.bulk-order-page .order-image-field>span{font-size:11px;color:#65766a;font-weight:500}
+.bulk-order-page .order-image-field>strong{font-size:14px;font-weight:700;color:#20392a}
+.bulk-order-page .order-image-identity .order-image-field>strong{font-size:17px}
+.bulk-order-page .order-image-section{margin:0 0 17px}
+.bulk-order-page .order-image-section h4{font-size:13px;font-weight:700;color:#28563b;margin:0 0 9px;padding-bottom:5px;border-bottom:1px solid #d6e2d8}
+.bulk-order-page .order-image-details{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px 16px}
+.bulk-order-page .order-image-products{width:100%!important;margin:0!important;border-collapse:collapse!important;table-layout:auto!important}
+.bulk-order-page .order-image-products th{background:#eaf2eb!important;color:#304a37!important;font-size:11px!important;padding:9px 6px!important;border-bottom:1px solid #cbd8ce!important}
+.bulk-order-page .order-image-products td{font-size:12px!important;padding:10px 6px!important;border-bottom:1px solid #e2e9e3!important;color:#29362d!important}
+.bulk-order-page .order-image-products th:first-child,.bulk-order-page .order-image-products td:first-child{text-align:left!important}
+.bulk-order-page .order-image-products th:not(:first-child),.bulk-order-page .order-image-products td:not(:first-child){white-space:nowrap}
+.bulk-order-page .order-image-totals{background:#f4f8f4;border-top:2px solid #35654c;padding:12px 14px;border-radius:0 0 8px 8px;font-size:12px}
+.bulk-order-page .order-image-totals>div{display:flex;justify-content:space-between;gap:12px;margin:4px 0;font-size:12px!important;color:#36483b!important}
+.bulk-order-page .order-image-totals>div>span:last-child,.bulk-order-page .order-image-totals>div>strong{font-weight:700}
+@media(max-width:450px){.bulk-order-page .order-image-sheet{padding:14px!important}.bulk-order-page .order-image-heading h3{font-size:17px!important}.bulk-order-page .order-image-identity{gap:7px;padding:10px}.bulk-order-page .order-image-identity .order-image-field>strong{font-size:14px}.bulk-order-page .order-image-products td{font-size:11px!important}}
 </style>
 </head>
 <body class="app-page bulk-order-page">
