@@ -102,3 +102,33 @@
 .calc-split-page .split-guide-dialogue .split-guide-hint{margin:12px 0 0}
 .calc-split-page .split-guide-option p strong.split-guide-emphasis{display:inline!important;font-family:"Noto Sans JP",sans-serif!important;font-weight:700!important;margin:0!important;line-height:inherit!important;letter-spacing:inherit!important}
 @media(max-width:680px){.calc-split-page .split-guide-trigger svg{width:46px;height:51px}.calc-split-page .split-guide-assistant{right:10px;bottom:max(12px,env(safe-area-inset-bottom))}.calc-split-page .split-guide-dialogue{max-height:65vh}.calc-split-page .selected-mode-bar{flex-wrap:wrap}.calc-split-page .difficulty-option{min-height:0;padding:16px 14px!important}}
+
+/* Numeric evenness analysis replaces the legacy scale illustration. */
+.calc-split-page .balance-score{display:grid;gap:14px;padding:clamp(8px,2vw,16px) 0}
+.calc-split-page .balance-score-label{margin:0;color:#c2dce4!important;font-size:14px;font-weight:700}
+.calc-split-page .balance-score-label span{display:block;margin-top:5px;color:#81cfd9;font:11px ui-monospace,Consolas,monospace;letter-spacing:.12em}
+.calc-split-page .balance-score-value{display:flex;align-items:baseline;justify-content:center;gap:6px;color:#9df2ef!important;font-family:ui-monospace,Consolas,monospace!important;line-height:1.1}
+.calc-split-page .balance-score-value strong{font-size:clamp(52px,12vw,84px);font-weight:700;letter-spacing:-.055em;font-variant-numeric:tabular-nums}
+.calc-split-page .balance-score-value span{font-size:clamp(23px,5vw,35px)}
+.calc-split-page .balance-score-track{height:12px;background:#071724;border:1px solid #426b7b;border-radius:999px;overflow:hidden}
+.calc-split-page .balance-score-track>span{display:block;height:100%;width:0;background:linear-gradient(90deg,#238a9d,#8de8ed);box-shadow:0 0 12px #68d9e7;transition:width .7s ease}
+.calc-split-page .balance-score-note{margin:0;color:#a9c8d1!important;font-size:11px;line-height:1.7;text-align:center}
+.calc-split-page .balance-score-breakdown{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.calc-split-page .balance-score-breakdown>span{display:grid;gap:7px;background:#0b2230;border:1px solid #355c6d;border-radius:7px;padding:14px 12px;color:#80cad4;font:11px ui-monospace,Consolas,monospace}
+.calc-split-page .balance-score-breakdown strong{color:#edf9fa;font:700 clamp(15px,3vw,21px) "Noto Sans JP",sans-serif;font-variant-numeric:tabular-nums}
+.calc-split-page .balance-score-difference{margin:0;text-align:center;color:#b4d2da!important;font-size:13px}
+.calc-split-page .balance-score-difference strong{color:#9df2ef!important;font-size:16px}
+@media(prefers-reduced-motion:reduce){.calc-split-page .balance-score-track>span{transition:none}}
+/* Product cards and financial totals are different visual layers. */
+.calc-split-page .split-col{display:flex;flex-direction:column;gap:0}
+.calc-split-page .split-col>div[id$="List"]{display:grid;align-content:start;gap:9px}
+.calc-split-page .split-col .split-item-card{margin:0!important;padding:13px!important;background:#112c3b!important;border:1px solid #426777!important;border-radius:7px!important;box-shadow:none!important}
+.calc-split-page .split-col .split-item-name{color:#eff9fa!important;font-weight:700}
+.calc-split-page .split-col .split-item-sub{color:#abc9d2!important}
+.calc-split-page .split-col .total-box{margin-top:20px!important;padding:17px 16px!important;background:linear-gradient(135deg,#164455,#0c2b3b)!important;border:1px solid #66b9c5!important;border-radius:8px!important;box-shadow:inset 0 1px #a0f3f51d!important}
+.calc-split-page .split-col .total-box>p:first-child{font-size:13px!important;color:#d5ebee!important;border-bottom:1px solid #3c7281;padding-bottom:12px;margin-bottom:12px!important}
+.calc-split-page .split-col .total-box .total-pt-val{font-size:clamp(20px,4vw,27px)!important;font-weight:800!important;color:#a1f3f1!important;font-variant-numeric:tabular-nums}
+.calc-split-page .split-col .total-box .total-cost-val{font-size:clamp(17px,3.5vw,22px)!important;font-weight:800!important;color:#edf9fa!important;font-variant-numeric:tabular-nums}
+.calc-split-page .split-col .total-box .final-sum-box{background:#0b2a39!important;border:1px solid #3b7887!important;margin:12px 0!important}
+.calc-split-page .split-col .total-box .suggest-box{background:#0d3444!important;border-left:3px solid #80dce5!important}
+@media(max-width:520px){.calc-split-page .balance-score-breakdown{gap:8px}.calc-split-page .balance-score-breakdown>span{padding:12px 9px}.calc-split-page .split-col .total-box{padding:14px 12px!important}}
