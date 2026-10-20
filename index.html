@@ -116,6 +116,14 @@
     .home-page .home-floating-calc-portal svg{width:31px;height:32px;display:block}
     @media(max-width:380px){.home-page .home-floating-calc{width:190px!important;height:57px!important;right:10px!important;bottom:14px!important;padding-left:11px!important}.home-page .home-floating-calc-label{font-size:11px!important}}
     @media(prefers-reduced-motion:reduce){.home-page .home-floating-calc,.home-page .home-floating-calc-portal{transition:none!important}}
+
+    /* robot-sign-1: independent friendly robot holding the shortcut placard */
+    .home-page .home-floating-calc.home-floating-robot{width:245px!important;height:135px!important;right:9px!important;bottom:10px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;display:block!important;overflow:visible!important;transition:transform .2s ease!important}
+    .home-page .home-floating-robot .home-robot-art{display:block;width:100%;height:100%;overflow:visible;filter:drop-shadow(0 4px 5px rgba(30,40,55,.17))}
+    .home-page .home-floating-robot:hover,.home-page .home-floating-robot:focus-visible{transform:translateY(-4px)!important;box-shadow:none!important;outline:2px solid #73869a;outline-offset:2px}
+    @media(max-width:600px){.home-page .home-floating-calc.home-floating-robot{width:192px!important;height:106px!important;right:4px!important;bottom:8px!important}}
+    @media(max-width:360px){.home-page .home-floating-calc.home-floating-robot{width:174px!important;height:96px!important;right:3px!important;bottom:6px!important}}
+    @media(prefers-reduced-motion:reduce){.home-page .home-floating-calc.home-floating-robot{transition:none!important}}
 </style>
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">\n</head>
 <body class="home-page">
@@ -234,9 +242,27 @@
 
   </main>
 
-  <a href="calc.html" class="home-floating-calc" aria-label="計算サポートツールを開く" title="計算サポートツール">
-    <span class="home-floating-calc-copy"><span class="home-floating-calc-kicker">SPECIAL TOOL ↗</span><span class="home-floating-calc-label">計算サポートツール</span></span>
-    <span class="home-floating-calc-portal" aria-hidden="true"><svg viewBox="0 0 40 40" fill="none"><path d="M11 34V11L20 5L29 11V34" stroke="#e6c77b" stroke-width="3" stroke-linejoin="miter"/><path d="M16 33V15L20 12L24 15V33" fill="#8dc2df" fill-opacity=".35" stroke="#e6c77b" stroke-width="2"/><path d="M19 19h2v7h-2zM19 29h2v3h-2z" fill="#f7e3a2"/><path d="M6 34h28" stroke="#e6c77b" stroke-width="3"/></svg></span>
+  <a href="calc.html" class="home-floating-calc home-floating-robot" aria-label="計算サポートツールを開く" title="計算サポートツール">
+    <svg class="home-robot-art" viewBox="0 0 245 135" role="img" aria-label="看板を持つロボット" xmlns="http://www.w3.org/2000/svg">
+      <defs><linearGradient id="homeRobotMetal" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".52" stop-color="#e9eef3"/><stop offset="1" stop-color="#b9c7d5"/></linearGradient></defs>
+      <!-- little robot behind the sign -->
+      <path d="M181 24V15" stroke="#556c80" stroke-width="4" stroke-linecap="round"/><circle cx="181" cy="12" r="5" fill="#d8ad60" stroke="#647d92" stroke-width="2"/>
+      <rect x="151" y="26" width="60" height="58" rx="19" fill="url(#homeRobotMetal)" stroke="#60788e" stroke-width="3"/>
+      <rect x="159" y="39" width="44" height="26" rx="11" fill="#293f56"/>
+      <ellipse cx="172" cy="52" rx="4" ry="6" fill="#a9e2eb"/><ellipse cx="190" cy="52" rx="4" ry="6" fill="#a9e2eb"/>
+      <path d="M175 62q6 5 12 0" stroke="#a9e2eb" stroke-width="2" fill="none" stroke-linecap="round"/>
+      <path d="M157 79l-11 14M205 79l12 14" stroke="#8095a8" stroke-width="8" stroke-linecap="round"/>
+      <path d="M167 83v12m28-12v12" stroke="#60788e" stroke-width="9" stroke-linecap="round"/>
+      <!-- raised arms holding the placard -->
+      <path d="M153 73l-12 22M209 73l12 22" stroke="#b8c7d4" stroke-width="12" stroke-linecap="round"/>
+      <!-- placard -->
+      <rect x="8" y="85" width="229" height="44" rx="10" fill="#fdfdfd" stroke="#34475b" stroke-width="2.5"/>
+      <rect x="13" y="90" width="219" height="34" rx="6" fill="#f4f6f8"/>
+      <path d="M23 97h3m-3 5h3m-3 5h3" stroke="#c6a166" stroke-width="2.5" stroke-linecap="round"/>
+      <text x="117" y="113" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="15" font-weight="700" fill="#243345">計算サポートツール</text>
+      <path d="M216 104l5 5-5 5" stroke="#b88d4b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="143" cy="95" r="7" fill="#e7eef3" stroke="#60788e" stroke-width="2"/><circle cx="220" cy="95" r="7" fill="#e7eef3" stroke="#60788e" stroke-width="2"/>
+    </svg>
   </a>
 
   <footer>
