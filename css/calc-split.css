@@ -277,3 +277,39 @@
         font-size: 0.73rem;
       }
     }
+
+/* Balance puzzle preview */
+body{background:#101a2c;color:#edf4ff}
+header{background:#15223a!important}
+header h1,.section-title{color:#f4d98d!important}
+.card-box{background:#17253c!important;color:#edf4ff!important;border:2px solid #7894b9!important}
+.mode-guide-box,.mode-panel{background:#1d304b!important;color:#e4efff!important;border-color:#526d91!important}
+.mode-guide-title,.mode-badge{color:#f4d98d!important}
+.tab-btn{background:#233a59;color:#d5e5f8;border-color:#526d91}
+.tab-btn.active{background:#f0d184;color:#15223a}
+.usage-guide,.mode-panel label,.label-accent{color:#dbe8f7!important}
+.product-list-box{background:#101c30;border-color:#526d91}
+.product-item{color:#edf4ff;border-color:#344d6b}
+.product-item.selected{background:#2c4767}
+.product-item small{color:#a9c4de!important}
+.btn-copy{background:#e8cb79!important;color:#16233a!important;font-weight:800!important}
+.split-col{background:#1b2c46;border-color:#7894b9}
+.split-col h3{color:#f0d184!important}
+.split-item-card{background:#243b5b;border-color:#49698c}
+.split-item-name,.total-box p{color:#edf4ff}
+.split-item-sub{color:#bcd0e7}
+.total-pt-val{color:#f0d184}
+.final-sum-box{background:#2d4260;color:#edf4ff}
+.balance-stage{margin:16px 0;padding:14px;background:#0e192b;border:2px solid #6c8cb4;border-radius:8px}
+.balance-stage-title{display:flex;justify-content:space-between;gap:8px;color:#f0d184;font-size:.8rem;font-weight:800}
+.balance-stage-title span{color:#b9e5d7}
+.balance-boards{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:12px}
+.balance-board{height:195px;border:2px solid #4c6b91;background:#101c30;display:flex;flex-direction:column;justify-content:space-between;align-items:center;padding:8px}
+.balance-board>span{font-size:.75rem;font-weight:800;color:#a9d9ff}
+.balance-board:nth-child(2)>span{color:#f0b9de}
+.balance-blocks{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));grid-auto-rows:15px;align-content:end;gap:2px;width:100%;height:150px;overflow:hidden;transform:rotate(180deg)}
+.balance-tile{background:#6eb6ed;border:1px solid #b9e6ff;animation:tileDrop .42s both;animation-delay:calc(var(--tile-index)*18ms)}
+.balance-board:nth-child(2) .balance-tile{background:#d68fc7;border-color:#f5c9e7}
+.balance-stage-note{font-size:.68rem;color:#aabed6;text-align:center;margin:9px 0 0}
+@keyframes tileDrop{from{opacity:0;transform:translateY(-25px)}to{opacity:1;transform:translateY(0)}}
+@media(prefers-reduced-motion:reduce){.balance-tile{animation:none}}
