@@ -11,7 +11,7 @@
   
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-split.css?v=balance-4">
+  <link rel="stylesheet" href="css/calc-split.css?v=balance-5">
 </head>
 <body class="app-page calc-split-page">
 
@@ -31,9 +31,9 @@
     <p class="split-eyebrow">BLOCK BALANCE <span>— POINT ALLOCATION PUZZLE —</span></p>
     <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1>
     <div class="card-box">
-      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
-        <div class="section-title" style="margin-bottom: 0;">BLOCK BALANCE <small>— ポイント振り分け —</small></div>
-        <button type="button" class="btn-reset" onclick="resetSplitSelection()">↺ リセット</button>
+      <div class="split-workspace-heading">
+        <div class="section-title" >BLOCK BALANCE <small>— ポイント振り分け —</small></div>
+        <button type="button" class="btn-reset workspace-reset" onclick="resetSplitSelection()">↺ リセット</button>
       </div>
 
       <section class="difficulty-select" id="difficultySelect">
@@ -144,7 +144,7 @@
               <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
 
               <div id="leftSuggestBox" class="suggest-box" style="display:none;">
-                💡 <strong>おすすめ追加:</strong><br>
+                ✦ <strong>追加購入の候補</strong><br>
                 <span id="leftSuggestItem"></span>
               </div>
             </div>
@@ -170,7 +170,7 @@
               <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
 
               <div id="rightSuggestBox" class="suggest-box" style="display:none;">
-                💡 <strong>おすすめ追加:</strong><br>
+                ✦ <strong>追加購入の候補</strong><br>
                 <span id="rightSuggestItem"></span>
               </div>
             </div>
