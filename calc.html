@@ -1,174 +1,19 @@
-<!DOCTYPE html>
-<html lang="ja">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>注文計算アシスタント - Place de Nina</title>
-  
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
-  
-  <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc.css?v=mode-robot-4">
-<style>
-/* Staggered game-style arrival; only when launched from the floating shortcut. */
-body.calc-entrance .mode-select-screen{animation:calcStageIn .65s both}
-body.calc-entrance .mode-select-topline{animation:calcStepIn .48s .32s both}
-body.calc-entrance .mode-select-heading{animation:calcStepIn .55s .55s both}
-body.calc-entrance .mode-select-lead{animation:calcStepIn .45s .75s both}
-body.calc-entrance .menu-container>.menu-card:nth-child(1){animation:calcCardEnter .55s .95s both}
-body.calc-entrance .menu-container>.menu-card:nth-child(2){animation:calcCardEnter .55s 1.22s both}
-body.calc-entrance .guide-assistant{animation:calcStepIn .5s 1.55s both}
-@keyframes calcStageIn{from{opacity:0;filter:brightness(.25)}to{opacity:1;filter:brightness(1)}}
-@keyframes calcStepIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
-@keyframes calcCardEnter{from{opacity:0;transform:translateY(24px) scale(.95);filter:brightness(1.5)}to{opacity:1;transform:translateY(0) scale(1);filter:brightness(1)}}
-@media(prefers-reduced-motion:reduce){body.calc-entrance .mode-select-screen,body.calc-entrance .mode-select-screen *{animation:none!important}}
-</style>
-<script>try{if(sessionStorage.getItem('calc-launch-pending')==='1'){document.documentElement.classList.add('calc-launch-arriving');sessionStorage.removeItem('calc-launch-pending');}}catch(e){}</script>
-<style>html.calc-launch-arriving body{visibility:hidden}html.calc-launch-arriving body.calc-entrance{visibility:visible}</style>
-<style id="calc-press-feedback">
-.calc-menu-page .menu-container>.menu-card{position:relative;will-change:transform;touch-action:manipulation}
-.calc-menu-page .menu-container>.menu-card:active,.calc-menu-page .menu-container>.menu-card.is-pressing{transform:translateY(5px) scale(.985)!important;filter:brightness(1.13);transition:transform .09s ease,filter .09s ease!important}
-.calc-menu-page .menu-container>.menu-card.is-confirmed{transform:translateY(3px) scale(.99)!important;outline:3px solid #f5d88b;outline-offset:2px;box-shadow:0 0 0 5px #142741,0 0 30px #eac979a0,inset 0 0 25px #eac97925!important;filter:brightness(1.2);transition:all .13s ease!important}
-.calc-menu-page .menu-container>.menu-card.is-confirmed .mode-card-action{color:#ffe6a2}
-.calc-menu-page .menu-container>.menu-card.is-confirmed .mode-card-action::after{content:"  ✓";font-weight:bold}
-.calc-menu-page .menu-container.is-choosing>.menu-card:not(.is-confirmed){opacity:.45;pointer-events:none;transition:opacity .2s}
-@media(prefers-reduced-motion:reduce){.calc-menu-page .menu-container>.menu-card.is-pressing,.calc-menu-page .menu-container>.menu-card.is-confirmed{transform:none!important;transition:none!important}}
-</style><style id="calc-mode-viewport-fix">
-/* Compact the game scene on phones without clipping either option. */
-@media(max-width:680px){
-.calc-menu-page .app-main{padding-top:12px!important;padding-bottom:45px!important}
-.calc-menu-page .app-page-title{margin:2px 0 10px!important}
-.calc-menu-page .mode-select-screen{padding:8px 0 25px!important}
-.calc-menu-page .mode-select-heading{margin-top:10px!important;margin-bottom:5px!important}
-.calc-menu-page .mode-select-lead{margin:4px 0 12px!important}
-.calc-menu-page .menu-container{gap:12px!important;margin-top:12px!important}
-.calc-menu-page .menu-container>.menu-card{min-height:0!important}
-.calc-menu-page .mode-card-content{min-height:155px!important;padding:14px 30px!important}
-.calc-menu-page .mode-card-number{top:10px!important;left:12px!important;width:28px!important;height:28px!important;font-size:16px!important}
-.calc-menu-page .mode-card-symbol{font-size:21px!important}
-.calc-menu-page .mode-card-en{font-size:19px!important}
-.calc-menu-page .mode-card-action{margin-top:7px!important}
-.calc-menu-page .mode-select-note{padding-right:62px}
+<!doctype html><html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>NEURAL OPTIMIZER</title><style>:root{color-scheme:dark}*{box-sizing:border-box}body{margin:0;background:radial-gradient(ellipse at 50% 0%,#193c4d,#091722 58%,#060d16);color:#e9f8fa;font-family:system-ui,"Noto Sans JP",sans-serif;min-height:100dvh;padding:24px 15px}.wrap{max-width:690px;margin:auto}.preview{display:inline-block;color:#e9c488;border:1px solid #9c7848;font:10px monospace;padding:6px 9px;margin-bottom:22px}.status{display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid #345869;padding-bottom:13px;color:#8de8ed;font:11px monospace;letter-spacing:.09em}.online{color:#a5e9cc}.online:before{content:"";display:inline-block;width:7px;height:7px;background:#70e4b5;border-radius:50%;margin-right:8px;box-shadow:0 0 10px #70e4b5}h1{font:700 clamp(27px,7vw,40px)/1.13 ui-monospace,Consolas,monospace;letter-spacing:.02em;margin:25px 0 12px;text-shadow:0 0 18px #58bccc44}.lead{color:#a9c3cf;font-size:12px;line-height:1.85;margin:0 0 25px}.panel{border:1px solid #527a89;background:linear-gradient(145deg,#132d3c,#0b1926);padding:20px;box-shadow:0 12px 30px #0005;position:relative}.panel:before{content:"";position:absolute;top:-1px;left:18px;width:72px;height:2px;background:#8de8ed;box-shadow:0 0 13px #7fe2e8}.kicker{color:#8de8ed;font:11px monospace;letter-spacing:.15em;margin:0 0 12px}h2{font-size:17px;margin:0 0 18px}.options{display:grid;grid-template-columns:1fr 1fr;gap:12px}.option{position:relative;text-decoration:none;color:#e8f9fa;display:block;min-height:154px;padding:16px 13px;border:1px solid #3c697a;background:#0a1c29;transition:transform .12s,border-color .12s,background .12s}.option:hover,.option:focus-visible{background:#133446;border-color:#90e9f0}.option:active{transform:translateY(3px)}.option:before{content:"";position:absolute;right:0;top:0;border-top:15px solid #38687b;border-left:15px solid transparent}.symbol{display:block;color:#8de8ed;font:27px monospace;text-shadow:0 0 17px #62dbe5;margin-bottom:15px}.option strong{display:block;font-size:14px}.option small{display:block;color:#a6bec9;font-size:11px;line-height:1.7;margin-top:8px}.id{position:absolute;right:12px;bottom:9px;color:#658c9b;font:10px monospace}.telemetry{display:flex;justify-content:space-between;margin-top:15px;color:#87a9b7;font:10px monospace}.readout{margin-top:17px;border:1px solid #315565;background:#081722;color:#a9d7df;padding:16px;font:12px/1.8 monospace}.readout b{color:#8de8ed}.footer{margin-top:22px;text-align:center;font:10px/1.8 monospace;color:#829fab}.back{display:block;margin-top:18px;color:#9ee4e9;font-size:12px}.boot{position:fixed;inset:0;z-index:4;background:radial-gradient(ellipse at center,#143a49,#07121c 70%);display:grid;place-items:center;padding:20px;transition:opacity .35s}.boot.off{opacity:0;pointer-events:none}.bootinner{width:min(420px,100%);border:1px solid #527d8b;padding:25px;background:#0a1e2b}.bootinner strong{font:700 21px monospace;color:#8de8ed}.bootinner p{font-size:12px;color:#bdd7df}.bar{height:10px;border:1px solid #467888;background:#06121d;margin-top:18px}.fill{width:0;height:100%;background:repeating-linear-gradient(90deg,#72dce5 0 12px,#1b5060 12px 15px)}.pct{text-align:right;color:#8de8ed;font:12px monospace;margin-top:8px}@media(max-width:390px){body{padding:16px 11px}.panel{padding:13px}.options{gap:8px}.option{padding:11px;min-height:139px}.option strong{font-size:12px}.option small{font-size:10px}}@media(prefers-reduced-motion:reduce){*{transition:none!important}}.jp-title{margin:-2px 0 14px;color:#a4d4dc;font-size:12px;letter-spacing:.22em;font-weight:600}.wrap .reveal{opacity:0;transform:translateY(8px);transition:opacity .38s ease,transform .38s ease}.wrap .reveal.shown{opacity:1;transform:none}.typing{display:inline-block;white-space:pre-wrap}.typing.active:after{content:"▌";color:#8de8ed;animation:blink .65s steps(1) infinite}@keyframes blink{50%{opacity:0}}@media(prefers-reduced-motion:reduce){.wrap .reveal{opacity:1!important;transform:none!important}.typing.active:after{animation:none}} .heading-type{min-height:2.26em}.heading-type .type-cursor{display:inline-block;color:#8de8ed;animation:blink .65s steps(1) infinite}.heading-type.finished .type-cursor{animation:none}.panel{border-color:transparent!important}.panel .border-trace{position:absolute;inset:-1px;width:calc(100% + 2px);height:calc(100% + 2px);pointer-events:none;overflow:visible}.panel .border-trace rect{fill:none;stroke:#8de8ed;stroke-width:1.7;vector-effect:non-scaling-stroke;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 5px #70dce5)}.panel.tracing .border-trace rect{animation:draw-frame 1.15s ease-in-out forwards}.panel.traced .border-trace rect{stroke:#527a89;stroke-dashoffset:0;filter:none}.panel:before{opacity:0}.panel.traced:before{opacity:1}@keyframes draw-frame{to{stroke-dashoffset:0}}@keyframes blink{50%{opacity:0}}@media(prefers-reduced-motion:reduce){.panel .border-trace rect{stroke-dashoffset:0!important}.panel:before{opacity:1}.heading-type .type-cursor{display:none}} .module-help{margin-top:12px}.module-help summary{cursor:pointer;border:1px solid #4a7989;background:#0b2635;padding:12px;color:#9de7eb;font:12px monospace;list-style:none}.module-help summary::-webkit-details-marker{display:none}.module-help summary:after{content:" +";float:right}.module-help[open] summary:after{content:" −"}.module-help-body{border:1px solid #426a7a;border-top:0;background:#0a1d2a;padding:14px;color:#cde1e6;font-size:12px;line-height:1.8}.module-help-body h3{color:#8de8ed;font:12px monospace;margin:4px 0 6px}.module-help-body p{margin:0 0 14px}.module-help-body p:last-child{margin-bottom:0}@media(prefers-reduced-motion:no-preference){.module-help[open] .module-help-body{animation:helpin .25s ease-out}@keyframes helpin{from{opacity:0;transform:translateY(-5px)}to{opacity:1;transform:none}}}</style></head><body><div class="boot" id="boot"><div class="bootinner"><strong>INITIALIZING_</strong><p>NEURAL OPTIMIZER / SYSTEM STARTUP</p><p>解析モジュールを起動しています…</p><div class="bar"><div class="fill" id="fill"></div></div><div class="pct" id="pct">0%</div></div></div><div class="wrap"><div class="status"><span>NO / NEURAL OPTIMIZER</span><span class="online">SYSTEM ONLINE</span></div><h1 class="heading-type" aria-label="CALCULATION ENGINE"><span id="titleLine1">CALCULATION</span><br><span id="titleLine2">ENGINE</span><span style="color:#8de8ed">_</span><span class="type-cursor" aria-hidden="true">▌</span></h1><p class="jp-title">計算サポートシステム</p><p class="lead">入力条件を解析し、最適な組み合わせを導き出す。<br>解析モジュールを選択して、計算を開始してください。</p><section class="panel"><svg class="border-trace" aria-hidden="true" preserveAspectRatio="none"><rect x="1" y="1" width="calc(100% - 2px)" height="calc(100% - 2px)" pathLength="100"/></svg><p class="kicker">01 / SELECT MODULE</p><h2>解析モジュールを選択</h2><div class="options"><a class="option" href="calc_pt.html"><span class="symbol">◎</span><strong>ポイント最適化</strong><small>目標PTから購入の組み合わせを算出</small><span class="id">MODULE_01</span></a><a class="option" href="calc_split.html"><span class="symbol">⌘</span><strong>ポイント振り分け</strong><small>商品の左右PT配分を算出</small><span class="id">MODULE_02</span></a></div><details class="module-help"><summary>MODULE INFO / 2つの機能を確認</summary><div class="module-help-body"><h3>MODULE_01 / ポイント最適化</h3><p>目標の購入ポイントに合わせて、商品の購入パターンを計算。特定商品の除外や、必ず含めたい商品・個数も指定できます。</p><h3>MODULE_02 / ポイント振り分け</h3><p>選んだ商品を左右に振り分け。均等にする方法、目標PTに近づける方法、現在の保有PTを加味する方法から選べます。</p></div></details><div class="telemetry"><span>ENGINE: READY</span><span>MODULES: 02</span></div></section><div class="readout"><b>&gt;</b> SYSTEM READY<br><b>&gt;</b> SELECT A MODULE TO CONTINUE_</div><p class="footer">PLACE DE NINA / CALCULATION SUPPORT</p></div><script>
+const f=document.getElementById("fill"),p=document.getElementById("pct"),b=document.getElementById("boot");
+const reduced=window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+const wrap=document.querySelector(".wrap");
+const sequence=[null,wrap.querySelector(".status"),wrap.querySelector("h1"),wrap.querySelector(".jp-title"),wrap.querySelector(".lead"),wrap.querySelector(".panel"),wrap.querySelector(".readout"),wrap.querySelector(".footer"),null];
+if(!reduced)sequence.filter(Boolean).forEach(el=>el.classList.add("reveal"));
+const heading=wrap.querySelector(".heading-type"),titleLine1=document.getElementById("titleLine1"),titleLine2=document.getElementById("titleLine2"),panel=wrap.querySelector(".panel");
+if(!reduced){titleLine1.textContent="";titleLine2.textContent="";}
+function typeHeading(){const full="CALCULATION\nENGINE";let i=0;const timer=setInterval(()=>{i++;const visible=full.slice(0,i).split("\n");titleLine1.textContent=visible[0]||"";titleLine2.textContent=visible[1]||"";if(i>=full.length){clearInterval(timer);heading.classList.add("finished")}},58)}
+
+const readout=wrap.querySelector(".readout");
+const fullText="> SYSTEM READY\n> SELECT A MODULE TO CONTINUE_";
+function typeTerminal(){if(reduced)return;readout.textContent="";const line=document.createElement("span");line.className="typing active";readout.appendChild(line);let i=0;const timer=setInterval(()=>{line.textContent=fullText.slice(0,++i);if(i>=fullText.length){clearInterval(timer);line.classList.remove("active")}},28)}
+function reveal(){b.classList.add("off");if(reduced)return;
+const timings=[0,140,310,1550,1690,1860,3110,3330,3440];
+sequence.forEach((el,i)=>setTimeout(()=>{if(!el)return;el.classList.add("shown");if(el===heading)typeHeading();if(el===panel){panel.classList.add("tracing");setTimeout(()=>panel.classList.add("traced"),1180)}if(el===readout)typeTerminal()},timings[i]));
 }
-.calc-menu-page .guide-assistant{position:fixed!important;right:max(10px,env(safe-area-inset-right))!important;bottom:max(12px,env(safe-area-inset-bottom))!important;z-index:900!important}
-</style></head>
-<body class="app-page calc-menu-page"><script>if(document.documentElement.classList.contains("calc-launch-arriving"))document.body.classList.add("calc-entrance");</script>
-
-  <header class="app-header">
-    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
-    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
-    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
-      <a class="app-menu-primary" href="index.html">ホーム</a>
-      <div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">LINEノート用</a><a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a></div>
-      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
-      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
-      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
-    </nav>
-  </header>
-
-  <main class="app-main">
-    <a href="index.html" class="app-back">‹ ホームに戻る</a>
-    <h1 class="app-page-title">計算サポートツール</h1>
-
-    <section class="mode-select-screen" aria-labelledby="mode-select-heading">
-      <div class="mode-select-topline"><span>CALCULATION SUPPORT</span><span>SELECT 01 / 02</span></div>
-      <h2 id="mode-select-heading" class="mode-select-heading">SELECT MODE</h2>
-      <p class="mode-select-lead">使用するツールを選択してください</p>
-      <div class="menu-container">
-        <a href="calc_pt.html" class="menu-card menu-card-quest">
-          <span class="mode-card-outline" aria-hidden="true"></span>
-          <span class="mode-card-content">
-            <span class="mode-card-number">01</span>
-            <span class="mode-card-symbol" aria-hidden="true">✦</span>
-            <span class="mode-card-en">POINT QUEST</span>
-            <span class="menu-card-title">ポイント最適化</span>
-            
-            <span class="mode-card-action">START <span aria-hidden="true">›</span></span>
-          </span>
-        </a>
-        <a href="calc_split.html" class="menu-card menu-card-balance">
-          <span class="mode-card-outline" aria-hidden="true"></span>
-          <span class="mode-card-content">
-            <span class="mode-card-number">02</span>
-            <span class="mode-card-symbol" aria-hidden="true">⚖</span>
-            <span class="mode-card-en">BLOCK BALANCE</span>
-            <span class="menu-card-title">ポイント振り分け</span>
-            
-            <span class="mode-card-action">START <span aria-hidden="true">›</span></span>
-          </span>
-        </a>
-      </div>
-      <p class="mode-select-note">カードをタップすると各ツールへ進みます。迷ったら右下のロボットに聞いてね。</p>
-    <div class="guide-assistant" id="guideAssistant">
-      <div class="guide-assistant-dialogue" id="guideAssistantDialogue" hidden>
-        <div class="guide-assistant-title">GUIDE BOT <button type="button" class="guide-assistant-close" id="guideAssistantClose" aria-label="案内を閉じる">×</button></div>
-        <p>どちらのツールを使う？</p>
-        <div class="guide-assistant-options">
-          <div><strong>01 / POINT QUEST</strong><span>目標PTに合わせて、商品の組み合わせを自動計算。除外商品や必須個数も指定できるよ。</span></div>
-          <div><strong>02 / BLOCK BALANCE</strong><span>購入商品を左右に振り分け。目標PTや保有PTも使って調整できるよ。</span></div>
-        </div>
-        <p class="guide-assistant-hint">使いたい方のカードをタップしてね！</p>
-      </div>
-      <button type="button" class="guide-assistant-trigger" id="guideAssistantTrigger" aria-label="ロボットにツールの違いを聞く" aria-controls="guideAssistantDialogue" aria-expanded="false">
-        <svg viewBox="0 0 120 140" role="img" aria-label="ゲーム風の案内ロボット">
-          <path d="M58 22V12" stroke="#eac979" stroke-width="5"/><path d="M52 9h12v8H52z" fill="#f8df8f"/>
-          <path d="M28 29h64v9h10v65H92v9H28v-9H18V38h10z" fill="#2a4264" stroke="#e8c677" stroke-width="5" stroke-linejoin="miter"/>
-          <path d="M34 44h52v43H34z" fill="#0c192b" stroke="#a6b5d0" stroke-width="3"/>
-          <path d="M43 57h12v16H43zM65 57h12v16H65z" fill="#9eeaff"/>
-          <path d="M46 60h5v5h-5zM68 60h5v5h-5z" fill="#f5ffff"/>
-          <path d="M43 81h34v4H43z" fill="#d7b96c"/>
-          <path d="M17 55H8v27h9M103 55h9v27h-9" fill="none" stroke="#e8c677" stroke-width="6"/>
-          <path d="M36 114v15h13v-15M71 114v15h13v-15" fill="#2a4264" stroke="#e8c677" stroke-width="5"/>
-          <path d="M23 39h-7v14h7M97 39h7v14h-7" fill="#f3d788"/>
-        </svg>
-        <span>HELP</span>
-      </button>
-    </div>
-    </section>
-  </main>
-
-  <footer class="app-footer">&copy; Place de Nina Order Support System</footer>
-  <script src="js/app-shell.js?v=menu-motion-2" defer></script>
-  <script>
-    (() => {
-      const assistant = document.getElementById('guideAssistant');
-      if (assistant && assistant.parentElement !== document.body) document.body.appendChild(assistant);
-      const trigger = document.getElementById('guideAssistantTrigger');
-      const dialogue = document.getElementById('guideAssistantDialogue');
-      const close = document.getElementById('guideAssistantClose');
-      function setOpen(open) {
-        dialogue.hidden = !open;
-        trigger.setAttribute('aria-expanded', String(open));
-      }
-      trigger.addEventListener('click', () => setOpen(dialogue.hidden));
-      close.addEventListener('click', () => { setOpen(false); trigger.focus(); });
-      document.addEventListener('keydown', e => { if (e.key === 'Escape' && !dialogue.hidden) setOpen(false); });
-    })();
-  </script>
-<script>
-(function(){
- var cards=document.querySelectorAll('.mode-select-screen .menu-container>a.menu-card');
- var chosen=false;
- cards.forEach(function(card){
-  card.addEventListener('pointerdown',function(){if(!chosen)card.classList.add('is-pressing')});
-  ['pointerup','pointercancel','pointerleave'].forEach(function(type){card.addEventListener(type,function(){card.classList.remove('is-pressing')})});
-  card.addEventListener('click',function(event){
-   if(event.defaultPrevented||event.ctrlKey||event.metaKey||event.shiftKey||event.altKey||event.button!==0)return;
-   event.preventDefault();if(chosen)return;
-   chosen=true;
-   card.classList.remove('is-pressing');
-   card.classList.add('is-confirmed');
-   card.parentElement.classList.add('is-choosing');
-   var destination=card.href;
-   window.setTimeout(function(){window.location.assign(destination)},420);
-  });
- });
- window.addEventListener('pageshow',function(){
-  chosen=false;cards.forEach(function(card){card.classList.remove('is-confirmed','is-pressing');card.parentElement.classList.remove('is-choosing')});
- });
-})();
-</script></body>
-</html>
+if(reduced){f.style.width="100%";p.textContent="100%";b.classList.add("off")}else{let n=0;const t=setInterval(()=>{n=Math.min(100,n+5);f.style.width=n+"%";p.textContent=n+"%";if(n===100){clearInterval(t);setTimeout(reveal,220)}},65)}
+</script></body></html>
