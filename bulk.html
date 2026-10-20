@@ -20,11 +20,11 @@
   <!-- 外部スタイルシートの読み込み -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/bulk-shell.css?v=bulk-sections-4">
+  <link rel="stylesheet" href="css/bulk-shell.css?v=utility-orders-1">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app.js?v=bulk-sections-4" defer></script>
+  <script src="app.js?v=utility-orders-1" defer></script>
 </head>
 <body class="app-page bulk-order-page">
 
@@ -48,14 +48,13 @@
         <span class="p-country-name" style="display:none;">Japan</span>
         
         <!-- 会員番号・氏名 事前登録エリア（ほかのセクションと統一） -->
-        <div class="bulk-utility-title">会員情報の事前登録・保存</div>
-        <details class="card-box card-box-preset">
+        <details class="card-box card-box-preset bulk-member-utility">
           <summary class="summary-preset">
-            よく使う会員情報を登録
+            <span class="bulk-utility-label"><span class="bulk-utility-plus" aria-hidden="true">＋</span>よく使う会員番号を登録 <small>任意</small></span>
+            <span class="bulk-utility-chevron" aria-hidden="true"></span>
           </summary>
-          <div class="preset-subtext">
-            よく使う「会員番号」と「氏名」をあらかじめ登録しておくと、下の選択項目からワンタップで呼び出せます。
-          </div>
+          <div class="bulk-preset-body">
+          <p class="preset-subtext">会員番号と氏名を保存すると、注文時にリストから選べます。<br><small>※会員番号はポジション（00・01など）を除いて入力してください。登録内容はこのブラウザに保存されます。</small></p>
           
           <div class="form-group margin-top-10">
             <label>登録する会員番号</label>
@@ -77,6 +76,7 @@
 
           <!-- 登録済み一覧の表示エリア -->
           <div id="registeredMembersList" class="registered-list-area"></div>
+          </div>
         </details>
 
         <!-- 基本情報エリア（スクロール戻り用ID: topOfForm） -->
@@ -188,18 +188,18 @@
         </table>
 
         <!-- 追加済み注文リスト（確認用） -->
-        <div id="orderListContainer" class="card-box order-list-box display-none" style="margin-top: 20px;">
+        <div id="orderListContainer" class="card-box order-list-box display-none">
           <div class="order-list-header" >
             5. 追加済みの注文（<span id="orderCount">0</span>件）
           </div>
-          <div id="addedOrdersList" class="added-orders-list" style="font-size: 0.82rem; margin-bottom: 14px;"></div>
+          <div id="addedOrdersList" class="added-orders-list"></div>
           
           <!-- 1番上に戻るボタンを追加 -->
-          <button type="button" onclick="document.getElementById('topOfForm').scrollIntoView({behavior:'smooth'})" class="btn-action" >
+          <button type="button" onclick="document.getElementById('topOfForm').scrollIntoView({behavior:'smooth'})" class="btn-action bulk-order-again" >
             ＋ さらに別の注文を追加する（上に戻る）
           </button>
           
-          <button type="button" onclick="generateAllReceipts()" class="btn-action btn-pdf">
+          <button type="button" onclick="generateAllReceipts()" class="btn-action btn-pdf bulk-order-export">
             注文書の一括作成画面へ
           </button>
         </div>
