@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=4">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/single.css?v=classic-green-2">
+  <link rel="stylesheet" href="css/single.css?v=member-form-4">
   <script src="js/shared-members.js?v=3"></script>
 </head>
 <body class="app-page line-order-page">
@@ -49,8 +49,15 @@
         <div class="member-content-body">
           <p class="line-member-help">会員番号と氏名を保存すると、注文時にリストから選べます。<br><small>※会員番号はポジション（00・01など）を除いて入力してください。登録内容はこのブラウザに保存されます。</small></p>
 
-          <div id="member_register_container"></div>
-          <button class="sub-btn mt-8" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
+          <div class="line-member-register-form">
+            <div class="form-group">
+              <label for="lineRegMemberCode">登録する会員番号</label>
+              <div class="line-member-code-row"><input type="text" id="lineRegMemberCode" placeholder="例：1234567" autocomplete="off"><span class="line-member-fixed-suffix">− 00</span></div>
+            </div>
+            <div class="form-group"><label for="lineRegMemberName">登録する氏名</label><input type="text" id="lineRegMemberName" placeholder="例：山田 太郎" autocomplete="off"></div>
+            <button type="button" class="line-save-member-button" onclick="saveLineMember()">この会員情報を保存する</button>
+            <div id="lineSavedMembers" class="line-saved-member-list" aria-live="polite"></div>
+          </div>
         </div>
       </details>
     </div>
@@ -237,14 +244,8 @@ window.onload = async function() {
 
     togglePwField();
 
-    const savedMembers = JSON.stringify(SalonMembers.read());
-    if (SalonMembers.read().length) {
-        registeredMembers = JSON.parse(savedMembers);
-        registeredMembers.forEach(m => addMemberRegisterRow(m.code, m.name));
-    } else {
-        addMemberRegisterRow('', '');
-    }
-
+    registeredMembers = SalonMembers.read();
+    renderLineSavedMembers();
     addPositionBox();
 };
 
@@ -293,35 +294,37 @@ function togglePwField() {
     }
 }
 
-function addMemberRegisterRow(code = '', name = '') {
-    const container = document.getElementById('member_register_container');
-    const row = document.createElement('div');
-    row.className = 'member-reg-row';
-    row.innerHTML = `
-        <input type="text" class="reg-code" placeholder="例：1234567" value="${code}" oninput="saveMembers()">
-        <input type="text" class="reg-name" placeholder="例：山田太郎" value="${name}" oninput="saveMembers()">
-        <button class="btn-danger" onclick="removeMemberRegisterRow(this)">✕</button>
-    `;
-    container.appendChild(row);
-}
-
-function removeMemberRegisterRow(btn) {
-    btn.parentElement.remove();
-    saveMembers();
-}
-
-function saveMembers() {
-    const rows = document.querySelectorAll('.member-reg-row');
-    registeredMembers = [];
-    rows.forEach(row => {
-        const code = row.querySelector('.reg-code').value.trim();
-        const name = row.querySelector('.reg-name').value.trim();
-        if(code || name) {
-            registeredMembers.push({ code, name });
+function renderLineSavedMembers() {
+    registeredMembers = SalonMembers.read();
+    const box = document.getElementById('lineSavedMembers');
+    if (box) {
+        box.replaceChildren();
+        if (registeredMembers.length) {
+            const heading = document.createElement('div');
+            heading.className = 'line-saved-member-heading';
+            heading.textContent = '登録済み会員';
+            box.appendChild(heading);
+            registeredMembers.forEach(m => {
+                const row = document.createElement('div');
+                row.className = 'line-saved-member-entry';
+                const name = document.createElement('strong');
+                name.textContent = m.name;
+                const code = document.createElement('span');
+                code.textContent = m.code + '−' + (m.subId || '00');
+                row.append(name, code);
+                box.appendChild(row);
+            });
         }
-    });
-    registeredMembers = SalonMembers.write(registeredMembers);
-    
+    }
+}
+function saveLineMember() {
+    const code = document.getElementById('lineRegMemberCode').value.trim();
+    const name = document.getElementById('lineRegMemberName').value.trim();
+    if (!code || !name) { alert('会員番号と氏名の両方を入力してください。'); return; }
+    SalonMembers.write([{code, name, subId:'00'}]);
+    document.getElementById('lineRegMemberCode').value = '';
+    document.getElementById('lineRegMemberName').value = '';
+    renderLineSavedMembers();
     document.querySelectorAll('.pos-select').forEach(select => {
         const currentVal = select.value;
         refreshMemberOptions(select);
@@ -330,7 +333,6 @@ function saveMembers() {
     });
     updatePreview();
 }
-
 function expandMemberLabels(select) {
     Array.from(select.options).forEach(option => {
         if (option.dataset.fullLabel) option.textContent = option.dataset.fullLabel;
