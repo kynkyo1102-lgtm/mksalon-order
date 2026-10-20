@@ -11,9 +11,25 @@
   
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc.css?v=mode-robot-2">
+  <link rel="stylesheet" href="css/calc.css?v=mode-robot-3">
+<style>
+/* Staggered game-style arrival; only when launched from the floating shortcut. */
+body.calc-entrance .mode-select-screen{animation:calcStageIn .65s both}
+body.calc-entrance .mode-select-topline{animation:calcStepIn .48s .32s both}
+body.calc-entrance .mode-select-heading{animation:calcStepIn .55s .55s both}
+body.calc-entrance .mode-select-lead{animation:calcStepIn .45s .75s both}
+body.calc-entrance .menu-container>.menu-card:nth-child(1){animation:calcCardEnter .55s .95s both}
+body.calc-entrance .menu-container>.menu-card:nth-child(2){animation:calcCardEnter .55s 1.22s both}
+body.calc-entrance .guide-assistant{animation:calcStepIn .5s 1.55s both}
+@keyframes calcStageIn{from{opacity:0;filter:brightness(.25)}to{opacity:1;filter:brightness(1)}}
+@keyframes calcStepIn{from{opacity:0;transform:translateY(15px)}to{opacity:1;transform:translateY(0)}}
+@keyframes calcCardEnter{from{opacity:0;transform:translateY(24px) scale(.95);filter:brightness(1.5)}to{opacity:1;transform:translateY(0) scale(1);filter:brightness(1)}}
+@media(prefers-reduced-motion:reduce){body.calc-entrance .mode-select-screen,body.calc-entrance .mode-select-screen *{animation:none!important}}
+</style>
+<script>try{if(sessionStorage.getItem('calc-launch-pending')==='1'){document.documentElement.classList.add('calc-launch-arriving');sessionStorage.removeItem('calc-launch-pending');}}catch(e){}</script>
+<style>html.calc-launch-arriving body{visibility:hidden}html.calc-launch-arriving body.calc-entrance{visibility:visible}</style>
 </head>
-<body class="app-page calc-menu-page">
+<body class="app-page calc-menu-page"><script>if(document.documentElement.classList.contains("calc-launch-arriving"))document.body.classList.add("calc-entrance");</script>
 
   <header class="app-header">
     <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
