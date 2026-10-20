@@ -380,6 +380,8 @@ function renderOrderList() {
   const listDiv = document.getElementById('addedOrdersList');
   const badge = document.getElementById('footerOrderBadge');
   
+  const exportButton = document.getElementById("bulkFooterExport");
+  if (exportButton) exportButton.classList.toggle("display-none", allOrders.length === 0);
   if (allOrders.length === 0) {
     container.style.display = "none";
     if (badge) badge.style.display = "none";
