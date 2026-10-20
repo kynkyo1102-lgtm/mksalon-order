@@ -552,9 +552,7 @@ header h1,.section-title{color:#f4d98d!important}
 }
 
 /* balance-8: classic RPG window frames and nearly universal pixel font */
-.calc-split-page,.calc-split-page .app-main,.calc-split-page .app-main *:not(.menu-icon):not(.menu-icon *){
- font-family:"DotGothic16","Noto Sans JP",sans-serif!important;
-}
+/* Removed balance-8 universal pixel-font rule: it forced Japanese text and site header into DotGothic16. */
 .calc-split-page .app-main{background:transparent}
 .calc-split-page .card-box{
  position:relative;
