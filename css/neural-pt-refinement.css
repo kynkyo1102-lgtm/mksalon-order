@@ -91,11 +91,9 @@
 @media(prefers-reduced-motion:no-preference){
 .calc-pt-page .quest-eyebrow{animation:none!important}
 .calc-pt-page .quest-lead{animation:neural-data-in .42s steps(5,end) 2.05s both}
-.calc-pt-page :is(.calc-steps,.calc-input-section,.calc-product-section,.calc-run-area){animation:neural-assemble .28s steps(3,end) both}
-.calc-pt-page .calc-steps{animation-delay:2.45s}.calc-pt-page .calc-input-section{animation-delay:2.85s}.calc-pt-page .calc-product-section{animation-delay:3.25s}.calc-pt-page .calc-run-area{animation-delay:3.65s}
-.calc-pt-page #comboResult .plan-card{animation:neural-assemble .32s steps(4,end) both}
-.calc-pt-page #comboResult .plan-card:nth-of-type(2){animation-delay:.18s}.calc-pt-page #comboResult .plan-card:nth-of-type(3){animation-delay:.36s}
-@keyframes neural-assemble{from{opacity:0}to{opacity:1}}
 @keyframes neural-data-in{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0)}}
 }
 @media(prefers-reduced-motion:reduce){.calc-pt-page .neural-frame-lines i{opacity:1!important;animation:none!important}.calc-pt-page .neural-frame-lines i:nth-child(1),.calc-pt-page .neural-frame-lines i:nth-child(3){width:100%!important}.calc-pt-page .neural-frame-lines i:nth-child(2),.calc-pt-page .neural-frame-lines i:nth-child(4){height:100%!important}.calc-pt-page .neural-typing:after{display:none}}
+
+/* Frames remain visible during border tracing; never hide the first panels. */
+@media(prefers-reduced-motion:no-preference){.calc-pt-page :is(.calc-steps,.calc-input-section,.calc-product-section,.calc-run-area){animation:none!important;opacity:1!important;clip-path:none!important}}
