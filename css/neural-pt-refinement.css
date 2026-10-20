@@ -63,17 +63,27 @@
 .calc-pt-page .neural-type-title{min-height:1.4em}
 .calc-pt-page .neural-type-title.typing-now:after{content:"▌";color:#8be5ec;animation:neural-caret .65s steps(1) infinite}
 @keyframes neural-caret{50%{opacity:0}}
+
+/* Match selection screen's illuminated perimeter draw. */
+.calc-pt-page :is(.calc-steps,.calc-input-section,.calc-product-section,.calc-run-area,.plan-card){position:relative!important;isolation:isolate}
+.calc-pt-page .neural-frame{position:absolute;inset:-1px;width:calc(100% + 2px);height:calc(100% + 2px);pointer-events:none;overflow:visible;z-index:2}
+.calc-pt-page .neural-frame rect{fill:none;stroke:#8de8ed;stroke-width:1.7;vector-effect:non-scaling-stroke;stroke-dasharray:100;stroke-dashoffset:100;filter:drop-shadow(0 0 5px #70dce5)}
+.calc-pt-page .neural-framing>.neural-frame rect{animation:neural-perimeter 1.15s ease-in-out forwards}
+.calc-pt-page .neural-framed>.neural-frame rect{stroke:#527d8b;stroke-dashoffset:0;filter:none}
+.calc-pt-page .neural-typing:after{content:"▌";color:#8de8ed;animation:neural-caret .65s steps(1) infinite}
+.calc-pt-page .quest-eyebrow{min-height:1.5em}
+.calc-pt-page .quest-mini{display:inline-block;min-width:12ch}
+.calc-pt-page .quest-result-heading>span:nth-child(2){display:inline-block;min-width:15ch}
+.calc-pt-page .neural-english-label{display:inline-block;min-width:17ch}
+@keyframes neural-perimeter{to{stroke-dashoffset:0}}
 @media(prefers-reduced-motion:no-preference){
-.calc-pt-page .quest-eyebrow,.calc-pt-page .quest-lead{animation:neural-data-in .42s steps(5,end) both}
-.calc-pt-page .quest-eyebrow{animation-delay:.13s}.calc-pt-page .quest-lead{animation-delay:2.25s}
-.calc-pt-page .calc-steps,.calc-pt-page .calc-input-section,.calc-pt-page .calc-product-section,.calc-pt-page .calc-run-area{position:relative;animation:neural-panel-build .55s steps(7,end) both}
-.calc-pt-page .calc-steps{animation-delay:2.55s}.calc-pt-page .calc-input-section{animation-delay:2.94s}.calc-pt-page .calc-product-section{animation-delay:3.32s}.calc-pt-page .calc-run-area{animation-delay:3.7s}
-.calc-pt-page .calc-steps:after,.calc-pt-page .calc-input-section:after,.calc-pt-page .calc-product-section:after,.calc-pt-page .calc-run-area:after{content:"";position:absolute;inset:0;pointer-events:none;border:1px solid #9be8ee;border-radius:inherit;clip-path:inset(0 100% 100% 0);animation:neural-border-scan .68s linear both}
-.calc-pt-page .calc-steps:after{animation-delay:2.55s}.calc-pt-page .calc-input-section:after{animation-delay:2.94s}.calc-pt-page .calc-product-section:after{animation-delay:3.32s}.calc-pt-page .calc-run-area:after{animation-delay:3.7s}
-.calc-pt-page #comboResult .plan-card{animation:neural-report-build .48s steps(6,end) both}
-.calc-pt-page #comboResult .plan-card:nth-of-type(2){animation-delay:.14s}.calc-pt-page #comboResult .plan-card:nth-of-type(3){animation-delay:.28s}
+.calc-pt-page .quest-eyebrow{animation:none!important}
+.calc-pt-page .quest-lead{animation:neural-data-in .42s steps(5,end) 2.05s both}
+.calc-pt-page :is(.calc-steps,.calc-input-section,.calc-product-section,.calc-run-area){animation:neural-assemble .28s steps(3,end) both}
+.calc-pt-page .calc-steps{animation-delay:2.45s}.calc-pt-page .calc-input-section{animation-delay:2.85s}.calc-pt-page .calc-product-section{animation-delay:3.25s}.calc-pt-page .calc-run-area{animation-delay:3.65s}
+.calc-pt-page #comboResult .plan-card{animation:neural-assemble .32s steps(4,end) both}
+.calc-pt-page #comboResult .plan-card:nth-of-type(2){animation-delay:.18s}.calc-pt-page #comboResult .plan-card:nth-of-type(3){animation-delay:.36s}
+@keyframes neural-assemble{from{opacity:0}to{opacity:1}}
 @keyframes neural-data-in{from{opacity:0;clip-path:inset(0 100% 0 0)}to{opacity:1;clip-path:inset(0)}}
-@keyframes neural-panel-build{0%{opacity:0;clip-path:inset(0 100% 100% 0)}45%{opacity:.7;clip-path:inset(0 0 95% 0)}100%{opacity:1;clip-path:inset(0)}}
-@keyframes neural-border-scan{0%{opacity:1;clip-path:inset(0 100% 100% 0)}40%{clip-path:inset(0 0 99% 0)}70%{clip-path:inset(0 0 0 99%)}100%{opacity:0;clip-path:inset(0)}}
-@keyframes neural-report-build{from{opacity:0;clip-path:inset(0 0 100% 0);filter:brightness(1.4)}to{opacity:1;clip-path:inset(0);filter:brightness(1)}}
 }
+@media(prefers-reduced-motion:reduce){.calc-pt-page .neural-frame rect{stroke-dashoffset:0!important;filter:none!important}.calc-pt-page .neural-typing:after{display:none}}
