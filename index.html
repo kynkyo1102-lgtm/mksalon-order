@@ -124,6 +124,10 @@
     @media(max-width:600px){.home-page .home-floating-calc.home-floating-robot{width:192px!important;height:106px!important;right:4px!important;bottom:8px!important}}
     @media(max-width:360px){.home-page .home-floating-calc.home-floating-robot{width:174px!important;height:96px!important;right:3px!important;bottom:6px!important}}
     @media(prefers-reduced-motion:reduce){.home-page .home-floating-calc.home-floating-robot{transition:none!important}}
+
+    /* robot-sign-2: suppress persistent focus rectangle after returning via browser history */
+    .home-page .home-floating-calc.home-floating-robot:focus:not(:focus-visible){outline:none!important;box-shadow:none!important}
+    .home-page .home-floating-calc.home-floating-robot:focus-visible{outline:2px solid #73869a!important;outline-offset:3px}
 </style>
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">\n</head>
 <body class="home-page">
@@ -335,5 +339,13 @@
   </script>
 
   <script src="js/app-shell.js?v=menu-motion-2" defer></script>
+  <script>
+    // Browser back/forward cache can restore the last clicked link's focus.
+    // Clear pointer-induced focus when this page becomes visible again.
+    window.addEventListener('pageshow', () => {
+      const shortcut = document.querySelector('.home-floating-robot');
+      if (shortcut && document.activeElement === shortcut) shortcut.blur();
+    });
+  </script>
 </body>
 </html>
