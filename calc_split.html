@@ -21,7 +21,31 @@
       document.addEventListener('DOMContentLoaded', () => document.body.classList.add('arcade-blue-preview'));
     }
   </script>
-  <link rel="stylesheet" href="css/rpg-typography.css?v=3">
+  <link rel="stylesheet" href="css/rpg-typography.css?v=4">
+  <!-- English-only pixel font: embedded to avoid stale external CSS and cascade conflicts -->
+  <style id="split-english-pixel-font">
+    .calc-split-page .app-main .split-eyebrow,
+    .calc-split-page .app-main .split-eyebrow span,
+    .calc-split-page .app-main .difficulty-number,
+    .calc-split-page .app-main .pixel-en,
+    .calc-split-page .app-main .meter-heading strong.pixel-en {
+      font-family: "DotGothic16", monospace !important;
+      font-weight: 400 !important;
+      letter-spacing: .09em !important;
+    }
+    .calc-split-page .app-main .difficulty-select h2,
+    .calc-split-page .app-main .difficulty-select h2 small,
+    .calc-split-page .app-main .split-product-editor h2,
+    .calc-split-page .app-main .split-product-editor h2 small,
+    .calc-split-page .app-main .difficulty-option strong,
+    .calc-split-page .app-main .difficulty-option small,
+    .calc-split-page .app-main .btn-copy,
+    .calc-split-page .app-main .split-add-button,
+    .calc-split-page .app-main .workspace-reset,
+    .calc-split-page .app-main .selected-mode-bar button {
+      font-family: "Noto Sans JP", sans-serif !important;
+    }
+  </style>
 </head>
 <body class="app-page calc-split-page">
 
