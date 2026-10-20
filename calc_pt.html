@@ -302,7 +302,7 @@
       });
       const resDiv = document.getElementById('comboResult');
       resDiv.style.display = 'none';
-      let html = '';
+      let html = '<div class="quest-result-heading"><span class="quest-result-rule" aria-hidden="true"></span><span>QUEST RESULT</span><span class="quest-result-rule" aria-hidden="true"></span></div>';
 
       plans.forEach((plan, index) => {
         const displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
@@ -310,7 +310,7 @@
         const diffStr = diffPt === 0 ? '目標ちょうど' : (diffPt > 0 ? '目標より +' + diffPt.toLocaleString() + ' PT' : '目標より ' + diffPt.toLocaleString() + ' PT');
         const planLabel = index === 0 ? 'ベストルート' : index === 1 ? 'ルート02' : 'ルート03';
         html += `
-          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">
+          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">\n            ${plan.isBest ? '<div class="quest-clear-tag">✦ QUEST CLEAR <span>RESULT 01</span></div>' : ''}
             <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">最適な組み合わせ</span>' : '<span class="plan-variation-label">別ルート</span>'}</div>
             <div class="plan-summary">
               <div class="plan-summary-item"><span>合計ポイント</span><strong>${plan.totalPt.toLocaleString()} <small>PT</small></strong><em>${diffStr}</em></div>
