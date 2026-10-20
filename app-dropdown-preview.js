@@ -371,11 +371,8 @@ function addOrderToList() {
 
   renderOrderList();
 
-  // 追加済みリストの位置へスムーズに自動スクロール
-  const container = document.getElementById('orderListContainer');
-  if (container) {
-    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-  }
+  // 次の注文を入力しやすいよう、フォームの先頭に戻す
+  document.getElementById("topOfForm").scrollIntoView({ behavior: "smooth", block: "start" });
 }
 
 function renderOrderList() {
@@ -405,7 +402,7 @@ function renderOrderList() {
       <div class="bulk-added-order">
         <div class="bulk-added-order-content">
           <div class="bulk-added-order-name"><strong>${i + 1}. ${ord.fullName}</strong><span class="bulk-added-order-member">${ord.memberId}</span></div>
-          <div class="bulk-added-order-meta"><span>${ord.paymentMethod}</span><span>注文ID: ${ord.orderId}</span>${receiptNote ? `<span>${receiptNote.replace(/^ \/ /, '')}</span>` : ''}</div>
+          <div class="bulk-added-order-meta"><span>${ord.paymentMethod}</span>${receiptNote ? `<span>${receiptNote.replace(/^ \/ /, '')}</span>` : ''}</div>
           <div class="bulk-added-order-total">支払額 <strong>¥${ord.totalPrice.toLocaleString()}</strong><span>${ord.totalPt.toLocaleString()}pt</span>${ptNote ? `<span>${ptNote}</span>` : ''}</div>
         </div>
         <button type="button" class="bulk-added-order-delete" onclick="removeOrder(${i})">削除</button>
@@ -501,7 +498,6 @@ function generateAllReceipts() {
       <div id="card-target-${index}" class="receipt-box target-card">
         <div class="receipt-header">
           <h3 style="margin: 0; font-size: 1rem; color: var(--wood-dark);">南熊本サロン専用商品購入注文書</h3>
-          <div class="order-id-badge">発注ID: ${orderId}</div>
           <p style="margin: 5px 0 0 0; font-size: 0.72rem; color: var(--text-sub);">${dateStr}</p>
         </div>
         <div class="receipt-info">
@@ -611,7 +607,7 @@ function generateAllReceipts() {
       </div>
       <div style="font-size: 0.75rem; margin-bottom: 12px; background-color: #f7f3eb; padding: 10px; border-radius: 6px; border: 1.0px solid var(--border-color);">
         <strong>対象会員一覧:</strong><br>
-        ${allOrders.map(o => `${o.fullName} 様 (${o.memberId}) [ID: ${o.orderId}]`).join('<br>')}
+        ${allOrders.map(o => `${o.fullName} 様 (${o.memberId})`).join('<br>')}
       </div>
       <table class="product-table" style="margin-bottom: 15px;">
         <thead>
