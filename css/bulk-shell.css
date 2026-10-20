@@ -41,3 +41,32 @@
 .bulk-order-page #formSection .btn-add{background:#25533e!important;color:#fff!important;border:0!important;border-radius:10px!important;font-size:15px!important;font-weight:700!important;min-height:48px!important}
 .bulk-order-page #formSection .footer-bar{box-shadow:0 -3px 14px rgba(0,0,0,.06)!important;border-top:1px solid #e3e9e4!important}
 .bulk-order-page #formSection .btn-action{border-radius:9px!important;box-shadow:none!important}
+
+/* Image-order optional member registration: matches text-order utility */
+.bulk-order-page #formSection .bulk-member-utility{padding:0!important;background:#f5f8f5!important;border:1px solid #c7d4ca!important;overflow:hidden;margin:0 0 24px!important;box-shadow:none!important}
+.bulk-order-page #formSection .bulk-member-utility .summary-preset{display:flex!important;align-items:center;justify-content:space-between;gap:12px;padding:14px 17px!important;margin:0!important;cursor:pointer;list-style:none;background:transparent!important;border:0!important;font-size:14px!important;font-weight:500!important;color:#4f6957!important}
+.bulk-order-page #formSection .bulk-member-utility .summary-preset::-webkit-details-marker{display:none}
+.bulk-order-page #formSection .bulk-utility-label{display:inline-flex;align-items:center;gap:8px;flex-wrap:wrap;color:#4f6957;font-size:14px;font-weight:500}
+.bulk-order-page #formSection .bulk-utility-label small{font-size:11px;color:#7d8e80;font-weight:400}
+.bulk-order-page #formSection .bulk-utility-plus{display:inline-grid;place-items:center;width:25px;height:25px;background:#e0ebe2;border-radius:7px;color:#496e53;font-size:18px;line-height:1}
+.bulk-order-page #formSection .bulk-utility-chevron{width:9px;height:9px;border-right:2px solid #6d8572;border-bottom:2px solid #6d8572;transform:rotate(45deg);transition:transform .2s;flex-shrink:0}
+.bulk-order-page #formSection .bulk-member-utility[open] .bulk-utility-chevron{transform:rotate(225deg)}
+.bulk-order-page #formSection .bulk-preset-body{background:#fff;padding:16px 18px 20px;border-top:1px solid #dbe5dc}
+.bulk-order-page #formSection .bulk-preset-body .preset-subtext{font-size:13px;line-height:1.8;color:#58665c;margin:0 0 16px}
+.bulk-order-page #formSection .bulk-preset-body .preset-subtext small{font-size:12px;color:#768178}
+
+/* Added orders: modern structured review cards, no legacy wood/gold styles */
+.bulk-order-page #formSection #orderListContainer{margin-top:32px!important;padding:22px!important;border:1.5px solid #aeb8b1!important;box-shadow:3px 4px 0 rgba(83,99,89,.075)!important}
+.bulk-order-page #formSection .order-list-header{font-size:17px!important;color:#303b34!important;padding:0 0 13px!important;margin:0 0 16px!important;border-bottom:1px solid #d5ddd7!important}
+.bulk-order-page #formSection .added-orders-list{display:grid;gap:10px;margin:0 0 20px!important;font-size:14px!important}
+.bulk-order-page #formSection .bulk-added-order{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;background:#fafbfa;border:1px solid #d5ddd7;border-radius:10px;padding:14px}
+.bulk-order-page #formSection .bulk-added-order-content{flex:1;min-width:0}
+.bulk-order-page #formSection .bulk-added-order-name{display:flex;flex-wrap:wrap;align-items:baseline;gap:8px;font-size:15px;color:#222}
+.bulk-order-page #formSection .bulk-added-order-member{font-size:12px;color:#627268}
+.bulk-order-page #formSection .bulk-added-order-meta{display:flex;flex-wrap:wrap;gap:5px 12px;margin-top:7px;font-size:12px;color:#68756c;overflow-wrap:anywhere}
+.bulk-order-page #formSection .bulk-added-order-total{display:flex;align-items:baseline;flex-wrap:wrap;gap:5px 9px;margin-top:10px;font-size:12px;color:#68756c}
+.bulk-order-page #formSection .bulk-added-order-total strong{font-size:16px;color:#26392d}
+.bulk-order-page #formSection .bulk-added-order-delete{flex-shrink:0;border:1px solid #d5ddd7!important;background:#fff!important;color:#8b4545!important;border-radius:7px!important;min-height:36px;padding:6px 12px;font-size:13px!important;cursor:pointer}
+.bulk-order-page #formSection .bulk-order-again{background:#fff!important;color:#344a3b!important;border:1px solid #aeb8b1!important;margin-bottom:10px!important}
+.bulk-order-page #formSection .bulk-order-export{background:#252e29!important;color:#fff!important;border:1px solid #252e29!important}
+@media(max-width:520px){.bulk-order-page #formSection .bulk-member-utility .summary-preset{padding:13px 14px!important}.bulk-order-page #formSection #orderListContainer{padding:17px!important}.bulk-order-page #formSection .bulk-added-order{padding:11px;gap:7px}}
