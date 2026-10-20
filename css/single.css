@@ -114,3 +114,7 @@
  .line-order-page .item-row .item-qty-container{font-size:12px!important;gap:1px}
  .line-order-page .item-row .btn-del-item{width:34px;min-height:40px}
 }
+
+/* Final alignment and receipt helper */
+.line-order-page .line-back-link{margin:18px 0 0!important;text-align:left!important}
+.line-order-page .line-field-help{font-size:13px;line-height:1.65;color:#626d65;margin:0 0 8px}
