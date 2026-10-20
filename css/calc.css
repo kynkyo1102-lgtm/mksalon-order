@@ -167,3 +167,31 @@ html:has(.calc-menu-page){background:#101a2c}
 .calc-menu-page .menu-card:focus-visible .mode-card-content{text-decoration-color:#f4d789}
 .calc-menu-page .mode-select-note{color:#b9c9dc}
 .calc-menu-page .app-footer{background:#101a2c!important;color:#b5c6d9!important;border-top-color:#42516a}
+
+/* mode-robot-1: interactive pixel-RPG guide below the two mode cards */
+.calc-menu-page .menu-card{cursor:pointer;font-family:inherit;width:100%;appearance:none;-webkit-appearance:none}
+.calc-menu-page .menu-card[aria-pressed="true"]{filter:brightness(1.22) drop-shadow(0 0 12px #d9ad53)!important;transform:translateY(-3px)!important}
+.calc-menu-page .mode-card-content{width:100%}
+.calc-menu-page .mode-card-action{font-size:12px;opacity:.82;margin-top:12px}
+.calc-menu-page .mode-card-action::before{content:"SELECT ";font-size:12px}
+.calc-menu-page .game-guide{display:flex;align-items:flex-end;gap:16px;max-width:740px;margin:25px auto 0}
+.calc-menu-page .game-guide-robot{width:106px;min-width:76px;height:auto;flex-shrink:0;image-rendering:pixelated;filter:drop-shadow(0 7px 0 #08132577)}
+.calc-menu-page .game-guide-dialogue{position:relative;flex:1;min-width:0;border:3px solid #e2bc6e;background:linear-gradient(150deg,#1a304e,#0c182a);box-shadow:inset 0 0 0 3px #344e6b,5px 6px 0 #091324;padding:16px 20px 18px;color:#f1f5fb}
+.calc-menu-page .game-guide-dialogue:before{content:"";position:absolute;left:-12px;bottom:22px;width:12px;height:16px;background:#e2bc6e;clip-path:polygon(100% 0,0 50%,100% 100%)}
+.calc-menu-page .game-guide-label{font:16px "DotGothic16",monospace;letter-spacing:.08em;color:#f4d789;margin-bottom:8px}
+.calc-menu-page .game-guide-dialogue p{font:400 15px/1.8 "Noto Sans JP",sans-serif;margin:0}
+.calc-menu-page .game-guide-start{display:inline-flex;align-items:center;gap:8px;margin-top:13px;padding:10px 17px;border:2px solid #f4d789;color:#132139;background:#f4d789;text-decoration:none;font:16px "DotGothic16",monospace;transition:background .15s,transform .15s}
+.calc-menu-page .game-guide-start:hover,.calc-menu-page .game-guide-start:focus-visible{background:#fff0b6;transform:translateY(-2px)}
+.calc-menu-page .game-guide-start[hidden]{display:none!important}
+.calc-menu-page .guide-animate .game-guide-dialogue{animation:guide-dialogue-in .24s ease-out}
+@keyframes guide-dialogue-in{from{opacity:.65;transform:translateY(5px)}to{opacity:1;transform:translateY(0)}}
+.calc-menu-page .mode-select-note{margin-top:18px}
+@media(max-width:680px){
+ .calc-menu-page .game-guide{gap:9px;margin-top:15px;align-items:center}
+ .calc-menu-page .game-guide-robot{width:72px;min-width:60px}
+ .calc-menu-page .game-guide-dialogue{padding:12px 13px 14px;box-shadow:inset 0 0 0 2px #344e6b,3px 4px 0 #091324}
+ .calc-menu-page .game-guide-label{font-size:13px}
+ .calc-menu-page .game-guide-dialogue p{font-size:14px;line-height:1.7}
+ .calc-menu-page .game-guide-start{font-size:13px;padding:9px 11px}
+}
+@media(prefers-reduced-motion:reduce){.calc-menu-page .guide-animate .game-guide-dialogue{animation:none}}
