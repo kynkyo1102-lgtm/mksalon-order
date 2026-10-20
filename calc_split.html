@@ -21,7 +21,7 @@
       document.addEventListener('DOMContentLoaded', () => document.body.classList.add('arcade-blue-preview'));
     }
   </script>
-  <link rel="stylesheet" href="css/rpg-typography.css?v=1">
+  <link rel="stylesheet" href="css/rpg-typography.css?v=2">
 </head>
 <body class="app-page calc-split-page">
 
@@ -46,7 +46,7 @@
       </div>
 
       <section class="difficulty-select" id="difficultySelect">
-        <h2>SELECT MODE <small>— 振り分け方法を選ぶ —</small></h2>
+        <h2><span class="pixel-en">SELECT MODE</span> <small>— 振り分け方法を選ぶ —</small></h2>
         <div class="difficulty-options">
           <button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>かんたん均等</strong><small>購入分を左右半分ずつに</small></button>
           <button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>目標PT</strong><small>左右それぞれの目標に近づける</small></button>
@@ -109,7 +109,7 @@
 
       <div id="splitResult" class="result-container" style="display:none;">
         <section class="balance-stage" aria-label="振り分け結果のビジュアル">
-          <div class="balance-stage-title"><span id="resultVisualTitle">BALANCE RESULT</span><span id="balanceStatus">BEST BALANCE!</span></div>
+          <div class="balance-stage-title"><span id="resultVisualTitle" class="pixel-en">BALANCE RESULT</span><span id="balanceStatus" class="pixel-en">BEST BALANCE!</span></div>
           <div id="scaleVisual" class="scale-visual" hidden>
             <div class="scale-scene" id="scaleScene">
               <div class="scale-beam">
@@ -121,13 +121,13 @@
             <div class="scale-pt-labels"><span id="scalePtLeft"></span><span id="scalePtRight"></span></div>
           </div>
           <div id="targetVisual" class="target-visual" hidden>
-            <div class="target-meter"><div class="meter-heading"><strong>LEFT</strong><span id="targetLeftRate"></span></div><div class="meter-track"><div id="targetLeftFill" class="meter-fill left"></div></div><p id="targetLeftNote"></p></div>
-            <div class="target-meter"><div class="meter-heading"><strong>RIGHT</strong><span id="targetRightRate"></span></div><div class="meter-track"><div id="targetRightFill" class="meter-fill right"></div></div><p id="targetRightNote"></p></div>
+            <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">LEFT</strong><span id="targetLeftRate"></span></div><div class="meter-track"><div id="targetLeftFill" class="meter-fill left"></div></div><p id="targetLeftNote"></p></div>
+            <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">RIGHT</strong><span id="targetRightRate"></span></div><div class="meter-track"><div id="targetRightFill" class="meter-fill right"></div></div><p id="targetRightNote"></p></div>
             <p class="scale-caption" id="targetModeHint"></p>
           </div>
           <div id="currentVisual" class="current-visual" hidden>
-            <div class="target-meter"><div class="meter-heading"><strong>LEFT</strong><span id="currentLeftLabel"></span></div><div class="meter-track"><div id="currentLeftOwned" class="meter-owned"></div><div id="currentLeftBought" class="meter-bought"></div></div></div>
-            <div class="target-meter"><div class="meter-heading"><strong>RIGHT</strong><span id="currentRightLabel"></span></div><div class="meter-track"><div id="currentRightOwned" class="meter-owned"></div><div id="currentRightBought" class="meter-bought"></div></div></div>
+            <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">LEFT</strong><span id="currentLeftLabel"></span></div><div class="meter-track"><div id="currentLeftOwned" class="meter-owned"></div><div id="currentLeftBought" class="meter-bought"></div></div></div>
+            <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">RIGHT</strong><span id="currentRightLabel"></span></div><div class="meter-track"><div id="currentRightOwned" class="meter-owned"></div><div id="currentRightBought" class="meter-bought"></div></div></div>
             <div class="meter-legend"><span>■ 保有PT</span><span>■ 今回の購入PT</span></div>
             <p class="current-difference">購入後の左右差 <strong id="currentDifference"></strong></p>
           </div>
