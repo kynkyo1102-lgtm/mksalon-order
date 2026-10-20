@@ -82,3 +82,31 @@
 .bulk-order-page #formSection .bulk-member-utility > summary.summary-preset::-webkit-details-marker{display:none!important}
 .bulk-order-page #formSection .bulk-member-utility > summary.summary-preset::before,.bulk-order-page #formSection .bulk-member-utility > summary.summary-preset::after{content:none!important;display:none!important}
 @media(max-width:520px){.bulk-order-page #formSection .bulk-step-card{padding:36px 16px 17px!important}.bulk-order-page #formSection .bulk-step-card > .section-title,.bulk-order-page #formSection #orderListContainer > .order-list-header{left:16px!important;max-width:calc(100% - 32px)!important;padding:7px 15px!important;font-size:15px!important}}
+
+/* Step 4: spacious product rows on mobile; retain original table and qty bindings */
+.bulk-order-page #formSection .bulk-products-card{min-width:0!important}
+.bulk-order-page #formSection .bulk-products-card .sub-instruction{font-size:13px!important;color:#65756a!important;margin:0 0 16px!important}
+.bulk-order-page #formSection .bulk-products-card .product-table{table-layout:auto!important;border:1px solid #d5ddd7!important;border-radius:10px!important;width:100%!important}
+.bulk-order-page #formSection .bulk-products-card .product-table th{padding:12px 9px!important;font-size:12px!important;white-space:nowrap!important}
+.bulk-order-page #formSection .bulk-products-card .product-table td{padding:11px 9px!important;vertical-align:middle!important;word-break:normal!important;overflow-wrap:anywhere!important}
+.bulk-order-page #formSection .bulk-products-card .product-table td:first-child{font-size:14px!important;line-height:1.6!important;min-width:0}
+.bulk-order-page #formSection .bulk-products-card .product-table td:nth-child(2),.bulk-order-page #formSection .bulk-products-card .product-table td:nth-child(3){width:auto!important;min-width:66px!important;font-size:12px!important;white-space:nowrap!important;color:#52675a!important}
+.bulk-order-page #formSection .bulk-products-card .product-table td.qty-col{width:72px!important;min-width:72px!important;padding:8px!important}
+.bulk-order-page #formSection .bulk-products-card .product-table td.qty-col select{min-height:40px!important;width:100%!important;font-size:14px!important;padding:6px 4px!important;text-align:center!important}
+.bulk-order-page #formSection .bulk-products-card .product-table tbody tr:last-child td{border-bottom:0!important}
+@media(max-width:600px){
+ .bulk-order-page #formSection .bulk-products-card{padding:38px 13px 16px!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table{display:block!important;border:0!important;background:transparent!important;overflow:visible!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table thead{display:none!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody{display:grid!important;gap:9px!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody tr{display:grid!important;grid-template-columns:minmax(0,1fr) 86px!important;grid-template-areas:"name qty" "price qty" "points qty"!important;align-items:center!important;gap:2px 9px!important;padding:12px!important;background:#fafbfa!important;border:1px solid #d5ddd7!important;border-radius:10px!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td{display:block!important;border:0!important;padding:0!important;background:transparent!important;text-align:left!important;min-width:0!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td:first-child{grid-area:name!important;font-size:14px!important;line-height:1.5!important;font-weight:600!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td:nth-child(2){grid-area:price!important;font-size:12px!important;color:#596b60!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td:nth-child(2)::before{content:"税込 "!important;font-weight:400}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td:nth-child(3){grid-area:points!important;font-size:12px!important;color:#596b60!important;font-weight:400!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td:nth-child(3)::before{content:"獲得 "!important;font-weight:400}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td.qty-col{grid-area:qty!important;align-self:center!important;width:86px!important;min-width:0!important;text-align:center!important;border-left:1px solid #e0e7e1!important;padding-left:10px!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td.qty-col::before{content:"数量"!important;display:block!important;margin-bottom:5px!important;font-size:11px!important;color:#69786e!important}
+ .bulk-order-page #formSection .bulk-products-card .product-table tbody td.qty-col select{width:100%!important;min-height:42px!important;font-size:15px!important;background:#fff!important}
+}
