@@ -1,0 +1,76 @@
+/* Optional comparison theme: ?theme=blue. Never affects normal pages. */
+body.arcade-blue-preview{
+ --quest-bg:#0e1b2e;--quest-panel:#173b63;--quest-gold:#9bd9ff;
+ --game-gold:#64baff;--game-gold-bright:#d1efff;--game-gold-dark:#2665a1;
+ background:radial-gradient(ellipse at 50% 22%,#4b6684 0%,#213853 45%,#0e1b2e 100%) fixed!important;
+ color:#edf6ff!important;
+}
+.arcade-blue-preview .app-page-title,
+.arcade-blue-preview .quest-eyebrow,
+.arcade-blue-preview .split-eyebrow{color:#c6e9ff!important}
+.arcade-blue-preview .app-back{color:#c5e3ff!important}
+.arcade-blue-preview .app-footer{background:#0e1b2e!important;border-top-color:#496986!important;color:#b9cce0!important}
+.arcade-blue-preview .calc-steps,
+.arcade-blue-preview .calc-input-section,
+.arcade-blue-preview .calc-product-section,
+.arcade-blue-preview .calc-run-area,
+.arcade-blue-preview .plan-card,
+.arcade-blue-preview .plan-card.best,
+.arcade-blue-preview .card-box{
+ background:linear-gradient(155deg,#244a72,#112a48 78%)!important;
+ border-color:#a8d8ff!important;
+ box-shadow:inset 0 0 0 3px #1a3c60,inset 0 0 0 5px #689fc8,0 7px 0 #081426!important;
+}
+.arcade-blue-preview.calc-split-page .card-box:before,
+.arcade-blue-preview.calc-split-page .card-box:after{color:#d5f1ff;background:#183c60}
+.arcade-blue-preview .quest-mini,
+.arcade-blue-preview .quest-result-heading,
+.arcade-blue-preview .quest-clear-tag,
+.arcade-blue-preview .plan-summary-item strong,
+.arcade-blue-preview .plan-best-label,
+.arcade-blue-preview .plan-variation-label,
+.arcade-blue-preview .calc-steps li span,
+.arcade-blue-preview .calc-input-section h2 span,
+.arcade-blue-preview .calc-section-number,
+.arcade-blue-preview .difficulty-number,
+.arcade-blue-preview .difficulty-option strong,
+.arcade-blue-preview .split-col h3,
+.arcade-blue-preview .balance-stage-title,
+.arcade-blue-preview .selected-mode-bar,
+.arcade-blue-preview .total-pt-val,
+.arcade-blue-preview #grandTotalCost,
+.arcade-blue-preview .split-grand-summary strong,
+.arcade-blue-preview .suggest-box strong{color:#c8eaff!important}
+.arcade-blue-preview .difficulty-option{
+ background:linear-gradient(125deg,#285e92,#153b64)!important;
+ border:3px double #b0ddff!important;
+ box-shadow:inset 0 0 0 2px #527fa8,3px 4px 0 #07172a!important;
+}
+.arcade-blue-preview .difficulty-option:hover,
+.arcade-blue-preview .difficulty-option:focus-visible{border-color:#e7f7ff!important;box-shadow:0 0 17px #77c9ff80!important}
+.arcade-blue-preview .mode-panel,
+.arcade-blue-preview .split-product-editor,
+.arcade-blue-preview .selected-product-list,
+.arcade-blue-preview .balance-stage,
+.arcade-blue-preview .split-col{background:#163655!important;border-color:#89bde7!important}
+.arcade-blue-preview .selected-mode-bar{background:#183d61!important;border-color:#89bde7!important}
+.arcade-blue-preview .split-item-card{background:#18395b!important;border-color:#547fa5!important}
+.arcade-blue-preview .suggest-box{background:#1c446a!important;border-color:#8dc7f3!important;border-left-color:#b7e3ff!important}
+.arcade-blue-preview .btn-copy,
+.arcade-blue-preview .split-add-button,
+.arcade-blue-preview .tab-btn.active,
+.arcade-blue-preview #calcRunButton{
+ background:linear-gradient(135deg,#f3fbff,#a4dbff 35%,#559cdb 65%,#c5eaff)!important;
+ border-color:#e4f6ff!important;color:#102b49!important;
+ box-shadow:inset 0 1px 0 #fff,0 4px 0 #255a85!important;
+}
+.arcade-blue-preview .workspace-reset,
+.arcade-blue-preview .btn-reset{border-color:#91c5ee!important;color:#d5efff!important}
+.arcade-blue-preview .scale-pivot{background:linear-gradient(130deg,#f3fbff,#92cfff 60%,#2b689d)!important;border-color:#3874a7!important}
+.arcade-blue-preview .scale-beam{background:linear-gradient(#d6efff,#4e99d2)!important}
+.arcade-blue-preview .scale-dish{background:linear-gradient(#d2eeff,#528ec2)!important;border-color:#a8d9ff!important}
+.arcade-blue-preview .scale-base{background:linear-gradient(#b6e1ff,#3873a8)!important}
+.arcade-blue-preview .plan-card.best{border-color:#a6dcff!important}
+.arcade-blue-preview .plan-card.best .plan-summary{background:#0d2947!important;border-color:#76b3df!important}
+.arcade-blue-preview .quest-result-rule{background:linear-gradient(90deg,transparent,#a8d9ff)!important}
+.arcade-blue-preview .scale-ball{background:linear-gradient(135deg,#e9faff 0 23%,#8bd7ff 23% 47%,#2d87cb 47% 76%,#145185 76%)!important}
