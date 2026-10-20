@@ -11,7 +11,7 @@
   
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-split.css?v=balance-13-english-fix">
+  <link rel="stylesheet" href="css/calc-split.css?v=split-guide-1">
   <script>
     if (new URLSearchParams(location.search).get('theme') === 'blue') {
       const themeSheet = document.createElement('link');
@@ -72,9 +72,9 @@
       <section class="difficulty-select" id="difficultySelect">
         <h2><span class="pixel-en">SELECT MODE</span> <small>— 振り分け方法を選ぶ —</small></h2>
         <div class="difficulty-options">
-          <button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>かんたん均等</strong><small>購入分を左右半分ずつに</small></button>
-          <button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>目標PT</strong><small>左右それぞれの目標に近づける</small></button>
-          <button type="button" class="difficulty-option" data-mode="current" onclick="switchMode('current')"><span class="difficulty-number">03 / BALANCE</span><strong>保有PT合算</strong><small>手持ちのPTも含めて調整</small></button>
+          <button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>かんたん均等</strong></button>
+          <button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>目標PT</strong></button>
+          <button type="button" class="difficulty-option" data-mode="current" onclick="switchMode('current')"><span class="difficulty-number">03 / BALANCE</span><strong>保有PT合算</strong></button>
         </div>
       </section>
       <div id="splitWorkspace" hidden>
@@ -221,6 +221,30 @@
       </div><!-- splitWorkspace -->
     </div>
   </main>
+<div class="split-guide-assistant" id="splitGuideAssistant">
+  <div class="split-guide-dialogue" id="splitGuideDialogue" hidden>
+    <div class="split-guide-title"><span>GUIDE BOT</span><button type="button" id="splitGuideClose" aria-label="案内を閉じる">×</button></div>
+    <p class="split-guide-intro">3つの振り分け方法を説明するよ！</p>
+    <div class="split-guide-option"><strong>01 / EASY　かんたん均等</strong><p>購入する商品の合計ポイントが、左右でできるだけ半分ずつになるように振り分けるよ。目標ポイントの入力は不要。まず均等に分けたいときにおすすめ！</p></div>
+    <div class="split-guide-option"><strong>02 / TARGET　目標PT</strong><p>左と右、それぞれの目標ポイントを指定できるよ。購入する商品を、設定した目標にできるだけ近づくように振り分けるモードだよ。</p></div>
+    <div class="split-guide-option"><strong>03 / BALANCE　保有PT合算</strong><p>すでに持っているポイントを左右それぞれに入力して、今回購入する商品のポイントを足した合計がバランスよくなるように調整するよ。</p></div>
+    <p class="split-guide-hint">使いたいモードのカードをタップしてね！</p>
+  </div>
+  <button type="button" class="split-guide-trigger" id="splitGuideTrigger" aria-label="ロボットにモードの違いを聞く" aria-controls="splitGuideDialogue" aria-expanded="false">
+    <svg viewBox="0 0 120 140" role="img" aria-label="ゲーム風の案内ロボット">
+      <path d="M58 22V12" stroke="#eac979" stroke-width="5"/><path d="M52 9h12v8H52z" fill="#f8df8f"/>
+      <path d="M28 29h64v9h10v65H92v9H28v-9H18V38h10z" fill="#2a4264" stroke="#e8c677" stroke-width="5" stroke-linejoin="miter"/>
+      <path d="M34 44h52v43H34z" fill="#0c192b" stroke="#a6b5d0" stroke-width="3"/>
+      <path d="M43 57h12v16H43zM65 57h12v16H65z" fill="#9eeaff"/>
+      <path d="M46 60h5v5h-5zM68 60h5v5h-5z" fill="#f5ffff"/>
+      <path d="M43 81h34v4H43z" fill="#d7b96c"/>
+      <path d="M17 55H8v27h9M103 55h9v27h-9" fill="none" stroke="#e8c677" stroke-width="6"/>
+      <path d="M36 114v15h13v-15M71 114v15h13v-15" fill="#2a4264" stroke="#e8c677" stroke-width="5"/>
+      <path d="M23 39h-7v14h7M97 39h7v14h-7" fill="#f3d788"/>
+    </svg>
+    <span>HELP</span>
+  </button>
+</div>
   <footer class="app-footer">&copy; Place de Nina Order Support System</footer>
 
 
@@ -232,6 +256,9 @@
 
     function switchMode(mode) {
       currentMode = mode;
+      document.getElementById('splitGuideAssistant').hidden = true;
+      document.getElementById('splitGuideDialogue').hidden = true;
+      document.getElementById('splitGuideTrigger').setAttribute('aria-expanded','false');
       document.getElementById('difficultySelect').hidden = true;
       document.getElementById('splitWorkspace').hidden = false;
       document.getElementById('selectedModeLabel').textContent =
@@ -243,6 +270,7 @@
     }
     function backToModeSelection() {
       currentMode = null;
+      document.getElementById('splitGuideAssistant').hidden = false;
       document.getElementById('difficultySelect').hidden = false;
       document.getElementById('splitWorkspace').hidden = true;
       document.getElementById('splitResult').style.display = 'none';
@@ -630,6 +658,15 @@
     document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
     const qtyPicker=document.getElementById('splitProductQuantity');
     for(let i=1;i<=30;i++){const option=document.createElement('option');option.value=i;option.textContent=i+'個';qtyPicker.appendChild(option);}
+    const splitGuideTrigger = document.getElementById('splitGuideTrigger');
+    const splitGuideDialogue = document.getElementById('splitGuideDialogue');
+    function setSplitGuideOpen(open) {
+      splitGuideDialogue.hidden = !open;
+      splitGuideTrigger.setAttribute('aria-expanded',String(open));
+    }
+    splitGuideTrigger.addEventListener('click',()=>setSplitGuideOpen(splitGuideDialogue.hidden));
+    document.getElementById('splitGuideClose').addEventListener('click',()=>{setSplitGuideOpen(false);splitGuideTrigger.focus();});
+    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&!splitGuideDialogue.hidden)setSplitGuideOpen(false);});
     window.onload = loadConfig;
   </script>
 </body>
