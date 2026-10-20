@@ -602,3 +602,47 @@ header h1,.section-title{color:#f4d98d!important}
  .calc-split-page .total-box p{font-size:12px!important}
  .calc-split-page .split-grand-summary #grandTotalCost{font-size:21px}
 }
+
+/* balance-9: readable Japanese content, pixel UI controls and English labels */
+.calc-split-page .app-main,
+.calc-split-page .app-main *:not(.menu-icon):not(.menu-icon *){
+ font-family:"Noto Sans JP",sans-serif!important;
+}
+.calc-split-page .app-main button,
+.calc-split-page .app-main .btn-copy,
+.calc-split-page .app-main .difficulty-number,
+.calc-split-page .app-main .split-eyebrow,
+.calc-split-page .app-main .balance-stage-title,
+.calc-split-page .app-main .meter-heading strong,
+.calc-split-page .app-main .scale-pt-labels,
+.calc-split-page .app-main .scale-pt-labels *,
+.calc-split-page .app-main .difficulty-select h2{
+ font-family:"DotGothic16","Noto Sans JP",sans-serif!important;
+}
+.calc-split-page .app-page-title.split-page-title,
+.calc-split-page .difficulty-option strong,
+.calc-split-page .difficulty-option small,
+.calc-split-page .split-product-editor h2,
+.calc-split-page .split-col h3,
+.calc-split-page .selected-mode-bar #selectedModeLabel,
+.calc-split-page .split-item-name,
+.calc-split-page .split-item-sub,
+.calc-split-page .total-box,
+.calc-split-page .total-box *,
+.calc-split-page .split-grand-summary,
+.calc-split-page .split-grand-summary *,
+.calc-split-page .suggest-box,
+.calc-split-page .suggest-box *,
+.calc-split-page .app-main select,
+.calc-split-page .app-main input,
+.calc-split-page .app-main option{
+ font-family:"Noto Sans JP",sans-serif!important;
+ letter-spacing:normal;
+}
+.calc-split-page .difficulty-option strong{font-size:clamp(16px,3vw,19px)!important;font-weight:700!important}
+.calc-split-page .difficulty-option small{font-size:12px}
+.calc-split-page .split-col h3{font-size:15px!important;font-weight:700!important}
+.calc-split-page .split-product-editor h2{font-size:18px!important;font-weight:700!important}
+.calc-split-page .app-main button{letter-spacing:.02em}
+.calc-split-page .difficulty-number{letter-spacing:.08em}
+@media(max-width:600px){.calc-split-page .difficulty-option strong{font-size:17px!important}.calc-split-page .split-col h3{font-size:14px!important}}
