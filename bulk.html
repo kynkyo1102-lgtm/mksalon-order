@@ -20,9 +20,10 @@
   <!-- 外部スタイルシートの読み込み -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/bulk-shell.css?v=bulk-shell-1">
+  <link rel="stylesheet" href="css/bulk-shell.css?v=bulk-match-1">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
+  <script src="js/shared-members.js?v=1"></script>
   <script src="app.js" defer></script>
 </head>
 <body class="app-page bulk-order-page">
@@ -259,25 +260,9 @@
       }
     }
 
-    // お届け先お名前のローカルストレージ保存用関数
-    const SHIP_NAME_KEY = 'salon_order_shipName';
-
-    function saveShipNameStorage(val) {
-      localStorage.setItem(SHIP_NAME_KEY, val);
-    }
-
-    function loadShipNameStorage() {
-      const saved = localStorage.getItem(SHIP_NAME_KEY);
-      const shipInput = document.getElementById('shipName');
-      if (saved && shipInput) {
-        shipInput.value = saved;
-      }
-    }
-
-    document.addEventListener('DOMContentLoaded', () => {
-      togglePaymentFields();
-      loadShipNameStorage();
-    });
+    // Delivery details are never saved in browser storage.
+    function saveShipNameStorage(val) {}
+    document.addEventListener('DOMContentLoaded', () => { togglePaymentFields(); });
   </script>
 </body>
 </html>
