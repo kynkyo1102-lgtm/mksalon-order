@@ -136,3 +136,34 @@ html:has(.calc-menu-page){background:#0e1b2e}
  .calc-menu-page .app-main{padding:24px 12px 55px}
  .calc-menu-page .mode-select-screen{padding:12px 0 30px}
 }
+
+/* mode-select-3: match POINT QUEST and BLOCK BALANCE navy/gold palette */
+html:has(.calc-menu-page){background:#101a2c}
+.calc-menu-page{
+ background:radial-gradient(ellipse at 50% 26%,#243754 0%,#17253c 46%,#101a2c 100%)!important;
+ color:#edf4ff!important;
+}
+.calc-menu-page .app-page-title{color:#f4d789!important}
+.calc-menu-page .app-back{color:#c5d7eb!important}
+.calc-menu-page .mode-select-topline{border-bottom-color:#aa8950;color:#e3c581}
+.calc-menu-page .mode-select-heading{color:#f4d789;text-shadow:0 2px 0 #1b1c24,0 0 18px #d9ad533d}
+.calc-menu-page .mode-select-lead{color:#d5e0ef}
+.calc-menu-page .menu-card,
+.calc-menu-page .menu-card-balance{
+ background:linear-gradient(140deg,#fff1b9,#c59542 23%,#f7dc94 41%,#70532d 60%,#d5ad5c 84%,#fff0b8)!important;
+}
+.calc-menu-page .menu-card:before{background:#111b2d}
+.calc-menu-page .menu-card .mode-card-outline,
+.calc-menu-page .menu-card-balance .mode-card-outline{
+ background:linear-gradient(155deg,#263e60,#172943 55%,#0e1c32)!important;
+}
+.calc-menu-page .mode-card-number{border-color:#d8b76b;background:#f8e9b7;color:#6c4d1c;box-shadow:0 0 12px #d9ad5373}
+.calc-menu-page .mode-card-symbol{color:#f4d789;text-shadow:0 0 13px #d9ad5399}
+.calc-menu-page .mode-card-en{color:#f6dfa2}
+.calc-menu-page .menu-card-title{color:#f5f0e7!important}
+.calc-menu-page .menu-card-desc{color:#d6e2f2!important}
+.calc-menu-page .mode-card-action{color:#f4d789}
+.calc-menu-page .menu-card:hover,.calc-menu-page .menu-card:focus-visible{filter:brightness(1.16) drop-shadow(0 0 13px #d9ad53);transform:translateY(-4px)!important}
+.calc-menu-page .menu-card:focus-visible .mode-card-content{text-decoration-color:#f4d789}
+.calc-menu-page .mode-select-note{color:#b9c9dc}
+.calc-menu-page .app-footer{background:#101a2c!important;color:#b5c6d9!important;border-top-color:#42516a}
