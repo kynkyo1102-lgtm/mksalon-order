@@ -323,6 +323,11 @@ function addOrderToList() {
 
   const paymentMethod = document.getElementById('paymentMethod').value;
   const receiptName = document.getElementById('receiptName').value.trim();
+  if (!receiptName) {
+    alert('領収書の宛名を入力してください。不要な場合は「なし」とお書きください。');
+    document.getElementById('receiptName').focus();
+    return;
+  }
   const eservicePw = document.getElementById('eservicePw').value.trim();
   const ninaPoint = parseInt(document.getElementById('ninaPoint').value) || 0;
 
@@ -447,9 +452,7 @@ function generateAllReceipts() {
     });
 
     let paymentInfoBlock = `<div>お支払い方法: <strong>${ord.paymentMethod}</strong></div>`;
-    if (ord.receiptName) {
-      paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
-    }
+    paymentInfoBlock += `<div>領収書宛名: <strong>${ord.receiptName}</strong></div>`;
     if (ord.paymentMethod === 'ニナファームカード' || ord.paymentMethod === 'クレジットカード') {
       if (ord.eservicePw) {
         paymentInfoBlock += `<div>E-Service PW: <strong>${ord.eservicePw}</strong></div>`;
@@ -508,8 +511,7 @@ function generateAllReceipts() {
         </div>
         <div class="receipt-info">
           <div>発注月度: <strong>${ord.month}</strong></div>
-          <div>購入会員番号: <strong>${ord.memberId}</strong></div>
-          <div>氏名: <strong>${ord.fullName}</strong></div>
+          <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:10px 0;border-bottom:1px solid #e2e6e5;margin-bottom:9px;"><div><span style="display:block;color:#64716f;font-size:0.72rem;">購入会員番号</span><strong style="font-size:1rem;">${ord.memberId}</strong></div><div><span style="display:block;color:#64716f;font-size:0.72rem;">氏名</span><strong style="font-size:1rem;">${ord.fullName}</strong></div></div>
           ${paymentInfoBlock}
           ${addressBlock}
         </div>
