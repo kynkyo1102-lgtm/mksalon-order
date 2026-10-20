@@ -19,21 +19,27 @@
 
   <!-- 外部スタイルシートの読み込み -->
   <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
+  <link rel="stylesheet" href="css/bulk-shell.css?v=bulk-shell-1">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="app.js" defer></script>
 </head>
-<body>
+<body class="app-page bulk-order-page">
 
-  <header>
-    <a href="https://kynkyo1102-lgtm.github.io/salon-order/" class="header-logo">Place de Nina</a>
-    <h1>南熊本サロン専用商品購入注文書</h1>
-    <a href="https://kynkyo1102-lgtm.github.io/salon-order/guidebulk.html" target="_blank" rel="noopener noreferrer" class="header-guide-link">
-      📖 詳しい操作手順・使い方を見る
-    </a>
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">テキスト注文</a><a class="app-menu-sub" href="bulk.html" aria-current="page">画像注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
   </header>
 
-  <main>
+  <main class="bulk-main">\n    <h1 class="app-page-title">画像注文書</h1>
     <!-- 入力フォーム画面 -->
     <div id="formSection">
       <form id="orderForm" class="h-adr">
