@@ -26,10 +26,10 @@
   </header>
   
   <main class="app-main">
-    <h1 class="app-page-title">LINEノート用 注文ツール</h1>
-    <div class="line-page-intro"><span class="line-page-eyebrow">ORDER TOOL / LINE NOTE</span><p>注文内容を入力すると、LINEノートに貼り付ける文章を自動作成します。</p></div>
+    <h1 class="app-page-title">テキスト注文</h1>
+    <div class="line-page-intro"><span class="line-page-eyebrow">ORDER TOOL / TEXT</span><p>注文内容を入力すると、LINEノートに貼り付ける文章を自動作成します。</p></div>
 
-    <div class="line-utilities"><div class="line-utilities-heading">便利な補助機能 <span>必要なときだけ開いて使えます</span></div>
+    <section class="line-restore-area" aria-label="以前の注文内容を復元する"><div class="line-utilities-heading">以前の注文を再利用 <span>必要なときだけ開けます</span></div>
     <!-- 控えめな復元補助ツール（最上部・注意書き付き） -->
     <details class="tiny-restore-box">
       <summary class="tiny-restore-summary">
@@ -43,8 +43,10 @@
       </div>
     </details>
 
+    </section>
+
     <!-- 1. 会員リポジトリ登録エリア（折り畳み式） -->
-    <div class="info-card card-accent">
+    <div class="info-card card-accent line-member-area">
       <details class="member-details">
         <summary class="foldable-summary member-summary" style="padding: 0;">
           <span style="font-size: 0.88rem; font-weight: 700; color: var(--wood-medium);">1. よく使う会員番号の事前登録</span>
@@ -63,11 +65,9 @@
       </details>
     </div>
 
-    </div>
-
     <!-- 01 <span class="line-section-caption">お届け先情報</span> -->
     <div class="info-card">
-      <div class="section-title">2. お届け先情報</div>
+      <div class="section-title">1. お届け先情報</div>
       <p class="sub-note">※以前にご注文された方は宛名のみのご入力で構いません。(備考がある場合はご入力ください。)</p>
       <div class="form-group">
         <label>お届け先氏名（宛名）</label>
@@ -93,7 +93,7 @@
 
     <!-- 02 <span class="line-section-caption">決済方法</span> -->
     <div class="info-card">
-      <div class="section-title">3. 決済方法</div>
+      <div class="section-title">2. 決済方法</div>
       <div class="form-group">
         <label>決済方法の選択</label>
         <select id="payment_method" onchange="togglePwField(); updatePreview();">
@@ -121,7 +121,7 @@
 
     <!-- 03 <span class="line-section-caption">処理月度の選択</span> -->
     <div class="info-card">
-      <div class="section-title">4. 処理月度の選択</div>
+      <div class="section-title">3. 処理月度の選択</div>
       <select id="target_month" onchange="onMonthChange();">
         <!-- JSで動的生成されます -->
       </select>
@@ -129,14 +129,14 @@
 
     <!-- 5. 会員番号ごとの注文 -->
     <div class="info-card">
-      <div class="section-title">5. 会員番号ごとの注文</div>
+      <div class="section-title">4. 会員番号ごとの注文</div>
       <div id="positions_container"></div>
       <button class="sub-btn mt-8" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
     </div>
 
     <!-- 05 <span class="line-section-caption">生成された注文テキスト</span> -->
     <div class="info-card">
-      <div class="section-title">6. 生成された注文テキスト</div>
+      <div class="section-title">5. 生成された注文テキスト</div>
       <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
       <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
     </div>
