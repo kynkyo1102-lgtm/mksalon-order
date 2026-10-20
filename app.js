@@ -98,7 +98,8 @@ function savePreMemberInfo() {
   
   const existIdx = list.findIndex(m => m.code === mainId);
   if (existIdx >= 0) {
-    list[existIdx].name = name;\n    list[existIdx].subId = subId;
+    list[existIdx].name = name;
+    list[existIdx].subId = subId;
   } else {
     list.push({ code: mainId, name, subId });
   }
@@ -146,12 +147,7 @@ function renderPresetMemberList() {
 }
 
 // 登録情報の削除
-function deletePresetMember(index) {
-  let list = SalonMembers.read();
-  list.splice(index, 1);
-  SalonMembers.write(list);
-  renderPresetMemberList();
-}
+function deletePresetMember(index) { alert('既存の会員情報を保護するため、削除機能は一時停止しています。'); }
 
 // フォームへの自動入力反映
 function applyPresetMember(index) {
