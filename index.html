@@ -141,6 +141,11 @@
     @keyframes home-robot-peek{0%,12%,52%,100%{transform:translateY(17px)}21%,37%{transform:translateY(-1px)}43%{transform:translateY(3px)}}
     .home-page .home-floating-robot:hover .home-robot-peek{animation-play-state:paused}
     @media(prefers-reduced-motion:reduce){.home-page .home-floating-robot .home-robot-peek{animation:none!important;transform:translateY(10px)}}
+
+    /* robot-sign-5: single tiny peek, no hands; head only moves */
+    .home-page .home-floating-robot .home-robot-peek{animation:home-robot-peek-small 6s ease-in-out infinite!important;transform:translateY(10px)}
+    @keyframes home-robot-peek-small{0%,17%,38%,100%{transform:translateY(10px)}25%,30%{transform:translateY(5px)}}
+    @media(prefers-reduced-motion:reduce){.home-page .home-floating-robot .home-robot-peek{animation:none!important;transform:translateY(8px)}}
 </style>
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">\n</head>
 <body class="home-page">
@@ -270,21 +275,13 @@
       <ellipse cx="172" cy="52" rx="4" ry="6" fill="#a9e2eb"/><ellipse cx="190" cy="52" rx="4" ry="6" fill="#a9e2eb"/>
       <path d="M175 62q6 5 12 0" stroke="#a9e2eb" stroke-width="2" fill="none" stroke-linecap="round"/>
       </g>
-      <path d="M157 79l-11 14M205 79l12 14" stroke="#8095a8" stroke-width="8" stroke-linecap="round"/>
-      <path d="M167 83v12m28-12v12" stroke="#60788e" stroke-width="9" stroke-linecap="round"/>
-      <!-- raised arms holding the placard -->
-      <path d="M153 73l-12 22M209 73l12 22" stroke="#b8c7d4" stroke-width="12" stroke-linecap="round"/>
+      <!-- placard: robot's hands and arms are hidden behind it -->
       <!-- placard -->
       <rect x="8" y="85" width="229" height="44" rx="10" fill="#fdfdfd" stroke="#34475b" stroke-width="2.5"/>
       <rect x="13" y="90" width="219" height="34" rx="6" fill="#f4f6f8"/>
       <path d="M23 97h3m-3 5h3m-3 5h3" stroke="#c6a166" stroke-width="2.5" stroke-linecap="round"/>
       <text x="117" y="113" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="15" font-weight="700" fill="#243345">計算サポートツール</text>
       <path d="M216 104l5 5-5 5" stroke="#b88d4b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <!-- slim fingers curling over the top edge, instead of round palms -->
-      <path d="M140 83v9q0 5 5 5h4" fill="none" stroke="#60788e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M140 83v9q0 5 5 5h4" fill="none" stroke="url(#homeRobotMetal)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M216 83v9q0 5-5 5h-4" fill="none" stroke="#60788e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
-      <path d="M216 83v9q0 5-5 5h-4" fill="none" stroke="url(#homeRobotMetal)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
 
