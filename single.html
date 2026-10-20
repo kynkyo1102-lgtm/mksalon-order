@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=4">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/single.css?v=grid-preview-1">
+  <link rel="stylesheet" href="css/single.css?v=refine-2">
 </head>
 <body class="app-page line-order-page">
 
@@ -29,35 +29,24 @@
     <h1 class="app-page-title">テキスト注文</h1>
     <div class="line-page-intro"><span class="line-page-eyebrow">ORDER TOOL / TEXT</span><p>注文内容を入力すると、LINEノートに貼り付ける文章を自動作成します。</p></div>
 
-    <section class="line-restore-area" aria-label="以前の注文内容を復元する"><div class="line-utilities-heading">以前の注文を再利用 <span>必要なときだけ開けます</span></div>
-    <!-- 控えめな復元補助ツール（最上部・注意書き付き） -->
-    <details class="tiny-restore-box">
-      <summary class="tiny-restore-summary">
-        <span>📥 以前の注文内容を復元する（テキスト貼付）</span>
-      </summary>
-      <div class="tiny-restore-body">
-        <p class="sub-note" style="margin-top:0; margin-bottom: 8px;">LINEからコピーした注文文面全体を貼り付けて復元できます。</p>
-        <textarea id="import_text_input" rows="6" placeholder="ここにLINEからコピーした注文文面を貼り付け"></textarea>
-        <p class="sub-note" style="margin-top: 6px; margin-bottom: 0;">※ポイント換算は現在の処理月度のマスタ値で再計算されます。</p>
-        <button type="button" class="sub-btn mt-8" style="padding: 8px 16px; font-size: 0.85rem; width: 100%;" onclick="restoreAllFromText()">⚡ この文章から入力を復元する</button>
+    <details class="line-restore-shortcut">
+      <summary>以前の注文を復元する <span aria-hidden="true" class="line-expand-icon"></span></summary>
+      <div class="line-restore-content">
+        <p>以前作成した注文テキストを貼り付けると、入力内容を復元できます。</p>
+        <textarea id="import_text_input" rows="5" placeholder="以前の注文テキストを貼り付け"></textarea>
+        <p class="line-restore-caution">※ポイントは現在の処理月度のデータで再計算されます。</p>
+        <button type="button" class="sub-btn" onclick="restoreAllFromText()">入力内容を復元する</button>
       </div>
     </details>
-
-    </section>
 
     <!-- 1. 会員リポジトリ登録エリア（折り畳み式） -->
     <div class="info-card card-accent line-member-area">
       <details class="member-details">
-        <summary class="foldable-summary member-summary" style="padding: 0;">
-          <span style="font-size: 0.88rem; font-weight: 700; color: var(--wood-medium);">1. よく使う会員番号の事前登録</span>
+        <summary class="foldable-summary member-summary">
+          <span>よく使う会員番号を登録 <small>任意</small></span><span aria-hidden="true" class="line-expand-icon"></span>
         </summary>
         <div class="member-content-body">
-          <div class="usage-guide">
-            <strong>💡 事前登録しておくと便利です！</strong><br>
-            ・ここに家族やご自身の会員情報を登録しておくと、下の「会員番号ごとの注文」で<strong>リストから選ぶだけで自動入力</strong>できます。<br>
-            ・入力した情報は<strong>このスマホ（ブラウザ）にそのまま保存</strong>されるため、次回からは入力不要です！<br>
-            <span class="sub-note">※会員番号は「1234567」のようにポジション（00, 01等）を除いた番号で登録してください。</span>
-          </div>
+          <p class="line-member-help">会員番号と氏名を保存すると、注文時にリストから選べます。<br><small>※会員番号はポジション（00・01など）を除いて入力してください。登録内容はこのブラウザに保存されます。</small></p>
 
           <div id="member_register_container"></div>
           <button class="sub-btn mt-8" onclick="addMemberRegisterRow('', '')">+ 会員登録を追加</button>
@@ -68,7 +57,7 @@
     <!-- 01 <span class="line-section-caption">お届け先情報</span> -->
     <div class="info-card">
       <div class="section-title">1. お届け先情報</div>
-      <p class="sub-note">※以前にご注文された方は宛名のみのご入力で構いません。(備考がある場合はご入力ください。)</p>
+      <div class="line-returning-note"><strong>以前ご注文いただいた方へ</strong><span>お届け先は<strong>宛名だけ</strong>でOK。変更やご希望がある場合のみ、ほかの項目も入力してください。</span></div>
       <div class="form-group">
         <label>お届け先氏名（宛名）</label>
         <input type="text" id="ship_name" placeholder="例：山田太郎" oninput="saveBasicInfo(); updatePreview();">
@@ -142,7 +131,7 @@
     </div>
 
     <!-- 戻るボタン -->
-    <a href="index.html" class="app-back back-btn">
+    <a href="index.html" class="line-back-link">
       ‹ トップページへ戻る
     </a>
 
