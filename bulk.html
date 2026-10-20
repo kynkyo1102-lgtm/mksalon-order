@@ -24,7 +24,7 @@
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=13" defer></script>
+  <script src="app-dropdown-preview.js?v=14" defer></script>
 <style>
 .bulk-dropdown-items{padding:8px 0 4px}.bulk-picker-row{display:grid;grid-template-columns:minmax(0,1fr) 88px 38px;gap:9px;align-items:center;margin:0 0 12px}.bulk-picker-row .item-select{width:100%;min-width:0}.bulk-picker-row .qty-select{width:100%;min-width:0}.bulk-picker-remove{border:1px solid #ddd;background:#fff;border-radius:8px;min-height:42px;font-size:18px}.bulk-picker-row select{min-height:44px}.bulk-dropdown-items .sub-btn{margin-top:4px}@media(max-width:430px){.bulk-picker-row{grid-template-columns:minmax(0,1fr) 72px 34px;gap:6px}}
 </style><style>
@@ -104,6 +104,10 @@
 .bulk-order-page #orderListContainer{scroll-margin-bottom:190px}
 .bulk-order-page .bulk-stage-one-next{margin-bottom:28px!important}
 @media(max-width:600px){.bulk-order-page #orderForm{padding-bottom:220px!important}}
+</style><style>
+.bulk-order-page #formSection .bulk-footer-actions .bulk-footer-next{flex:1;min-width:0;min-height:46px;padding:9px 7px;border:1px solid #315b43;border-radius:8px;background:#315b43;color:#fff;font:inherit;font-size:12px;font-weight:700;line-height:1.4;cursor:pointer}
+.bulk-order-page #formSection .bulk-footer-actions .bulk-footer-next.display-none{display:none!important}
+.bulk-order-page #formSection .bulk-footer-actions #bulkFooterAdd{font-size:12px!important;padding:9px 7px!important;line-height:1.4}
 </style></head>
 <body class="app-page bulk-order-page">
 
@@ -206,7 +210,7 @@
         </table>
         </div>
 
-        <div class="bulk-stage-one-next"><button type="button" id="bulkGoPayment" onclick="goToBulkPayment()" disabled>お支払い・お届け先の入力へ →</button></div>
+        
         <!-- 追加済み注文リスト（確認用） -->
         <div id="orderListContainer" class="card-box order-list-box display-none">
           <div class="order-list-header" >
@@ -301,6 +305,7 @@
               ＋ この会員の注文を追加
             </button>
 
+              <button type="button" id="bulkGoPayment" onclick="goToBulkPayment()" class="bulk-footer-next display-none">お支払い・お届け先へ →</button>
             </div>
           </div>
         </div>
