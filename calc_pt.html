@@ -255,7 +255,7 @@
 
       let remainingTargetPt = Math.max(0, targetPt - mandatoryFixedPt);
 
-      // 1. 最適プラン（目標PTに一番近く、最安）
+      // 1. 最適プラン（目標PT以上で差が最小、同じPTなら最安）
       let bestPlan = findOptimalCombo(baseProducts, remainingTargetPt, mandatoryItemsList, mandatoryFixedPt, mandatoryFixedCost);
       
       // 2. パターンA（最適プランで一番使われた動的商品を1つ除外）
@@ -353,7 +353,7 @@
       revealTimer = setTimeout(reveal, reducedMotion ? 0 : 850);
     }
 
-    // 目標PT以上で「最もオーバー分が少なく」「金額が最安」の構成を探す関数
+    // 目標PT以上で超過PTが最小、同じPTなら金額最安の構成を探す関数
     function findOptimalCombo(products, remainingTarget, mandatoryItems, fixedPt, fixedCost, excludeProdNames = []) {
       let filteredProducts = products;
       if (excludeProdNames && excludeProdNames.length > 0) {
@@ -383,18 +383,13 @@
         }
       }
 
+      // First minimize PT overage (never below target); then minimize cost at that exact PT.
+      // dp[pt] already stores the lowest cost for each achievable PT.
       let bestPt = -1;
-      let minScore = Infinity;
-
       for (let pt = remainingTarget; pt <= limit; pt++) {
         if (dp[pt] !== Infinity) {
-          let overPt = pt - remainingTarget;
-          // 超過PTに100倍の強固なペナルティを課し、「目標に一番近い（オーバーが最小）」かつ「安さ」を優先
-          let score = dp[pt] + (overPt * 100);
-          if (score < minScore) {
-            minScore = score;
-            bestPt = pt;
-          }
+          bestPt = pt;
+          break;
         }
       }
 
