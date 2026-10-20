@@ -136,3 +136,7 @@
 .line-order-page .footer-bar{padding:13px max(16px,calc((100vw - 728px)/2)) 16px!important}
 .line-order-page .total-preview{font-size:15px!important;margin-bottom:9px!important}
 @media(max-width:520px){.line-order-page .line-member-select-row{grid-template-columns:minmax(0,1fr) 94px;gap:8px}.line-order-page .line-select-wrap .line-select-display{font-size:14px;left:10px}.line-order-page .line-member-select-row select{padding-left:8px!important;padding-right:5px!important}}
+
+/* Use native selected-option label, not an overlay: reliably show only member number */
+.line-order-page .line-select-wrap select{color:#222!important;text-shadow:none!important}
+.line-order-page .line-select-wrap .line-select-display{display:none!important}
