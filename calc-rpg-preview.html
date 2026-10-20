@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>RPG風モード選択 | お試しプレビュー</title>
+<link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#f9db83;--blue:#102c8c;--light:#f5f5fa;--ink:#080d29}
+*{box-sizing:border-box}html,body{margin:0;min-height:100%;background:#080e27;color:var(--light);font-family:"DotGothic16",monospace}button,a{font:inherit}button{cursor:pointer}body{overflow-x:hidden}
+.scene{min-height:100dvh;position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:28px 15px 90px;isolation:isolate;background:radial-gradient(ellipse at 50% 28%,#25376d 0%,#101a42 55%,#070b20 100%);overflow:hidden}
+.scene:before{content:"";position:absolute;inset:0;z-index:-2;opacity:.75;background-image:radial-gradient(#fff 1px,transparent 1px),radial-gradient(#8cc9ff 1px,transparent 1px);background-size:63px 77px,103px 113px;background-position:8px 10px,40px 48px}
+.scene:after{content:"";position:absolute;bottom:0;left:0;right:0;height:24%;z-index:-1;background:linear-gradient(0deg,#061021 0%,#0b2641 65%,transparent 100%);clip-path:polygon(0 40%,7% 30%,14% 43%,22% 19%,32% 38%,43% 15%,52% 37%,63% 11%,73% 36%,82% 20%,92% 38%,100% 15%,100% 100%,0 100%)}
+.window{background:linear-gradient(145deg,#2144aa 0%,#102b89 55%,#071b65 100%);border:4px solid #f4f2e6;outline:3px solid #0b1436;box-shadow:inset 0 0 0 3px #879fe3,0 9px 0 #050b25,0 15px 32px #0009;border-radius:7px}
+.top{width:min(560px,100%);padding:13px 16px;text-align:center;margin-bottom:17px}.eyebrow{font-size:12px;color:#f9db83;letter-spacing:.12em}.top h1{font-size:clamp(22px,6vw,32px);font-weight:400;margin:6px 0;letter-spacing:.07em;text-shadow:2px 3px #070e3b}.top p{font-size:12px;margin:0;color:#e7ecff}
+.main{width:min(560px,100%);padding:18px 16px 17px}.quest-label{color:var(--gold);font-size:13px;margin-bottom:9px}.main h2{font-size:19px;font-weight:400;margin:0 0 16px}.choices{display:grid;gap:12px}
+.choice{width:100%;display:flex;align-items:center;text-align:left;gap:12px;min-height:94px;padding:12px;border:2px solid #9eb2f0;background:#071c6c;color:white;border-radius:2px;box-shadow:inset 0 0 0 2px #193a96,3px 4px 0 #07113e;transition:transform .09s,background .12s,border-color .12s;position:relative}
+.choice:hover,.choice:focus-visible{background:#193caa;border-color:var(--gold);outline:none}.choice:active,.choice.pressed{transform:translate(3px,4px);box-shadow:inset 0 0 0 2px #193a96}
+.cursor{font-size:25px;color:var(--gold);width:22px;flex:none;visibility:hidden;animation:blink .75s steps(1) infinite}.choice:focus-visible .cursor,.choice:hover .cursor,.choice.active .cursor{visibility:visible}
+.choice-num{display:grid;place-items:center;flex:none;width:40px;height:40px;border:2px solid #f6e5aa;color:var(--gold);background:#0b235c;font-size:21px}.choice-body{min-width:0;flex:1}.choice-en{display:block;color:var(--gold);font-size:15px;letter-spacing:.04em}.choice-ja{display:block;font-size:13px;margin-top:6px}.choice-arrow{color:var(--gold);font-size:18px}
+.dialog{width:min(560px,100%);min-height:104px;margin-top:18px;padding:16px 18px;font-size:15px;line-height:1.9;position:relative}.dialog p{margin:0;white-space:pre-line}.dialog:after{content:"▼";position:absolute;right:17px;bottom:7px;font-size:12px;color:var(--gold);animation:blink .8s steps(1) infinite}
+.hint{font-size:11px;color:#bfc9f4;margin-top:16px;text-align:center}
+.robot{position:fixed;right:max(12px,env(safe-area-inset-right));bottom:max(12px,env(safe-area-inset-bottom));z-index:15;width:76px;height:83px;border:3px solid #f9db83;background:#112f88;box-shadow:4px 5px 0 #03091e;color:var(--gold);font-size:12px;display:grid;place-items:center;gap:0;padding:4px}.robot .face{font-size:32px;line-height:1}.robot small{font-size:11px}
+.preview{position:fixed;left:10px;top:9px;font:11px "Noto Sans JP",sans-serif;background:#0009;padding:5px 8px;border-radius:4px;z-index:20}
+.back{position:fixed;left:10px;bottom:12px;color:#c9d5ff;font-size:11px;z-index:10;text-decoration:none}
+.loading{position:fixed;inset:0;z-index:30;display:flex;align-items:center;justify-content:center;padding:20px;background:radial-gradient(ellipse at 50% 30%,#20356e,#090f30 70%);transition:opacity .35s,visibility .35s}
+.loading.hidden{opacity:0;visibility:hidden;pointer-events:none}.load-window{width:min(480px,100%);padding:30px 18px;text-align:center}.load-window h2{font-weight:400;font-size:clamp(23px,7vw,36px);color:var(--gold);text-shadow:2px 3px #06113c;margin:0 0 17px}.load-window p{font-size:14px;line-height:1.9;margin:0 0 17px}.load-track{height:27px;border:3px solid #f4f2e6;padding:3px;background:#061747;box-shadow:inset 0 0 0 2px #7896e3}.load-fill{height:100%;width:0;background:repeating-linear-gradient(90deg,#fce7a3 0 14px,#b98d41 14px 17px);box-shadow:inset 0 3px #fff6cb;transition:width .14s steps(2,end)}.load-percent{margin-top:9px;font-size:13px;color:var(--gold)}
+.start-over{margin-top:10px;background:none;border:1px solid #aebbe9;color:#e7edff;padding:7px 12px;font-size:12px}
+@keyframes blink{50%{opacity:0}}
+@media(max-width:390px){.scene{padding-top:30px;padding-bottom:70px}.top{padding:9px 12px;margin-bottom:12px}.top h1{font-size:22px}.main{padding:12px}.main h2{font-size:16px;margin-bottom:10px}.choices{gap:8px}.choice{min-height:80px;padding:8px;gap:7px}.choice-num{width:34px;height:34px;font-size:18px}.choice-en{font-size:13px}.choice-ja{font-size:12px}.dialog{min-height:88px;padding:11px 13px;font-size:13px;margin-top:12px}.hint{font-size:10px;margin-top:10px}.robot{width:58px;height:66px}.robot .face{font-size:24px}}
+@media(max-height:710px) and (max-width:680px){.scene{justify-content:flex-start;padding-top:31px}.top{padding:8px 12px;margin-bottom:10px}.top h1{margin:2px 0;font-size:22px}.top p{font-size:10px}.main{padding:10px 12px}.main h2{margin-bottom:9px;font-size:16px}.choice{min-height:72px;padding:7px}.choices{gap:8px}.dialog{min-height:76px;padding:10px 14px;margin-top:11px;font-size:12px}.hint{margin-top:8px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style></head><body>
+<div class="preview">お試しプレビュー／本番は変更なし</div>
+<div class="scene">
+<header class="window top"><div class="eyebrow">✦ ADVENTURE MENU ✦</div><h1>ぼうけんの とびら</h1><p>あなたの すすむ みちを えらんでください</p></header>
+<main class="window main"><div class="quest-label">▶ コマンド</div><h2>どちらの ぼうけんに でますか？</h2><div class="choices">
+<button class="choice active" data-target="calc_pt.html" data-name="ポイント最適化"><span class="cursor">▶</span><span class="choice-num">Ⅰ</span><span class="choice-body"><span class="choice-en">POINT QUEST</span><span class="choice-ja">ポイント最適化</span></span><span class="choice-arrow">›</span></button>
+<button class="choice" data-target="calc_split.html" data-name="ポイント振り分け"><span class="cursor">▶</span><span class="choice-num">Ⅱ</span><span class="choice-body"><span class="choice-en">BLOCK BALANCE</span><span class="choice-ja">ポイント振り分け</span></span><span class="choice-arrow">›</span></button>
+</div></main>
+<section class="window dialog" aria-live="polite"><p id="message">ここは けいさんの せかい。\nふたつの とびらが あらわれた！</p></section>
+<div class="hint">カードをタップして コマンドを けってい！</div>
+<button class="start-over" id="replay">▶ はじめから みる</button>
+<a class="back" href="index.html">← ホームにもどる</a>
+<button class="robot" id="guide" aria-label="案内を聞く"><span class="face">▣</span><small>HELP</small></button>
+</div>
+<div class="loading" id="loading" role="status"><div class="window load-window"><h2>LOADING...</h2><p id="loadText">ぼうけんの じゅんびを しています…</p><div class="load-track"><div class="load-fill" id="fill"></div></div><div class="load-percent" id="pct">0%</div></div></div>
+<script>
+(function(){
+const loading=document.getElementById('loading'),fill=document.getElementById('fill'),pct=document.getElementById('pct'),msg=document.getElementById('message'),cards=[...document.querySelectorAll('.choice')];let timer=null,busy=false;
+function boot(){clearInterval(timer);busy=false;loading.classList.remove('hidden');fill.style.width='0%';pct.textContent='0%';document.getElementById('loadText').textContent='ぼうけんの じゅんびを しています…';let n=0;timer=setInterval(()=>{n=Math.min(100,n+Math.ceil(Math.random()*9));fill.style.width=n+'%';pct.textContent=n+'%';if(n===100){clearInterval(timer);setTimeout(()=>loading.classList.add('hidden'),320)}},120)}
+function choose(card){if(busy)return;busy=true;cards.forEach(c=>c.classList.toggle('active',c===card));card.classList.add('pressed');msg.textContent='▶ '+card.dataset.name+' を えらんだ！\nこの ぼうけんを はじめますか？';setTimeout(()=>{card.classList.remove('pressed');msg.innerHTML='▶ '+card.dataset.name+' を えらんだ！<br><a style="color:#ffe49a" href="'+card.dataset.target+'">ここを おすと ほんものの ツールへ すすむ ›</a><br><span style="font-size:12px">※プレビューのため 自動では移動しません</span>';busy=false},320)}
+cards.forEach(c=>{c.addEventListener('click',()=>choose(c));c.addEventListener('pointerenter',()=>{if(!busy)cards.forEach(x=>x.classList.toggle('active',x===c))})});
+document.getElementById('guide').addEventListener('click',()=>{msg.textContent='ロボット「ポイントを あわせたいなら Ⅰ。\nわりふりたいなら Ⅱ が おすすめ！」'});
+document.getElementById('replay').addEventListener('click',()=>{msg.textContent='ここは けいさんの せかい。\nふたつの とびらが あらわれた！';boot()});
+boot();
+})();
+</script></body></html>
