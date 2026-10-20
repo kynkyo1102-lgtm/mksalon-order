@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="style.css">
-  <link rel="stylesheet" href="css/calc-split.css?v=balance-2">
+  <link rel="stylesheet" href="css/calc-split.css?v=balance-3">
 </head>
 <body>
 
@@ -91,7 +91,31 @@
       <button class="btn-copy" onclick="calculateBinarySplit()">▶ ブロックを振り分ける</button>
 
       <div id="splitResult" class="result-container" style="display:none;">
-        <div class="balance-stage"><div class="balance-stage-title">BALANCE RESULT <span id="balanceStatus">BEST BALANCE</span></div><div class="balance-boards"><div class="balance-board"><span>LEFT</span><div id="balanceLeft" class="balance-blocks"></div></div><div class="balance-board"><span>RIGHT</span><div id="balanceRight" class="balance-blocks"></div></div></div><p class="balance-stage-note">ブロックの高さは左右のPTに比例します</p></div><div class="split-container">
+        <section class="balance-stage" aria-label="振り分け結果のビジュアル">
+          <div class="balance-stage-title"><span id="resultVisualTitle">BALANCE RESULT</span><span id="balanceStatus">BEST BALANCE!</span></div>
+          <div id="scaleVisual" class="scale-visual" hidden>
+            <div class="scale-scene" id="scaleScene">
+              <div class="scale-beam">
+                <div class="scale-pan scale-pan-left"><div id="scaleBallsLeft" class="scale-balls"></div><div class="scale-dish"></div></div>
+                <div class="scale-pan scale-pan-right"><div id="scaleBallsRight" class="scale-balls"></div><div class="scale-dish"></div></div>
+              </div>
+              <div class="scale-pivot"></div><div class="scale-pillar"></div><div class="scale-base"></div>
+            </div>
+            <div class="scale-pt-labels"><span id="scalePtLeft"></span><span id="scalePtRight"></span></div>
+            <p class="scale-caption">ボールは演出です。天秤の傾きは左右のPT差をもとに表示しています。</p>
+          </div>
+          <div id="targetVisual" class="target-visual" hidden>
+            <div class="target-meter"><div class="meter-heading"><strong>LEFT</strong><span id="targetLeftRate"></span></div><div class="meter-track"><div id="targetLeftFill" class="meter-fill left"></div></div><p id="targetLeftNote"></p></div>
+            <div class="target-meter"><div class="meter-heading"><strong>RIGHT</strong><span id="targetRightRate"></span></div><div class="meter-track"><div id="targetRightFill" class="meter-fill right"></div></div><p id="targetRightNote"></p></div>
+            <p class="scale-caption" id="targetModeHint"></p>
+          </div>
+          <div id="currentVisual" class="current-visual" hidden>
+            <div class="target-meter"><div class="meter-heading"><strong>LEFT</strong><span id="currentLeftLabel"></span></div><div class="meter-track"><div id="currentLeftOwned" class="meter-owned"></div><div id="currentLeftBought" class="meter-bought"></div></div></div>
+            <div class="target-meter"><div class="meter-heading"><strong>RIGHT</strong><span id="currentRightLabel"></span></div><div class="meter-track"><div id="currentRightOwned" class="meter-owned"></div><div id="currentRightBought" class="meter-bought"></div></div></div>
+            <div class="meter-legend"><span>■ 保有PT</span><span>■ 今回の購入PT</span></div>
+            <p class="current-difference">購入後の左右差 <strong id="currentDifference"></strong></p>
+          </div>
+        </section><div class="split-container">
           <div class="split-col">
             <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">左 (L)</h3>
             <div id="leftList"></div>
@@ -324,6 +348,64 @@
       return bestSuggestion;
     }
 
+    function updateResultVisual({leftPt,rightPt,curLeftPt,curRightPt}) {
+      const mode=currentMode;
+      for(const id of ['scaleVisual','targetVisual','currentVisual']) document.getElementById(id).hidden=true;
+      const status=document.getElementById('balanceStatus');
+      const title=document.getElementById('resultVisualTitle');
+      const fmt=n=>Math.round(n).toLocaleString();
+      if(mode==='auto') {
+        title.textContent='BALANCE SCALE';
+        const diff=Math.abs(leftPt-rightPt);
+        status.textContent=diff===0?'PERFECT BALANCE!':'BEST BALANCE!';
+        document.getElementById('scaleVisual').hidden=false;
+        document.getElementById('scalePtLeft').textContent='LEFT  '+fmt(leftPt)+' PT';
+        document.getElementById('scalePtRight').textContent='RIGHT  '+fmt(rightPt)+' PT';
+        const scene=document.getElementById('scaleScene');
+        scene.classList.remove('scale-playing');
+        // Larger PT on the left means left side descends.
+        const angle=Math.max(-11,Math.min(11,(rightPt-leftPt)/Math.max(leftPt,rightPt,1)*35));
+        scene.style.setProperty('--scale-angle',angle+'deg');
+        const max=Math.max(leftPt,rightPt,1);
+        for(const [id,value] of [['scaleBallsLeft',leftPt],['scaleBallsRight',rightPt]]) {
+          const count=value===0?0:Math.max(2,Math.round(value/max*12));
+          const container=document.getElementById(id);
+          container.replaceChildren();
+          for(let i=0;i<count;i++){
+            const ball=document.createElement('span');
+            ball.className='scale-ball';
+            ball.style.setProperty('--ball-i',i);
+            container.appendChild(ball);
+          }
+        }
+        void scene.offsetWidth;
+        scene.classList.add('scale-playing');
+      } else if(mode==='target') {
+        title.textContent='TARGET ACHIEVEMENT';status.textContent='TARGET MATCH';
+        document.getElementById('targetVisual').hidden=false;
+        const l=Number(document.getElementById('targetLeftPt').value);
+        const r=Number(document.getElementById('targetRightPt').value);
+        for(const [side,pt,target,raw] of [['Left',leftPt,l,document.getElementById('targetLeftPt').value],['Right',rightPt,r,document.getElementById('targetRightPt').value]]) {
+          const hasTarget=raw!=='' && target>0;
+          const rate=hasTarget?pt/target*100:null;
+          document.getElementById('target'+side+'Rate').textContent=hasTarget?rate.toFixed(1)+'%':'目標未設定';
+          document.getElementById('target'+side+'Fill').style.width=hasTarget?Math.min(100,rate)+'%':'0%';
+          document.getElementById('target'+side+'Note').textContent=hasTarget?fmt(pt)+' / '+fmt(target)+' PT（'+(pt>=target?'超過 +'+fmt(pt-target):'不足 '+fmt(target-pt))+' PT）':fmt(pt)+' PT';
+        }
+        document.getElementById('targetModeHint').textContent=(l>0 && r>0)?'両側の目標を指定した場合、計算は目標PTの比率に近づける方式です。達成率は各目標値を基準に表示しています。':'設定した目標に対する達成率を表示しています。';
+      } else {
+        title.textContent='TOTAL BALANCE';status.textContent='FINAL PT';
+        document.getElementById('currentVisual').hidden=false;
+        const max=Math.max(curLeftPt+leftPt,curRightPt+rightPt,1);
+        for(const [side,owned,bought] of [['Left',curLeftPt,leftPt],['Right',curRightPt,rightPt]]) {
+          document.getElementById('current'+side+'Label').textContent=fmt(owned+bought)+' PT';
+          document.getElementById('current'+side+'Owned').style.width=(owned/max*100)+'%';
+          document.getElementById('current'+side+'Bought').style.width=(bought/max*100)+'%';
+        }
+        document.getElementById('currentDifference').textContent=fmt(Math.abs(curLeftPt+leftPt-curRightPt-rightPt))+' PT';
+      }
+    }
+
     function calculateBinarySplit() {
       const month = document.getElementById('monthSelect').value;
       let allUnitItems = [];
@@ -500,21 +582,7 @@
 
       document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
 
-      // Decorative block columns reflect actual PT proportions; exact values remain in the lists.
-      const boardMax = Math.max(leftPt, rightPt, 1);
-      const drawBlocks = (id, pt) => {
-        const board = document.getElementById(id);
-        const count = pt <= 0 ? 0 : Math.max(1, Math.round(pt / boardMax * 48));
-        board.innerHTML = Array.from({length:count}, (_,i) =>
-          '<span class="balance-tile" style="--tile-index:'+i+'"></span>').join('');
-      };
-      drawBlocks('balanceLeft', leftPt);
-      drawBlocks('balanceRight', rightPt);
-      const difference = currentMode === 'current'
-        ? Math.abs((curLeftPt + leftPt) - (curRightPt + rightPt))
-        : Math.abs(leftPt - rightPt);
-      document.getElementById('balanceStatus').textContent =
-        currentMode === 'target' ? 'TARGET MATCH' : difference === 0 ? 'PERFECT BALANCE!' : 'BEST BALANCE!';
+      updateResultVisual({leftPt,rightPt,curLeftPt,curRightPt});
       const resDiv = document.getElementById('splitResult');
       resDiv.style.display = 'block';
       resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
