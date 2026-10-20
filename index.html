@@ -128,6 +128,12 @@
     /* robot-sign-2: suppress persistent focus rectangle after returning via browser history */
     .home-page .home-floating-calc.home-floating-robot:focus:not(:focus-visible){outline:none!important;box-shadow:none!important}
     .home-page .home-floating-calc.home-floating-robot:focus-visible{outline:2px solid #73869a!important;outline-offset:3px}
+
+    /* robot-sign-3: gentle idle bob; sign and robot move together */
+    .home-page .home-floating-robot .home-robot-art{animation:home-robot-idle 4.8s ease-in-out infinite;transform-origin:55% 85%}
+    @keyframes home-robot-idle{0%,12%,44%,100%{transform:translateY(0) rotate(0deg)}19%{transform:translateY(-4px) rotate(-1deg)}27%{transform:translateY(-2px) rotate(1deg)}35%{transform:translateY(0) rotate(0deg)}}
+    .home-page .home-floating-robot:hover .home-robot-art{animation-play-state:paused}
+    @media(prefers-reduced-motion:reduce){.home-page .home-floating-robot .home-robot-art{animation:none!important}}
 </style>
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">\n</head>
 <body class="home-page">
@@ -265,7 +271,11 @@
       <path d="M23 97h3m-3 5h3m-3 5h3" stroke="#c6a166" stroke-width="2.5" stroke-linecap="round"/>
       <text x="117" y="113" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="15" font-weight="700" fill="#243345">計算サポートツール</text>
       <path d="M216 104l5 5-5 5" stroke="#b88d4b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-      <circle cx="143" cy="95" r="7" fill="#e7eef3" stroke="#60788e" stroke-width="2"/><circle cx="220" cy="95" r="7" fill="#e7eef3" stroke="#60788e" stroke-width="2"/>
+      <!-- slim fingers curling over the top edge, instead of round palms -->
+      <path d="M140 83v9q0 5 5 5h4" fill="none" stroke="#60788e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M140 83v9q0 5 5 5h4" fill="none" stroke="url(#homeRobotMetal)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M216 83v9q0 5-5 5h-4" fill="none" stroke="#60788e" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/>
+      <path d="M216 83v9q0 5-5 5h-4" fill="none" stroke="url(#homeRobotMetal)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </a>
 
