@@ -11,7 +11,7 @@
   
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc.css?v=mode-select-3">
+  <link rel="stylesheet" href="css/calc.css?v=mode-robot-1">
 </head>
 <body class="app-page calc-menu-page">
 
@@ -36,35 +36,76 @@
       <h2 id="mode-select-heading" class="mode-select-heading">SELECT MODE</h2>
       <p class="mode-select-lead">使用するツールを選択してください</p>
       <div class="menu-container">
-        <a href="calc_pt.html" class="menu-card menu-card-quest">
+        <button type="button" class="menu-card menu-card-quest" data-guide="quest" aria-pressed="false">
           <span class="mode-card-outline" aria-hidden="true"></span>
           <span class="mode-card-content">
             <span class="mode-card-number">01</span>
             <span class="mode-card-symbol" aria-hidden="true">✦</span>
             <span class="mode-card-en">POINT QUEST</span>
             <span class="menu-card-title">ポイント最適化</span>
-            <span class="menu-card-desc">目標PTに向けて、商品の組み合わせを自動計算。除外商品や必須個数も指定できます。</span>
+            
             <span class="mode-card-action">START <span aria-hidden="true">›</span></span>
           </span>
-        </a>
-        <a href="calc_split.html" class="menu-card menu-card-balance">
+        </button>
+        <button type="button" class="menu-card menu-card-balance" data-guide="balance" aria-pressed="false">
           <span class="mode-card-outline" aria-hidden="true"></span>
           <span class="mode-card-content">
             <span class="mode-card-number">02</span>
             <span class="mode-card-symbol" aria-hidden="true">⚖</span>
             <span class="mode-card-en">BLOCK BALANCE</span>
             <span class="menu-card-title">ポイント振り分け</span>
-            <span class="menu-card-desc">購入する商品と個数を左右に振り分け。目標PTや保有PTを使った調整もできます。</span>
+            
             <span class="mode-card-action">START <span aria-hidden="true">›</span></span>
           </span>
-        </a>
+        </button>
       </div>
-      <p class="mode-select-note">カードを選ぶと各ツールへ進みます</p>
+      <div class="game-guide" aria-live="polite">
+        <svg class="game-guide-robot" viewBox="0 0 120 140" role="img" aria-label="ゲーム風の案内ロボット">
+          <path d="M58 22V12" stroke="#eac979" stroke-width="5"/><path d="M52 9h12v8H52z" fill="#f8df8f"/>
+          <path d="M28 29h64v9h10v65H92v9H28v-9H18V38h10z" fill="#2a4264" stroke="#e8c677" stroke-width="5" stroke-linejoin="miter"/>
+          <path d="M34 44h52v43H34z" fill="#0c192b" stroke="#a6b5d0" stroke-width="3"/>
+          <path d="M43 57h12v16H43zM65 57h12v16H65z" fill="#9eeaff"/>
+          <path d="M46 60h5v5h-5zM68 60h5v5h-5z" fill="#f5ffff"/>
+          <path d="M43 81h34v4H43z" fill="#d7b96c"/>
+          <path d="M17 55H8v27h9M103 55h9v27h-9" fill="none" stroke="#e8c677" stroke-width="6"/>
+          <path d="M36 114v15h13v-15M71 114v15h13v-15" fill="#2a4264" stroke="#e8c677" stroke-width="5"/>
+          <path d="M23 39h-7v14h7M97 39h7v14h-7" fill="#f3d788"/>
+        </svg>
+        <div class="game-guide-dialogue">
+          <div class="game-guide-label">GUIDE BOT <span aria-hidden="true">▸</span></div>
+          <p id="gameGuideText">気になるモードを選んでね。使い方を説明するよ！</p>
+          <a id="gameGuideStart" class="game-guide-start" href="calc_pt.html" hidden>QUEST START <span aria-hidden="true">›</span></a>
+        </div>
+      </div>
+      <p class="mode-select-note">カードをタップするとガイドが説明します</p>
     </section>
   </main>
 
   <footer class="app-footer">&copy; Place de Nina Order Support System</footer>
   <script src="js/app-shell.js?v=menu-motion-2" defer></script>
+  <script>
+    (() => {
+      const options = {
+        quest: { text: '目標ポイントに合わせて、商品の組み合わせを自動計算するモードだよ。除外商品や必須個数も指定できるよ！', href: 'calc_pt.html', label: 'POINT QUEST START' },
+        balance: { text: '購入する商品を左右に振り分けるモードだよ。目標ポイントや保有ポイントも使って調整できるよ！', href: 'calc_split.html', label: 'BLOCK BALANCE START' }
+      };
+      const cards = document.querySelectorAll('.menu-card[data-guide]');
+      const text = document.getElementById('gameGuideText');
+      const start = document.getElementById('gameGuideStart');
+      cards.forEach(card => card.addEventListener('click', () => {
+        const key = card.dataset.guide;
+        const data = options[key];
+        cards.forEach(c => c.setAttribute('aria-pressed', String(c === card)));
+        text.textContent = data.text;
+        start.href = data.href;
+        start.innerHTML = data.label + ' <span aria-hidden="true">›</span>';
+        start.hidden = false;
+        document.querySelector('.game-guide').classList.remove('guide-animate');
+        void document.querySelector('.game-guide').offsetWidth;
+        document.querySelector('.game-guide').classList.add('guide-animate');
+      }));
+    })();
+  </script>
 
 </body>
 </html>
