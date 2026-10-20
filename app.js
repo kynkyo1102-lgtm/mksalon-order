@@ -98,9 +98,9 @@ function savePreMemberInfo() {
   
   const existIdx = list.findIndex(m => m.code === mainId);
   if (existIdx >= 0) {
-    list[existIdx].name = name;
+    list[existIdx].name = name;\n    list[existIdx].subId = subId;
   } else {
-    list.push({ code: mainId, name });
+    list.push({ code: mainId, name, subId });
   }
 
   SalonMembers.write(list);
@@ -160,7 +160,7 @@ function applyPresetMember(index) {
   const target = list[index];
   if (target) {
     document.getElementById('memberIdMain').value = target.code;
-    document.getElementById('memberIdSub').value = '00';
+    document.getElementById('memberIdSub').value = target.subId || '00';
     document.getElementById('fullName').value = target.name;
   }
 }
