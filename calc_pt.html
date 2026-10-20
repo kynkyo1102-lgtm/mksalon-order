@@ -25,6 +25,8 @@
     }
   </script>
   <link rel="stylesheet" href="css/rpg-typography.css?v=2">
+  <link rel="stylesheet" href="css/neural-generator.css?v=1">
+  <link rel="stylesheet" href="css/neural-pt.css?v=6">\n  <link rel="stylesheet" href="css/neural-effects.css?v=1">
 </head>
 <body class="app-page calc-pt-page">
 
@@ -41,11 +43,12 @@
   </header>
 
   <main class="app-main">
+    
     <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
     
-    <p class="quest-eyebrow">POINT QUEST <span>— PURCHASE SIMULATOR —</span></p><h1 class="app-page-title">ポイント最適化シミュレーター</h1><p class="quest-lead">目標PTに向けて、最適な購入パターンを探そう。</p>
+    <p class="quest-eyebrow">NEURAL OPTIMIZER <span>— PURCHASE ANALYSIS —</span></p><h1 class="app-page-title neural-type-title" data-type-text="ポイント最適化シミュレーター">ポイント最適化シミュレーター</h1><p class="quest-lead">購入ポイントと商品条件を解析し、最適な組み合わせを算出します。</p>
     <div class="calc-page-layout">
-      <section class="calc-steps" aria-label="使い方"><h2>進め方 <span class="quest-mini">HOW TO PLAY</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
+      <section class="calc-steps" aria-label="使い方"><h2>解析の流れ <span class="quest-mini">ANALYSIS FLOW</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
 
       <div class="calc-workspace"><section class="calc-input-section" aria-labelledby="calc-input-title"><h2 id="calc-input-title"><span>STEP 1</span> 目標を決める</h2>
       <div class="form-group">
@@ -80,7 +83,7 @@
       </section>
       </div>
       <div class="calc-run-area"><p class="calc-action-hint">対象月度と購入ポイントを入力して計算してください。商品条件の指定は任意です。</p>
-      <button id="calcRunButton" class="btn-copy" onclick="calculateBestCombos()">▶ クエスト開始・組み合わせを計算</button>
+      <button id="calcRunButton" class="btn-copy" onclick="calculateBestCombos()">▶ 解析開始・組み合わせを計算</button>
       <div id="calcProgress" class="calc-progress" role="status" aria-live="polite" hidden><div class="calc-progress-line"><span></span></div><p>最適な組み合わせを探索中…</p></div>
       <div id="calcComplete" class="calc-complete" role="status" aria-live="polite" hidden></div>
       </div>
@@ -95,13 +98,30 @@
 
   <script src="js/app-shell.js?v=menu-motion-2" defer></script>
   <script>
+  document.addEventListener('DOMContentLoaded',()=>{
+    if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+    const title=document.querySelector('.neural-type-title');
+    if(!title)return;
+    const full=title.dataset.typeText;
+    title.textContent='';
+    title.classList.add('typing-now');
+    let index=0;
+    setTimeout(()=>{
+      const timer=setInterval(()=>{
+        title.textContent=full.slice(0,++index);
+        if(index>=full.length){clearInterval(timer);title.classList.remove('typing-now');title.classList.add('typing-done')}
+      },56);
+    },440);
+  });
+  </script>
+  <script>
     let configData = null;
     let revealTimer = null;
     function cancelResultAnimation() {
       if (revealTimer !== null) clearTimeout(revealTimer);
       revealTimer = null;
       document.getElementById("calcRunButton").disabled = false;
-      document.getElementById("calcRunButton").textContent = "▶ クエスト開始・組み合わせを計算";
+      document.getElementById("calcRunButton").textContent = "▶ 解析開始・組み合わせを計算";
       document.getElementById("calcProgress").hidden = true;
       document.getElementById("calcComplete").hidden = true;
     }
@@ -312,15 +332,15 @@
       });
       const resDiv = document.getElementById('comboResult');
       resDiv.style.display = 'none';
-      let html = '<div class="quest-result-heading"><span class="quest-result-rule" aria-hidden="true"></span><span>QUEST RESULT</span><span class="quest-result-rule" aria-hidden="true"></span></div>';
+      let html = '<div class="quest-result-heading"><span class="quest-result-rule" aria-hidden="true"></span><span>ANALYSIS REPORT</span><span class="quest-result-rule" aria-hidden="true"></span></div>';
 
       plans.forEach((plan, index) => {
         const displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
         const diffPt = plan.totalPt - targetPt;
         const diffStr = diffPt === 0 ? '目標ちょうど' : (diffPt > 0 ? '目標より +' + diffPt.toLocaleString() + ' PT' : '目標より ' + diffPt.toLocaleString() + ' PT');
-        const planLabel = index === 0 ? 'ベストルート' : index === 1 ? 'ルート02' : 'ルート03';
+        const planLabel = index === 0 ? '最適解' : index === 1 ? '解析案 02' : '解析案 03';
         html += `
-          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">\n            ${plan.isBest ? '<div class="quest-clear-tag">✦ QUEST CLEAR <span>RESULT 01</span></div>' : ''}
+          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">\n            ${plan.isBest ? '<div class="quest-clear-tag">✦ ANALYSIS COMPLETE <span>RESULT 01</span></div>' : ''}
             <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">最適な組み合わせ</span>' : '<span class="plan-variation-label">別ルート</span>'}</div>
             <div class="plan-summary">
               <div class="plan-summary-item"><span>合計ポイント</span><strong>${plan.totalPt.toLocaleString()} <small>PT</small></strong><em>${diffStr}</em></div>
@@ -347,7 +367,7 @@
       const reveal = () => {
         revealTimer = null;
         button.disabled = false;
-        button.textContent = '▶ クエスト開始・組み合わせを計算';
+        button.textContent = '▶ 解析開始・組み合わせを計算';
         document.getElementById('calcProgress').hidden = true;
         const completion = document.getElementById('calcComplete');
         const difference = bestPlan.totalPt - targetPt;
@@ -473,5 +493,7 @@
 
     window.onload = loadConfig;
   </script>
+
+<script src="js/neural-effects.js?v=1" defer></script>
 </body>
 </html>
