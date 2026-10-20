@@ -165,3 +165,7 @@
 
 /* Original flat section heading with deep green text */
 .line-order-page .app-main > .info-card > .section-title{color:#25533e!important}
+
+/* Remove the faint rule beside/below section headings */
+.line-order-page .app-main > .info-card > .section-title{border:0!important;border-bottom:0!important;background-image:none!important}
+.line-order-page .app-main > .info-card > .section-title::before,.line-order-page .app-main > .info-card > .section-title::after{content:none!important;display:none!important}
