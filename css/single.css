@@ -125,33 +125,31 @@
       }
     }
 
-/* LINE order visual refresh: layout only; no ordering logic changed */
-.line-order-page{background:#f7f8fa;color:#273341;font-family:"Noto Sans JP",sans-serif}
-.line-order-page header{background:#fff;color:#243344;border:0;border-bottom:1px solid #e3e7ec;box-shadow:none;padding:19px 18px 16px}
-.line-order-page header::after{display:none}
-.line-order-page .header-logo{font-family:"Noto Sans JP",sans-serif;font-size:12px;font-weight:700;letter-spacing:.025em;color:#667384;text-shadow:none;margin:0 0 9px}
-.line-order-page header h1{color:#233245;font-size:20px;font-weight:700;letter-spacing:.015em}
-.line-order-page main{max-width:660px;padding:22px 16px 150px}
-.line-order-page .line-page-intro{padding:3px 2px 21px}
-.line-order-page .line-page-eyebrow{display:block;color:#7b8896;font-size:10px;font-weight:700;letter-spacing:.13em;margin-bottom:9px}
-.line-order-page .line-page-intro p{margin:0;color:#637181;font-size:12px;line-height:1.85}
-.line-order-page .info-card{background:#fff;border:1px solid #e1e5eb;border-radius:15px;padding:19px 17px;margin-bottom:17px;box-shadow:0 3px 15px rgba(29,48,68,.035);overflow:visible}
-.line-order-page .section-title{color:#26374b!important;font-size:16px!important;font-weight:700!important;letter-spacing:0!important;border:0!important;background:transparent!important;padding:0 0 13px!important;margin:0 0 17px!important;border-bottom:1px solid #e9edf1!important;display:block!important}
-.line-order-page .line-section-caption{margin-left:9px}
+
+/* LINE page: reuse the existing app-shell design language. */
+.line-order-page{background:#fff;color:#222;font-family:"Noto Sans JP",sans-serif}
+.line-order-page .app-main{max-width:760px;padding-top:30px;padding-bottom:155px}
+.line-order-page .app-page-title{margin-bottom:8px}
+.line-order-page .line-page-intro{margin-bottom:26px}
+.line-order-page .line-page-eyebrow{display:none}
+.line-order-page .line-page-intro p{margin:0;color:#666;font-size:13px;line-height:1.8}
+.line-order-page .line-utilities{margin:0 0 27px;padding:16px;border:1px solid #e4e4e4;border-radius:12px;background:#fafafa}
+.line-order-page .line-utilities-heading{font-size:13px;font-weight:700;color:#444;margin-bottom:13px}
+.line-order-page .line-utilities-heading span{font-size:11px;font-weight:400;color:#777;margin-left:8px}
+.line-order-page .line-utilities .info-card{margin-bottom:0;padding:0;border:0;background:transparent;box-shadow:none}
+.line-order-page .line-utilities .tiny-restore-box{background:#fff;border:1px solid #dedede;border-radius:9px;margin-bottom:10px;opacity:1}
+.line-order-page .line-utilities .tiny-restore-summary{background:#fff;color:#333}
+.line-order-page .line-utilities .member-summary span{color:#333!important}
+.line-order-page .info-card{background:#fff;border:1px solid #e3e3e3;border-radius:12px;box-shadow:none;padding:20px;margin-bottom:18px;overflow:visible}
+.line-order-page .section-title{display:flex;align-items:center;gap:12px;color:#222!important;font-size:16px!important;font-weight:700!important;letter-spacing:0!important;background:none!important;border:0!important;border-bottom:1px solid #e9e9e9!important;margin:0 0 18px!important;padding:0 0 14px!important}
+.line-order-page .line-step-num{font-size:12px;color:#888;font-weight:500;letter-spacing:.06em}
 .line-order-page .form-group{margin-bottom:17px}
-.line-order-page .form-group label{display:block;color:#455365;font-weight:700;font-size:12px;margin-bottom:8px}
-.line-order-page input:not([type=checkbox]),.line-order-page select,.line-order-page textarea{max-width:100%;border:1px solid #d9e0e8;border-radius:9px;background:#fff;color:#263547;font-family:inherit;font-size:14px;min-height:42px}
-.line-order-page input:focus,.line-order-page select:focus,.line-order-page textarea:focus{outline:2px solid #9ab5d0;outline-offset:1px;border-color:#7c9cb9}
-.line-order-page .sub-note{color:#778391;font-size:11px;line-height:1.8}
-.line-order-page .line-utilities{background:#f0f3f6;border:1px solid #e2e7ec;border-radius:15px;padding:14px 13px 1px;margin-bottom:24px}
-.line-order-page .line-utilities-heading{font-size:12px;font-weight:700;color:#455467;margin:0 3px 13px}
-.line-order-page .line-utilities-heading span{font-weight:400;font-size:10px;color:#84909b;margin-left:7px}
-.line-order-page .line-utilities .info-card{padding:0 12px;margin-bottom:13px;border-radius:10px;box-shadow:none}
-.line-order-page .line-utilities .tiny-restore-box{background:#fff;border:1px solid #e1e5eb;border-radius:10px;opacity:1;margin-bottom:12px}
-.line-order-page .line-utilities .tiny-restore-summary{background:#fff;color:#4a5a6b}
-.line-order-page .line-utilities .member-summary span{color:#4a5a6b!important}
-.line-order-page .footer-bar{background:rgba(255,255,255,.97);border-top:1px solid #e1e6ec;box-shadow:0 -3px 16px rgba(28,43,61,.07)}
-.line-order-page .total-preview{color:#24384b;font-weight:700}
-.line-order-page .btn-copy{border-radius:10px}
-.line-order-page #output_text{min-height:200px;line-height:1.7;background:#f8fafc}
-@media(max-width:420px){.line-order-page header h1{font-size:18px}.line-order-page main{padding:18px 12px 155px}.line-order-page .info-card{padding:17px 13px}.line-order-page .line-utilities-heading span{display:block;margin:4px 0 0}}
+.line-order-page .form-group label{display:block;font-size:13px;color:#444;font-weight:500;margin-bottom:7px}
+.line-order-page input:not([type=checkbox]),.line-order-page select,.line-order-page textarea{font-family:inherit;font-size:14px;color:#222;background:#fff;border:1px solid #d8d8d8;border-radius:8px;max-width:100%;min-height:42px}
+.line-order-page input:focus-visible,.line-order-page select:focus-visible,.line-order-page textarea:focus-visible{outline:2px solid #777;outline-offset:1px}
+.line-order-page .sub-note{color:#777;font-size:12px;line-height:1.75}
+.line-order-page .sub-btn{background:#fff;color:#222;border:1px solid #d8d8d8;box-shadow:none;border-radius:8px}
+.line-order-page .footer-bar{background:#fff;border-top:1px solid #e5e5e5;box-shadow:0 -3px 15px rgba(0,0,0,.06)}
+.line-order-page .total-preview{color:#222}
+.line-order-page #output_text{min-height:185px;background:#fafafa;line-height:1.75}
+@media(max-width:520px){.line-order-page .app-main{padding:25px 16px 150px}.line-order-page .info-card{padding:16px}.line-order-page .line-utilities-heading span{display:block;margin:4px 0 0}}
