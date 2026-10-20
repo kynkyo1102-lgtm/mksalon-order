@@ -9,7 +9,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=4">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/single.css?v=tab-title-test-1">
+  <link rel="stylesheet" href="css/single.css?v=tab-title-test-2">
 </head>
 <body class="app-page line-order-page">
 
@@ -56,7 +56,7 @@
 
     <!-- 01 <span class="line-section-caption">お届け先情報</span> -->
     <div class="info-card">
-      <div class="section-title">1. お届け先情報</div>
+      <div class="section-title">お届け先情報</div>
       <div class="line-returning-note"><strong>以前ご注文いただいた方へ</strong><span>お届け先は<strong>宛名だけ</strong>でOKです。変更やご希望がある場合のみ、ほかの項目も入力してください。</span></div>
       <div class="form-group">
         <label>お届け先氏名（宛名）</label>
@@ -82,7 +82,7 @@
 
     <!-- 02 <span class="line-section-caption">決済方法</span> -->
     <div class="info-card">
-      <div class="section-title">2. 決済方法</div>
+      <div class="section-title">決済方法</div>
       <div class="form-group">
         <label>決済方法の選択</label>
         <select id="payment_method" onchange="togglePwField(); updatePreview();">
@@ -111,7 +111,7 @@
 
     <!-- 03 <span class="line-section-caption">処理月度の選択</span> -->
     <div class="info-card">
-      <div class="section-title">3. 処理月度の選択</div>
+      <div class="section-title">処理月度の選択</div>
       <select id="target_month" onchange="onMonthChange();">
         <!-- JSで動的生成されます -->
       </select>
@@ -119,14 +119,14 @@
 
     <!-- 5. 会員番号ごとの注文 -->
     <div class="info-card">
-      <div class="section-title">4. 会員番号ごとの注文</div>
+      <div class="section-title">会員番号ごとの注文</div>
       <div id="positions_container"></div>
       <button class="sub-btn mt-8" onclick="addPositionBox()">+ 会員番号(ポジション)を追加</button>
     </div>
 
     <!-- 05 <span class="line-section-caption">生成された注文テキスト</span> -->
     <div class="info-card">
-      <div class="section-title">5. 生成された注文テキスト</div>
+      <div class="section-title">生成された注文テキスト</div>
       <p class="sub-note">※万が一「LINE用に注文書をコピー」ボタンで失敗する場合は、以下の枠内を選択して直接手動コピーしてください。</p>
       <textarea id="output_text" readonly placeholder="ここにLINE用のテキストがリアルタイムで生成されます"></textarea>
     </div>
