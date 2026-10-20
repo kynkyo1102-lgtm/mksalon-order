@@ -405,33 +405,6 @@
     });
   </script>
 
-<div id="calc-launch-screen" class="calc-launch-screen" role="status" aria-live="polite" aria-hidden="true">
- <div class="calc-launch-content"><div class="calc-launch-title">LOADING...</div><div class="calc-launch-progress"><div class="calc-launch-progress-fill"></div></div><div class="calc-launch-start"><span id="calc-launch-percent">0%</span></div></div>
-</div>
-<script>
-(function(){
- var overlay=document.getElementById('calc-launch-screen');
- var launching=false;
- document.querySelectorAll('a.home-floating-calc[href*="calc.html"]').forEach(function(link){
-  link.addEventListener('click',function(e){
-   if(e.defaultPrevented||e.ctrlKey||e.metaKey||e.shiftKey||e.altKey||e.button!==0||launching)return;
-   e.preventDefault();launching=true;
-   overlay.setAttribute('aria-hidden','false');
-   overlay.classList.add('is-active');
-   var target=link.href;
-   var percent=document.getElementById('calc-launch-percent');
-   var started=performance.now();
-   var ticker=window.setInterval(function(){
-    var t=Math.min(1,(performance.now()-started)/2150);
-    var p=t<.15?t/.15*18:t<.4?18+(t-.15)/.25*21:t<.6?39+(t-.4)/.2*28:t<.85?67+(t-.6)/.25*24:91+(t-.85)/.15*9;
-    percent.textContent=Math.min(100,Math.floor(p))+'%';
-    if(t>=1){window.clearInterval(ticker);percent.textContent='100%';}
-   },55);
-   window.setTimeout(function(){(function(){try{sessionStorage.setItem('calc-launch-pending','1')}catch(e){}window.location.assign(target)})()},2550);
-  });
- });
- window.addEventListener('pageshow',function(){launching=false;overlay.classList.remove('is-active');overlay.setAttribute('aria-hidden','true')});
-})();
-</script>
+
 </body>
 </html>
