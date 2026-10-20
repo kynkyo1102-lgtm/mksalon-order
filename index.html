@@ -134,6 +134,13 @@
     @keyframes home-robot-idle{0%,12%,44%,100%{transform:translateY(0) rotate(0deg)}19%{transform:translateY(-4px) rotate(-1deg)}27%{transform:translateY(-2px) rotate(1deg)}35%{transform:translateY(0) rotate(0deg)}}
     .home-page .home-floating-robot:hover .home-robot-art{animation-play-state:paused}
     @media(prefers-reduced-motion:reduce){.home-page .home-floating-robot .home-robot-art{animation:none!important}}
+
+    /* robot-sign-4: the placard stays still while the head peeks out */
+    .home-page .home-floating-robot .home-robot-art{animation:none!important;transform:none!important}
+    .home-page .home-floating-robot .home-robot-peek{animation:home-robot-peek 5.6s ease-in-out infinite;transform:translateY(17px)}
+    @keyframes home-robot-peek{0%,12%,52%,100%{transform:translateY(17px)}21%,37%{transform:translateY(-1px)}43%{transform:translateY(3px)}}
+    .home-page .home-floating-robot:hover .home-robot-peek{animation-play-state:paused}
+    @media(prefers-reduced-motion:reduce){.home-page .home-floating-robot .home-robot-peek{animation:none!important;transform:translateY(10px)}}
 </style>
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">\n</head>
 <body class="home-page">
@@ -255,12 +262,14 @@
   <a href="calc.html" class="home-floating-calc home-floating-robot" aria-label="計算サポートツールを開く" title="計算サポートツール">
     <svg class="home-robot-art" viewBox="0 0 245 135" role="img" aria-label="看板を持つロボット" xmlns="http://www.w3.org/2000/svg">
       <defs><linearGradient id="homeRobotMetal" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".52" stop-color="#e9eef3"/><stop offset="1" stop-color="#b9c7d5"/></linearGradient></defs>
-      <!-- little robot behind the sign -->
+      <!-- robot peeks from behind the sign -->
+      <g class="home-robot-peek">
       <path d="M181 24V15" stroke="#556c80" stroke-width="4" stroke-linecap="round"/><circle cx="181" cy="12" r="5" fill="#d8ad60" stroke="#647d92" stroke-width="2"/>
       <rect x="151" y="26" width="60" height="58" rx="19" fill="url(#homeRobotMetal)" stroke="#60788e" stroke-width="3"/>
       <rect x="159" y="39" width="44" height="26" rx="11" fill="#293f56"/>
       <ellipse cx="172" cy="52" rx="4" ry="6" fill="#a9e2eb"/><ellipse cx="190" cy="52" rx="4" ry="6" fill="#a9e2eb"/>
       <path d="M175 62q6 5 12 0" stroke="#a9e2eb" stroke-width="2" fill="none" stroke-linecap="round"/>
+      </g>
       <path d="M157 79l-11 14M205 79l12 14" stroke="#8095a8" stroke-width="8" stroke-linecap="round"/>
       <path d="M167 83v12m28-12v12" stroke="#60788e" stroke-width="9" stroke-linecap="round"/>
       <!-- raised arms holding the placard -->
