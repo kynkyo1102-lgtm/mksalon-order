@@ -172,3 +172,24 @@
 .line-order-page .tiny-restore-summary{font-size:15px!important;line-height:1.6;padding:12px 8px}
 .line-order-page .line-restore-area .tiny-restore-box{margin:0}
 @media(max-width:520px){.line-order-page .line-restore-area{padding:14px 15px}.line-order-page .info-card{padding:19px 16px!important}.line-order-page .section-title{font-size:17px!important}}
+
+/* Grid-paper direction: page-specific, keeping existing app shell */
+.line-order-page{background-color:#f8f9f7!important;background-image:linear-gradient(to right,rgba(98,112,105,.085) 1px,transparent 1px),linear-gradient(to bottom,rgba(98,112,105,.085) 1px,transparent 1px)!important;background-size:24px 24px!important;background-attachment:fixed}
+.line-order-page .app-header,.line-order-page .app-menu{background:#fff}
+.line-order-page .info-card{background:#fff!important;border:1.5px solid #aeb8b1!important;box-shadow:3px 4px 0 rgba(83,99,89,.075)!important;border-radius:12px!important}
+.line-order-page .line-restore-area{background:#fff!important;border:1.5px solid #aeb8b1!important;box-shadow:3px 4px 0 rgba(83,99,89,.06)}
+.line-order-page .tiny-restore-box{background:#fff;border:1px solid #d2d8d3}
+.line-order-page .section-title{border-bottom:1px solid #d5ddd7!important}
+.line-order-page .position-box{background:#fff!important;border:1.5px solid #aeb8b1!important;border-radius:11px!important;box-shadow:none!important;padding:19px!important;margin:16px 0 20px!important;color:#222!important}
+.line-order-page .pos-header{background:transparent!important;border:0!important;border-bottom:1px solid #d5ddd7!important;border-radius:0!important;padding:0 0 12px!important;margin:0 0 17px!important;color:#222!important}
+.line-order-page .pos-title{color:#222!important;font-size:16px!important;font-weight:700!important}
+.line-order-page .manual-input-box{background:#f5f7f5!important;border:1px solid #d8ded9!important;border-radius:8px!important;color:#555!important}
+.line-order-page .manual-input-text,.line-order-page .label-accent{color:#444!important}
+.line-order-page .item-row{background:#fafbfa!important;border:1px solid #d5ddd7!important;border-radius:9px!important;padding:12px!important;gap:9px!important;align-items:center}
+.line-order-page .item-qty-container{color:#444!important;font-size:14px!important}
+.line-order-page .item-row .item-select{min-width:0;flex:1 1 210px}
+.line-order-page .item-row .item-qty{min-width:72px}
+.line-order-page .position-box .sub-btn,.line-order-page .position-box button:not(.btn-danger){background:#fff!important;border:1px solid #adb8b0!important;color:#222!important;border-radius:8px!important;box-shadow:none!important}
+.line-order-page .position-box .btn-danger{background:#fff!important;border:1px solid #c7c7c7!important;color:#555!important;box-shadow:none!important;border-radius:8px!important;min-height:40px}
+.line-order-page .position-box input,.line-order-page .position-box select{background:#fff!important;border:1px solid #bbc6bd!important;color:#222!important;box-shadow:none!important}
+@media(max-width:520px){.line-order-page .position-box{padding:14px!important}.line-order-page .item-row{padding:10px!important}.line-order-page .item-row .item-select{flex-basis:100%}}
