@@ -11,7 +11,7 @@
   
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-split.css?v=split-guide-3">
+  <link rel="stylesheet" href="css/calc-split.css?v=neural-clean-1">
   <script>
     if (new URLSearchParams(location.search).get('theme') === 'blue') {
       const themeSheet = document.createElement('link');
@@ -46,7 +46,7 @@
       font-family: "Noto Sans JP", sans-serif !important;
     }
   </style>
-  <link rel="stylesheet" href="css/neural-generator.css?v=1">\n  <link rel="stylesheet" href="css/neural-split.css?v=2">\n  <link rel="stylesheet" href="css/neural-effects.css?v=1">
+  <link rel="stylesheet" href="css/neural-generator.css?v=1">\n  <link rel="stylesheet" href="css/neural-split.css?v=3">\n  <link rel="stylesheet" href="css/neural-effects.css?v=1">
 </head>
 <body class="app-page calc-split-page">
 
@@ -159,7 +159,7 @@
           </div>
         </section><div class="split-container">
           <div class="split-col">
-            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">左 (L)</h3>
+            <h3 style="margin:0 0 6px 0; color:#a0eaf0; font-size:0.82rem; border-bottom:2px solid #426b7b; padding-bottom:3px; text-align:center;">左 (L)</h3>
             <div id="leftList"></div>
             
             <div class="total-box">
@@ -172,7 +172,7 @@
               <p id="leftCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="leftCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
               
               <div id="leftFinalPtRow" class="final-sum-box" style="display:none;">
-                ＝ <span id="leftFinalPtVal" style="color:#b87b2a; font-size:0.95rem;">0</span> PT
+                ＝ <span id="leftFinalPtVal" style="color:#a1eff0; font-size:0.95rem;">0</span> PT
               </div>
 
               <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="leftTotalCost">0</span> 円</p>
@@ -185,7 +185,7 @@
           </div>
 
           <div class="split-col">
-            <h3 style="margin:0 0 6px 0; color:var(--wood-dark); font-size:0.82rem; border-bottom:2px solid var(--accent-gold); padding-bottom:3px; text-align:center;">右 (R)</h3>
+            <h3 style="margin:0 0 6px 0; color:#a0eaf0; font-size:0.82rem; border-bottom:2px solid #426b7b; padding-bottom:3px; text-align:center;">右 (R)</h3>
             <div id="rightList"></div>
             
             <div class="total-box">
@@ -198,7 +198,7 @@
               <p id="rightCurrentPtRow" style="font-size:0.78rem; margin:2px 0; color:var(--text-sub); display:none;">保有: <span id="rightCurrentPtVal" style="font-weight:bold;">0</span> PT</p>
               
               <div id="rightFinalPtRow" class="final-sum-box" style="display:none;">
-                ＝ <span id="rightFinalPtVal" style="color:#b87b2a; font-size:0.95rem;">0</span> PT
+                ＝ <span id="rightFinalPtVal" style="color:#a1eff0; font-size:0.95rem;">0</span> PT
               </div>
 
               <p style="font-size:0.78rem; margin:4px 0 2px 0;">金額: <span class="total-cost-val" id="rightTotalCost">0</span> 円</p>
@@ -233,7 +233,7 @@
     <p class="split-guide-hint">使いたいモードのカードをタップしてね！</p>
   </div>
   <button type="button" class="split-guide-trigger" id="splitGuideTrigger" aria-label="ロボットにモードの違いを聞く" aria-controls="splitGuideDialogue" aria-expanded="false">
-    <svg viewBox="0 0 120 140" role="img" aria-label="ゲーム風の案内ロボット">
+    <svg viewBox="0 0 120 140" role="img" aria-label="案内ロボット">
       <path d="M58 22V12" stroke="#eac979" stroke-width="5"/><path d="M52 9h12v8H52z" fill="#f8df8f"/>
       <path d="M28 29h64v9h10v65H92v9H28v-9H18V38h10z" fill="#2a4264" stroke="#e8c677" stroke-width="5" stroke-linejoin="miter"/>
       <path d="M34 44h52v43H34z" fill="#0c192b" stroke="#a6b5d0" stroke-width="3"/>
