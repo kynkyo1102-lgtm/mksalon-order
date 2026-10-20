@@ -4,9 +4,9 @@
  function parse(key){try{const v=JSON.parse(localStorage.getItem(key)||'[]');return Array.isArray(v)?v:[]}catch(e){return []}}
  function normalize(m){
   const raw=String(m.code||m.id||((m.mainId||'')+'-'+(m.subId||'00'))).trim();
-  const code=raw.replace(/-\d{2}$/,'').trim();
+  const match=raw.match(/^(.*)-(\d{2})$/);\n  const code=(match?match[1]:raw).trim();\n  const subId=String(m.subId||(match?match[2]:'00')).padStart(2,'0');
   const name=String(m.name||'').trim();
-  return code&&name?{code,name}:null;
+  return code&&name?{code,name,subId}:null;
  }
  function dedupe(rows){const map=new Map();rows.forEach(m=>{const n=normalize(m);if(n)map.set(n.code,n)});return Array.from(map.values())}
  function read(){return dedupe(parse(KEY))}
