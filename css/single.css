@@ -180,3 +180,6 @@
 .line-order-page .line-member-area .member-summary .line-member-utility-label{font-size:14px!important;font-weight:500!important;color:#4f6957!important}
 .line-order-page .line-member-area .member-summary .line-member-utility-icon{font-size:18px!important;font-weight:400!important}
 @media(max-width:520px){.line-order-page .line-member-area .member-summary{padding:11px 13px!important}}
+
+/* Experiment 3: forest-green title tabs with white lettering */
+.line-order-page .app-main > .info-card > .section-title{background:#25533e!important;color:#fff!important;border-color:#25533e!important;box-shadow:none!important}
