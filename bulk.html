@@ -20,7 +20,7 @@
   <!-- 外部スタイルシートの読み込み -->
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/bulk-shell.css?v=utility-orders-1">
+  <link rel="stylesheet" href="css/bulk-shell.css?v=tab-sections-1">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
@@ -80,8 +80,7 @@
         </details>
 
         <!-- 基本情報エリア（スクロール戻り用ID: topOfForm） -->
-        <div id="topOfForm" class="section-title">1. ご注文者様基本情報</div>
-        <div class="card-box">
+        <div class="card-box bulk-step-card" id="topOfForm"><div id="topOfForm" class="section-title">1. ご注文者様基本情報</div>
           <div class="form-group">
             <label for="presetMemberSelect">保存済み会員から選択</label>
             <select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
@@ -112,8 +111,8 @@
         </div>
 
         <!-- お支払い方法エリア -->
-        <div class="section-title">2. お支払い方法</div>
-        <div class="card-box">
+        <div class="card-box bulk-step-card"><div class="section-title">2. お支払い方法</div>
+        
           <div class="form-group">
             <label for="paymentMethod">お支払い方法を選択 *</label>
             <select id="paymentMethod" required onchange="togglePaymentFields()">
@@ -145,11 +144,11 @@
         </div>
 
         <!-- お届け先エリア -->
-        <div class="section-title">3. お届け先（配送ご希望の方のみ）</div>
+        <div class="card-box bulk-step-card"><div class="section-title">3. お届け先（配送ご希望の方のみ）</div>
         <div style="font-size: 0.75rem; color: var(--text-sub); margin: -4px 0 10px 4px;">
           ※以前にご注文された方は宛名のみでも構いません。
         </div>
-        <div class="card-box">
+        
           <div class="form-group">
             <label for="shipName">お届け先お名前</label>
             <!-- inputの変更を検知してローカルストレージに保存するよう実装 -->
@@ -173,6 +172,7 @@
         </div>
 
         <!-- 商品一覧テーブル -->
+        <div class="bulk-step-card bulk-products-card">
         <div class="section-title">4. 注文商品選択</div>
         <div class="sub-instruction">ご希望商品の数量を選択してください</div>
         <table class="product-table">
@@ -186,6 +186,7 @@
           </thead>
           <tbody id="productTableBody"></tbody>
         </table>
+        </div>
 
         <!-- 追加済み注文リスト（確認用） -->
         <div id="orderListContainer" class="card-box order-list-box display-none">
