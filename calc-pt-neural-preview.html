@@ -500,11 +500,11 @@ document.addEventListener('DOMContentLoaded',()=>{
  const frames=[...document.querySelectorAll('.calc-steps,.calc-input-section,.calc-product-section,.calc-run-area')];
  function frame(el,delay=0){
    if(!el||el.querySelector(':scope > .neural-frame'))return;
-   const svg=document.createElementNS('http://www.w3.org/2000/svg','svg');
-   svg.setAttribute('class','neural-frame');svg.setAttribute('aria-hidden','true');svg.setAttribute('preserveAspectRatio','none');
-   const rect=document.createElementNS('http://www.w3.org/2000/svg','rect');
-   rect.setAttribute('x','1');rect.setAttribute('y','1');rect.setAttribute('width','calc(100% - 2px)');rect.setAttribute('height','calc(100% - 2px)');rect.setAttribute('pathLength','100');
-   svg.appendChild(rect);el.prepend(svg);
+   const border=document.createElement('span');
+   border.className='neural-frame-lines';
+   border.setAttribute('aria-hidden','true');
+   for(let i=0;i<4;i++){const line=document.createElement('i');border.appendChild(line)}
+   el.prepend(border);
    if(reduce){el.classList.add('neural-framed');return}
    setTimeout(()=>{el.classList.add('neural-framing');setTimeout(()=>el.classList.add('neural-framed'),1150)},delay);
  }
