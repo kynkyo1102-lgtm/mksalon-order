@@ -1,4 +1,4 @@
-/* Distribution preview layout only; shared animations live in neural-effects-preview.css. */
+/* Production distribution presentation; calculation logic is independent. */
 .calc-split-page{--split-space:clamp(22px,5vw,42px)}
 .calc-split-page .app-main{padding-top:clamp(28px,6vw,54px)!important;padding-bottom:120px!important}
 .calc-split-page .calc-back-top{display:inline-flex;margin-bottom:clamp(28px,6vw,48px)!important}
@@ -25,3 +25,37 @@
 .calc-split-page .balance-stage-title{color:#9be8ee!important;font-family:ui-monospace,Consolas,monospace!important}
 .calc-split-page .btn-copy{min-height:52px!important;font-weight:700!important}
 @media(max-width:520px){.calc-split-page :is(.difficulty-select,.split-product-editor,.balance-stage){padding:20px!important}.calc-split-page .difficulty-options{gap:9px!important}}
+
+/* Remove remaining RPG-era gold/double frames and align every result layer. */
+.calc-split-page .card-box::before,.calc-split-page .card-box::after{content:none!important;display:none!important}
+.calc-split-page :is(.difficulty-select,.difficulty-option,.mode-panel,.selected-mode-bar,.split-product-editor,.selected-product-list,.selected-product-row,.split-col,.balance-stage,.total-box,.final-sum-box,.suggest-box,.split-grand-summary,.split-guide-dialogue,.split-guide-option){border-style:solid!important;border-width:1px!important;border-color:#426b7b!important;border-radius:8px!important;box-shadow:none!important;color:#eaf5f6!important}
+.calc-split-page :is(.mode-panel,.selected-mode-bar,.selected-product-list,.selected-product-row,.split-col,.total-box,.final-sum-box,.suggest-box,.split-grand-summary,.split-guide-dialogue,.split-guide-option){background:#102837!important}
+.calc-split-page :is(.difficulty-option,.mode-panel,.selected-mode-bar,.split-product-editor,.balance-stage,.split-col,.total-box,.final-sum-box,.suggest-box,.split-grand-summary){box-shadow:inset 0 1px 0 #9debf012!important}
+.calc-split-page .difficulty-option{background:#102b3a!important}
+.calc-split-page .difficulty-option:is(:hover,:focus-visible,.active){background:#1b4d60!important;border-color:#8be5ec!important}
+.calc-split-page .difficulty-option::before{content:none!important;display:none!important}
+.calc-split-page .split-col{background:linear-gradient(150deg,#153545,#0c2230)!important;padding:clamp(16px,3vw,23px)!important}
+.calc-split-page .split-col>h3{color:#9be8ee!important;border-bottom:1px solid #4c7e8b!important;padding:0 0 12px!important;margin:0 0 16px!important;font:700 clamp(15px,3vw,18px)/1.5 "Noto Sans JP",sans-serif!important}
+.calc-split-page :is(.total-box,.final-sum-box){background:#0b2130!important}
+.calc-split-page :is(.total-pt-val,.total-cost-val,#leftFinalPtVal,#rightFinalPtVal,#ptDiff,#grandTotalCost){color:#a1eff0!important;text-shadow:none!important}
+.calc-split-page :is(.total-box,.total-box *, .final-sum-box,.final-sum-box *, .split-grand-summary,.split-grand-summary *){border-color:#426b7b}
+.calc-split-page :is(.split-grand-summary,.split-grand-summary strong){color:#eaf5f6!important}
+.calc-split-page .split-grand-summary strong{color:#9df2ef!important}
+.calc-split-page .split-grand-summary{background:linear-gradient(135deg,#173e4d,#0c2837)!important;border:1px solid #6ac4cd!important;padding:20px!important}
+.calc-split-page .suggest-box{background:#143646!important;border-left:3px solid #80dce5!important}
+.calc-split-page .suggest-box strong{color:#a3f0ef!important}
+.calc-split-page :is(.split-item-card,.split-item-row){background:#0c2231!important;border-color:#416b7b!important;color:#eaf5f6!important;border-radius:6px!important}
+.calc-split-page :is(.scale-scene,.target-visual,.current-visual,.target-meter,.meter-track){border-color:#426b7b!important}
+.calc-split-page :is(.balance-stage-title,.meter-heading strong,.scale-pt-labels,.current-difference strong){color:#a0eaf0!important}
+.calc-split-page .split-guide-trigger{border:1px solid #72cad2!important;border-radius:11px!important;background:#123849!important;box-shadow:0 5px 18px #0004!important;color:#9be8ee!important}
+.calc-split-page .split-guide-trigger span,.calc-split-page .split-guide-title span,.calc-split-page .split-guide-option strong{color:#9be8ee!important}
+.calc-split-page .split-guide-dialogue{background:#102837!important;box-shadow:0 15px 35px #0006!important}
+.calc-split-page .split-guide-title{border-bottom-color:#426b7b!important}
+.calc-split-page .split-guide-title button{color:#9be8ee!important}
+.calc-split-page .split-guide-option{background:#153647!important;border-left:3px solid #70cbd5!important}
+.calc-split-page .split-guide-option p strong.split-guide-emphasis{color:#eaf5f6!important}
+.calc-split-page .split-guide-hint{color:#a1dbe2!important}
+.calc-split-page .app-main :is(button,.difficulty-select h2,.difficulty-select h2 small,.split-product-editor h2,.split-product-editor h2 small,.split-col h3){font-family:"Noto Sans JP",sans-serif!important;letter-spacing:normal!important}
+.calc-split-page .app-main :is(.pixel-en,.difficulty-number,.balance-stage-title,.split-eyebrow){font-family:ui-monospace,Consolas,monospace!important;letter-spacing:.08em!important}
+.calc-split-page .app-main :is(.btn-copy,.split-add-button){font-weight:700!important}
+@media(max-width:520px){.calc-split-page .split-col{padding:16px!important}.calc-split-page .split-grand-summary{padding:16px!important}}
