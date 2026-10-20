@@ -212,3 +212,17 @@ body.calc-pt-page{--quest-bg:#11192b;--quest-panel:#1b2740;--quest-line:#d8e4f2;
 .calc-pt-page .app-footer{color:#aabbd0}
 @media(max-width:520px){.calc-pt-page .calc-steps,.calc-pt-page .calc-input-section,.calc-pt-page .calc-product-section,.calc-pt-page .calc-run-area,.calc-pt-page .plan-card{padding:17px!important}.calc-pt-page .calc-conditions-toolbar{flex-wrap:wrap}.calc-pt-page .quest-eyebrow span{display:block;margin-top:5px}}
 @media(prefers-reduced-motion:reduce){.calc-pt-page #calcRunButton{transition:none}}
+
+/* v12 — result stage differentiation */
+.calc-pt-page .quest-result-heading{display:flex;align-items:center;gap:13px;justify-content:center;color:var(--quest-gold);font:800 13px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.18em;margin:0 0 23px;text-align:center}
+.calc-pt-page .quest-result-rule{height:1px;max-width:130px;flex:1;background:linear-gradient(90deg,transparent,#9d8955)}
+.calc-pt-page .quest-result-rule:last-child{transform:rotate(180deg)}
+.calc-pt-page .plan-card.best{background:#26334e!important;border:3px solid var(--quest-gold)!important;box-shadow:inset 0 0 0 4px #26334e,inset 0 0 0 5px #a18b50,0 8px 0 #090f1e,0 0 25px rgba(244,214,124,.1)!important;padding:23px!important}
+.calc-pt-page .quest-clear-tag{display:flex;justify-content:space-between;align-items:center;gap:10px;color:var(--quest-gold);font:800 12px ui-monospace,SFMono-Regular,Consolas,monospace;letter-spacing:.11em;margin-bottom:18px}
+.calc-pt-page .quest-clear-tag span{color:#b9c6d8;font-size:10px;letter-spacing:.08em}
+.calc-pt-page .plan-card.best .plan-heading .plan-title{font-size:clamp(20px,5vw,25px)!important}
+.calc-pt-page .plan-card.best .plan-summary{background:#101a2d!important;border-color:#b9a46d!important;padding:17px!important}
+.calc-pt-page .plan-card.best .plan-summary-item:first-child strong{font-size:clamp(24px,6vw,34px)!important;line-height:1.35}
+.calc-pt-page .plan-card.best .plan-summary-item:first-child strong small{font-size:13px!important}
+.calc-pt-page .plan-card:not(.best){border-color:#9eafc6!important;background:#1b2740!important}
+@media(max-width:520px){.calc-pt-page .plan-card.best{padding:17px!important}.calc-pt-page .quest-result-heading{font-size:12px;gap:9px}.calc-pt-page .plan-card.best .plan-summary{padding:12px!important}}
