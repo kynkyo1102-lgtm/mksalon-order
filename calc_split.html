@@ -12,6 +12,15 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
   <link rel="stylesheet" href="css/calc-split.css?v=balance-11">
+  <script>
+    if (new URLSearchParams(location.search).get('theme') === 'blue') {
+      const themeSheet = document.createElement('link');
+      themeSheet.rel = 'stylesheet';
+      themeSheet.href = 'css/arcade-blue-preview.css?v=1';
+      document.head.appendChild(themeSheet);
+      document.addEventListener('DOMContentLoaded', () => document.body.classList.add('arcade-blue-preview'));
+    }
+  </script>
 </head>
 <body class="app-page calc-split-page">
 
