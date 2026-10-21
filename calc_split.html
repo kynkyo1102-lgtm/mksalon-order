@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/robot-split-clean.css?v=production-1">
+  <link rel="stylesheet" href="css/robot-split-clean.css?v=production-2">
   
 </head>
 <body class="app-page calc-split-page">
@@ -30,7 +30,7 @@
     
     <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
 
-    <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1><p class="split-lead">購入する商品を、左右のポイントに振り分けます。</p><div class="split-robot-guide"><img src="assets/retro-guide-robot.svg" alt="" width="95" height="108" style="width:95px;height:108px;max-width:95px;object-fit:contain;flex:none"><div class="split-robot-speech"><strong id="splitRobotTitle">どう振り分けたいですか？</strong><span id="splitRobotText">気になる方法は「ロボットに聞く」を押してね！</span></div></div>
+    <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1><p class="split-lead">購入する商品を、左右のポイントに振り分けます。</p><div class="split-robot-guide"><img src="assets/retro-guide-robot.svg" alt="" width="95" height="108" style="width:95px;height:108px;max-width:95px;object-fit:contain;flex:none"><div class="split-robot-speech"><strong id="splitRobotTitle">どう振り分けたいですか？</strong><span id="splitRobotText">気になる方法は「ロボットに聞く」を押してね！</span><button type="button" id="splitRobotChangeMode" class="split-robot-change-mode" onclick="backToModeSelection()" hidden>‹ 振り分け方法を選び直す</button></div></div>
     <div class="card-box"><div class="split-input-view">
       <div class="split-workspace-heading">
         <button type="button" class="btn-reset workspace-reset" onclick="resetSplitSelection()">↺ リセット</button>
@@ -45,7 +45,7 @@
         </div>
       </section>
       <div id="splitWorkspace" hidden>
-        <div class="selected-mode-bar"><span id="selectedModeLabel"></span><button type="button" onclick="backToModeSelection()">モードを変更</button></div>
+        
       <!-- ① かんたん均等の説明パネル -->
       <div id="panel-auto" class="mode-panel active">
         <p class="usage-guide" style="margin:0; font-size:0.78rem;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
@@ -202,8 +202,14 @@
 
       document.getElementById('difficultySelect').hidden = true;
       document.getElementById('splitWorkspace').hidden = false;
-      document.getElementById('selectedModeLabel').textContent =
-        ({auto:'左右を均等にしたい',target:'左右の目標ポイントに合わせたい',current:'今あるポイントも含めて均等にしたい'})[mode];
+      const guideMessages={
+        auto:['左右を均等にしたい','今回購入する商品を、左右のポイントができるだけ同じになるように振り分けるよ。商品と個数を選んでね！'],
+        target:['左右の目標ポイントに合わせたい','左右の目標ポイントを入力して、商品と個数を選んでね。目標に近づくように振り分けるよ！'],
+        current:['今あるポイントも含めて均等にしたい','今ある左右のポイントを入力して、商品と個数を選んでね。購入分を足して均等になるように計算するよ！']
+      };
+      document.getElementById('splitRobotTitle').textContent=guideMessages[mode][0];
+      document.getElementById('splitRobotText').textContent=guideMessages[mode][1];
+      document.getElementById('splitRobotChangeMode').hidden=false;
       ['auto','target','current'].forEach(m => {
         document.getElementById('panel-'+m).classList.toggle('active',m===mode);
       });
@@ -211,6 +217,9 @@
     }
     function backToModeSelection() {
       currentMode = null;
+      document.getElementById('splitRobotTitle').textContent='どう振り分けたいですか？';
+      document.getElementById('splitRobotText').textContent='気になる方法は「ロボットに聞く」を押してね！';
+      document.getElementById('splitRobotChangeMode').hidden=true;
       document.getElementById('difficultySelect').hidden = false;
       document.getElementById('splitWorkspace').hidden = true;
       document.getElementById('splitResult').style.display = 'none';
