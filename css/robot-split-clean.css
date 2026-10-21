@@ -15,3 +15,6 @@ body.split-show-result{overflow:hidden}body.split-show-result #splitResult{posit
 /* Shared decorative backdrop: keep visible on the split selection and input screens. */
 body.app-page.calc-split-page{background-color:#f7f9fc;background-image:url("../assets/robot-lab-pattern.svg");background-repeat:repeat;background-position:center top;background-size:640px 640px}
 @media(max-width:640px){body.app-page.calc-split-page{background-size:440px 440px}}
+
+/* Mode selection and navigation live in the robot speech. */
+.split-robot-change-mode{display:inline-block;margin-top:12px;padding:8px 12px;border:1px solid #8eacc3;border-radius:7px;background:#eef5fa;color:#294f6c;font:13px "Noto Sans JP",sans-serif;cursor:pointer}.split-robot-change-mode[hidden]{display:none!important}.split-robot-change-mode:hover{background:#dcecf7}
