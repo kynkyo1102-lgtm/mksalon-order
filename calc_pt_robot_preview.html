@@ -13,7 +13,7 @@
   
   
   
-  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=result-4">
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=result-5">
   
   <script>
     if (new URLSearchParams(location.search).get('theme') === 'blue') {
@@ -384,7 +384,11 @@
         resDiv.style.display = 'block';
         if (!reducedMotion) resDiv.classList.add('calc-result-reveal');
         else resDiv.classList.remove('calc-result-reveal');
-        document.body.classList.add('robot-show-result');document.getElementById('robotResultView').hidden=false;document.getElementById('robotMessage').textContent='計算できました！';
+        const main = document.querySelector('.app-main');
+        main.style.minHeight = Math.max(document.documentElement.scrollHeight, window.innerHeight + window.scrollY + 80) + 'px';
+        document.body.classList.add('robot-show-result');
+        document.getElementById('robotResultView').hidden=false;
+        document.getElementById('robotMessage').textContent='計算できました！';
       };
       revealTimer = setTimeout(reveal, reducedMotion ? 0 : 850);
     }
@@ -497,7 +501,7 @@
       });
     }
 
-    function returnToConditions(){document.body.classList.remove("robot-show-result");document.getElementById("robotResultView").hidden=true;document.getElementById("robotMessage").textContent="条件を変更して、もう一度計算しよう！";}
+    function returnToConditions(){document.body.classList.remove("robot-show-result");document.querySelector(".app-main").style.minHeight="";document.getElementById("robotResultView").hidden=true;document.getElementById("robotMessage").textContent="条件を変更して、もう一度計算しよう！";}
     document.getElementById("robotEditConditions").addEventListener("click",returnToConditions);
     document.getElementById("robotEditConditionsBottom").addEventListener("click",returnToConditions);
     window.onload = loadConfig;
