@@ -21,3 +21,20 @@ body.app-page.calc-split-page{background-color:#f7f9fc;background-image:url("../
 
 /* Mode-specific numbered workflow */
 .split-points-step[hidden]{display:none!important}.split-month-step,.split-points-step{margin:0 0 22px}.split-month-step h2,.split-points-step h2{font-size:17px;font-weight:700;margin:0 0 14px}.split-workspace-heading{justify-content:flex-end;margin-bottom:12px}
+
+/* Match the point optimizer's unified STEP cards. */
+.calc-split-page #splitWorkspace{display:grid;gap:20px}
+.calc-split-page #splitWorkspace[hidden]{display:none!important}
+.calc-split-page #splitWorkspace>.split-workspace-heading{margin:0;justify-content:flex-end}
+.calc-split-page #splitWorkspace>.split-month-step,
+.calc-split-page #splitWorkspace>.split-points-step,
+.calc-split-page #splitWorkspace>.split-product-editor{display:block;margin:0;padding:23px;background:#fff;border:2px solid #d4e2f0;border-radius:17px;box-shadow:4px 5px 0 #dfe9f5}
+.calc-split-page #splitWorkspace>.split-points-step[hidden]{display:none!important}
+.calc-split-page #splitWorkspace>.split-month-step h2,
+.calc-split-page #splitWorkspace>.split-points-step h2,
+.calc-split-page #splitWorkspace>.split-product-editor h2{display:flex;align-items:baseline;gap:8px;margin:0 0 18px;color:#193650;font-size:17px;font-weight:700;line-height:1.5}
+.calc-split-page #splitWorkspace .split-step{font-family:"DotGothic16",monospace;font-size:12px;color:#5a7892;margin-right:0;font-weight:400;white-space:nowrap}
+.calc-split-page #splitWorkspace .mode-panel.active{padding:0;margin:0;border:0;border-radius:0;box-shadow:none;background:transparent}
+.calc-split-page #splitWorkspace .mode-panel .usage-guide{color:#617b91;font-size:13px!important;line-height:1.7;margin:0 0 14px!important}
+.calc-split-page #splitWorkspace .split-month-step .form-group{margin:0!important}
+@media(max-width:640px){.calc-split-page #splitWorkspace>.split-month-step,.calc-split-page #splitWorkspace>.split-points-step,.calc-split-page #splitWorkspace>.split-product-editor{padding:20px 18px}}
