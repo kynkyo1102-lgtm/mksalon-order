@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/robot-split-clean.css?v=production-2">
+  <link rel="stylesheet" href="css/robot-split-clean.css?v=production-3">
   
 </head>
 <body class="app-page calc-split-page">
@@ -32,12 +32,8 @@
 
     <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1><p class="split-lead">購入する商品を、左右のポイントに振り分けます。</p><div class="split-robot-guide"><img src="assets/retro-guide-robot.svg" alt="" width="95" height="108" style="width:95px;height:108px;max-width:95px;object-fit:contain;flex:none"><div class="split-robot-speech"><strong id="splitRobotTitle">どう振り分けたいですか？</strong><span id="splitRobotText">気になる方法は「ロボットに聞く」を押してね！</span><button type="button" id="splitRobotChangeMode" class="split-robot-change-mode" onclick="backToModeSelection()" hidden>‹ 振り分け方法を選び直す</button></div></div>
     <div class="card-box"><div class="split-input-view">
-      <div class="split-workspace-heading">
-        <button type="button" class="btn-reset workspace-reset" onclick="resetSplitSelection()">↺ リセット</button>
-      </div>
-
-      <section class="difficulty-select" id="difficultySelect">
-        <h2><span class="split-step">STEP 1</span> 振り分け方法を選ぶ</h2>
+<section class="difficulty-select" id="difficultySelect">
+        <h2>振り分け方法を選ぶ</h2>
         <p class="split-mode-intro">説明を聞きたい方法の「ロボットに聞く」を押してね。</p><div class="difficulty-options">
           <div class="split-mode-card"><button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>左右を均等にしたい</strong><span class="split-mode-select">この方法で進む ›</span></button><button type="button" class="split-mode-ask" onclick="explainSplitMode('auto')" aria-label="左右を均等にしたいの説明をロボットに聞く">🤖 ロボットに聞く</button></div>
           <div class="split-mode-card"><button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>左右の目標ポイントに合わせたい</strong><span class="split-mode-select">この方法で進む ›</span></button><button type="button" class="split-mode-ask" onclick="explainSplitMode('target')" aria-label="左右の目標ポイントに合わせたいの説明をロボットに聞く">🤖 ロボットに聞く</button></div>
@@ -46,6 +42,15 @@
       </section>
       <div id="splitWorkspace" hidden>
         
+      <div class="split-workspace-heading"><button type="button" class="btn-reset workspace-reset" onclick="resetSplitSelection()">↺ リセット</button></div>
+      <section class="split-month-step"><h2><span class="split-step">STEP 1</span> 対象月度を選ぶ</h2>
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label class="label-accent" style="font-size:0.8rem;">対象月度</label>
+        <select id="monthSelect" class="calc-select"></select>
+      </div>
+
+      </section>
+      <section class="split-points-step" id="splitPointsStep"><h2><span class="split-step">STEP 2</span> ポイントを入力する</h2>
       <!-- ① かんたん均等の説明パネル -->
       <div id="panel-auto" class="mode-panel active">
         <p class="usage-guide" style="margin:0; font-size:0.78rem;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
@@ -81,13 +86,9 @@
         </div>
       </div>
 
-      <div class="form-group" style="margin-bottom: 10px;">
-        <label class="label-accent" style="font-size:0.8rem;">対象月度</label>
-        <select id="monthSelect" class="calc-select"></select>
-      </div>
-
+      </section>
       <section class="split-product-editor">
-        <h2><span class="split-step">STEP 2</span> 購入商品を追加する</h2>
+        <h2><span class="split-step" id="splitProductStepLabel">STEP 3</span> 購入商品を追加する</h2>
         <div class="split-product-controls">
           <label>商品<select id="splitProductSelect" class="calc-select"><option value="">商品を選択してください</option></select></label>
           <label>個数<select id="splitProductQuantity" class="calc-select"></select></label>
@@ -210,6 +211,8 @@
       document.getElementById('splitRobotTitle').textContent=guideMessages[mode][0];
       document.getElementById('splitRobotText').textContent=guideMessages[mode][1];
       document.getElementById('splitRobotChangeMode').hidden=false;
+      document.getElementById('splitPointsStep').hidden=mode==='auto';
+      document.getElementById('splitProductStepLabel').textContent=mode==='auto'?'STEP 2':'STEP 3';
       ['auto','target','current'].forEach(m => {
         document.getElementById('panel-'+m).classList.toggle('active',m===mode);
       });
