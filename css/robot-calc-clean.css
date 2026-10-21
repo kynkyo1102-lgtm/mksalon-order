@@ -32,3 +32,8 @@
 @keyframes robot-button-bob{to{transform:translateY(-4px)}}
 @media(max-width:420px){.calc-pt-page .robot-calc-button{gap:9px;padding:10px 9px;min-height:66px}.calc-pt-page .robot-button-icon{width:41px;height:41px}.calc-pt-page .robot-button-icon img{width:35px;height:37px}.calc-pt-page .robot-button-arrow{font-size:21px}}
 @media(prefers-reduced-motion:reduce){.calc-pt-page .robot-calc-button,.calc-pt-page .robot-calc-button.is-calculating .robot-button-icon img{animation:none;transition:none}}
+
+/* Final robot button: no yellow accent, pixel-style label */
+.calc-pt-page .robot-calc-button:before{content:none!important;display:none!important}
+.calc-pt-page .robot-button-label{font-family:"DotGothic16","MS Gothic",monospace;font-weight:400;letter-spacing:.025em}
+.calc-pt-page .robot-button-arrow{color:#dceaf4}
