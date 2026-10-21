@@ -21,11 +21,10 @@
 
 /* Robot control-panel action */
 .calc-pt-page .robot-calc-button{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;min-height:72px;background:#193d59;color:#fff;border:3px solid #102b42;border-radius:12px;box-shadow:0 5px 0 #a9bfd3,inset 0 2px 0 #416b89;padding:10px 20px;transition:transform .15s,box-shadow .15s}
-.calc-pt-page .robot-calc-button:before{content:"";position:absolute;top:0;left:0;width:54px;height:7px;background:#ffcf59;clip-path:polygon(0 0,100% 0,85% 100%,0 100%)}
 .calc-pt-page .robot-button-icon{width:49px;height:49px;display:flex;align-items:center;justify-content:center;flex:none;border:2px solid #87a6c0;background:#f3f7fa;border-radius:7px}
 .calc-pt-page .robot-button-icon img{width:41px;height:43px;object-fit:contain}
-.calc-pt-page .robot-button-label{font-size:clamp(15px,3.5vw,19px);font-weight:800;line-height:1.4;letter-spacing:.01em}
-.calc-pt-page .robot-button-arrow{font:26px/1 "DotGothic16",monospace;color:#ffcf59}
+.calc-pt-page .robot-button-label{font-family:"DotGothic16","MS Gothic",monospace;font-size:clamp(15px,3.5vw,19px);font-weight:400;line-height:1.4;letter-spacing:.025em}
+.calc-pt-page .robot-button-arrow{font:26px/1 "DotGothic16",monospace;color:#dceaf4}
 .calc-pt-page .robot-calc-button:hover:not(:disabled){background:#245675}
 .calc-pt-page .robot-calc-button:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #a9bfd3,inset 0 2px 0 #416b89}
 .calc-pt-page .robot-calc-button.is-calculating .robot-button-icon img{animation:robot-button-bob .5s ease-in-out infinite alternate}
@@ -33,7 +32,3 @@
 @media(max-width:420px){.calc-pt-page .robot-calc-button{gap:9px;padding:10px 9px;min-height:66px}.calc-pt-page .robot-button-icon{width:41px;height:41px}.calc-pt-page .robot-button-icon img{width:35px;height:37px}.calc-pt-page .robot-button-arrow{font-size:21px}}
 @media(prefers-reduced-motion:reduce){.calc-pt-page .robot-calc-button,.calc-pt-page .robot-calc-button.is-calculating .robot-button-icon img{animation:none;transition:none}}
 
-/* Final robot button: no yellow accent, pixel-style label */
-.calc-pt-page .robot-calc-button:before{content:none!important;display:none!important}
-.calc-pt-page .robot-button-label{font-family:"DotGothic16","MS Gothic",monospace;font-weight:400;letter-spacing:.025em}
-.calc-pt-page .robot-button-arrow{color:#dceaf4}
