@@ -7,48 +7,11 @@
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
-  <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-split.css?v=neural-clean-1">
-  <script>
-    if (new URLSearchParams(location.search).get('theme') === 'blue') {
-      const themeSheet = document.createElement('link');
-      themeSheet.rel = 'stylesheet';
-      themeSheet.href = 'css/arcade-blue-preview.css?v=1';
-      document.head.appendChild(themeSheet);
-      document.addEventListener('DOMContentLoaded', () => document.body.classList.add('arcade-blue-preview'));
-    }
-  </script>
-  <link rel="stylesheet" href="css/rpg-typography.css?v=4">
-  <!-- English-only pixel font: embedded to avoid stale external CSS and cascade conflicts -->
-  <style id="split-english-pixel-font">
-    .calc-split-page .app-main .split-eyebrow,
-    .calc-split-page .app-main .split-eyebrow span,
-    .calc-split-page .app-main .difficulty-number,
-    .calc-split-page .app-main .pixel-en,
-    .calc-split-page .app-main .meter-heading strong.pixel-en {
-      font-family: "DotGothic16", monospace !important;
-      font-weight: 400 !important;
-      letter-spacing: .09em !important;
-    }
-    .calc-split-page .app-main .difficulty-select h2,
-    .calc-split-page .app-main .difficulty-select h2 small,
-    .calc-split-page .app-main .split-product-editor h2,
-    .calc-split-page .app-main .split-product-editor h2 small,
-    .calc-split-page .app-main .difficulty-option strong,
-    .calc-split-page .app-main .difficulty-option small,
-    .calc-split-page .app-main .btn-copy,
-    .calc-split-page .app-main .split-add-button,
-    .calc-split-page .app-main .workspace-reset,
-    .calc-split-page .app-main .selected-mode-bar button {
-      font-family: "Noto Sans JP", sans-serif !important;
-    }
-  </style>
-  <link rel="stylesheet" href="css/neural-generator.css?v=1">
-  <link rel="stylesheet" href="css/neural-split.css?v=12">
-  <link rel="stylesheet" href="css/neural-effects.css?v=1">
+  <link rel="stylesheet" href="css/robot-split-clean.css?v=production-1">
+  
 </head>
 <body class="app-page calc-split-page">
 
@@ -66,19 +29,19 @@
   <main class="app-main">
     
     <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
-    <p class="split-eyebrow">BLOCK BALANCE <span>— POINT ALLOCATION PUZZLE —</span></p>
-    <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1>
-    <div class="card-box">
+
+    <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1><p class="split-lead">購入する商品を、左右のポイントに振り分けます。</p><div class="split-robot-guide"><img src="assets/retro-guide-robot.svg" alt="" width="95" height="108" style="width:95px;height:108px;max-width:95px;object-fit:contain;flex:none"><div class="split-robot-speech"><strong id="splitRobotTitle">どう振り分けたいですか？</strong><span id="splitRobotText">気になる方法は「ロボットに聞く」を押してね！</span></div></div>
+    <div class="card-box"><div class="split-input-view">
       <div class="split-workspace-heading">
         <button type="button" class="btn-reset workspace-reset" onclick="resetSplitSelection()">↺ リセット</button>
       </div>
 
       <section class="difficulty-select" id="difficultySelect">
-        <h2><span class="pixel-en">SELECT MODE</span> <small>— 振り分け方法を選ぶ —</small></h2>
-        <div class="difficulty-options">
-          <button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>かんたん均等</strong></button>
-          <button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>目標PT</strong></button>
-          <button type="button" class="difficulty-option" data-mode="current" onclick="switchMode('current')"><span class="difficulty-number">03 / BALANCE</span><strong>保有PT合算</strong></button>
+        <h2><span class="split-step">STEP 1</span> 振り分け方法を選ぶ</h2>
+        <p class="split-mode-intro">説明を聞きたい方法の「ロボットに聞く」を押してね。</p><div class="difficulty-options">
+          <div class="split-mode-card"><button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>左右を均等にしたい</strong><span class="split-mode-select">この方法で進む ›</span></button><button type="button" class="split-mode-ask" onclick="explainSplitMode('auto')" aria-label="左右を均等にしたいの説明をロボットに聞く">🤖 ロボットに聞く</button></div>
+          <div class="split-mode-card"><button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>左右の目標ポイントに合わせたい</strong><span class="split-mode-select">この方法で進む ›</span></button><button type="button" class="split-mode-ask" onclick="explainSplitMode('target')" aria-label="左右の目標ポイントに合わせたいの説明をロボットに聞く">🤖 ロボットに聞く</button></div>
+          <div class="split-mode-card"><button type="button" class="difficulty-option" data-mode="current" onclick="switchMode('current')"><span class="difficulty-number">03 / BALANCE</span><strong>今あるポイントも含めて均等にしたい</strong><span class="split-mode-select">この方法で進む ›</span></button><button type="button" class="split-mode-ask" onclick="explainSplitMode('current')" aria-label="今あるポイントも含めて均等にしたいの説明をロボットに聞く">🤖 ロボットに聞く</button></div>
         </div>
       </section>
       <div id="splitWorkspace" hidden>
@@ -124,7 +87,7 @@
       </div>
 
       <section class="split-product-editor">
-        <h2><span class="pixel-en">ITEM SELECT</span> <small>— 購入商品を追加 —</small></h2>
+        <h2><span class="split-step">STEP 2</span> 購入商品を追加する</h2>
         <div class="split-product-controls">
           <label>商品<select id="splitProductSelect" class="calc-select"><option value="">商品を選択してください</option></select></label>
           <label>個数<select id="splitProductQuantity" class="calc-select"></select></label>
@@ -133,9 +96,10 @@
         <div id="productQtyList" class="selected-product-list" aria-live="polite"><p class="split-empty">商品はまだ追加されていません。</p></div>
       </section>
 
-      <button class="btn-copy" onclick="calculateBinarySplit()">▶ ブロックを振り分ける</button>
+      <button class="btn-copy split-calc-button" onclick="calculateBinarySplit()"><img src="assets/retro-guide-robot.svg" alt=""> <span>ロボットに振り分けてもらう</span><span aria-hidden="true">›</span></button>
 
-      <div id="splitResult" class="result-container" style="display:none;">
+      </div><!-- split-input-view -->
+      <div id="splitResult" class="result-container" style="display:none;"><div class="split-result-topbar"><div class="split-result-shared-header"></div></div><div class="split-result-content"><div class="split-result-robot"><img src="assets/retro-guide-robot.svg" alt="" width="80" height="88" style="width:80px;height:88px;max-width:80px;object-fit:contain"><div><small>CALCULATION COMPLETE</small><strong>振り分けできました！</strong><p>左右の組み合わせを確認してね。</p></div></div><button type="button" class="split-return-button" onclick="returnToSplitInputs()">← 条件を変更する</button>
         <section class="balance-stage" aria-label="振り分け結果のビジュアル">
           <div class="balance-stage-title"><span id="resultVisualTitle" class="pixel-en">BALANCE RESULT</span><span id="balanceStatus" class="pixel-en">BEST BALANCE!</span></div>
           <div id="scaleVisual" class="scale-visual" hidden>
@@ -207,25 +171,12 @@
             総合計金額: <strong id="grandTotalCost">0</strong> 円
           </div>
         </div>
-      </div>
+      </div><!-- split-result-content -->
+      </div><!-- splitResult -->
       </div><!-- splitWorkspace -->
     </div>
   </main>
-<div class="split-guide-assistant" id="splitGuideAssistant">
-  <div class="split-guide-dialogue" id="splitGuideDialogue" aria-hidden="true" inert>
-    <div class="split-guide-title"><span><i class="split-ai-status"></i> MODE GUIDE</span><button type="button" id="splitGuideClose" aria-label="案内を閉じる">×</button></div>
-    <p class="split-guide-intro">振り分けモードの選択を支援します。各モードの動作をご確認ください。</p>
-    <div class="split-guide-option"><strong>01 / EASY　かんたん均等</strong><p>購入商品の合計ポイントを解析し、<strong class="split-guide-emphasis">左右ができるだけ均等</strong>になるように配分します。<strong class="split-guide-emphasis">目標PTの入力は不要</strong>です。</p></div>
-    <div class="split-guide-option"><strong>02 / TARGET　目標PT</strong><p><strong class="split-guide-emphasis">左右それぞれの目標PT</strong>を指定できます。設定値にできるだけ近づく組み合わせを解析し、商品を配分します。</p></div>
-    <div class="split-guide-option"><strong>03 / BALANCE　保有PT合算</strong><p>左右の<strong class="split-guide-emphasis">保有PT</strong>を入力してください。今回購入する商品のPTを加算し、<strong class="split-guide-emphasis">購入後の左右差が小さくなる</strong>ように配分します。</p></div>
-    <p class="split-guide-hint">解析するモードを選択してください。</p>
-  </div>
-  <button type="button" class="split-guide-trigger" id="splitGuideTrigger" aria-label="振り分けモードの案内を開く" aria-controls="splitGuideDialogue" aria-expanded="false">
-    <span class="split-ai-icon" aria-hidden="true"><span class="split-ai-core"></span><span class="split-ai-ring"></span></span>
-    <span>MODE GUIDE</span>
-  </button>
-</div>
-  <footer class="app-footer">&copy; Place de Nina Order Support System</footer>
+<footer class="app-footer">&copy; Place de Nina Order Support System</footer>
 
 
   <script src="js/app-shell.js?v=menu-motion-2" defer></script>
@@ -234,15 +185,25 @@
     let currentMode = null; // mode is selected before opening the workspace
     const selectedSplitProducts = new Map();
 
+    function explainSplitMode(mode) {
+      const explanations={
+        auto:['左右を均等にしたい','今回購入する商品だけを、左右のポイントができるだけ同じになるように振り分けるよ。'],
+        target:['左右の目標ポイントに合わせたい','左右それぞれの目標ポイントを決めて、その数字に近づくように商品を振り分けるよ。'],
+        current:['今あるポイントも含めて均等にしたい','今持っている左右のポイントに今回の購入分を足して、左右の差ができるだけ小さくなるように振り分けるよ。']
+      };
+      document.getElementById('splitRobotTitle').textContent=explanations[mode][0];
+      document.getElementById('splitRobotText').textContent=explanations[mode][1];
+      document.querySelectorAll('.split-mode-card').forEach(card=>card.classList.toggle('is-explained',card.querySelector('.difficulty-option').dataset.mode===mode));
+      const guide=document.querySelector('.split-robot-guide');
+      if(guide){const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;guide.scrollIntoView({behavior:reducedMotion?'instant':'smooth',block:'start'});}
+    }
     function switchMode(mode) {
       currentMode = mode;
-      document.getElementById('splitGuideAssistant').hidden = true;
-      setSplitGuideOpen(false);
-      document.getElementById('splitGuideTrigger').setAttribute('aria-expanded','false');
+
       document.getElementById('difficultySelect').hidden = true;
       document.getElementById('splitWorkspace').hidden = false;
       document.getElementById('selectedModeLabel').textContent =
-        ({auto:'01 / かんたん均等',target:'02 / 目標PT',current:'03 / 保有PT合算'})[mode];
+        ({auto:'左右を均等にしたい',target:'左右の目標ポイントに合わせたい',current:'今あるポイントも含めて均等にしたい'})[mode];
       ['auto','target','current'].forEach(m => {
         document.getElementById('panel-'+m).classList.toggle('active',m===mode);
       });
@@ -250,7 +211,6 @@
     }
     function backToModeSelection() {
       currentMode = null;
-      document.getElementById('splitGuideAssistant').hidden = false;
       document.getElementById('difficultySelect').hidden = false;
       document.getElementById('splitWorkspace').hidden = true;
       document.getElementById('splitResult').style.display = 'none';
@@ -622,24 +582,18 @@
       updateResultVisual({leftPt,rightPt,curLeftPt,curRightPt});
       const resDiv = document.getElementById('splitResult');
       resDiv.style.display = 'block';
-      resDiv.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      document.body.classList.add('split-show-result');
     }
 
     document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
     const qtyPicker=document.getElementById('splitProductQuantity');
     for(let i=1;i<=30;i++){const option=document.createElement('option');option.value=i;option.textContent=i+'個';qtyPicker.appendChild(option);}
-    const splitGuideTrigger = document.getElementById('splitGuideTrigger');
-    const splitGuideDialogue = document.getElementById('splitGuideDialogue');
-    function setSplitGuideOpen(open) {
-      splitGuideDialogue.classList.toggle('is-open',open);
-      splitGuideDialogue.setAttribute('aria-hidden',String(!open));
-      splitGuideDialogue.inert = !open;
-      splitGuideTrigger.setAttribute('aria-expanded',String(open));
-    }
-    splitGuideTrigger.addEventListener('click',()=>setSplitGuideOpen(splitGuideTrigger.getAttribute('aria-expanded')!=='true'));
-    document.getElementById('splitGuideClose').addEventListener('click',()=>{setSplitGuideOpen(false);splitGuideTrigger.focus();});
-    document.addEventListener('keydown',e=>{if(e.key==='Escape'&&splitGuideTrigger.getAttribute('aria-expanded')==='true')setSplitGuideOpen(false);});
+    function returnToSplitInputs(){document.body.classList.remove("split-show-result");document.getElementById("splitResult").style.display="none";}
+    const resultHeader=document.querySelector(".split-result-shared-header");
+    resultHeader.appendChild(document.querySelector(".app-header").cloneNode(true));
+    const resultMenu=resultHeader.querySelector(".app-menu");resultMenu.id="app-site-menu-split-result";resultMenu.hidden=true;
+    const resultToggle=resultHeader.querySelector(".app-menu-toggle");resultToggle.setAttribute("aria-controls","app-site-menu-split-result");resultToggle.addEventListener("click",()=>{const open=resultToggle.getAttribute("aria-expanded")==="true";resultToggle.setAttribute("aria-expanded",String(!open));resultMenu.hidden=open;});
     window.onload = loadConfig;
   </script>
-<script src="js/neural-effects.js?v=1" defer></script>\n</body>
+\n</body>
 </html>
