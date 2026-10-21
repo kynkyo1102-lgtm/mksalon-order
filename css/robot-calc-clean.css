@@ -54,7 +54,7 @@
 #robotResultView .plan-summary{background:#f1f6fa;border:1px solid #e1eaf2;padding:18px;gap:12px;border-radius:10px}
 #robotResultView .plan-summary-item strong{font-size:clamp(21px,4vw,29px);font-variant-numeric:tabular-nums}
 #robotResultView .plan-summary-item em{font-weight:700;color:#54768e;margin-top:2px}
-#robotResultView .plan-items-heading{font-size:15px;color:#294b66;padding-bottom:8px;border-bottom:1px solid #e0e9f1}
+#robotResultView .plan-items-heading{font-size:15px;color:#294b66;padding-bottom:8px;border-bottom:0}
 #robotResultView .plan-item-row{padding:13px 0}
 #robotResultView .plan-item-name strong{font-weight:600;overflow-wrap:anywhere}
 #robotResultView .plan-item-meta{font-variant-numeric:tabular-nums}
