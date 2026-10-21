@@ -11,3 +11,7 @@ body.split-show-result{overflow:hidden}body.split-show-result #splitResult{posit
 
 /* Mode explanations are spoken by the single guide robot, not repeated in cards. */
 .split-mode-card{display:flex;flex-direction:column;min-width:0;border:2px solid #d6e3ee;border-radius:11px;background:#f8fbfe;overflow:hidden}.split-mode-card .difficulty-option{border:0;border-radius:0;box-shadow:none;flex:1;width:100%;min-height:128px;background:transparent}.split-mode-card .difficulty-option:focus-visible{outline:2px solid #739bb9;outline-offset:-3px}.split-mode-card.is-explained{border-color:#739bb9;background:#eef5fa}.split-mode-select{font-size:12px;color:#496e8a;margin-top:auto}.split-mode-ask{border:0;border-top:1px solid #d6e3ee;background:#fff;color:#315b7a;padding:10px 8px;font:13px "DotGothic16",monospace}.split-mode-ask:hover,.split-mode-ask:focus-visible{background:#eaf3f9}.difficulty-options{align-items:stretch}.difficulty-option{min-height:0!important}@media(max-width:640px){.split-mode-card .difficulty-option{min-height:0;padding:14px 16px}.split-mode-ask{text-align:left;padding-left:16px}}
+
+/* Shared decorative backdrop: keep visible on the split selection and input screens. */
+body.app-page.calc-split-page{background-color:#f7f9fc;background-image:url("../assets/robot-lab-pattern.svg");background-repeat:repeat;background-position:center top;background-size:640px 640px}
+@media(max-width:640px){body.app-page.calc-split-page{background-size:440px 440px}}
