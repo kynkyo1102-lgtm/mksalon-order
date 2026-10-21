@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/robot-split-clean.css?v=preview-3">
+  <link rel="stylesheet" href="css/robot-split-clean.css?v=preview-4">
   <style id="split-preview-fallback">@import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap");
 :root{color-scheme:light}*{box-sizing:border-box}html{scroll-behavior:auto}body.calc-split-page{margin:0;background:#f7f9fc url("../assets/robot-lab-pattern.svg") repeat center top/640px;color:#263b50;font:14px/1.7 "Noto Sans JP",sans-serif}button,input,select{font:inherit}button{cursor:pointer}[hidden]{display:none!important}
 .calc-split-page .app-main{max-width:920px;margin:auto;padding:30px 18px 90px}.calc-split-page .app-back{display:inline-block;margin-bottom:22px;color:#59778f;text-decoration:none;font-size:13px}.calc-split-page .app-page-title{font-size:clamp(24px,4vw,35px);line-height:1.5;color:#193650;margin:0 0 7px;font-weight:800;letter-spacing:-.035em}.split-lead{font-size:13px;color:#6b8194;margin:0 0 18px}.calc-split-page .app-footer{text-align:center;padding:20px;color:#8296a7;font-size:12px}
@@ -21,6 +21,9 @@ body.split-show-result{overflow:hidden}body.split-show-result #splitResult{posit
 
 /* Self-explanatory mode choices */
 .split-mode-intro{margin:-3px 0 17px;color:#59778f;font-size:13px}.difficulty-option .split-mode-description{font-size:12px;line-height:1.7;color:#617b91;font-weight:400}.difficulty-option strong{line-height:1.55}.difficulty-option{justify-content:flex-start;min-height:170px}.difficulty-options{align-items:stretch}@media(max-width:640px){.difficulty-option{min-height:0}.difficulty-option .split-mode-description{font-size:12px}}
+
+/* Mode explanations are spoken by the single guide robot, not repeated in cards. */
+.split-mode-card{display:flex;flex-direction:column;min-width:0;border:2px solid #d6e3ee;border-radius:11px;background:#f8fbfe;overflow:hidden}.split-mode-card .difficulty-option{border:0;border-radius:0;box-shadow:none;flex:1;width:100%;min-height:128px;background:transparent}.split-mode-card .difficulty-option:focus-visible{outline:2px solid #739bb9;outline-offset:-3px}.split-mode-card.is-explained{border-color:#739bb9;background:#eef5fa}.split-mode-select{font-size:12px;color:#496e8a;margin-top:auto}.split-mode-ask{border:0;border-top:1px solid #d6e3ee;background:#fff;color:#315b7a;padding:10px 8px;font:13px "DotGothic16",monospace}.split-mode-ask:hover,.split-mode-ask:focus-visible{background:#eaf3f9}.difficulty-options{align-items:stretch}.difficulty-option{min-height:0!important}@media(max-width:640px){.split-mode-card .difficulty-option{min-height:0;padding:14px 16px}.split-mode-ask{text-align:left;padding-left:16px}}
 </style>
 </head>
 <body class="app-page calc-split-page">
@@ -40,7 +43,7 @@ body.split-show-result{overflow:hidden}body.split-show-result #splitResult{posit
     
     <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
 
-    <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1><p class="split-lead">購入する商品を、左右のポイントに振り分けます。</p><div class="split-robot-guide"><img src="assets/retro-guide-robot.svg" alt="" width="95" height="108" style="width:95px;height:108px;max-width:95px;object-fit:contain;flex:none"><div class="split-robot-speech"><strong>どう振り分けたいですか？</strong><span>今あるポイントを含めるかどうかで、選ぶ方法が変わるよ！</span></div></div>
+    <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1><p class="split-lead">購入する商品を、左右のポイントに振り分けます。</p><div class="split-robot-guide"><img src="assets/retro-guide-robot.svg" alt="" width="95" height="108" style="width:95px;height:108px;max-width:95px;object-fit:contain;flex:none"><div class="split-robot-speech"><strong id="splitRobotTitle">どう振り分けたいですか？</strong><span id="splitRobotText">気になる方法は「ロボットに聞く」を押してね！</span></div></div>
     <div class="card-box"><div class="split-input-view">
       <div class="split-workspace-heading">
         <button type="button" class="btn-reset workspace-reset" onclick="resetSplitSelection()">↺ リセット</button>
@@ -48,10 +51,10 @@ body.split-show-result{overflow:hidden}body.split-show-result #splitResult{posit
 
       <section class="difficulty-select" id="difficultySelect">
         <h2><span class="split-step">STEP 1</span> 振り分け方法を選ぶ</h2>
-        <p class="split-mode-intro">今あるポイントを含めるかどうかで、選ぶ方法が変わるよ。</p><div class="difficulty-options">
-          <button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>左右を均等にしたい</strong><span class="split-mode-description">今回購入する商品だけを、左右のポイントができるだけ同じになるように振り分けます。</span></button>
-          <button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>左右の目標ポイントに合わせたい</strong><span class="split-mode-description">左右それぞれの目標ポイントを指定して、近づくように振り分けます。</span></button>
-          <button type="button" class="difficulty-option" data-mode="current" onclick="switchMode('current')"><span class="difficulty-number">03 / BALANCE</span><strong>今あるポイントも含めて均等にしたい</strong><span class="split-mode-description">現在の左右のポイントに購入分を加えて、できるだけ均等にします。</span></button>
+        <p class="split-mode-intro">説明を聞きたい方法の「ロボットに聞く」を押してね。</p><div class="difficulty-options">
+          <div class="split-mode-card"><button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>左右を均等にしたい</strong><span class="split-mode-select">この方法で進む ›</span></button><button type="button" class="split-mode-ask" onclick="explainSplitMode('auto')" aria-label="左右を均等にしたいの説明をロボットに聞く">🤖 ロボットに聞く</button></div>
+          <div class="split-mode-card"><button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>左右の目標ポイントに合わせたい</strong><span class="split-mode-select">この方法で進む ›</span></button><button type="button" class="split-mode-ask" onclick="explainSplitMode('target')" aria-label="左右の目標ポイントに合わせたいの説明をロボットに聞く">🤖 ロボットに聞く</button></div>
+          <div class="split-mode-card"><button type="button" class="difficulty-option" data-mode="current" onclick="switchMode('current')"><span class="difficulty-number">03 / BALANCE</span><strong>今あるポイントも含めて均等にしたい</strong><span class="split-mode-select">この方法で進む ›</span></button><button type="button" class="split-mode-ask" onclick="explainSplitMode('current')" aria-label="今あるポイントも含めて均等にしたいの説明をロボットに聞く">🤖 ロボットに聞く</button></div>
         </div>
       </section>
       <div id="splitWorkspace" hidden>
@@ -195,6 +198,16 @@ body.split-show-result{overflow:hidden}body.split-show-result #splitResult{posit
     let currentMode = null; // mode is selected before opening the workspace
     const selectedSplitProducts = new Map();
 
+    function explainSplitMode(mode) {
+      const explanations={
+        auto:['左右を均等にしたい','今回購入する商品だけを、左右のポイントができるだけ同じになるように振り分けるよ。'],
+        target:['左右の目標ポイントに合わせたい','左右それぞれの目標ポイントを決めて、その数字に近づくように商品を振り分けるよ。'],
+        current:['今あるポイントも含めて均等にしたい','今持っている左右のポイントに今回の購入分を足して、左右の差ができるだけ小さくなるように振り分けるよ。']
+      };
+      document.getElementById('splitRobotTitle').textContent=explanations[mode][0];
+      document.getElementById('splitRobotText').textContent=explanations[mode][1];
+      document.querySelectorAll('.split-mode-card').forEach(card=>card.classList.toggle('is-explained',card.querySelector('.difficulty-option').dataset.mode===mode));
+    }
     function switchMode(mode) {
       currentMode = mode;
 
