@@ -18,3 +18,6 @@ body.app-page.calc-split-page{background-color:#f7f9fc;background-image:url("../
 
 /* Mode selection and navigation live in the robot speech. */
 .split-robot-change-mode{display:inline-block;margin-top:12px;padding:8px 12px;border:1px solid #8eacc3;border-radius:7px;background:#eef5fa;color:#294f6c;font:13px "Noto Sans JP",sans-serif;cursor:pointer}.split-robot-change-mode[hidden]{display:none!important}.split-robot-change-mode:hover{background:#dcecf7}
+
+/* Mode-specific numbered workflow */
+.split-points-step[hidden]{display:none!important}.split-month-step,.split-points-step{margin:0 0 22px}.split-month-step h2,.split-points-step h2{font-size:17px;font-weight:700;margin:0 0 14px}.split-workspace-heading{justify-content:flex-end;margin-bottom:12px}
