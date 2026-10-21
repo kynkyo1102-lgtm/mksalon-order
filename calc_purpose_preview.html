@@ -17,6 +17,17 @@ h1{font-size:clamp(27px,4.8vw,42px);letter-spacing:-.045em;line-height:1.45;marg
 footer{border-top:1px solid #e0e7e8;margin-top:55px;padding-top:20px;color:#9aa7ac;font-size:11px;letter-spacing:.04em}
 @media(max-width:640px){main{padding:35px 16px 60px}.robot-intro{gap:12px;margin-bottom:26px}.guide-robot{width:83px;height:95px}.speech{font-size:19px;padding:14px 15px;border-radius:0;box-shadow:3px 3px 0 #b4c7d0}.lead{margin-bottom:28px}.cards{grid-template-columns:1fr;gap:13px}.card{min-height:0;padding:22px}.card .action{padding-top:19px}.card h2{font-size:18px}.note{margin-top:20px}}
 @media(prefers-reduced-motion:reduce){.card{transition:none}}
+
+/* Soft robot-lab backdrop: deliberately low contrast */
+body{background-color:#f7f9fc;background-image:url("assets/robot-lab-pattern.svg");background-repeat:repeat;background-size:640px 640px;background-attachment:fixed}
+.card{border:2px solid #d5e2f1;border-radius:19px;box-shadow:4px 5px 0 #dfe9f5,0 7px 20px #273d5910;min-height:190px;padding:36px 27px 22px;background:#ffffffed}
+.card:before{content:attr(data-unit);position:absolute;top:0;left:0;right:auto;width:70px;height:49px;display:flex;align-items:flex-start;justify-content:flex-start;padding:7px 0 0 12px;background:#ffcf59;color:#163454;clip-path:polygon(0 0,100% 0,56% 100%,0 100%);font-size:17px;font-weight:700}
+.card:after{content:"";position:absolute;bottom:0;right:0;left:auto;width:30px;height:30px;background:#e2ecf8;clip-path:polygon(100% 0,100% 100%,0 100%)}
+.criteria{margin-top:16px;background:transparent;color:#748ba4;padding:0;font-size:13px}
+.card h2{color:#163454;font-size:clamp(19px,2.5vw,23px)}
+.card .action{color:#58789b}
+.card:hover{border-color:#9fbada;box-shadow:4px 5px 0 #c9d9ee,0 10px 25px #273d5918}
+@media(max-width:640px){body{background-size:440px 440px;background-attachment:scroll}.card{min-height:0;padding:31px 22px 21px}.criteria{margin-top:15px}}
 </style></head><body><div class="app-page calc-selection-shell"><header class="app-header">
 <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
 <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
