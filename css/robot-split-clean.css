@@ -38,3 +38,12 @@ body.app-page.calc-split-page{background-color:#f7f9fc;background-image:url("../
 .calc-split-page #splitWorkspace .mode-panel .usage-guide{color:#617b91;font-size:13px!important;line-height:1.7;margin:0 0 14px!important}
 .calc-split-page #splitWorkspace .split-month-step .form-group{margin:0!important}
 @media(max-width:640px){.calc-split-page #splitWorkspace>.split-month-step,.calc-split-page #splitWorkspace>.split-points-step,.calc-split-page #splitWorkspace>.split-product-editor{padding:20px 18px}}
+
+/* Result: show the actual left/right allocation only. Keep the old metric DOM hidden for existing JS compatibility. */
+.calc-split-page #splitResult .balance-stage{display:none!important}
+.calc-split-page #splitResult .split-container{display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:12px;align-items:stretch}
+.calc-split-page #splitResult .split-col{min-width:0;padding:17px 13px;margin:0;overflow-wrap:anywhere}
+.calc-split-page #splitResult .split-col h3{color:#193650!important;border-bottom:1px solid #d6e3ee!important;font-size:16px!important;padding-bottom:10px!important;margin-bottom:12px!important}
+.calc-split-page #splitResult .split-col .split-total-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:3px 6px}
+.calc-split-page #splitResult .split-total-value{white-space:nowrap}
+@media(max-width:640px){.calc-split-page #splitResult .split-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}.calc-split-page #splitResult .split-col{padding:13px 9px}.calc-split-page #splitResult .split-col h3{font-size:14px!important}.calc-split-page #splitResult .split-total-row{font-size:11px}.calc-split-page #splitResult .split-total-value strong{font-size:14px}}
