@@ -10,11 +10,11 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
   
   <!-- 共通CSSの読み込み -->
-  <link rel="stylesheet" href="style.css">
   
-  <link rel="stylesheet" href="css/calc-pt.css">
-  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/calc-pt-refresh.css?v=11">
+  
+  
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=1">
+  
   <script>
     if (new URLSearchParams(location.search).get('theme') === 'blue') {
       const themeSheet = document.createElement('link');
@@ -24,11 +24,11 @@
       document.addEventListener('DOMContentLoaded', () => document.body.classList.add('arcade-blue-preview'));
     }
   </script>
-  <link rel="stylesheet" href="css/rpg-typography.css?v=2">
-  <link rel="stylesheet" href="css/neural-generator.css?v=1">
-  <link rel="stylesheet" href="css/neural-pt.css?v=6">
-  <link rel="stylesheet" href="css/neural-effects.css?v=1">
-<link rel="stylesheet" href="css/robot-calc-preview.css?v=1"></head>
+  
+  
+  
+  
+</head>
 <body class="app-page calc-pt-page robot-calc-preview">
 
   <header class="app-header">
@@ -47,7 +47,7 @@
     
     <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
     
-    <p class="quest-eyebrow">NEURAL OPTIMIZER <span>— PURCHASE ANALYSIS —</span></p><h1 class="app-page-title neural-type-title" data-type-text="ポイント最適化シミュレーター">ポイント最適化シミュレーター</h1><p class="quest-lead">購入ポイントと商品条件を解析し、最適な組み合わせを算出します。</p>
+    <h1 class="app-page-title neural-type-title" data-type-text="ポイント最適化シミュレーター">ポイント最適化シミュレーター</h1><p class="quest-lead">購入ポイントと商品条件を解析し、最適な組み合わせを算出します。</p>
     <div class="robot-guide"><img src="assets/retro-guide-robot.svg" alt="案内ロボット"><div class="robot-dialogue"><strong id="robotMessage">目標ポイントを教えてください！</strong><span>条件を決めたら、ぼくが計算するよ。</span></div></div><div class="calc-page-layout">
       <section class="calc-steps" aria-label="使い方"><h2>解析の流れ <span class="quest-mini">ANALYSIS FLOW</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
 
@@ -499,6 +499,6 @@
     window.onload = loadConfig;
   </script>
 
-<script src="js/neural-effects.js?v=1" defer></script>
+
 </body>
 </html>
