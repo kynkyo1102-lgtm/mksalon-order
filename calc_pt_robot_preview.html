@@ -122,7 +122,8 @@
       if (revealTimer !== null) clearTimeout(revealTimer);
       revealTimer = null;
       document.getElementById("calcRunButton").disabled = false;
-      document.getElementById("calcRunButton").textContent = "▶ 解析開始・組み合わせを計算";
+      document.getElementById("calcRunButton").classList.remove("is-calculating");
+      document.querySelector("#calcRunButton .robot-button-label").textContent = "ロボットに計算してもらう";
       document.getElementById("calcProgress").hidden = true;
       document.getElementById("calcComplete").hidden = true;
     }
@@ -371,7 +372,8 @@
       const reveal = () => {
         revealTimer = null;
         button.disabled = false;
-        button.textContent = '▶ 解析開始・組み合わせを計算';
+        button.classList.remove('is-calculating');
+        button.querySelector('.robot-button-label').textContent = 'ロボットに計算してもらう';
         document.getElementById('calcProgress').hidden = true;
         const completion = document.getElementById('calcComplete');
         const difference = bestPlan.totalPt - targetPt;
