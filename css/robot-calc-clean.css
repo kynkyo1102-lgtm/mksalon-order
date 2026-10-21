@@ -80,3 +80,13 @@ body.robot-show-result #robotResultView{position:fixed;inset:0;z-index:110;displ
 #robotResultView .robot-result-screen{width:min(800px,100%);margin:0 auto;padding-top:clamp(24px,5vw,50px)}
 #robotResultView .robot-result-header{margin-top:0}
 @media(max-width:640px){body.robot-show-result #robotResultView{background-size:440px 440px;padding:0 15px 40px}#robotResultView .robot-result-screen{padding-top:24px}}
+
+/* Shared app header inside the independent results viewport. */
+body.robot-show-result #robotResultView{padding:0 0 45px}
+#robotResultView .robot-result-topbar{position:relative;z-index:5}
+#robotResultView .robot-result-shared-header .app-header{background:#fff;border-bottom:1px solid #e6e6e6}
+#robotResultView .robot-result-screen{padding:30px 18px 0}
+#robotResultView .robot-result-screen>.app-back{display:inline-block;margin-bottom:22px}
+#robotResultView .robot-result-screen>.app-page-title{margin-bottom:7px}
+#robotResultView .robot-result-screen>.quest-lead{margin-bottom:23px}
+@media(max-width:640px){body.robot-show-result #robotResultView{padding:0 0 40px}#robotResultView .robot-result-screen{padding:26px 15px 0}}
