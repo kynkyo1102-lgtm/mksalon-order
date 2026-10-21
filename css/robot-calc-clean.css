@@ -73,3 +73,10 @@
  #robotResultView .plan-summary-item strong{font-size:clamp(18px,5vw,24px)}
  #robotResultView .plan-item-meta{gap:8px 12px}
 }
+
+/* Dedicated results viewport: never inherit the input page scroll position. */
+body.robot-show-result{overflow:hidden}
+body.robot-show-result #robotResultView{position:fixed;inset:0;z-index:110;display:block;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-width:none;margin:0;padding:0 16px 45px;background:#f7f9fc url("../assets/robot-lab-pattern.svg") repeat center top/640px}
+#robotResultView .robot-result-screen{width:min(800px,100%);margin:0 auto;padding-top:clamp(24px,5vw,50px)}
+#robotResultView .robot-result-header{margin-top:0}
+@media(max-width:640px){body.robot-show-result #robotResultView{background-size:440px 440px;padding:0 15px 40px}#robotResultView .robot-result-screen{padding-top:24px}}
