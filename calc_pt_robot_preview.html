@@ -13,7 +13,7 @@
   
   
   
-  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=result-5">
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=result-6">
   
   <script>
     if (new URLSearchParams(location.search).get('theme') === 'blue') {
@@ -89,7 +89,7 @@
       <div id="calcComplete" class="calc-complete" role="status" aria-live="polite" hidden></div>
       </div>
 
-      <section id="robotResultView" hidden><div class="robot-result-header"><img src="assets/retro-guide-robot.svg" alt=""><div><span class="robot-result-eyebrow">CALCULATION COMPLETE</span><strong>計算できました！</strong><p>おすすめの組み合わせを見てみよう。</p></div></div><div class="robot-result-actions"><p>まずはおすすめの組み合わせから確認してね。</p><button type="button" id="robotEditConditions" class="robot-edit-button">← 条件を変更する</button></div><div id="comboResult" class="result-container" style="display:none;"></div><div class="robot-result-bottom"><button type="button" id="robotEditConditionsBottom" class="robot-edit-button">← 条件を変更して再計算</button></div></section>
+      <section id="robotResultView" hidden role="dialog" aria-modal="true" aria-label="計算結果"><div class="robot-result-screen"><div class="robot-result-header"><img src="assets/retro-guide-robot.svg" alt=""><div><span class="robot-result-eyebrow">CALCULATION COMPLETE</span><strong>計算できました！</strong><p>おすすめの組み合わせを見てみよう。</p></div></div><div class="robot-result-actions"><p>まずはおすすめの組み合わせから確認してね。</p><button type="button" id="robotEditConditions" class="robot-edit-button">← 条件を変更する</button></div><div id="comboResult" class="result-container" style="display:none;"></div><div class="robot-result-bottom"><button type="button" id="robotEditConditionsBottom" class="robot-edit-button">← 条件を変更して再計算</button></div></div></section>
     </div>
   </main>
 
@@ -384,11 +384,9 @@
         resDiv.style.display = 'block';
         if (!reducedMotion) resDiv.classList.add('calc-result-reveal');
         else resDiv.classList.remove('calc-result-reveal');
-        const main = document.querySelector('.app-main');
-        main.style.minHeight = Math.max(document.documentElement.scrollHeight, window.innerHeight + window.scrollY + 80) + 'px';
         document.body.classList.add('robot-show-result');
         document.getElementById('robotResultView').hidden=false;
-        document.getElementById('robotMessage').textContent='計算できました！';
+        
       };
       revealTimer = setTimeout(reveal, reducedMotion ? 0 : 850);
     }
@@ -501,7 +499,7 @@
       });
     }
 
-    function returnToConditions(){document.body.classList.remove("robot-show-result");document.querySelector(".app-main").style.minHeight="";document.getElementById("robotResultView").hidden=true;document.getElementById("robotMessage").textContent="条件を変更して、もう一度計算しよう！";}
+    function returnToConditions(){document.body.classList.remove("robot-show-result");document.getElementById("robotResultView").hidden=true;}
     document.getElementById("robotEditConditions").addEventListener("click",returnToConditions);
     document.getElementById("robotEditConditionsBottom").addEventListener("click",returnToConditions);
     window.onload = loadConfig;
