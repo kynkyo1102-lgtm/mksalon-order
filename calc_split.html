@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/robot-split-clean.css?v=production-4">
+  <link rel="stylesheet" href="css/robot-split-clean.css?v=production-5">
   
 </head>
 <body class="app-page calc-split-page">
@@ -101,7 +101,7 @@
 
       </div><!-- split-input-view -->
       <div id="splitResult" class="result-container" style="display:none;"><div class="split-result-topbar"><div class="split-result-shared-header"></div></div><div class="split-result-content"><div class="split-result-robot"><img src="assets/retro-guide-robot.svg" alt="" width="80" height="88" style="width:80px;height:88px;max-width:80px;object-fit:contain"><div><small>CALCULATION COMPLETE</small><strong>振り分けできました！</strong><p>左右の組み合わせを確認してね。</p></div></div><button type="button" class="split-return-button" onclick="returnToSplitInputs()">← 条件を変更する</button>
-        <section class="balance-stage" aria-label="振り分け結果のビジュアル">
+        <section class="balance-stage" aria-label="振り分け結果のビジュアル" hidden>
           <div class="balance-stage-title"><span id="resultVisualTitle" class="pixel-en">BALANCE RESULT</span><span id="balanceStatus" class="pixel-en">BEST BALANCE!</span></div>
           <div id="scaleVisual" class="scale-visual" hidden>
             <div class="balance-score">
