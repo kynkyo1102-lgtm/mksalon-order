@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ポイント振り分けメーカー - Place de Nina</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
+  <link rel="stylesheet" href="css/robot-split-clean.css?v=preview-1">
+</head>
+<body class="app-page calc-split-page">
+
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文</span><a class="app-menu-sub" href="single.html">LINEノート用</a><a class="app-menu-sub" href="bulk.html">画像・PDF注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
+  </header>
+  <main class="app-main">
+    
+    <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
+
+    <h1 class="app-page-title split-page-title">ポイント振り分けメーカー</h1><p class="split-lead">購入する商品を、左右のポイントに振り分けます。</p><div class="split-robot-guide"><img src="assets/retro-guide-robot.svg" alt=""><div class="split-robot-speech"><strong>どう振り分けたいですか？</strong><span>方法を選んで、商品を教えてね。</span></div></div>
+    <div class="card-box"><div class="split-input-view">
+      <div class="split-workspace-heading">
+        <button type="button" class="btn-reset workspace-reset" onclick="resetSplitSelection()">↺ リセット</button>
+      </div>
+
+      <section class="difficulty-select" id="difficultySelect">
+        <h2><span class="split-step">STEP 1</span> 振り分け方法を選ぶ</h2>
+        <div class="difficulty-options">
+          <button type="button" class="difficulty-option" data-mode="auto" onclick="switchMode('auto')"><span class="difficulty-number">01 / EASY</span><strong>かんたん均等</strong></button>
+          <button type="button" class="difficulty-option" data-mode="target" onclick="switchMode('target')"><span class="difficulty-number">02 / TARGET</span><strong>目標PT</strong></button>
+          <button type="button" class="difficulty-option" data-mode="current" onclick="switchMode('current')"><span class="difficulty-number">03 / BALANCE</span><strong>保有PT合算</strong></button>
+        </div>
+      </section>
+      <div id="splitWorkspace" hidden>
+        <div class="selected-mode-bar"><span id="selectedModeLabel"></span><button type="button" onclick="backToModeSelection()">モードを変更</button></div>
+      <!-- ① かんたん均等の説明パネル -->
+      <div id="panel-auto" class="mode-panel active">
+        <p class="usage-guide" style="margin:0; font-size:0.78rem;">今回購入する商品を左右均等（1:1）になるよう最適に振り分けます。</p>
+      </div>
+
+      <!-- ② 目標PTカスタムの入力パネル -->
+      <div id="panel-target" class="mode-panel">
+        <p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">指定の目標ポイントに近づくよう振り分けます。</p>
+        <div style="display: flex; gap: 8px;">
+          <div style="flex: 1;">
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">左 (L) 目標PT</label>
+            <input type="number" id="targetLeftPt" class="input-pt" placeholder="例: 10000" min="0">
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">右 (R) 目標PT</label>
+            <input type="number" id="targetRightPt" class="input-pt" placeholder="例: 5000" min="0">
+          </div>
+        </div>
+      </div>
+
+      <!-- ③ 保有PT合算の入力パネル -->
+      <div id="panel-current" class="mode-panel">
+        <p class="usage-guide" style="margin-top:0; margin-bottom:6px; font-size:0.78rem;">保有PTも含めて左右差が一番少なくなるよう配置します。</p>
+        <div style="display: flex; gap: 8px;">
+          <div style="flex: 1;">
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の左 (L) PT</label>
+            <input type="number" id="currentLeftPt" class="input-pt" value="0" min="0">
+          </div>
+          <div style="flex: 1;">
+            <label style="font-size:0.75rem; color:var(--text-sub); display:block; margin-bottom:2px;">現在の右 (R) PT</label>
+            <input type="number" id="currentRightPt" class="input-pt" value="0" min="0">
+          </div>
+        </div>
+      </div>
+
+      <div class="form-group" style="margin-bottom: 10px;">
+        <label class="label-accent" style="font-size:0.8rem;">対象月度</label>
+        <select id="monthSelect" class="calc-select"></select>
+      </div>
+
+      <section class="split-product-editor">
+        <h2><span class="split-step">STEP 2</span> 購入商品を追加する</h2>
+        <div class="split-product-controls">
+          <label>商品<select id="splitProductSelect" class="calc-select"><option value="">商品を選択してください</option></select></label>
+          <label>個数<select id="splitProductQuantity" class="calc-select"></select></label>
+          <button type="button" class="split-add-button" onclick="addSplitProduct()">＋ 追加</button>
+        </div>
+        <div id="productQtyList" class="selected-product-list" aria-live="polite"><p class="split-empty">商品はまだ追加されていません。</p></div>
+      </section>
+
+      <button class="btn-copy split-calc-button" onclick="calculateBinarySplit()"><img src="assets/retro-guide-robot.svg" alt=""> <span>ロボットに振り分けてもらう</span><span aria-hidden="true">›</span></button>
+
+      </div><!-- split-input-view -->
+      <div id="splitResult" class="result-container" style="display:none;"><div class="split-result-topbar"><div class="split-result-shared-header"></div></div><div class="split-result-content"><div class="split-result-robot"><img src="assets/retro-guide-robot.svg" alt=""><div><small>CALCULATION COMPLETE</small><strong>振り分けできました！</strong><p>左右の組み合わせを確認してね。</p></div></div><button type="button" class="split-return-button" onclick="returnToSplitInputs()">← 条件を変更する</button>
+        <section class="balance-stage" aria-label="振り分け結果のビジュアル">
+          <div class="balance-stage-title"><span id="resultVisualTitle" class="pixel-en">BALANCE RESULT</span><span id="balanceStatus" class="pixel-en">BEST BALANCE!</span></div>
+          <div id="scaleVisual" class="scale-visual" hidden>
+            <div class="balance-score">
+              <p class="balance-score-label">均等率 <span>EVENNESS SCORE</span></p>
+              <div class="balance-score-value"><strong id="balanceEvenness">100.0</strong><span>%</span></div>
+              <div class="balance-score-track" role="progressbar" aria-label="左右のポイント均等率" aria-valuemin="0" aria-valuemax="100" aria-valuenow="100" id="balanceEvennessTrack"><span id="balanceEvennessFill"></span></div>
+              <p class="balance-score-note" id="balanceEvennessNote">左右のPT差が小さいほど100%に近づきます。</p>
+              <div class="balance-score-breakdown"><span>LEFT <strong id="scalePtLeft">0 PT</strong></span><span>RIGHT <strong id="scalePtRight">0 PT</strong></span></div>
+              <p class="balance-score-difference">左右のPT差 <strong id="balancePtDifference">0 PT</strong></p>
+            </div>
+          </div>
+          <div id="targetVisual" class="target-visual" hidden>
+            <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">LEFT</strong><span id="targetLeftRate"></span></div><div class="meter-track"><div id="targetLeftFill" class="meter-fill left"></div></div><p id="targetLeftNote"></p></div>
+            <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">RIGHT</strong><span id="targetRightRate"></span></div><div class="meter-track"><div id="targetRightFill" class="meter-fill right"></div></div><p id="targetRightNote"></p></div>
+            <p class="scale-caption" id="targetModeHint"></p>
+          </div>
+          <div id="currentVisual" class="current-visual" hidden>
+            <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">LEFT</strong><span id="currentLeftLabel"></span></div><div class="meter-track"><div id="currentLeftOwned" class="meter-owned"></div><div id="currentLeftBought" class="meter-bought"></div></div></div>
+            <div class="target-meter"><div class="meter-heading"><strong class="pixel-en">RIGHT</strong><span id="currentRightLabel"></span></div><div class="meter-track"><div id="currentRightOwned" class="meter-owned"></div><div id="currentRightBought" class="meter-bought"></div></div></div>
+            <div class="meter-legend"><span>■ 保有PT</span><span>■ 今回の購入PT</span></div>
+            <p class="current-difference">購入後の左右差 <strong id="currentDifference"></strong></p>
+          </div>
+        </section><div class="split-container">
+          <div class="split-col">
+            <h3 style="margin:0 0 6px 0; color:#a0eaf0; font-size:0.82rem; border-bottom:2px solid #426b7b; padding-bottom:3px; text-align:center;">左 (L)</h3>
+            <div id="leftList"></div>
+            
+            <div class="total-box" aria-label="左の振り分け集計">
+              <div class="split-total-row" id="leftCurrentPtRow" style="display:none;"><span>保有PT</span><span class="split-total-value"><strong id="leftCurrentPtVal">0</strong><span>PT</span></span></div>
+              <div class="split-total-row"><span id="leftPurchaseLabel">今回PT</span><span class="split-total-value"><strong class="total-pt-val" id="leftTotalPt">0</strong><span>PT</span></span></div>
+              <span id="leftPlusSign" hidden></span>
+              <div class="split-total-row split-total-highlight" id="leftFinalPtRow" style="display:none;"><span>合計ポイント</span><span class="split-total-value"><strong id="leftFinalPtVal">0</strong><span>PT</span></span></div>
+              <div class="split-total-row split-total-money"><span>合計金額</span><span class="split-total-value"><strong class="total-cost-val" id="leftTotalCost">0</strong><span>円</span></span></div>
+              <p id="leftTargetDiffRow" class="split-target-diff" style="display:none;">目標差: <span id="leftTargetDiffVal">0</span></p>
+
+              <div id="leftSuggestBox" class="suggest-box" style="display:none;">
+                ✦ <strong>追加購入の候補</strong><br>
+                <span id="leftSuggestItem"></span>
+              </div>
+            </div>
+          </div>
+
+          <div class="split-col">
+            <h3 style="margin:0 0 6px 0; color:#a0eaf0; font-size:0.82rem; border-bottom:2px solid #426b7b; padding-bottom:3px; text-align:center;">右 (R)</h3>
+            <div id="rightList"></div>
+            
+            <div class="total-box" aria-label="右の振り分け集計">
+              <div class="split-total-row" id="rightCurrentPtRow" style="display:none;"><span>保有PT</span><span class="split-total-value"><strong id="rightCurrentPtVal">0</strong><span>PT</span></span></div>
+              <div class="split-total-row"><span id="rightPurchaseLabel">今回PT</span><span class="split-total-value"><strong class="total-pt-val" id="rightTotalPt">0</strong><span>PT</span></span></div>
+              <span id="rightPlusSign" hidden></span>
+              <div class="split-total-row split-total-highlight" id="rightFinalPtRow" style="display:none;"><span>合計ポイント</span><span class="split-total-value"><strong id="rightFinalPtVal">0</strong><span>PT</span></span></div>
+              <div class="split-total-row split-total-money"><span>合計金額</span><span class="split-total-value"><strong class="total-cost-val" id="rightTotalCost">0</strong><span>円</span></span></div>
+              <p id="rightTargetDiffRow" class="split-target-diff" style="display:none;">目標差: <span id="rightTargetDiffVal">0</span></p>
+
+              <div id="rightSuggestBox" class="suggest-box" style="display:none;">
+                ✦ <strong>追加購入の候補</strong><br>
+                <span id="rightSuggestItem"></span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="split-grand-summary">
+          <div id="ptDiffRow">
+            <span id="diffLabel">今回PT差</span>: <strong id="ptDiff">0</strong> PT
+          </div>
+          <div>
+            総合計金額: <strong id="grandTotalCost">0</strong> 円
+          </div>
+        </div>
+      </div><!-- split-result-content -->
+      </div><!-- splitResult -->
+      </div><!-- splitWorkspace -->
+    </div>
+  </main>
+<footer class="app-footer">&copy; Place de Nina Order Support System</footer>
+
+
+  <script src="js/app-shell.js?v=menu-motion-2" defer></script>
+  <script>
+    let configData = null;
+    let currentMode = null; // mode is selected before opening the workspace
+    const selectedSplitProducts = new Map();
+
+    function switchMode(mode) {
+      currentMode = mode;
+
+      document.getElementById('difficultySelect').hidden = true;
+      document.getElementById('splitWorkspace').hidden = false;
+      document.getElementById('selectedModeLabel').textContent =
+        ({auto:'01 / かんたん均等',target:'02 / 目標PT',current:'03 / 保有PT合算'})[mode];
+      ['auto','target','current'].forEach(m => {
+        document.getElementById('panel-'+m).classList.toggle('active',m===mode);
+      });
+      document.getElementById('splitResult').style.display = 'none';
+    }
+    function backToModeSelection() {
+      currentMode = null;
+      document.getElementById('difficultySelect').hidden = false;
+      document.getElementById('splitWorkspace').hidden = true;
+      document.getElementById('splitResult').style.display = 'none';
+    }
+
+    async function loadConfig() {
+      try {
+        const res = await fetch('month_config.json');
+        configData = await res.json();
+        
+        const monthSelect = document.getElementById('monthSelect');
+        configData.activeMonths.forEach(m => {
+          const opt = document.createElement('option');
+          opt.value = m;
+          opt.textContent = m;
+          monthSelect.appendChild(opt);
+        });
+
+        renderProductQtyList();
+      } catch (e) {
+        alert('month_config.json の読み込みに失敗しました。');
+      }
+    }
+
+    function renderProductQtyList() {
+      if (!configData) return;
+      const month = document.getElementById('monthSelect').value;
+      const picker = document.getElementById('splitProductSelect');
+      picker.innerHTML = '<option value="">商品を選択してください</option>';
+      configData.products.forEach((p,i) => {
+        if (p.name === 'リペアセラム') return;
+        const option = document.createElement('option');
+        option.value = String(i);
+        option.textContent = p.name+' — '+(p.pts[month]||0).toLocaleString()+'PT';
+        picker.appendChild(option);
+      });
+      renderSelectedSplitProducts();
+      document.getElementById('splitResult').style.display='none';
+    }
+    function renderSelectedSplitProducts() {
+      const month = document.getElementById('monthSelect').value;
+      const list = document.getElementById('productQtyList');
+      list.replaceChildren();
+      if (selectedSplitProducts.size === 0) {
+        const p = document.createElement('p'); p.className='split-empty';
+        p.textContent='商品はまだ追加されていません。';list.appendChild(p);return;
+      }
+      selectedSplitProducts.forEach((qty,index) => {
+        const p=configData.products[index];
+        const row=document.createElement('div');row.className='selected-product-row';
+        const info=document.createElement('div');
+        const name=document.createElement('strong');name.textContent=p.name+' × '+qty;
+        const detail=document.createElement('small');
+        detail.textContent=((p.pts[month]||0)*qty).toLocaleString()+'PT / '+(p.price*qty).toLocaleString()+'円';
+        info.append(name,detail);
+        const remove=document.createElement('button');remove.type='button';remove.textContent='削除';
+        remove.onclick=()=>{selectedSplitProducts.delete(index);renderSelectedSplitProducts();document.getElementById('splitResult').style.display='none';};
+        row.append(info,remove);list.appendChild(row);
+      });
+    }
+    function addSplitProduct() {
+      const indexStr=document.getElementById('splitProductSelect').value;
+      if(indexStr===''){alert('商品を選択してください。');return;}
+      const index=Number(indexStr);
+      const qty=Number(document.getElementById('splitProductQuantity').value);
+      selectedSplitProducts.set(index,(selectedSplitProducts.get(index)||0)+qty);
+      renderSelectedSplitProducts();
+      document.getElementById('splitResult').style.display='none';
+      document.getElementById('splitProductSelect').value='';
+    }
+    function resetSplitSelection() {
+      selectedSplitProducts.clear();
+      renderSelectedSplitProducts();
+      document.getElementById('targetLeftPt').value='';
+      document.getElementById('targetRightPt').value='';
+      document.getElementById('currentLeftPt').value='0';
+      document.getElementById('currentRightPt').value='0';
+      document.getElementById('splitResult').style.display='none';
+    }
+
+    function findOptimalSubset(items, targetPt) {
+      let dp = new Map();
+      dp.set(0, []);
+
+      for (let i = 0; i < items.length; i++) {
+        const item = items[i];
+        const nextDp = new Map(dp);
+
+        for (let [sum, path] of dp.entries()) {
+          const newSum = sum + item.pt;
+          if (!nextDp.has(newSum)) {
+            nextDp.set(newSum, [...path, i]);
+          }
+        }
+        dp = nextDp;
+      }
+
+      let minDiff = Infinity;
+      let bestIndices = [];
+
+      for (let [sum, indices] of dp.entries()) {
+        const diff = Math.abs(sum - targetPt);
+        if (diff < minDiff) {
+          minDiff = diff;
+          bestIndices = indices;
+        }
+      }
+
+      return bestIndices;
+    }
+
+    function findSuggestedProduct(shortagePt, month) {
+      if (shortagePt <= 0) return null;
+
+      let bestSuggestion = null;
+      let minDiff = Infinity;
+      let minPrice = Infinity;
+
+      configData.products.forEach(p => {
+        if (p.name === 'リペアセラム') return;
+        const pt = p.pts[month] || 0;
+        if (pt <= 0) return;
+
+        for (let qty = 1; qty <= 5; qty++) {
+          const totalPt = pt * qty;
+          const totalPrice = p.price * qty;
+          const diff = Math.abs(totalPt - shortagePt);
+
+          if (diff < minDiff || (diff === minDiff && totalPrice < minPrice)) {
+            minDiff = diff;
+            minPrice = totalPrice;
+            bestSuggestion = {
+              name: p.name,
+              qty: qty,
+              pt: totalPt,
+              price: totalPrice
+            };
+          }
+        }
+      });
+
+      return bestSuggestion;
+    }
+
+    function updateResultVisual({leftPt,rightPt,curLeftPt,curRightPt}) {
+      const mode=currentMode;
+      for(const id of ['scaleVisual','targetVisual','currentVisual']) document.getElementById(id).hidden=true;
+      const status=document.getElementById('balanceStatus');
+      const title=document.getElementById('resultVisualTitle');
+      const fmt=n=>Math.round(n).toLocaleString();
+      if(mode==='auto') {
+        title.textContent='EVENNESS ANALYSIS';
+        const diff=Math.abs(leftPt-rightPt);
+        const total=leftPt+rightPt;
+        const score=total>0?Math.max(0,100*(1-diff/total)):100;
+        status.textContent=diff===0?'PERFECT BALANCE':'BALANCE RESULT';
+        document.getElementById('scaleVisual').hidden=false;
+        document.getElementById('balanceEvenness').textContent=score.toFixed(1);
+        document.getElementById('balanceEvennessFill').style.width=score+'%';
+        document.getElementById('balanceEvennessTrack').setAttribute('aria-valuenow',score.toFixed(1));
+        document.getElementById('scalePtLeft').textContent=fmt(leftPt)+' PT';
+        document.getElementById('scalePtRight').textContent=fmt(rightPt)+' PT';
+        document.getElementById('balancePtDifference').textContent=fmt(diff)+' PT';
+        document.getElementById('balanceEvennessNote').textContent='均等率 = 100 × (1 − 左右のPT差 ÷ 購入PT合計)';
+      } else if(mode==='target') {
+        title.textContent='TARGET ACHIEVEMENT';status.textContent='TARGET MATCH';
+        document.getElementById('targetVisual').hidden=false;
+        const l=Number(document.getElementById('targetLeftPt').value);
+        const r=Number(document.getElementById('targetRightPt').value);
+        for(const [side,pt,target,raw] of [['Left',leftPt,l,document.getElementById('targetLeftPt').value],['Right',rightPt,r,document.getElementById('targetRightPt').value]]) {
+          const hasTarget=raw!=='' && target>0;
+          const rate=hasTarget?pt/target*100:null;
+          document.getElementById('target'+side+'Rate').textContent=hasTarget?rate.toFixed(1)+'%':'目標未設定';
+          document.getElementById('target'+side+'Fill').style.width=hasTarget?Math.min(100,rate)+'%':'0%';
+          document.getElementById('target'+side+'Note').textContent=hasTarget?fmt(pt)+' / '+fmt(target)+' PT（'+(pt>=target?'超過 +'+fmt(pt-target):'不足 '+fmt(target-pt))+' PT）':fmt(pt)+' PT';
+        }
+        document.getElementById('targetModeHint').textContent=(l>0 && r>0)?'両側の目標を指定した場合、計算は目標PTの比率に近づける方式です。達成率は各目標値を基準に表示しています。':'設定した目標に対する達成率を表示しています。';
+      } else {
+        title.textContent='TOTAL BALANCE';status.textContent='FINAL PT';
+        document.getElementById('currentVisual').hidden=false;
+        const max=Math.max(curLeftPt+leftPt,curRightPt+rightPt,1);
+        for(const [side,owned,bought] of [['Left',curLeftPt,leftPt],['Right',curRightPt,rightPt]]) {
+          document.getElementById('current'+side+'Label').textContent=fmt(owned+bought)+' PT';
+          document.getElementById('current'+side+'Owned').style.width=(owned/max*100)+'%';
+          document.getElementById('current'+side+'Bought').style.width=(bought/max*100)+'%';
+        }
+        document.getElementById('currentDifference').textContent=fmt(Math.abs(curLeftPt+leftPt-curRightPt-rightPt))+' PT';
+      }
+    }
+
+    function calculateBinarySplit() {
+      const month = document.getElementById('monthSelect').value;
+      let allUnitItems = [];
+      selectedSplitProducts.forEach((qty,index) => {
+        const p=configData.products[index];
+        const pt=p.pts[month]||0;
+        for(let i=0;i<qty;i++) allUnitItems.push({name:p.name,pt,price:p.price});
+      });
+
+      if (allUnitItems.length === 0) {
+        alert('商品を1つ以上（個数1以上）指定してください。');
+        return;
+      }
+
+      const totalPurchasePt = allUnitItems.reduce((acc, cur) => acc + cur.pt, 0);
+      let targetLeftPt = 0;
+      let curLeftPt = 0;
+      let curRightPt = 0;
+
+      if (currentMode === 'auto') {
+        targetLeftPt = totalPurchasePt / 2;
+      } else if (currentMode === 'target') {
+        const tL = parseFloat(document.getElementById('targetLeftPt').value);
+        const tR = parseFloat(document.getElementById('targetRightPt').value);
+
+        if (!isNaN(tL) && !isNaN(tR)) {
+          const targetTotal = tL + tR;
+          targetLeftPt = targetTotal > 0 ? totalPurchasePt * (tL / targetTotal) : totalPurchasePt / 2;
+        } else if (!isNaN(tL)) {
+          targetLeftPt = tL;
+        } else if (!isNaN(tR)) {
+          targetLeftPt = totalPurchasePt - tR;
+        } else {
+          alert('目標PT（左または右）を入力してください。');
+          return;
+        }
+      } else if (currentMode === 'current') {
+        curLeftPt = parseFloat(document.getElementById('currentLeftPt').value) || 0;
+        curRightPt = parseFloat(document.getElementById('currentRightPt').value) || 0;
+        
+        targetLeftPt = (totalPurchasePt + curRightPt - curLeftPt) / 2;
+        if (targetLeftPt < 0) targetLeftPt = 0;
+        if (targetLeftPt > totalPurchasePt) targetLeftPt = totalPurchasePt;
+      }
+
+      const leftIndices = findOptimalSubset(allUnitItems, targetLeftPt);
+      const leftSet = new Set(leftIndices);
+
+      let left = [], right = [];
+      let leftPt = 0, rightPt = 0;
+      let leftCost = 0, rightCost = 0;
+
+      allUnitItems.forEach((item, index) => {
+        if (leftSet.has(index)) {
+          left.push(item);
+          leftPt += item.pt;
+          leftCost += item.price;
+        } else {
+          right.push(item);
+          rightPt += item.pt;
+          rightCost += item.price;
+        }
+      });
+
+      const summarizeToCards = (list) => {
+        let map = {};
+        list.forEach(i => {
+          if (!map[i.name]) map[i.name] = { count: 0, pt: i.pt, price: i.price };
+          map[i.name].count++;
+        });
+        
+        return Object.keys(map).map(k => `
+          <div class="split-item-card">
+            <div class="split-item-name">${k} × ${map[k].count}</div>
+            <div class="split-item-sub">${(map[k].pt * map[k].count).toLocaleString()}PT / ${(map[k].price * map[k].count).toLocaleString()}円</div>
+          </div>
+        `).join('');
+      };
+
+      document.getElementById('leftList').innerHTML = summarizeToCards(left);
+      document.getElementById('rightList').innerHTML = summarizeToCards(right);
+      
+      document.getElementById('leftTotalPt').textContent = leftPt.toLocaleString();
+      document.getElementById('leftTotalCost').textContent = leftCost.toLocaleString();
+      
+      document.getElementById('rightTotalPt').textContent = rightPt.toLocaleString();
+      document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
+
+      const showCurrent = (currentMode === 'current');
+      document.getElementById('leftPurchaseLabel').textContent = showCurrent ? '追加分PT' : '今回PT';
+      document.getElementById('rightPurchaseLabel').textContent = showCurrent ? '追加分PT' : '今回PT';
+      document.getElementById('leftPlusSign').hidden = true;
+      document.getElementById('rightPlusSign').hidden = true;
+      document.getElementById('leftCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('leftFinalPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('rightCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
+      document.getElementById('rightFinalPtRow').style.display = showCurrent ? 'block' : 'none';
+
+      if (showCurrent) {
+        document.getElementById('leftCurrentPtVal').textContent = curLeftPt.toLocaleString();
+        document.getElementById('leftFinalPtVal').textContent = (curLeftPt + leftPt).toLocaleString();
+        document.getElementById('rightCurrentPtVal').textContent = curRightPt.toLocaleString();
+        document.getElementById('rightFinalPtVal').textContent = (curRightPt + rightPt).toLocaleString();
+
+        document.getElementById('diffLabel').textContent = '最終合計PT差';
+        document.getElementById('ptDiff').textContent = Math.abs((curLeftPt + leftPt) - (curRightPt + rightPt)).toLocaleString();
+      } else {
+        document.getElementById('diffLabel').textContent = '今回PT差';
+        document.getElementById('ptDiff').textContent = Math.abs(leftPt - rightPt).toLocaleString();
+      }
+
+      const ptDiffRow = document.getElementById('ptDiffRow');
+      if (currentMode === 'target') {
+        ptDiffRow.style.display = 'none';
+      } else {
+        ptDiffRow.style.display = 'block';
+      }
+
+      const isTargetMode = (currentMode === 'target');
+      document.getElementById('leftTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
+      document.getElementById('rightTargetDiffRow').style.display = isTargetMode ? 'block' : 'none';
+
+      if (isTargetMode) {
+        const rawTL = parseFloat(document.getElementById('targetLeftPt').value);
+        const rawTR = parseFloat(document.getElementById('targetRightPt').value);
+
+        if (!isNaN(rawTL)) {
+          const diffL = leftPt - rawTL;
+          const diffElL = document.getElementById('leftTargetDiffVal');
+          if (diffL < 0) {
+            diffElL.style.color = '#c94b4b';
+            diffElL.textContent = `${diffL.toLocaleString()} PT`;
+            
+            const sug = findSuggestedProduct(Math.abs(diffL), month);
+            if (sug) {
+              const qtyStr = sug.qty > 1 ? ` × ${sug.qty}個` : '';
+              document.getElementById('leftSuggestItem').innerHTML = `<strong>${sug.name}${qtyStr}</strong><br>${sug.pt.toLocaleString()} PT / ${sug.price.toLocaleString()}円`;
+              document.getElementById('leftSuggestBox').style.display = 'block';
+            }
+          } else {
+            diffElL.style.color = '#2b6cb0';
+            diffElL.textContent = `+${diffL.toLocaleString()} PT`;
+            document.getElementById('leftSuggestBox').style.display = 'none';
+          }
+        } else {
+          document.getElementById('leftTargetDiffRow').style.display = 'none';
+          document.getElementById('leftSuggestBox').style.display = 'none';
+        }
+
+        if (!isNaN(rawTR)) {
+          const diffR = rightPt - rawTR;
+          const diffElR = document.getElementById('rightTargetDiffVal');
+          if (diffR < 0) {
+            diffElR.style.color = '#c94b4b';
+            diffElR.textContent = `${diffR.toLocaleString()} PT`;
+
+            const sug = findSuggestedProduct(Math.abs(diffR), month);
+            if (sug) {
+              const qtyStr = sug.qty > 1 ? ` × ${sug.qty}個` : '';
+              document.getElementById('rightSuggestItem').innerHTML = `<strong>${sug.name}${qtyStr}</strong><br>${sug.pt.toLocaleString()} PT / ${sug.price.toLocaleString()}円`;
+              document.getElementById('rightSuggestBox').style.display = 'block';
+            }
+          } else {
+            diffElR.style.color = '#2b6cb0';
+            diffElR.textContent = `+${diffR.toLocaleString()} PT`;
+            document.getElementById('rightSuggestBox').style.display = 'none';
+          }
+        } else {
+          document.getElementById('rightTargetDiffRow').style.display = 'none';
+          document.getElementById('rightSuggestBox').style.display = 'none';
+        }
+      } else {
+        document.getElementById('leftSuggestBox').style.display = 'none';
+        document.getElementById('rightSuggestBox').style.display = 'none';
+      }
+
+      document.getElementById('grandTotalCost').textContent = (leftCost + rightCost).toLocaleString();
+
+      updateResultVisual({leftPt,rightPt,curLeftPt,curRightPt});
+      const resDiv = document.getElementById('splitResult');
+      resDiv.style.display = 'block';
+      document.body.classList.add('split-show-result');
+    }
+
+    document.getElementById('monthSelect').addEventListener('change', renderProductQtyList);
+    const qtyPicker=document.getElementById('splitProductQuantity');
+    for(let i=1;i<=30;i++){const option=document.createElement('option');option.value=i;option.textContent=i+'個';qtyPicker.appendChild(option);}
+    function returnToSplitInputs(){document.body.classList.remove("split-show-result");document.getElementById("splitResult").style.display="none";}
+    const resultHeader=document.querySelector(".split-result-shared-header");
+    resultHeader.appendChild(document.querySelector(".app-header").cloneNode(true));
+    const resultMenu=resultHeader.querySelector(".app-menu");resultMenu.id="app-site-menu-split-result";resultMenu.hidden=true;
+    const resultToggle=resultHeader.querySelector(".app-menu-toggle");resultToggle.setAttribute("aria-controls","app-site-menu-split-result");resultToggle.addEventListener("click",()=>{const open=resultToggle.getAttribute("aria-expanded")==="true";resultToggle.setAttribute("aria-expanded",String(!open));resultMenu.hidden=open;});
+    window.onload = loadConfig;
+  </script>
+\n</body>
+</html>
