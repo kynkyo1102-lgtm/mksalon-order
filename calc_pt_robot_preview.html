@@ -13,7 +13,7 @@
   
   
   
-  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=clean-5">
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=result-1">
   
   <script>
     if (new URLSearchParams(location.search).get('theme') === 'blue') {
@@ -89,7 +89,7 @@
       <div id="calcComplete" class="calc-complete" role="status" aria-live="polite" hidden></div>
       </div>
 
-      <section id="robotResultView" hidden><div class="robot-result-header"><img src="assets/retro-guide-robot.svg" alt=""><div><strong>計算できました！</strong><p>おすすめの組み合わせを確認してね。</p></div></div><button type="button" id="robotEditConditions" class="robot-edit-button">← 条件を変更する</button><div id="comboResult" class="result-container" style="display:none;"></div></section>
+      <section id="robotResultView" hidden><div class="robot-result-header"><img src="assets/retro-guide-robot.svg" alt=""><div><span class="robot-result-eyebrow">CALCULATION COMPLETE</span><strong>計算できました！</strong><p>おすすめの組み合わせを見てみよう。</p></div></div><div class="robot-result-actions"><p>まずはおすすめの組み合わせから確認してね。</p><button type="button" id="robotEditConditions" class="robot-edit-button">← 条件を変更する</button></div><div id="comboResult" class="result-container" style="display:none;"></div><div class="robot-result-bottom"><button type="button" id="robotEditConditionsBottom" class="robot-edit-button">← 条件を変更して再計算</button></div></section>
     </div>
   </main>
 
@@ -337,16 +337,16 @@
       });
       const resDiv = document.getElementById('comboResult');
       resDiv.style.display = 'none';
-      let html = '<div class="quest-result-heading"><span class="quest-result-rule" aria-hidden="true"></span><span>計算結果</span><span class="quest-result-rule" aria-hidden="true"></span></div>';
+      let html = '<div class="quest-result-heading"><span>計算結果</span></div>';
 
       plans.forEach((plan, index) => {
         const displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
         const diffPt = plan.totalPt - targetPt;
         const diffStr = diffPt === 0 ? '目標ちょうど' : (diffPt > 0 ? '目標より +' + diffPt.toLocaleString() + ' PT' : '目標より ' + diffPt.toLocaleString() + ' PT');
-        const planLabel = index === 0 ? '最適解' : index === 1 ? '別の組み合わせ ②' : '別の組み合わせ ③';
+        const planLabel = index === 0 ? 'おすすめの組み合わせ' : index === 1 ? '別の組み合わせ ②' : '別の組み合わせ ③';
         html += `
-          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">\n            ${plan.isBest ? '<div class="quest-clear-tag">✦ 計算完了 <span>RESULT 01</span></div>' : ''}
-            <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">最適な組み合わせ</span>' : '<span class="plan-variation-label">別ルート</span>'}</div>
+          <section class="plan-card ${plan.isBest ? 'best' : ''}" aria-label="${planLabel}">\n            ${plan.isBest ? '<div class="quest-clear-tag">ROBOT RECOMMENDATION</div>' : ''}
+            <div class="plan-heading"><h2 class="plan-title">${planLabel}</h2>${plan.isBest ? '<span class="plan-best-label">おすすめ</span>' : '<span class="plan-variation-label">比較用</span>'}</div>
             <div class="plan-summary">
               <div class="plan-summary-item"><span>合計ポイント</span><strong>${plan.totalPt.toLocaleString()} <small>PT</small></strong><em>${diffStr}</em></div>
               <div class="plan-summary-item"><span>合計金額</span><strong>${plan.totalCost.toLocaleString()} <small>円</small></strong></div>
@@ -497,7 +497,9 @@
       });
     }
 
-    document.getElementById("robotEditConditions").addEventListener("click",()=>{document.body.classList.remove("robot-show-result");document.getElementById("robotResultView").hidden=true;document.getElementById("robotMessage").textContent="条件を変更して、もう一度計算しよう！";document.querySelector(".calc-input-section").scrollIntoView({behavior:"smooth",block:"start"});});
+    function returnToConditions(){document.body.classList.remove("robot-show-result");document.getElementById("robotResultView").hidden=true;document.getElementById("robotMessage").textContent="条件を変更して、もう一度計算しよう！";document.querySelector(".calc-input-section").scrollIntoView({behavior:"smooth",block:"start"});}
+    document.getElementById("robotEditConditions").addEventListener("click",returnToConditions);
+    document.getElementById("robotEditConditionsBottom").addEventListener("click",returnToConditions);
     window.onload = loadConfig;
   </script>
 
