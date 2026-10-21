@@ -13,7 +13,7 @@
   
   
   
-  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=result-1">
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2"><link rel="stylesheet" href="css/robot-calc-clean.css?v=result-2">
   
   <script>
     if (new URLSearchParams(location.search).get('theme') === 'blue') {
@@ -47,7 +47,7 @@
     
     <a href="calc.html" class="app-back calc-back-top">‹ 計算メニューに戻る</a>
     
-    <h1 class="app-page-title">ポイント最適化シミュレーター</h1><p class="quest-lead">購入ポイントと商品条件を解析し、最適な組み合わせを算出します。</p>
+    <h1 class="app-page-title">ポイント最適化シミュレーター</h1><p class="quest-lead">購入ポイントと商品条件から、最適な組み合わせを計算します。</p>
     <div class="robot-guide"><img src="assets/retro-guide-robot.svg" alt="案内ロボット"><div class="robot-dialogue"><strong id="robotMessage">目標ポイントを教えてください！</strong><span>条件を決めたら、ぼくが計算するよ。</span></div></div><div class="calc-page-layout">
       <section class="calc-steps" aria-label="使い方"><h2>計算の流れ <span class="quest-mini">HOW TO USE</span></h2><ol><li><span>01</span>対象月度と目標PTを入力</li><li><span>02</span>必要なら商品と条件を指定</li><li><span>03</span>計算して購入パターンを確認</li></ol></section>
 
@@ -89,8 +89,8 @@
       <div id="calcComplete" class="calc-complete" role="status" aria-live="polite" hidden></div>
       </div>
 
-      <section id="robotResultView" hidden><div class="robot-result-header"><img src="assets/retro-guide-robot.svg" alt=""><div><span class="robot-result-eyebrow">CALCULATION COMPLETE</span><strong>計算できました！</strong><p>おすすめの組み合わせを見てみよう。</p></div></div><div class="robot-result-actions"><p>まずはおすすめの組み合わせから確認してね。</p><button type="button" id="robotEditConditions" class="robot-edit-button">← 条件を変更する</button></div><div id="comboResult" class="result-container" style="display:none;"></div><div class="robot-result-bottom"><button type="button" id="robotEditConditionsBottom" class="robot-edit-button">← 条件を変更して再計算</button></div></section>
     </div>
+      <section id="robotResultView" hidden><div class="robot-result-header"><img src="assets/retro-guide-robot.svg" alt=""><div><span class="robot-result-eyebrow">CALCULATION COMPLETE</span><strong>計算できました！</strong><p>おすすめの組み合わせを見てみよう。</p></div></div><div class="robot-result-actions"><p>まずはおすすめの組み合わせから確認してね。</p><button type="button" id="robotEditConditions" class="robot-edit-button">← 条件を変更する</button></div><div id="comboResult" class="result-container" style="display:none;"></div><div class="robot-result-bottom"><button type="button" id="robotEditConditionsBottom" class="robot-edit-button">← 条件を変更して再計算</button></div></section>
   </main>
 
   <footer class="app-footer">
