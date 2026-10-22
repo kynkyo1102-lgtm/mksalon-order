@@ -252,6 +252,7 @@
       clearCalculationResult();
     }
 
+    function copyOptimizerOrderData(index){const plan=window.lastOptimizerPlans?.[index];if(!plan)return;NinaOrderTransfer.copy([{label:'最適化プラン '+(index+1),items:plan.items.filter(i=>i.count>0).map(i=>({name:i.name,qty:i.count}))}]);}
     function calculateBestCombos() {
       cancelResultAnimation();
       const targetPt = parseInt(document.getElementById('targetPt').value) || 0;
@@ -339,6 +340,7 @@
       resDiv.style.display = 'none';
       let html = '<div class="quest-result-heading"><span>計算結果</span></div>';
 
+      window.lastOptimizerPlans=plans;
       plans.forEach((plan, index) => {
         const displayItems = formatItemsWithSamePrice(plan.items, baseProducts);
         const diffPt = plan.totalPt - targetPt;
@@ -351,6 +353,7 @@
               <div class="plan-summary-item"><span>合計ポイント</span><strong>${plan.totalPt.toLocaleString()} <small>PT</small></strong><em>${diffStr}</em></div>
               <div class="plan-summary-item"><span>合計金額</span><strong>${plan.totalCost.toLocaleString()} <small>円</small></strong></div>
             </div>
+            <button type="button" class="btn-copy" style="margin:12px 0;padding:10px 14px" onclick="copyOptimizerOrderData(${index})">この組み合わせを注文用にコピー</button>
             <h3 class="plan-items-heading">購入する商品</h3>
             <div class="plan-items-list">
               ${displayItems.length ? displayItems.map(i => `
@@ -511,5 +514,5 @@
   </script>
 
 
-</body>
+<script src="js/order-transfer.js?v=1"></script>\n</body>
 </html>
