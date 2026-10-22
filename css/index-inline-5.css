@@ -1,0 +1,10 @@
+/* Extracted from index.html; cascade order preserved. */
+
+.home-page .home-floating-calc.home-floating-custom{position:fixed!important;z-index:100!important;right:12px!important;bottom:14px!important;width:198px!important;height:79px!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;display:block!important;overflow:visible!important;line-height:0!important;transform:none!important;transition:transform .2s ease!important}
+.home-page .home-floating-custom img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;max-width:none!important}
+.home-page .home-floating-custom:hover{transform:translateY(-3px)!important}
+.home-page .home-floating-custom:focus-visible{outline:2px solid #427c9b!important;outline-offset:2px!important}
+@media(max-width:380px){.home-page .home-floating-calc.home-floating-custom{width:180px!important;height:73px!important;right:7px!important;bottom:10px!important}}
+@media(prefers-reduced-motion:reduce){.home-page .home-floating-custom{transition:none!important}}
+.home-page .home-header .home-header-shop{color:#fff!important;opacity:1!important;}
+
