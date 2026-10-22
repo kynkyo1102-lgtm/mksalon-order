@@ -441,3 +441,23 @@
  .home-page .home-news-section {margin-bottom:48px;}
  .home-page .home-social-links .sub-btn {padding:14px 8px;}
 }
+
+/* Home-only salon palette preview: forest green, ivory and warm wood */
+.home-page{--wood-dark:#315b43;--wood-medium:#47765a;--accent-gold:#987459;--gold-light:#987459;--bg-color:#f7f3ed;--card-bg:#fff;--text-main:#302b28;--text-sub:#6b6259;--border-color:#e9ded0;background:#f7f3ed!important;color:#302b28}
+.home-page .home-header{background:#315b43!important;border-bottom:1px solid #254a35!important}
+.home-page .home-header .header-logo,.home-page .home-header .home-header-shop,.home-page .home-header .home-menu-toggle{color:#fff!important}
+.home-page .home-header .menu-icon i{background:#fff!important;border-color:#fff!important}
+.home-page .section-title,.home-page .home-section-heading,.home-page .sub-info-title{color:#315b43!important}
+.home-page .home-order-grid .menu-card.featured-card{background:#fff!important;border:1px solid #e6dfd5!important;box-shadow:0 3px 13px rgba(65,49,35,.045)!important}
+.home-page .home-order-grid .menu-card.featured-card:hover{border-color:#a7bba9!important}
+.home-page .home-order-grid .card-icon{background:#edf4ee!important;color:#315b43!important}
+.home-page .home-order-grid .card-title{color:#315b43!important}
+.home-page .home-order-grid .card-desc{color:#6b6259!important}
+.home-page .home-news-section .news-box{border-color:#e9ded0!important}
+.home-page .news-accordion,.home-page .news-summary{background:#fff!important}
+.home-page .home-members-guide{background:#fff!important;border-color:#e9ded0!important}
+.home-page .home-members-guide h2{color:#315b43!important}
+.home-page .home-social-links .sub-btn{background:#fff!important;border-color:#e9ded0!important;color:#315b43!important}
+.home-page .home-support-links,.home-page .home-support-links .sub-btn{border-color:#e9ded0!important}
+.home-page .home-floating-calc{border-color:#d8d9ce!important}
+.home-page .home-site-menu{border-color:#e9ded0!important}
