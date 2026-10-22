@@ -1,0 +1,13 @@
+/* Extracted from index.html; cascade order preserved. */
+
+/* Same layered metallic frame language as the mode selection cards */
+.calc-launch-screen{background:radial-gradient(ellipse at 50% 30%,#2d4362 0%,#17263e 48%,#101a2c 100%)}
+.calc-launch-screen::before,.calc-launch-screen::after{height:3px;left:7%;right:7%;background:linear-gradient(90deg,transparent,#8e6935 10%,#f9e7ad 27%,#b5873f 50%,#fff0bd 73%,#8b6737 90%,transparent);box-shadow:0 2px 9px #e5b85a35;opacity:.9}
+.calc-launch-content{padding:34px 15px 30px;border:2px solid #b28a47;background:linear-gradient(145deg,#263e60,#172943 55%,#0e1c32);box-shadow:inset 0 0 0 3px #101c30,inset 0 0 0 5px #6f5734,0 12px 0 #081222,0 22px 45px #0008}
+.calc-launch-content::before{content:"";position:absolute;inset:-5px;pointer-events:none;border:3px solid transparent;border-image:linear-gradient(140deg,#fff1b9,#c59542 23%,#f7dc94 41%,#70532d 60%,#d5ad5c 84%,#fff0b8) 1}
+.calc-launch-title{background:linear-gradient(180deg,#fff8d5 6%,#f7df97 38%,#ba8841 64%,#ffe6a0 90%);-webkit-background-clip:text;background-clip:text;color:transparent;text-shadow:none;filter:drop-shadow(0 3px 0 #0b1425) drop-shadow(0 0 10px #d9ad5338)}
+.calc-launch-progress{position:relative;height:36px;border:4px solid transparent;background:linear-gradient(#0d1c30,#0d1c30) padding-box,linear-gradient(145deg,#fff1b9,#c59542 23%,#f7dc94 41%,#70532d 60%,#d5ad5c 84%,#fff0b8) border-box;box-shadow:inset 0 2px 5px #000a,0 4px 0 #081222,0 0 14px #d9ad5329}
+.calc-launch-progress-fill{background:repeating-linear-gradient(90deg,transparent 0 17px,#533a1d77 17px 20px),linear-gradient(180deg,#fff5ca 0%,#edcc78 29%,#b17d34 65%,#e8bc60 100%);box-shadow:inset 0 2px 0 #fff4c488,inset 0 -2px 0 #5e421e99,0 0 12px #d9ad5370}
+.calc-launch-start{color:#f4d789;text-shadow:0 2px 0 #081222}
+@media(max-width:480px){.calc-launch-content{width:min(520px,86vw);padding:30px 14px 26px}.calc-launch-title{font-size:clamp(25px,7vw,36px)}}
+
