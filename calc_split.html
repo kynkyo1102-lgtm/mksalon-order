@@ -164,7 +164,7 @@
           </div>
         </div>
 
-        <div class="split-grand-summary">
+        <div style="margin:16px 0;text-align:center"><button type="button" class="btn-copy" id="splitTransferCopy" onclick="copySplitOrderData()">左右の注文用データをまとめてコピー</button></div><div class="split-grand-summary">
           <div id="ptDiffRow">
             <span id="diffLabel">今回PT差</span>: <strong id="ptDiff">0</strong> PT
           </div>
@@ -413,6 +413,8 @@
       }
     }
 
+    function groupTransferItems(list){const m=new Map();list.forEach(i=>m.set(i.name,(m.get(i.name)||0)+1));return Array.from(m,([name,qty])=>({name,qty}));}
+    function copySplitOrderData(){if(window.lastSplitOrderGroups)NinaOrderTransfer.copy(window.lastSplitOrderGroups);}
     function calculateBinarySplit() {
       const month = document.getElementById('monthSelect').value;
       let allUnitItems = [];
@@ -477,6 +479,7 @@
         }
       });
 
+      window.lastSplitOrderGroups=[{label:'左（L）',items:groupTransferItems(left)},{label:'右（R）',items:groupTransferItems(right)}];
       const summarizeToCards = (list) => {
         let map = {};
         list.forEach(i => {
@@ -607,5 +610,5 @@
     const resultToggle=resultHeader.querySelector(".app-menu-toggle");resultToggle.setAttribute("aria-controls","app-site-menu-split-result");resultToggle.addEventListener("click",()=>{const open=resultToggle.getAttribute("aria-expanded")==="true";resultToggle.setAttribute("aria-expanded",String(!open));resultMenu.hidden=open;});
     window.onload = loadConfig;
   </script>
-\n</body>
+\n<script src="js/order-transfer.js?v=1"></script>\n</body>
 </html>
