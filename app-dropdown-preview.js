@@ -415,8 +415,8 @@ document.addEventListener('input', updateBulkConfirmState);
 document.addEventListener('change', updateBulkConfirmState);
 function goToBulkPayment() {
   if (!allOrders.length) return;
-  const pending = Boolean(document.getElementById('memberIdMain')?.value.trim() ||
-    document.getElementById('fullName')?.value.trim() || currentItemsData.length);
+  // 氏名は次の会員のために保持する仕様なので、未確定注文の判定には使わない。
+  const pending = Boolean(document.getElementById('memberIdMain')?.value.trim() || currentItemsData.length);
   if (pending && !confirm('入力途中の会員注文は確定されていません。このままお支払いへ進みますか？')) return;
   document.body.classList.add('bulk-final-step');
   document.getElementById('bulkFinalStage').classList.remove('display-none');
