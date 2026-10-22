@@ -10,7 +10,7 @@
   <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap" rel="stylesheet">
   
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
-  <link rel="stylesheet" href="css/robot-split-clean.css?v=production-5">
+  <link rel="stylesheet" href="css/robot-split-clean.css?v=summary-type-20261022">
   
 </head>
 <body class="app-page calc-split-page">
@@ -131,7 +131,7 @@
             
             <div class="total-box" aria-label="左の振り分け集計">
               <div class="split-total-row" id="leftCurrentPtRow" style="display:none;"><span>保有PT</span><span class="split-total-value"><strong id="leftCurrentPtVal">0</strong><span>PT</span></span></div>
-              <div class="split-total-row"><span id="leftPurchaseLabel">今回PT</span><span class="split-total-value"><strong class="total-pt-val" id="leftTotalPt">0</strong><span>PT</span></span></div>
+              <div class="split-total-row"><span id="leftPurchaseLabel">追加分PT</span><span class="split-total-value"><strong class="total-pt-val" id="leftTotalPt">0</strong><span>PT</span></span></div>
               <span id="leftPlusSign" hidden></span>
               <div class="split-total-row split-total-highlight" id="leftFinalPtRow" style="display:none;"><span>合計ポイント</span><span class="split-total-value"><strong id="leftFinalPtVal">0</strong><span>PT</span></span></div>
               <div class="split-total-row split-total-money"><span>合計金額</span><span class="split-total-value"><strong class="total-cost-val" id="leftTotalCost">0</strong><span>円</span></span></div>
@@ -150,7 +150,7 @@
             
             <div class="total-box" aria-label="右の振り分け集計">
               <div class="split-total-row" id="rightCurrentPtRow" style="display:none;"><span>保有PT</span><span class="split-total-value"><strong id="rightCurrentPtVal">0</strong><span>PT</span></span></div>
-              <div class="split-total-row"><span id="rightPurchaseLabel">今回PT</span><span class="split-total-value"><strong class="total-pt-val" id="rightTotalPt">0</strong><span>PT</span></span></div>
+              <div class="split-total-row"><span id="rightPurchaseLabel">追加分PT</span><span class="split-total-value"><strong class="total-pt-val" id="rightTotalPt">0</strong><span>PT</span></span></div>
               <span id="rightPlusSign" hidden></span>
               <div class="split-total-row split-total-highlight" id="rightFinalPtRow" style="display:none;"><span>合計ポイント</span><span class="split-total-value"><strong id="rightFinalPtVal">0</strong><span>PT</span></span></div>
               <div class="split-total-row split-total-money"><span>合計金額</span><span class="split-total-value"><strong class="total-cost-val" id="rightTotalCost">0</strong><span>円</span></span></div>
@@ -502,8 +502,8 @@
       document.getElementById('rightTotalCost').textContent = rightCost.toLocaleString();
 
       const showCurrent = (currentMode === 'current');
-      document.getElementById('leftPurchaseLabel').textContent = showCurrent ? '追加分PT' : '今回PT';
-      document.getElementById('rightPurchaseLabel').textContent = showCurrent ? '追加分PT' : '今回PT';
+      document.getElementById('leftPurchaseLabel').textContent = '追加分PT';
+      document.getElementById('rightPurchaseLabel').textContent = '追加分PT';
       document.getElementById('leftPlusSign').hidden = true;
       document.getElementById('rightPlusSign').hidden = true;
       document.getElementById('leftCurrentPtRow').style.display = showCurrent ? 'block' : 'none';
