@@ -50,7 +50,7 @@ window.NinaOrderTransfer={
    if(missing.length){alert('注文ページの商品マスターにない商品があります。取り込みは行いません。\\n'+missing.join('\\n'));return false}
    if(kind==='single'){
     const firstBox=document.querySelector('#positions_container .position-box');
-    const firstId=firstBox?.id.match(/^position_box_(\\d+)$/)?.[1];
+    const firstId=firstBox?.id.replace('position_box_','');
     const firstRows=firstBox?.querySelectorAll('.item-row')||[];
     const firstEmpty=Boolean(firstId && firstRows.length && [...firstRows].every(row=>!row.querySelector('.item-select')?.value));
     if(!confirm(firstEmpty?'空いている最初の注文枠に商品を取り込みますか？':'この商品を新しい注文枠に追加しますか？（既存の注文は残ります）'))return false;
