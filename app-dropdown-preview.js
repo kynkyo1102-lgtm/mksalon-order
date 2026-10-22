@@ -302,7 +302,7 @@ function updateCalc() {
 
   document.getElementById('displaySubtotal').textContent = "¥" + currentSubtotal.toLocaleString();
   document.getElementById('displayPrice').textContent = "¥" + currentGrandTotal.toLocaleString();
-  document.getElementById('displayPt').textContent = currentGrandPt.toLocaleString() + "pt";
+  document.getElementById('displayPt').textContent = currentGrandPt.toLocaleString() + "PT";
 }
 
 function addOrderToList() {
@@ -480,7 +480,7 @@ function generateAllReceipts() {
     <section class="order-image-section"><h4>お支払い情報（全会員共通）</h4><div class="bulk-combined-info">${paymentRows}</div></section>
     ${addressRows ? `<section class="order-image-section"><h4>共通のお届け先</h4><div class="order-image-members">${addressRows}</div></section>` : ''}
     <section class="order-image-section"><h4>会員ごとの注文</h4>${memberRows}</section>
-    <div class="bulk-combined-summary"><span>総合計 ${yen(totalPrice)}（${totalPt.toLocaleString()}PT）</span><span style="display:none"></span></div>
+    <div class="bulk-combined-summary"><span>総合計 ${yen(totalPrice)}（${totalPt.toLocaleString()}PT）</span></div>
   </div><button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-combined')">注文書を1枚の画像で保存</button>`;
   wrapper.appendChild(card);
   document.getElementById('formSection').style.display = 'none';
