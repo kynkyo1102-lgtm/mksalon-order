@@ -51,3 +51,11 @@
 .home-page [aria-expanded="true"] .menu-icon i:nth-child(2),.app-page [aria-expanded="true"] .menu-icon i:nth-child(2){opacity:0;}
 .home-page [aria-expanded="true"] .menu-icon i:last-child,.app-page [aria-expanded="true"] .menu-icon i:last-child{transform:translateY(-6.8px) rotate(-45deg);}
 @media(prefers-reduced-motion:reduce){.home-page .menu-icon i,.app-page .menu-icon i{transition:none}}
+
+/* Shared salon header: forest green with white branding. Main content stays plain white. */
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+.app-page .app-header{background:#315b43!important;color:#fff!important;border-bottom:1px solid #254a35!important;box-shadow:none!important}
+.app-page .app-brand-name{font-family:"DM Serif Display",Georgia,serif!important;font-size:clamp(21px,3.5vw,27px)!important;font-weight:400!important;letter-spacing:0!important;line-height:1.15!important;color:#fff!important}
+.app-page .app-brand-shop,.app-page .app-menu-toggle{color:#fff!important}
+.app-page .app-menu-toggle .menu-icon i{background:currentColor!important}
+.app-page .app-main,.app-page .bulk-main{background:transparent}
