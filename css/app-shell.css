@@ -59,3 +59,7 @@
 .app-page .app-brand-shop,.app-page .app-menu-toggle{color:#fff!important}
 .app-page .app-menu-toggle .menu-icon i{background:currentColor!important}
 .app-page .app-main,.app-page .bulk-main{background:transparent}
+
+/* Informational pages share the homepage ivory canvas, while panels remain white. */
+.app-page:not(.line-order-page):not(.bulk-order-page){background:#f7f3ed!important;background-image:none!important}
+.app-page:not(.line-order-page):not(.bulk-order-page) .app-panel{background:#fff}
