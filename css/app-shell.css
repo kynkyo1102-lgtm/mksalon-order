@@ -75,3 +75,10 @@ body.app-page.calc-pt-page,body.app-page.calc-split-page{background-color:#f7f9f
 .home-page .home-header .home-header-shop,.app-page .app-header .app-brand-shop{font-family:"Noto Sans JP",sans-serif!important;font-size:12px!important;font-weight:400!important;letter-spacing:0!important;color:#fff!important;opacity:1!important;white-space:nowrap!important;margin:0!important}
 .home-page .home-header .home-menu-toggle,.app-page .app-header .app-menu-toggle{display:grid!important;place-items:center!important;flex:0 0 42px!important;width:42px!important;height:42px!important;padding:0!important;border:0!important;border-radius:9px!important;background:transparent!important;color:#fff!important;box-shadow:none!important}
 @media(max-width:360px){.home-page .home-header,.app-page .app-header{padding:16px 16px!important;min-height:74px!important}.home-page .home-header-brand,.app-page .app-brand{gap:6px!important}.home-page .home-header .header-logo,.app-page .app-header .app-brand-name{font-size:21px!important}.home-page .home-header .home-header-shop,.app-page .app-header .app-brand-shop{font-size:11px!important}}
+
+/* Shared site footer, consistent across home, orders, and tools. */
+.site-unified-footer{position:relative;clear:both;box-sizing:border-box;width:100%;margin:0;padding:24px 16px 28px;background:#fff!important;border-top:1px solid #e6e6e6;color:#777!important;text-align:center;font-family:'Noto Sans JP',sans-serif;font-size:11px;line-height:1.8;letter-spacing:.03em}
+.site-unified-footer a{display:inline-block;color:#52665a;text-decoration:underline;text-underline-offset:3px;margin-bottom:7px;font-size:12px}
+.site-unified-footer .site-footer-copy{display:block;color:#777;font-size:11px}
+.line-order-page .site-unified-footer,.bulk-order-page .site-unified-footer{padding-bottom:145px}
+@media(max-width:600px){.line-order-page .site-unified-footer,.bulk-order-page .site-unified-footer{padding-bottom:180px}}
