@@ -21,11 +21,11 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
   <link rel="stylesheet" href="css/bulk-shell.css?v=cleanup-3">
-  <link rel="stylesheet" href="css/bulk-page.css?v=cleanup-3">
+  <link rel="stylesheet" href="css/bulk-page.css?v=guided-1">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=14" defer></script>
+  <script src="app-dropdown-preview.js?v=guided-1" defer></script>
 
 
 
@@ -118,7 +118,7 @@
         </div>
 
         <!-- 商品一覧テーブル -->
-        <div class="bulk-step-card bulk-products-card">
+        <div class="card-box bulk-step-card bulk-products-card">
         <div class="section-title">2. 商品を選択</div>
         <div class="sub-instruction">ご希望商品の数量を選択してください</div>
         <div class="bulk-dropdown-items"><div id="productPickerRows"></div><button type="button" class="sub-btn mt-8" id="addProductPicker">＋ 商品を追加</button></div><table class="product-table" style="display:none">
@@ -215,21 +215,21 @@
         <!-- 下部固定フッター -->
         <div class="footer-bar">
           <div class="footer-content">
-            <div class="footer-totals">
+            <div class="footer-totals"><div class="bulk-flow-hint" id="bulkFlowHint">まず会員情報と商品を入力してください</div>
               <div>
-                お支払額: <span id="displayPrice" class="price-highlight">¥0</span>
+                合計金額: <span id="displayPrice" class="price-highlight">¥0</span>
                 <span id="footerOrderBadge" onclick="document.getElementById('orderListContainer').scrollIntoView({behavior:'smooth'})" class="footer-badge display-none"></span>
               </div>
               <div class="footer-subtext">
-                (小計: <span id="displaySubtotal">¥0</span> / 獲得Pt: <span id="displayPt" class="pt-highlight">0pt</span>)
+                小計: <span id="displaySubtotal">¥0</span> / 合計ポイント: <span id="displayPt" class="pt-highlight">0pt</span>
               </div>
             </div>
-            <div class="bulk-footer-actions">
+            <div class="bulk-footer-actions"><button type="button" id="bulkAnotherMember" class="bulk-another-member display-none" onclick="startAnotherBulkMember()">＋ 別の会員の注文を追加</button>
             <button type="button" onclick="addOrderToList()" class="btn-add" id="bulkFooterAdd">
-              ＋ この会員の注文を追加
+              この会員の注文を確定する →
             </button>
 
-              <button type="button" id="bulkGoPayment" onclick="goToBulkPayment()" class="bulk-footer-next display-none">お支払い・お届け先へ →</button>
+              <button type="button" id="bulkGoPayment" onclick="goToBulkPayment()" class="bulk-footer-next display-none">お支払い・お届け先へ進む →</button>
             </div>
           </div>
         </div>
