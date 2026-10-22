@@ -127,3 +127,7 @@
 .bulk-order-page #formSection .footer-content{row-gap:11px!important}
 .bulk-order-page #formSection .bulk-footer-actions button{min-height:52px!important}
 .bulk-order-page #orderForm{padding-bottom:260px!important}
+
+.bulk-order-page .order-image-sheet .bulk-receipt-name,.bulk-order-page .order-image-sheet .bulk-receipt-name span,.bulk-order-page .order-image-sheet .bulk-receipt-name strong{font-weight:800!important}
+.bulk-order-page #completeSection .bulk-pdf-download{display:block;width:100%;min-height:46px;margin:0 0 30px;padding:12px 16px;background:#fff;color:#315b43;border:1px solid #aebfb2;border-radius:9px;font:inherit;font-size:14px;font-weight:700;cursor:pointer}
+.bulk-order-page #completeSection .btn-card-download{margin-bottom:10px!important}
