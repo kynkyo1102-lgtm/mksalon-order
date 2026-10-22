@@ -351,8 +351,7 @@ function addOrderToList() {
 
   renderOrderList();
 
-  // 次の注文を入力しやすいよう、フォームの先頭に戻す
-  document.getElementById("topOfForm").scrollIntoView({ behavior: "smooth", block: "start" });
+  document.getElementById("orderListContainer").scrollIntoView({ behavior: "smooth", block: "center" });
 }
 
 function renderOrderList() {
@@ -362,6 +361,12 @@ function renderOrderList() {
   
   const nextButton = document.getElementById("bulkGoPayment");
   if (nextButton) nextButton.classList.toggle("display-none", allOrders.length === 0);
+  const addButton = document.getElementById('bulkFooterAdd');
+  const anotherButton = document.getElementById('bulkAnotherMember');
+  const hint = document.getElementById('bulkFlowHint');
+  if (addButton) addButton.classList.toggle('display-none', allOrders.length > 0);
+  if (anotherButton) anotherButton.classList.toggle('display-none', allOrders.length === 0);
+  if (hint) hint.textContent = allOrders.length ? allOrders.length + '件追加済み。別の会員を追加するか、お支払いへ進んでください' : 'まず会員情報と商品を入力してください';
   if (allOrders.length === 0) {
     container.style.display = "none";
     if (badge) badge.style.display = "none";
@@ -399,6 +404,15 @@ function removeOrder(index) {
   renderOrderList();
 }
 
+function startAnotherBulkMember() {
+  const addButton = document.getElementById('bulkFooterAdd');
+  const anotherButton = document.getElementById('bulkAnotherMember');
+  const hint = document.getElementById('bulkFlowHint');
+  if (addButton) addButton.classList.remove('display-none');
+  if (anotherButton) anotherButton.classList.add('display-none');
+  if (hint) hint.textContent = '次の会員情報と商品を入力してください';
+  document.getElementById('topOfForm').scrollIntoView({behavior:'smooth',block:'start'});
+}
 function goToBulkPayment() {
   if (!allOrders.length) return;
   document.body.classList.add('bulk-final-step');
