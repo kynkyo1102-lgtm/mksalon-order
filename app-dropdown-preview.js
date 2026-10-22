@@ -362,11 +362,9 @@ function renderOrderList() {
   const nextButton = document.getElementById("bulkGoPayment");
   if (nextButton) nextButton.classList.toggle("display-none", allOrders.length === 0);
   const addButton = document.getElementById('bulkFooterAdd');
-  const anotherButton = document.getElementById('bulkAnotherMember');
   const hint = document.getElementById('bulkFlowHint');
-  if (addButton) addButton.classList.toggle('display-none', allOrders.length > 0);
-  if (anotherButton) anotherButton.classList.toggle('display-none', allOrders.length === 0);
-  if (hint) hint.textContent = allOrders.length ? allOrders.length + '件追加済み。別の会員を追加するか、お支払いへ進んでください' : 'まず会員情報と商品を入力してください';
+  if (hint) hint.textContent = allOrders.length ? allOrders.length + '件確定済み。次の会員を入力するか、お支払いへ進んでください' : '会員情報と商品を入力してください';
+  updateBulkConfirmState();
   if (allOrders.length === 0) {
     container.style.display = "none";
     if (badge) badge.style.display = "none";
@@ -404,17 +402,22 @@ function removeOrder(index) {
   renderOrderList();
 }
 
-function startAnotherBulkMember() {
-  const addButton = document.getElementById('bulkFooterAdd');
-  const anotherButton = document.getElementById('bulkAnotherMember');
-  const hint = document.getElementById('bulkFlowHint');
-  if (addButton) addButton.classList.remove('display-none');
-  if (anotherButton) anotherButton.classList.add('display-none');
-  if (hint) hint.textContent = '次の会員情報と商品を入力してください';
-  document.getElementById('topOfForm').scrollIntoView({behavior:'smooth',block:'start'});
+function updateBulkConfirmState() {
+  const button = document.getElementById('bulkFooterAdd');
+  if (!button) return;
+  const ready = Boolean(document.getElementById('month')?.value &&
+    document.getElementById('memberIdMain')?.value.trim() &&
+    document.getElementById('fullName')?.value.trim() &&
+    currentItemsData.length);
+  button.disabled = !ready;
 }
+document.addEventListener('input', updateBulkConfirmState);
+document.addEventListener('change', updateBulkConfirmState);
 function goToBulkPayment() {
   if (!allOrders.length) return;
+  const pending = Boolean(document.getElementById('memberIdMain')?.value.trim() ||
+    document.getElementById('fullName')?.value.trim() || currentItemsData.length);
+  if (pending && !confirm('入力途中の会員注文は確定されていません。このままお支払いへ進みますか？')) return;
   document.body.classList.add('bulk-final-step');
   document.getElementById('bulkFinalStage').classList.remove('display-none');
   window.scrollTo(0,0);
