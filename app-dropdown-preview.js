@@ -456,11 +456,11 @@ function generateAllReceipts() {
     phone ? 'TEL：' + escapeText(phone) : ''
   ].filter(Boolean).join('<br>');
   const memberRows = allOrders.map((ord, index) => {
-    const items = ord.items.map(item => `<div><span>${escapeText(item.product)} × ${item.quantity}</span><strong>${yen(item.price)}</strong></div>`).join('');
+    const items = ord.items.map(item => `<tr><td>${escapeText(item.product)}</td><td>${Number(item.quantity).toLocaleString()}</td><td>${yen(item.price)}</td><td>${Number(item.pt || 0).toLocaleString()}pt</td></tr>`).join('');
 
     return `<section class="bulk-combined-member">
       <div class="bulk-combined-member-head"><span>${index + 1}. ${escapeText(ord.fullName)}</span><span>会員番号 ${escapeText(ord.memberId)}</span></div>
-      <div class="bulk-combined-member-items">${items}</div>
+      <table class="bulk-combined-table" style="width:100%;border-collapse:collapse;table-layout:fixed"><thead><tr><th>商品名</th><th>個数</th><th>値段</th><th>ポイント</th></tr></thead><tbody>${items}</tbody></table>
       <div class="bulk-combined-member-total">お支払い ${yen(ord.totalPrice)}　/　獲得 ${ord.totalPt.toLocaleString()}pt</div>
     </section>`;
   }).join('');
@@ -477,9 +477,9 @@ function generateAllReceipts() {
   card.className = 'card-wrapper';
   card.innerHTML = `<div id="card-target-combined" class="receipt-box target-card order-image-sheet">
     <div class="order-image-heading"><div><span class="order-image-kicker">プラッスドゥニナ 南熊本店</span><h3>商品購入注文書</h3></div><div class="order-image-date">発注月度：<strong>${escapeText(month)}</strong><br>${allOrders.length}件の会員注文</div></div>
-    <section class="order-image-section"><h4>会員ごとの注文</h4>${memberRows}</section>
     <section class="order-image-section"><h4>お支払い情報（全会員共通）</h4><div class="bulk-combined-info">${paymentRows}</div></section>
     ${addressRows ? `<section class="order-image-section"><h4>共通のお届け先</h4><div class="order-image-members">${addressRows}</div></section>` : ''}
+    <section class="order-image-section"><h4>会員ごとの注文</h4>${memberRows}</section>
     <div class="bulk-combined-summary"><span>総合計 ${yen(totalPrice)}</span><span>獲得 ${totalPt.toLocaleString()}pt</span></div>
   </div><button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-combined')">注文書を1枚の画像で保存</button>`;
   wrapper.appendChild(card);
