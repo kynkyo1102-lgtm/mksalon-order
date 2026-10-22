@@ -1,3 +1,4 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
 /* Shared application UI for refreshed pages. Scope to .app-page to protect legacy tools. */
 .app-page{--app-ink:#222;--app-muted:#666;--app-line:#dedede;--app-surface:#fff;background:#fff;color:var(--app-ink);font-family:"Noto Sans JP",sans-serif;padding-bottom:0;}
 .app-page .app-header{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;color:#222;border:0;border-bottom:1px solid #e6e6e6;box-shadow:none;text-align:left;padding:18px 22px;}
@@ -53,7 +54,6 @@
 @media(prefers-reduced-motion:reduce){.home-page .menu-icon i,.app-page .menu-icon i{transition:none}}
 
 /* Shared salon header: forest green with white branding. Main content stays plain white. */
-@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
 .app-page .app-header{background:#315b43!important;color:#fff!important;border-bottom:1px solid #254a35!important;box-shadow:none!important}
 .app-page .app-brand-name{font-family:"DM Serif Display",Georgia,serif!important;font-size:clamp(21px,3.5vw,27px)!important;font-weight:400!important;letter-spacing:0!important;line-height:1.15!important;color:#fff!important}
 .app-page .app-brand-shop,.app-page .app-menu-toggle{color:#fff!important}
