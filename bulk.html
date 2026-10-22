@@ -21,7 +21,7 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
   <link rel="stylesheet" href="css/bulk-shell.css?v=cleanup-3">
-  <link rel="stylesheet" href="css/bulk-page.css?v=guided-3">
+  <link rel="stylesheet" href="css/bulk-page.css?v=guided-4">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
@@ -224,8 +224,8 @@
                 （<span id="displayPt" class="pt-highlight">0PT</span>）<span id="displaySubtotal" style="display:none">¥0</span>
               </div>
             </div>
-            <div class="bulk-flow-hint" id="bulkFlowHint">まず会員情報と商品を入力してください</div><div class="bulk-footer-actions"><button type="button" id="bulkAnotherMember" class="bulk-another-member display-none" onclick="startAnotherBulkMember()">＋ 別の会員の注文を追加</button>
-            <button type="button" onclick="addOrderToList()" class="btn-add" id="bulkFooterAdd">
+            <div class="bulk-flow-hint" id="bulkFlowHint">まず会員情報と商品を入力してください</div><div class="bulk-footer-actions">
+            <button type="button" onclick="addOrderToList()" class="btn-add" id="bulkFooterAdd" disabled>
               この会員の注文を確定する →
             </button>
 
