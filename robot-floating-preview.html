@@ -3,15 +3,26 @@
 <style>
 *{box-sizing:border-box}body{margin:0;background:#e9edf1;font-family:"Noto Sans JP",system-ui,sans-serif;color:#243345}.toolbar{position:sticky;top:0;z-index:5;background:white;box-shadow:0 2px 12px #172c4420;padding:12px max(14px,calc((100vw - 700px)/2));display:flex;align-items:center;gap:10px;flex-wrap:wrap}.toolbar strong{font-size:14px;margin-right:auto}.toolbar button{font:700 13px inherit;font-weight:700;border:1px solid #b8c9d5;background:white;border-radius:999px;padding:10px 15px;cursor:pointer}.toolbar button[aria-pressed=true]{background:#244d64;color:white;border-color:#244d64}.hint{font-size:11px;color:#64748b;padding:8px 14px;text-align:center}.stage{margin:0 auto;width:min(100%,450px);height:calc(100dvh - 112px);min-height:420px;background:white;box-shadow:0 10px 30px #172c4422}iframe{display:block;border:0;width:100%;height:100%}@media(min-width:700px){.stage{border-radius:22px;overflow:hidden;margin-top:12px;height:min(790px,calc(100dvh - 130px))}}
 </style></head><body>
-<div class="toolbar"><strong>レトロロボ｜実ページ比較</strong><button id="two" aria-pressed="true">② 吹き出し付き</button><button id="three" aria-pressed="false">③ 顔出しピル型</button></div>
-<div class="hint">実際のホームページを表示中。ボタンのデザインだけ切り替わります。</div>
-<div class="stage"><iframe id="site" src="./index.html?v=robot-preview-20261022" title="Place de Nina 実ページ"></iframe></div>
+<div class="toolbar"><strong>レトロロボ｜⑧ 左ロボ・右テキスト</strong><span style="font-size:12px;color:#64748b">実ページ上の配置プレビュー</span></div>
+<div class="hint">既存のレトロロボSVGを使用。ホームページ本体は未変更です。</div>
+<div class="stage"><iframe id="site" src="./index.html?v=robot-pill-left-20261022" title="Place de Nina 実ページ"></iframe></div>
 <script>
-const frame=document.getElementById('site');let selected='two';
+const frame=document.getElementById('site');
 const robot='<img src="assets/retro-guide-robot.svg" alt="" style="display:block;width:100%;height:100%;object-fit:contain">';
-function apply(){const doc=frame.contentDocument;if(!doc)return;const old=doc.querySelector('.home-floating-robot');if(!old)return;old.style.setProperty('display','none','important');let el=doc.getElementById('retro-robot-preview');if(!el){const style=doc.createElement('style');style.textContent=`
-#retro-robot-preview{position:fixed;z-index:9999;right:12px;bottom:18px;text-decoration:none;color:#243345;font-family:"Noto Sans JP",sans-serif;filter:drop-shadow(0 5px 9px #1d334033)}
-#retro-robot-preview *{box-sizing:border-box}#retro-robot-preview .robot{display:block;width:66px;height:66px}#retro-robot-preview .label{background:#fff;border:1px solid #cbd5dd;border-radius:999px;padding:12px 16px;font-size:12px;font-weight:700;white-space:nowrap;box-shadow:0 3px 10px #20304018}#retro-robot-preview.two{width:95px;height:120px;display:flex;flex-direction:column;align-items:center;justify-content:flex-end}#retro-robot-preview.two .robot{width:78px;height:78px;margin-bottom:-3px}#retro-robot-preview.two .label{position:absolute;right:72px;bottom:55px}#retro-robot-preview.two .label:after{content:"";position:absolute;right:-7px;bottom:13px;width:12px;height:12px;background:white;border-right:1px solid #cbd5dd;border-top:1px solid #cbd5dd;transform:rotate(45deg)}#retro-robot-preview.three{width:180px;height:105px;display:flex;align-items:flex-end;justify-content:flex-end}#retro-robot-preview.three .label{width:176px;height:50px;padding:16px 10px 12px 17px;text-align:left}#retro-robot-preview.three .robot{position:absolute;right:5px;bottom:28px;width:76px;height:76px}#retro-robot-preview.three .label span{display:inline-block;padding-right:47px}#retro-robot-preview:focus-visible{outline:3px solid #2983ad;outline-offset:4px}
-`;doc.head.appendChild(style);el=doc.createElement('a');el.id='retro-robot-preview';el.href='calc.html';el.setAttribute('aria-label','計算サポートツールを開く');doc.body.appendChild(el)}el.className=selected;el.innerHTML=selected==='two'?'<span class="label">計算サポート</span><span class="robot">'+robot+'</span>':'<span class="label"><span>計算サポート</span></span><span class="robot">'+robot+'</span>';}
-frame.addEventListener('load',apply);for(const mode of ['two','three'])document.getElementById(mode).addEventListener('click',()=>{selected=mode;document.getElementById('two').setAttribute('aria-pressed',String(mode==='two'));document.getElementById('three').setAttribute('aria-pressed',String(mode==='three'));apply()});
+function apply(){
+const doc=frame.contentDocument;if(!doc)return;
+const old=doc.querySelector('.home-floating-robot');if(!old)return;
+old.style.setProperty('display','none','important');
+let style=doc.createElement('style');style.textContent=`
+#retro-robot-preview{position:fixed!important;z-index:9999!important;right:12px!important;bottom:18px!important;width:194px!important;height:52px!important;display:flex!important;align-items:center!important;justify-content:flex-end!important;padding:0 17px 0 67px!important;box-sizing:border-box!important;border:2px solid #cbd8e0!important;border-radius:999px!important;background:#fff!important;color:#1d3447!important;text-decoration:none!important;box-shadow:0 5px 14px #20304024!important;font-family:"Noto Sans JP",sans-serif!important}
+#retro-robot-preview .robot{position:absolute!important;left:4px!important;bottom:3px!important;width:63px!important;height:72px!important;display:block!important}
+#retro-robot-preview .robot img{width:100%!important;height:100%!important;object-fit:contain!important}
+#retro-robot-preview .label{font-size:12px!important;font-weight:700!important;white-space:nowrap!important;letter-spacing:-.04em!important;flex:1!important}
+#retro-robot-preview .arrow{font-size:22px!important;line-height:1!important;color:#345a70!important;margin-left:7px!important}
+#retro-robot-preview:focus-visible{outline:3px solid #2983ad!important;outline-offset:4px!important}
+@media(max-width:360px){#retro-robot-preview{right:8px!important;bottom:12px!important}}
+`;doc.head.appendChild(style);
+const el=doc.createElement('a');el.id='retro-robot-preview';el.href='calc.html';el.setAttribute('aria-label','計算サポートツールを開く');el.innerHTML='<span class="robot">'+robot+'</span><span class="label">計算サポート</span><span class="arrow" aria-hidden="true">›</span>';doc.body.appendChild(el);
+}
+frame.addEventListener('load',apply);
 </script></body></html>
