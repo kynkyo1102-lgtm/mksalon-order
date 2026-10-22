@@ -472,9 +472,9 @@ function generateAllReceipts() {
   const paymentRows = [
     ["お支払い方法", escapeText(paymentMethod)],
     ["E-Service PW", escapeText(eservicePw), (paymentMethod === "ニナファームカード" || paymentMethod === "クレジットカード") && !!eservicePw],
-    ["領収書の宛名", escapeText(receiptName), !!receiptName],
-    ["ニナポイント値引き", "-" + yen(ninaPoint), ninaPoint > 0]
-  ].filter(row => row.length < 3 || row[2]).map(row => `<div class="bulk-combined-info-row"><span>${row[0]}</span><strong>${row[1]}</strong></div>`).join("");
+    ["ニナポイント値引き", "-" + yen(ninaPoint), ninaPoint > 0],
+    ["領収書の宛名", escapeText(receiptName), !!receiptName]
+  ].filter(row => row.length < 3 || row[2]).map(row => `<div class="bulk-combined-info-row${row[0] === "領収書の宛名" ? " bulk-receipt-name" : ""}"><span>${row[0]}</span><strong>${row[1]}</strong></div>`).join("");
   const totalPt = allOrders.reduce((sum, ord) => sum + ord.totalPt, 0);
   const card = document.createElement('div');
   card.className = 'card-wrapper';
@@ -484,7 +484,7 @@ function generateAllReceipts() {
     ${addressRows ? `<section class="order-image-section"><h4>共通のお届け先</h4><div class="order-image-members">${addressRows}</div></section>` : ''}
     <section class="order-image-section"><h4>会員ごとの注文</h4>${memberRows}</section>
     <div class="bulk-combined-summary"><span>総合計 ${yen(totalPrice)}（${totalPt.toLocaleString()}PT）</span></div>
-  </div><button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-combined')">注文書を1枚の画像で保存</button>`;
+  </div><button type="button" class="btn-card-download" onclick="downloadSingleCard('card-target-combined')">注文書を画像で保存</button><button type="button" class="bulk-pdf-download" onclick="downloadAllPDF()">PDFで保存</button>`;
   wrapper.appendChild(card);
   document.getElementById('formSection').style.display = 'none';
   document.querySelector('.footer-bar').style.display = 'none';
