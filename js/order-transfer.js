@@ -10,8 +10,8 @@ window.NinaOrderTransfer={
   try{await navigator.clipboard.writeText(MARK+JSON.stringify(data));alert('注文用データをコピーしました。注文ページで「振り分け・最適化結果を取り込む」を押してください。')}
   catch(e){alert('クリップボードへのコピーができませんでした。HTTPS接続とブラウザのコピー許可を確認してください。')}
  },
- async read(){
-  const raw=(await navigator.clipboard.readText()).trim();
+ parse(raw){
+  raw=String(raw||'').trim();
   if(!raw.startsWith(MARK))throw Error('計算結果のコピーが見つかりません。計算ページでコピーしてから取り込んでください。');
   const obj=JSON.parse(raw.slice(MARK.length));
   if(obj.version!==1||!Array.isArray(obj.groups)||obj.groups.length<1||obj.groups.length>10)throw Error('コピーしたデータの形式が正しくありません。');
@@ -19,12 +19,13 @@ window.NinaOrderTransfer={
   if(groups.some(g=>!g.items.length||g.items.length>100))throw Error('商品データが正しくありません。');
   return groups;
  },
+ async read(){return this.parse(await navigator.clipboard.readText());},
  mount(kind){
   const anchor=document.querySelector(kind==='single'?'#positions_container':'#productPickerRows');
   if(!anchor)return;
   const panel=document.createElement('section');
   panel.style.cssText='margin:16px 0;padding:14px;border:1px solid #c9dce9;border-radius:12px;background:#f3f8fc;color:#243c52';
-  panel.innerHTML='<strong style="display:block;margin-bottom:8px">計算結果から商品を取り込む</strong><button type="button" class="sub-btn" style="padding:10px 14px;cursor:pointer">振り分け・最適化結果を取り込む</button><div class="nina-transfer-options" style="margin-top:10px"></div><small style="display:block;margin-top:8px">商品と個数のみを取り込みます。会員情報は含まれません。ページを再読み込みすると取り込み待ちのデータは消えます。</small>';
+  panel.innerHTML='<strong style="display:block;margin-bottom:8px">計算結果から商品を取り込む</strong><button type="button" class="sub-btn" style="padding:10px 14px;cursor:pointer">クリップボードから読み込む</button><div style="margin-top:9px"><label style="display:block;font-size:13px;margin-bottom:5px">読み込めない場合は、下の欄を選んで貼り付けてください</label><textarea class="nina-transfer-paste" rows="2" placeholder="ここに貼り付け（Ctrl+V）" style="box-sizing:border-box;width:100%;border:1px solid #b5cadc;border-radius:7px;padding:9px"></textarea><button type="button" class="sub-btn nina-transfer-manual" style="margin-top:7px;padding:9px 12px">貼り付けたデータを読み込む</button></div><div class="nina-transfer-options" style="margin-top:10px"></div><small style="display:block;margin-top:8px">商品と個数のみを取り込みます。会員情報は含まれません。ページを再読み込みすると取り込み待ちのデータは消えます。</small>';
   anchor.parentNode.insertBefore(panel,anchor);
   const options=panel.querySelector('.nina-transfer-options');
   let groups=null,done=new Set();
@@ -32,6 +33,7 @@ window.NinaOrderTransfer={
    try{groups=await window.NinaOrderTransfer.read();done.clear();render()}
    catch(e){alert(e.message||'クリップボードを読み込めません。ブラウザの貼り付け許可を確認してください。')}
   });
+  panel.querySelector('.nina-transfer-manual').addEventListener('click',()=>{try{groups=window.NinaOrderTransfer.parse(panel.querySelector('.nina-transfer-paste').value);done.clear();render()}catch(e){alert(e.message||'貼り付けたデータを読み込めません。')}});
   function render(){
    options.replaceChildren();
    groups.forEach((g,i)=>{
@@ -43,7 +45,6 @@ window.NinaOrderTransfer={
    });
   }
   function apply(items){
-   const master=window.currentMaster||null;
    // Global lexical declarations are accessible in this page's classic scripts.
    const products=typeof currentMaster!=='undefined'?currentMaster.products:[];
    const matched=[],missing=[];
