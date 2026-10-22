@@ -21,11 +21,11 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
   <link rel="stylesheet" href="css/bulk-shell.css?v=cleanup-3">
-  <link rel="stylesheet" href="css/bulk-page.css?v=guided-2">
+  <link rel="stylesheet" href="css/bulk-page.css?v=guided-3">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=guided-2" defer></script>
+  <script src="app-dropdown-preview.js?v=guided-3" defer></script>
 
 
 
@@ -239,7 +239,7 @@
 
     <!-- 完成画面（JavaScriptで生成処理を行う際に使用する動的領域） -->
     <div id="completeSection" class="display-none">
-      <div id="receiptsWrapper"></div>
+      <button type="button" class="bulk-revise-order" onclick="reviseBulkOrder()">← 注文内容を修正する</button><div id="receiptsWrapper"></div>
     </div>
   </main>
 
