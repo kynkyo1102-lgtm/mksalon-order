@@ -127,5 +127,5 @@
  .bulk-order-page #formSection #orderListContainer > .order-list-header{font-size:16px!important;margin-bottom:16px!important}
 }
 
-/* Remove decorative grid background from the order screen. */
-.bulk-order-page{background:#fff!important;background-image:none!important;background-size:auto!important}
+/* Match the text-order page's subtle fixed grid background. */
+.bulk-order-page{background-color:#f8f9f7!important;background-image:linear-gradient(to right,rgba(98,112,105,.085) 1px,transparent 1px),linear-gradient(to bottom,rgba(98,112,105,.085) 1px,transparent 1px)!important;background-size:24px 24px!important;background-attachment:fixed!important}
