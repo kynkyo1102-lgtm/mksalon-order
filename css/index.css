@@ -461,3 +461,7 @@
 .home-page .home-support-links,.home-page .home-support-links .sub-btn{border-color:#e9ded0!important}
 .home-page .home-floating-calc{border-color:#d8d9ce!important}
 .home-page .home-site-menu{border-color:#e9ded0!important}
+
+/* Match shared logo typography on homepage. */
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+.home-page .home-header .header-logo{font-family:"DM Serif Display",Georgia,serif!important;font-size:clamp(22px,3.5vw,28px)!important;font-weight:400!important;letter-spacing:0!important;text-shadow:none!important;line-height:1.15!important}
