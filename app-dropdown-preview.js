@@ -489,6 +489,14 @@ function generateAllReceipts() {
   window.scrollTo(0, 0);
 }
 
+function reviseBulkOrder() {
+  document.getElementById('completeSection').style.display = 'none';
+  document.getElementById('formSection').style.display = '';
+  document.body.classList.add('bulk-final-step');
+  document.getElementById('bulkFinalStage').classList.remove('display-none');
+  document.getElementById('receiptsWrapper').replaceChildren();
+  window.scrollTo(0, 0);
+}
 function closeModal(modalElement) {
   document.body.style.overflow = ''; // 背景固定解除
   modalElement.remove();
