@@ -61,5 +61,8 @@
 .app-page .app-main,.app-page .bulk-main{background:transparent}
 
 /* Informational pages share the homepage ivory canvas, while panels remain white. */
-.app-page:not(.line-order-page):not(.bulk-order-page){background:#f7f3ed!important;background-image:none!important}
+.app-page:not(.line-order-page):not(.bulk-order-page):not(.calc-pt-page):not(.calc-split-page){background:#f7f3ed!important;background-image:none!important}
+/* Calculation tools retain their original robot-lab patterned background. */
+body.app-page.calc-pt-page,body.app-page.calc-split-page{background-color:#f7f9fc!important;background-image:url('../assets/robot-lab-pattern.svg')!important;background-repeat:repeat!important;background-position:center top!important;background-size:640px 640px!important}
+@media(max-width:640px){body.app-page.calc-pt-page,body.app-page.calc-split-page{background-size:440px 440px!important}}
 .app-page:not(.line-order-page):not(.bulk-order-page) .app-panel{background:#fff}
