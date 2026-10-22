@@ -350,6 +350,8 @@ function addOrderToList() {
   updateCalc();
 
   renderOrderList();
+  const notice = document.getElementById('bulkOrderAddedNotice');
+  if (notice) notice.textContent = `${allOrders.length}人目の注文を追加しました。別の会員の注文も続けて追加できます。`;
 
   document.getElementById("orderListContainer").scrollIntoView({ behavior: "smooth", block: "center" });
 }
@@ -357,7 +359,6 @@ function addOrderToList() {
 function renderOrderList() {
   const container = document.getElementById('orderListContainer');
   const listDiv = document.getElementById('addedOrdersList');
-  const badge = document.getElementById('footerOrderBadge');
   
   const nextButton = document.getElementById("bulkGoPayment");
   if (nextButton) nextButton.classList.toggle("display-none", allOrders.length === 0);
@@ -367,17 +368,12 @@ function renderOrderList() {
   updateBulkConfirmState();
   if (allOrders.length === 0) {
     container.style.display = "none";
-    if (badge) badge.style.display = "none";
     return;
   }
 
   container.style.display = "block";
   document.getElementById('orderCount').textContent = allOrders.length;
 
-  if (badge) {
-    badge.style.display = "inline-block";
-    badge.textContent = `📋 追加済み: ${allOrders.length}件`;
-  }
 
   let html = "";
   allOrders.forEach((ord, i) => {
@@ -395,6 +391,10 @@ function renderOrderList() {
     `;
   });
   listDiv.innerHTML = html;
+  const grandPrice = allOrders.reduce((sum, ord) => sum + ord.totalPrice, 0);
+  const grandPt = allOrders.reduce((sum, ord) => sum + ord.totalPt, 0);
+  const grand = document.getElementById('bulkOrdersGrandTotal');
+  if (grand) grand.textContent = `全体の合計 ¥${grandPrice.toLocaleString()}（${grandPt.toLocaleString()}PT）`;
 }
 
 function removeOrder(index) {
