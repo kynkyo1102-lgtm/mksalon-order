@@ -17,7 +17,8 @@
     .home-page .home-order-grid { display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important; }
     .home-page .home-order-grid .menu-card { min-width:0!important;width:100%!important;margin:0!important;box-sizing:border-box!important; }
     .home-page .home-floating-calc {position:fixed!important;z-index:100!important;right:16px!important;bottom:20px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;width:108px!important;height:74px!important;background:#fff!important;color:#222!important;border:1px solid #bbb!important;border-radius:18px!important;text-decoration:none!important;box-shadow:0 3px 14px rgba(0,0,0,.1)!important;}
-    .home-page .home-floating-calc-icon {animation:home-calculator-wiggle 5s ease-in-out infinite;}\n    .home-page .home-floating-calc-label{font-size:11px!important;white-space:nowrap!important;font-weight:700!important;}
+    .home-page .home-floating-calc-icon {animation:home-calculator-wiggle 5s ease-in-out infinite;}
+    .home-page .home-floating-calc-label{font-size:11px!important;white-space:nowrap!important;font-weight:700!important;}
     @keyframes home-calculator-wiggle {0%,6%,18%,100%{transform:rotate(0)}9%{transform:rotate(-12deg)}13%{transform:rotate(9deg)}}
     @media(prefers-reduced-motion:reduce){.home-page .home-floating-calc-icon{animation:none}}
 
@@ -152,7 +153,8 @@
     .home-page .home-floating-calc.home-floating-robot:focus-visible{outline:none!important;outline-offset:0!important;box-shadow:none!important}
     .home-page .home-floating-calc.home-floating-robot:focus-visible .home-robot-art{filter:drop-shadow(0 0 5px rgba(65,106,145,.65))}
 </style>
-  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">\n
+  <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
+
 <style id="calc-launch-style">
 .calc-launch-screen{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:#081324;color:#f6f2e7;opacity:0;visibility:hidden;transition:opacity .15s ease,visibility .15s;overflow:hidden}
 .calc-launch-screen.is-active{opacity:1;visibility:visible}
