@@ -94,3 +94,15 @@
 .bulk-order-page .bulk-combined-info{background:#f6f9f6;border:1px solid #e1eae2;border-radius:8px;padding:11px 14px}
 .bulk-order-page .bulk-combined-info-row{display:flex;justify-content:space-between;gap:14px;padding:5px 0;font-size:12px;color:#364b3b}
 .bulk-order-page .bulk-combined-info-row strong{font-weight:700;overflow-wrap:anywhere;text-align:right}
+
+/* Guided bulk-order workflow and consistent text-order cards */
+.bulk-order-page #formSection .bulk-products-card{background:#fff!important;border:1px solid #e3e3e3!important;border-radius:12px!important;padding:20px!important;margin-bottom:20px!important;box-shadow:none!important}
+.bulk-order-page #formSection .bulk-products-card .section-title{margin-top:0!important}
+.bulk-order-page #formSection .footer-totals{font-size:15px!important;line-height:1.5!important}
+.bulk-order-page #formSection .footer-totals #displayPrice{font-size:clamp(21px,5vw,27px)!important;font-weight:700!important}
+.bulk-order-page #formSection .footer-subtext{font-size:clamp(13px,3.3vw,16px)!important;line-height:1.55!important}
+.bulk-order-page #formSection .footer-subtext #displaySubtotal,.bulk-order-page #formSection .footer-subtext #displayPt{font-size:inherit!important;font-weight:700!important}
+.bulk-order-page #formSection .bulk-flow-hint{font-size:12px!important;font-weight:500;color:#52715c;margin-bottom:4px}
+.bulk-order-page #formSection .bulk-footer-actions .bulk-another-member{flex:1;min-width:0;min-height:48px;background:#fff;color:#315b43;border:1px solid #aebfb2;border-radius:9px;font:inherit;font-weight:700;padding:9px;cursor:pointer}
+.bulk-order-page #formSection .bulk-footer-actions .display-none{display:none!important}
+@media(max-width:600px){.bulk-order-page #formSection .bulk-products-card{padding:17px!important}.bulk-order-page #formSection .bulk-footer-actions{flex-direction:column}.bulk-order-page #formSection .footer-totals{width:100%}}
