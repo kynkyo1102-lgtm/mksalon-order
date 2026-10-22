@@ -67,3 +67,16 @@ body.app-page.calc-split-page{background-color:#f7f9fc;background-image:url("../
 .calc-split-page #splitResult .total-box .split-total-row{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 0}
 .calc-split-page #splitResult .total-box .split-total-row>span:first-child{display:block;width:100%}
 .calc-split-page #splitResult .total-box .split-total-value{display:flex;align-self:flex-end;justify-content:flex-end;align-items:baseline;gap:3px;width:100%}
+
+/* Refine selected products and order-data transfer controls. */
+.calc-split-page .selected-product-list .selected-product-row{display:flex;align-items:center;justify-content:space-between;gap:12px;padding:13px 0;border-bottom:1px solid #dfe8f1}
+.calc-split-page .selected-product-row>div{min-width:0;flex:1}
+.calc-split-page .selected-product-row strong{display:block;font-size:14px;line-height:1.55;overflow-wrap:anywhere}
+.calc-split-page .selected-product-row small{display:block;font-size:12px;line-height:1.5;color:#647f94;margin-top:3px}
+.calc-split-page .selected-product-row>button{flex:none;border:1px solid #bdcedd;border-radius:8px;background:#fff;color:#486a86;padding:8px 12px;font:600 12px "Noto Sans JP",sans-serif;cursor:pointer}
+.calc-split-page .selected-product-row>button:hover{background:#eef5fa}
+.calc-split-page .split-transfer-actions{margin:22px 0 20px;text-align:center}
+.calc-split-page #splitTransferCopy{display:inline-flex;align-items:center;justify-content:center;gap:10px;width:min(100%,460px);min-height:54px;margin:0;padding:13px 18px;border:0;border-radius:11px;background:#174e6d;color:#fff;font:700 14px/1.5 "Noto Sans JP",sans-serif;box-shadow:3px 4px 0 #d7e5ef;cursor:pointer}
+.calc-split-page #splitTransferCopy::before{content:"";width:17px;height:19px;flex:none;background:currentColor;clip-path:polygon(24% 0,78% 0,100% 23%,100% 100%,24% 100%,24% 85%,0 85%,0 0,24% 0,24% 13%,75% 13%,75% 85%,88% 85%,88% 27%,75% 27%,75% 13%,24% 13%)}
+.calc-split-page #splitTransferCopy:hover{background:#103f59}
+@media(max-width:640px){.calc-split-page .selected-product-row strong{font-size:13px}.calc-split-page .selected-product-row small{font-size:11px}.calc-split-page #splitTransferCopy{font-size:13px;min-height:52px}}
