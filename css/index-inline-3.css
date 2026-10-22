@@ -1,0 +1,10 @@
+/* Extracted from index.html; cascade order preserved. */
+
+/* Shared navy/gold visual language with the mode selection screen */
+.calc-launch-screen{background:radial-gradient(ellipse at 50% 26%,#243754 0%,#17253c 46%,#101a2c 100%);color:#f4d789}
+.calc-launch-screen::before,.calc-launch-screen::after{height:5px;left:16px;right:16px;background:repeating-linear-gradient(90deg,#e2bc6e 0 24px,transparent 24px 31px);opacity:.75}
+.calc-launch-title{font-family:'DotGothic16',monospace;color:#f4d789;text-shadow:0 2px 0 #1b1c24,0 0 18px #d9ad533d}
+.calc-launch-progress{border:3px solid #e2bc6e;background:#111b2d;box-shadow:inset 0 0 0 2px #344e6b,4px 5px 0 #091324;border-radius:0}
+.calc-launch-progress-fill{background:repeating-linear-gradient(90deg,#d9b76b 0 17px,#b88b42 17px 20px);box-shadow:0 0 12px #d9ad5355}
+.calc-launch-start{color:#e3c581;font-family:'DotGothic16',monospace}
+
