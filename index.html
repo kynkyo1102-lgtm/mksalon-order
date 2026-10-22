@@ -188,7 +188,16 @@
 .calc-launch-progress-fill{background:repeating-linear-gradient(90deg,transparent 0 17px,#533a1d77 17px 20px),linear-gradient(180deg,#fff5ca 0%,#edcc78 29%,#b17d34 65%,#e8bc60 100%);box-shadow:inset 0 2px 0 #fff4c488,inset 0 -2px 0 #5e421e99,0 0 12px #d9ad5370}
 .calc-launch-start{color:#f4d789;text-shadow:0 2px 0 #081222}
 @media(max-width:480px){.calc-launch-content{width:min(520px,86vw);padding:30px 14px 26px}.calc-launch-title{font-size:clamp(25px,7vw,36px)}}
-</style></head>
+</style>
+<style id="home-floating-custom-style">
+.home-page .home-floating-calc.home-floating-custom{position:fixed!important;z-index:100!important;right:12px!important;bottom:14px!important;width:220px!important;height:88px!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;display:block!important;overflow:visible!important;line-height:0!important;transform:none!important;transition:transform .2s ease!important}
+.home-page .home-floating-custom img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;max-width:none!important}
+.home-page .home-floating-custom:hover{transform:translateY(-3px)!important}
+.home-page .home-floating-custom:focus-visible{outline:2px solid #427c9b!important;outline-offset:2px!important}
+@media(max-width:380px){.home-page .home-floating-calc.home-floating-custom{width:198px!important;height:80px!important;right:7px!important;bottom:10px!important}}
+@media(prefers-reduced-motion:reduce){.home-page .home-floating-custom{transition:none!important}}
+</style>
+</head>
 <body class="home-page">
 
   <header class="home-header">
@@ -305,27 +314,9 @@
 
   </main>
 
-  <a href="calc.html" class="home-floating-calc home-floating-robot" aria-label="計算サポートツールを開く" title="計算サポートツール">
-    <svg class="home-robot-art" viewBox="0 0 245 135" role="img" aria-label="看板を持つロボット" xmlns="http://www.w3.org/2000/svg">
-      <defs><linearGradient id="homeRobotMetal" x1="0" x2="1" y1="0" y2="1"><stop stop-color="#ffffff"/><stop offset=".52" stop-color="#e9eef3"/><stop offset="1" stop-color="#b9c7d5"/></linearGradient></defs>
-      <!-- robot peeks from behind the sign -->
-      <g class="home-robot-peek">
-      <path d="M181 24V15" stroke="#556c80" stroke-width="4" stroke-linecap="round"/><circle cx="181" cy="12" r="5" fill="#d8ad60" stroke="#647d92" stroke-width="2"/>
-      <rect x="151" y="26" width="60" height="58" rx="19" fill="url(#homeRobotMetal)" stroke="#60788e" stroke-width="3"/>
-      <rect x="159" y="39" width="44" height="26" rx="11" fill="#293f56"/>
-      <ellipse cx="172" cy="52" rx="4" ry="6" fill="#a9e2eb"/><ellipse cx="190" cy="52" rx="4" ry="6" fill="#a9e2eb"/>
-      <path d="M175 62q6 5 12 0" stroke="#a9e2eb" stroke-width="2" fill="none" stroke-linecap="round"/>
-      </g>
-      <!-- placard: robot's hands and arms are hidden behind it -->
-      <!-- placard -->
-      <rect x="8" y="85" width="229" height="44" rx="10" fill="#fdfdfd" stroke="#34475b" stroke-width="2.5"/>
-      <rect x="13" y="90" width="219" height="34" rx="6" fill="#f4f6f8"/>
-      <path d="M23 97h3m-3 5h3m-3 5h3" stroke="#c6a166" stroke-width="2.5" stroke-linecap="round"/>
-      <text x="117" y="113" text-anchor="middle" font-family="Noto Sans JP, sans-serif" font-size="15" font-weight="700" fill="#243345">計算サポートツール</text>
-      <path d="M216 104l5 5-5 5" stroke="#b88d4b" stroke-width="2.5" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-    </svg>
+  <a href="calc.html" class="home-floating-calc home-floating-custom" aria-label="計算サポートツールを開く" title="計算サポートツール">
+    <img src="assets/robot-floating-button-custom.svg" alt="" width="1983" height="793" draggable="false">
   </a>
-
   <footer>
     <div class="home-footer-privacy">
       <a href="privacy.html">プライバシーポリシー</a>
