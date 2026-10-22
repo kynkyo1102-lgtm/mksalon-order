@@ -49,9 +49,20 @@ window.NinaOrderTransfer={
    items.forEach(item=>{const idx=products.findIndex(p=>p.name===item.name);if(idx<0)missing.push(item.name);else matched.push({idx,qty:item.qty})});
    if(missing.length){alert('注文ページの商品マスターにない商品があります。取り込みは行いません。\\n'+missing.join('\\n'));return false}
    if(kind==='single'){
-    if(!confirm('この商品を新しい注文枠に追加しますか？（既存の注文は残ります）'))return false;
+    const firstBox=document.querySelector('#positions_container .position-box');
+    const firstId=firstBox?.id.match(/^position_box_(\\d+)$/)?.[1];
+    const firstRows=firstBox?.querySelectorAll('.item-row')||[];
+    const firstEmpty=Boolean(firstId && firstRows.length && [...firstRows].every(row=>!row.querySelector('.item-select')?.value));
+    if(!confirm(firstEmpty?'空いている最初の注文枠に商品を取り込みますか？':'この商品を新しい注文枠に追加しますか？（既存の注文は残ります）'))return false;
     const chunks=[];matched.forEach(x=>{let n=x.qty;while(n>0){const q=Math.min(40,n);chunks.push({prodIndex:x.idx,qty:q});n-=q}});
-    addPositionBox('','00','',chunks);
+    if(firstEmpty){
+     const list=document.getElementById('items_list_'+firstId);
+     list.replaceChildren();
+     chunks.forEach(x=>addItemRowWithData(Number(firstId),x.prodIndex,x.qty));
+     updatePreview();
+    }else{
+     addPositionBox('','00','',chunks);
+    }
    }else{
     if(!confirm('現在入力中の商品を、この結果の商品と個数に置き換えますか？'))return false;
     const list=document.getElementById('productPickerRows');
