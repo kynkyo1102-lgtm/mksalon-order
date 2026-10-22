@@ -62,3 +62,8 @@ body.app-page.calc-split-page{background-color:#f7f9fc;background-image:url("../
 .calc-split-page #splitResult .split-total-value strong{font-size:clamp(17px,4.5vw,21px)}
 .calc-split-page #splitResult .split-total-value>span{font-size:11px}
 }
+
+/* Stack labels above values consistently in the result summary. */
+.calc-split-page #splitResult .total-box .split-total-row{display:flex;flex-direction:column;align-items:flex-start;gap:2px;padding:9px 0}
+.calc-split-page #splitResult .total-box .split-total-row>span:first-child{display:block;width:100%}
+.calc-split-page #splitResult .total-box .split-total-value{display:flex;align-self:flex-end;justify-content:flex-end;align-items:baseline;gap:3px;width:100%}
