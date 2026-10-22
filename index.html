@@ -386,6 +386,34 @@
     window.addEventListener('DOMContentLoaded', loadNews);
   </script>
 
+  <script>
+    // Keep the floating shortcut above the footer while preserving its normal fixed position.
+    (() => {
+      const shortcut = document.querySelector('.home-floating-custom');
+      const footer = document.querySelector('body.home-page > footer');
+      if (!shortcut || !footer) return;
+      let scheduled = false;
+      function positionShortcut() {
+        scheduled = false;
+        const compact = window.matchMedia('(max-width: 380px)').matches;
+        const baseBottom = compact ? 10 : 14;
+        const footerGap = 12;
+        const footerTop = footer.getBoundingClientRect().top;
+        const bottom = Math.max(baseBottom, window.innerHeight - footerTop + footerGap);
+        shortcut.style.setProperty('bottom', bottom + 'px', 'important');
+      }
+      function schedulePosition() {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(positionShortcut);
+      }
+      window.addEventListener('scroll', schedulePosition, { passive: true });
+      window.addEventListener('resize', schedulePosition);
+      window.addEventListener('pageshow', schedulePosition);
+      document.addEventListener('DOMContentLoaded', schedulePosition);
+      schedulePosition();
+    })();
+  </script>
   <script src="js/app-shell.js?v=menu-motion-2" defer></script>
   <script>
     // Browser back/forward cache can restore the last clicked link's focus.
