@@ -47,3 +47,18 @@ body.app-page.calc-split-page{background-color:#f7f9fc;background-image:url("../
 .calc-split-page #splitResult .split-col .split-total-row{display:flex;flex-wrap:wrap;justify-content:space-between;gap:3px 6px}
 .calc-split-page #splitResult .split-total-value{white-space:nowrap}
 @media(max-width:640px){.calc-split-page #splitResult .split-container{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:8px}.calc-split-page #splitResult .split-col{padding:13px 9px}.calc-split-page #splitResult .split-col h3{font-size:14px!important}.calc-split-page #splitResult .split-total-row{font-size:11px}.calc-split-page #splitResult .split-total-value strong{font-size:14px}}
+
+/* Larger, consistent totals across all three allocation methods. */
+.calc-split-page #splitResult .total-box{padding:16px 13px}
+.calc-split-page #splitResult .split-total-row{align-items:baseline;font-size:13px;line-height:1.55;gap:4px 7px}
+.calc-split-page #splitResult .split-total-row>span:first-child{font-weight:600;color:#354f65}
+.calc-split-page #splitResult .split-total-value{gap:3px;align-items:baseline}
+.calc-split-page #splitResult .split-total-value strong{font-size:clamp(19px,2.6vw,23px);font-weight:800;line-height:1.35;font-variant-numeric:tabular-nums}
+.calc-split-page #splitResult .split-total-value>span{font-size:12px;font-weight:600}
+.calc-split-page #splitResult .split-total-highlight{border-top:1px solid #d3e1ec;margin-top:5px;padding-top:10px}
+@media(max-width:640px){
+.calc-split-page #splitResult .total-box{padding:12px 8px}
+.calc-split-page #splitResult .split-total-row{font-size:12px;gap:3px 5px}
+.calc-split-page #splitResult .split-total-value strong{font-size:clamp(17px,4.5vw,21px)}
+.calc-split-page #splitResult .split-total-value>span{font-size:11px}
+}
