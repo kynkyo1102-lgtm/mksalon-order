@@ -106,3 +106,18 @@
 .bulk-order-page #formSection .bulk-footer-actions .bulk-another-member{flex:1;min-width:0;min-height:48px;background:#fff;color:#315b43;border:1px solid #aebfb2;border-radius:9px;font:inherit;font-weight:700;padding:9px;cursor:pointer}
 .bulk-order-page #formSection .bulk-footer-actions .display-none{display:none!important}
 @media(max-width:600px){.bulk-order-page #formSection .bulk-products-card{padding:17px!important}.bulk-order-page #formSection .bulk-footer-actions{flex-direction:column}.bulk-order-page #formSection .footer-totals{width:100%}}
+
+/* Compact footer and receipt table */
+.bulk-order-page #formSection .footer-totals{width:100%;line-height:1.4!important}
+.bulk-order-page #formSection .footer-totals #displayPrice{font-size:23px!important}
+.bulk-order-page #formSection .footer-subtext{font-size:13px!important}
+.bulk-order-page #formSection .bulk-flow-hint{width:100%;font-size:12px!important;margin:0!important}
+.bulk-order-page #formSection .bulk-footer-actions{width:100%;flex:unset!important}
+.bulk-order-page .bulk-combined-table{width:100%;border-collapse:collapse;table-layout:fixed}
+.bulk-order-page .bulk-combined-table th{background:#edf4ee;color:#31543d;font-size:12px;padding:9px 5px;text-align:left;border-bottom:1px solid #cbd9ce}
+.bulk-order-page .bulk-combined-table td{font-size:14px;padding:10px 5px;border-bottom:1px solid #dfe8e1;overflow-wrap:anywhere}
+.bulk-order-page .bulk-combined-table th:first-child,.bulk-order-page .bulk-combined-table td:first-child{width:42%;font-weight:600}
+.bulk-order-page .bulk-combined-table th:nth-child(2),.bulk-order-page .bulk-combined-table td:nth-child(2){width:12%;text-align:center}
+.bulk-order-page .bulk-combined-table th:nth-child(3),.bulk-order-page .bulk-combined-table td:nth-child(3){width:23%;text-align:right}
+.bulk-order-page .bulk-combined-table th:nth-child(4),.bulk-order-page .bulk-combined-table td:nth-child(4){width:23%;text-align:right}
+@media(max-width:450px){.bulk-order-page .bulk-combined-table td{font-size:12px;padding:8px 3px}.bulk-order-page .bulk-combined-table th{font-size:11px;padding:8px 3px}}
