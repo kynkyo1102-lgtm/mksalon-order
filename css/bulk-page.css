@@ -121,3 +121,9 @@
 .bulk-order-page .bulk-combined-table th:nth-child(3),.bulk-order-page .bulk-combined-table td:nth-child(3){width:23%;text-align:right}
 .bulk-order-page .bulk-combined-table th:nth-child(4),.bulk-order-page .bulk-combined-table td:nth-child(4){width:23%;text-align:right}
 @media(max-width:450px){.bulk-order-page .bulk-combined-table td{font-size:12px;padding:8px 3px}.bulk-order-page .bulk-combined-table th{font-size:11px;padding:8px 3px}}
+
+.bulk-order-page #formSection #bulkFooterAdd:disabled{opacity:.38!important;cursor:not-allowed!important;box-shadow:none!important}
+.bulk-order-page #formSection .footer-bar{padding-top:15px!important;padding-bottom:18px!important}
+.bulk-order-page #formSection .footer-content{row-gap:11px!important}
+.bulk-order-page #formSection .bulk-footer-actions button{min-height:52px!important}
+.bulk-order-page #orderForm{padding-bottom:260px!important}
