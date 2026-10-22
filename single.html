@@ -148,7 +148,7 @@
 
   <!-- 固定下部バー -->
   <div class="footer-bar">
-    <div class="total-preview" id="total_summary_text">合計 0点 0円 (0pt)</div>
+    <div class="total-preview" id="total_summary_text">総合計 ¥0（0PT）</div>
     <button class="btn-copy" onclick="copyToClipboard()">LINE用に注文書をコピー</button>
   </div>
 
@@ -879,7 +879,7 @@ function generateText() {
         text += `−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−−•\n\n`;
     });
 
-    text += `合計 ${data.grandTotalQty}点 ${data.grandTotalPrice.toLocaleString()}円(${data.grandTotalPt.toLocaleString()}pt)\n\n`;
+    text += `総合計 ¥${data.grandTotalPrice.toLocaleString()}（${data.grandTotalPt.toLocaleString()}PT）\n\n`;
     
     const summaryKeys = Object.keys(data.itemSummaryMap);
     if (summaryKeys.length > 0) {
@@ -903,7 +903,7 @@ function generateText() {
 
 function updatePreview() {
     const result = generateText();
-    document.getElementById('total_summary_text').innerText = `合計 ${result.grandTotalQty}点 ${result.grandTotalPrice.toLocaleString()}円 (${result.grandTotalPt.toLocaleString()}pt)`;
+    document.getElementById('total_summary_text').innerText = `総合計 ¥${result.grandTotalPrice.toLocaleString()}（${result.grandTotalPt.toLocaleString()}PT）`;
     
     const outputArea = document.getElementById('output_text');
     if (outputArea) {
