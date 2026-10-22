@@ -21,11 +21,11 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=menu-motion-2">
   <link rel="stylesheet" href="css/bulk-shell.css?v=cleanup-3">
-  <link rel="stylesheet" href="css/bulk-page.css?v=guided-1">
+  <link rel="stylesheet" href="css/bulk-page.css?v=guided-2">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=guided-1" defer></script>
+  <script src="app-dropdown-preview.js?v=guided-2" defer></script>
 
 
 
@@ -215,16 +215,16 @@
         <!-- 下部固定フッター -->
         <div class="footer-bar">
           <div class="footer-content">
-            <div class="footer-totals"><div class="bulk-flow-hint" id="bulkFlowHint">まず会員情報と商品を入力してください</div>
+            <div class="footer-totals">
               <div>
-                合計金額: <span id="displayPrice" class="price-highlight">¥0</span>
+                合計金額 <span id="displayPrice" class="price-highlight">¥0</span>
                 <span id="footerOrderBadge" onclick="document.getElementById('orderListContainer').scrollIntoView({behavior:'smooth'})" class="footer-badge display-none"></span>
               </div>
               <div class="footer-subtext">
-                小計: <span id="displaySubtotal">¥0</span> / 合計ポイント: <span id="displayPt" class="pt-highlight">0pt</span>
+                小計 <span id="displaySubtotal">¥0</span>　合計ポイント <span id="displayPt" class="pt-highlight">0pt</span>
               </div>
             </div>
-            <div class="bulk-footer-actions"><button type="button" id="bulkAnotherMember" class="bulk-another-member display-none" onclick="startAnotherBulkMember()">＋ 別の会員の注文を追加</button>
+            <div class="bulk-flow-hint" id="bulkFlowHint">まず会員情報と商品を入力してください</div><div class="bulk-footer-actions"><button type="button" id="bulkAnotherMember" class="bulk-another-member display-none" onclick="startAnotherBulkMember()">＋ 別の会員の注文を追加</button>
             <button type="button" onclick="addOrderToList()" class="btn-add" id="bulkFooterAdd">
               この会員の注文を確定する →
             </button>
