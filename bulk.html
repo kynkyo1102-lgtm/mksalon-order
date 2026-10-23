@@ -21,11 +21,11 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=shared-footer-20261022">
   <link rel="stylesheet" href="css/bulk-shell.css?v=grid-match-20261022">
-  <link rel="stylesheet" href="css/bulk-page.css?v=revise-placement-1">
+  <link rel="stylesheet" href="css/bulk-page.css?v=review-modal-1">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=notice-cleanup-1" defer></script>
+  <script src="app-dropdown-preview.js?v=review-modal-1" defer></script>
 
 
 
@@ -147,6 +147,7 @@
         </div>
 
         <div id="bulkFinalStage" class="display-none">
+          <button type="button" id="bulkReviewOrders" class="bulk-review-trigger" onclick="openBulkOrderReview()">追加済みの注文（<span id="bulkReviewCount">0</span>件）を確認 <span aria-hidden="true">›</span></button>
           <div class="bulk-stage-back"><button type="button" onclick="backToBulkOrders()">← 会員注文の入力に戻る</button></div>
         <!-- お支払い方法エリア -->
         <div class="card-box bulk-step-card"><div class="section-title">3. お支払い方法（共通）</div>
@@ -243,6 +244,7 @@
     <div id="completeSection" class="display-none">
       <div id="receiptsWrapper"></div><button type="button" class="bulk-revise-order" onclick="reviseBulkOrder()">← 注文内容を修正する</button>
     </div>
+    <dialog id="bulkOrderReviewDialog" class="bulk-review-dialog" aria-labelledby="bulkReviewTitle"><div class="bulk-review-dialog-inner"><div class="bulk-review-dialog-head"><h2 id="bulkReviewTitle">追加済みの注文</h2><button type="button" class="bulk-review-close" onclick="closeBulkOrderReview()" aria-label="閉じる">×</button></div><div id="bulkReviewDetails"></div><button type="button" class="bulk-review-done" onclick="closeBulkOrderReview()">確認しました</button></div></dialog>
     <a href="index.html" class="app-back bulk-home-back">‹ トップページへ戻る</a>
   </main><footer class="site-unified-footer"><a href="privacy.html">プライバシーポリシー</a><span class="site-footer-copy">&copy; PLACE DE NINA MINAMIKUMAMOTO</span></footer>
 
