@@ -21,6 +21,7 @@
 
 <link rel="stylesheet" href="css/index-inline-3.css?v=css-cleanup-1"><link rel="stylesheet" href="css/index-inline-4.css?v=css-cleanup-1">
 <link rel="stylesheet" href="css/index-inline-5.css?v=css-cleanup-1">
+  <link rel="stylesheet" href="css/members-guide-banner.css?v=1">
 </head>
 <body class="home-page">
 
@@ -40,7 +41,7 @@
         <a class="home-menu-sub" href="bulk.html">画像注文書</a>
       </div>
       <a class="home-menu-primary" href="calc.html">計算サポートツール</a>
-      <span class="home-menu-primary home-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <a class="home-menu-primary" href="https://kynkyo1102-lgtm.github.io/salon-order/ninaguide.html">メンバーズガイド</a>
       <div class="home-menu-secondary">
         <a href="info.html">店舗案内</a>
         <a href="bank.html">お支払いについて</a>
@@ -90,19 +91,16 @@
     </section>
 
 
-    <!-- メンバーズガイド：完成後に案内リンクへ差し替えるための枠 -->
-    <section class="home-members-guide" aria-labelledby="home-members-guide-title">
-      <div class="home-members-guide-copy">
-        <h2 id="home-members-guide-title">メンバーズガイド</h2>
-        <p>登録・定期購入などの操作案内</p>
-        <span class="home-members-guide-status">準備中</span>
-      </div>
-      <svg class="home-members-guide-illustration" viewBox="0 0 80 80" width="72" height="72" fill="none" aria-hidden="true">
-        <rect x="13" y="13" width="47" height="54" rx="8" fill="#fff" stroke="#b8b8b8" stroke-width="2"/>
-        <path d="M24 25h25M24 34h19M24 43h24" stroke="#999" stroke-width="3" stroke-linecap="round"/>
-        <circle cx="56" cy="54" r="16" fill="#f2f2f2" stroke="#999" stroke-width="2"/>
-        <path d="m49 54 5 5 9-11" stroke="#555" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
-      </svg>
+    <!-- メンバーズガイド：専用ページへ移動する画像バナー -->
+    <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
+      <a class="members-guide-banner" href="https://kynkyo1102-lgtm.github.io/salon-order/ninaguide.html">
+        <span class="members-guide-banner-copy">
+          <span class="members-guide-banner-eyebrow">MEMBERS GUIDE</span>
+          <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
+          <span class="members-guide-banner-description">ニナファームジャポンの各種手続きご案内ページ</span>
+        </span>
+        <span class="members-guide-banner-arrow" aria-hidden="true">→</span>
+      </a>
     </section>
 
     <!-- SNS・店舗情報・サポート：用途別に整理 -->
