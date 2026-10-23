@@ -417,7 +417,35 @@ document.addEventListener('input', updateBulkConfirmState);
 document.addEventListener('change', updateBulkConfirmState);
 
 // Read-only order details, available while entering payment and delivery information.
-function openBulkOrderReview() {
+function renderBulkPaymentOrderList() {
+  const list = document.getElementById('bulkReviewOrderList');
+  const count = document.getElementById('bulkReviewCount');
+  if (!list) return;
+  if (count) count.textContent = allOrders.length;
+  list.replaceChildren();
+  allOrders.forEach((order, index) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = 'bulk-review-order-row';
+    button.setAttribute('aria-label', (index + 1) + '人目 ' + order.fullName + ' の注文内容を確認');
+    const content = document.createElement('span');
+    content.className = 'bulk-review-order-info';
+    const name = document.createElement('strong');
+    name.textContent = (index + 1) + '. ' + order.fullName;
+    const meta = document.createElement('small');
+    meta.textContent = '会員番号 ' + order.memberId + ' ・ ' + Number(order.totalPrice || 0).toLocaleString() + '円 / ' + Number(order.totalPt || 0).toLocaleString() + 'PT';
+    content.append(name, meta);
+    const arrow = document.createElement('span');
+    arrow.className = 'bulk-review-order-arrow';
+    arrow.textContent = '›';
+    arrow.setAttribute('aria-hidden', 'true');
+    button.append(content, arrow);
+    button.addEventListener('click', () => openBulkOrderReview(index));
+    list.appendChild(button);
+  });
+}
+
+function openBulkOrderReview(orderIndex) {
   const dialog = document.getElementById('bulkOrderReviewDialog');
   const root = document.getElementById('bulkReviewDetails');
   if (!dialog || !root) return;
@@ -429,7 +457,9 @@ function openBulkOrderReview() {
     parent.appendChild(node);
     return node;
   };
-  allOrders.forEach((order, index) => {
+  const selected = Number.isInteger(orderIndex) && allOrders[orderIndex] ? [[allOrders[orderIndex], orderIndex]] : allOrders.map((order, index) => [order, index]);
+  document.getElementById('bulkReviewTitle').textContent = selected.length === 1 ? '注文内容の確認' : '追加済みの注文';
+  selected.forEach(([order, index]) => {
     const section = add(root, 'section', 'bulk-review-member', '');
     add(section, 'h3', '', (index + 1) + '. ' + order.fullName);
     add(section, 'p', 'bulk-review-id', '会員番号 ' + order.memberId);
@@ -459,6 +489,7 @@ function goToBulkPayment() {
   // 氏名は次の会員のために保持する仕様なので、未確定注文の判定には使わない。
   const pending = Boolean(document.getElementById('memberIdMain')?.value.trim() || currentItemsData.length);
   if (pending && !confirm('入力途中の会員注文は確定されていません。このままお支払いへ進みますか？')) return;
+  renderBulkPaymentOrderList();
   document.body.classList.add('bulk-final-step');
   document.getElementById('bulkFinalStage').classList.remove('display-none');
   window.scrollTo(0,0);
