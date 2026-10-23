@@ -1,4 +1,4 @@
 /* Shared form card surface for text and image order flows. */
-:root{--order-card-border:#aeb8b1;--order-card-shadow:3px 4px 0 rgba(83,99,89,.075);--order-card-radius:12px}
-.line-order-page .info-card,.bulk-order-page #formSection .card-box:not(.bulk-member-utility){background:#fff!important;border:1.5px solid var(--order-card-border)!important;border-radius:var(--order-card-radius)!important;box-shadow:var(--order-card-shadow)!important}
-.line-order-page .line-restore-area,.bulk-order-page #formSection .bulk-member-utility{border:1.5px solid var(--order-card-border)!important;border-radius:var(--order-card-radius)!important;box-shadow:var(--order-card-shadow)!important}
+:root{--order-card-border:#aeb8b1;--order-card-shadow:3px 4px 0 rgba(83,99,89,.075);--order-card-radius:12px;--order-card-background:#fff;--order-card-border-width:1.5px}
+.line-order-page .info-card,.bulk-order-page #formSection .card-box:not(.bulk-member-utility){background:var(--order-card-background)!important;border:var(--order-card-border-width) solid var(--order-card-border)!important;border-radius:var(--order-card-radius)!important;box-shadow:var(--order-card-shadow)!important}
+.line-order-page .line-restore-area,.bulk-order-page #formSection .bulk-member-utility{border:var(--order-card-border-width) solid var(--order-card-border)!important;border-radius:var(--order-card-radius)!important;box-shadow:var(--order-card-shadow)!important}
