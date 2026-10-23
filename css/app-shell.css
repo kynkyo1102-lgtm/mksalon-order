@@ -248,3 +248,35 @@ body.app-page.calc-pt-page,body.app-page.calc-split-page{background-color:#f7f9f
   background:#e1eadf!important;
   font-weight:700!important;
 }
+
+/* Order links use the same visual hierarchy as Home; retain their group heading. */
+.home-page .home-site-menu .home-menu-sub,
+.app-page .app-menu .app-menu-sub {
+  position:relative;
+  margin:3px 0!important;
+  padding:13px 12px 13px 39px!important;
+  background:transparent!important;
+  border-radius:9px!important;
+  color:#254b37!important;
+  font-size:17px!important;
+  font-weight:700!important;
+  line-height:1.45!important;
+}
+.home-page .home-site-menu .home-menu-sub::before,
+.app-page .app-menu .app-menu-sub::before {
+  content:"";
+  position:absolute;
+  left:14px;
+  top:50%;
+  width:10px;
+  height:10px;
+  margin:0;
+  border:1.5px solid #75907c;
+  border-radius:3px;
+  transform:translateY(-50%) rotate(45deg);
+  box-sizing:border-box;
+}
+.home-page .home-site-menu .home-menu-sub:hover,
+.app-page .app-menu .app-menu-sub:hover {
+  background:#edf2e9!important;
+}
