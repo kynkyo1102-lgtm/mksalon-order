@@ -34,6 +34,18 @@ window.NinaOrderTransfer={
   panel.querySelector('.nina-transfer-manual').addEventListener('click',()=>{try{groups=window.NinaOrderTransfer.parse(panel.querySelector('.nina-transfer-paste').value);done.clear();render()}catch(e){alert(e.message||'貼り付けたデータを読み込めません。')}});
   function render(){
    options.replaceChildren();
+   if(kind==='single'){
+    const label=document.createElement('label');
+    label.textContent='取り込み先の注文ポジション';
+    label.style.cssText='display:block;font-size:14px;font-weight:700;margin-top:10px';
+    const select=chooseSingleTarget();
+    select.className='nina-transfer-target';
+    label.appendChild(select);
+    options.appendChild(label);
+    const note=document.createElement('small');
+    note.textContent='入力済みの枠を選んだ場合のみ、上書きの確認が表示されます。';
+    options.appendChild(note);
+   }
    groups.forEach((g,i)=>{
     const b=document.createElement('button');b.type='button';b.className='sub-btn';
     b.style.cssText='display:block;margin:7px 0;padding:9px 12px;cursor:pointer';
@@ -42,6 +54,37 @@ window.NinaOrderTransfer={
     options.appendChild(b);
    });
   }
+  function chooseSingleTarget(){
+   const boxes=[...document.querySelectorAll('#positions_container .position-box')];
+   const select=document.createElement('select');
+   select.setAttribute('aria-label','取り込み先の注文ポジション');
+   select.style.cssText='display:block;width:100%;box-sizing:border-box;padding:11px;margin:10px 0;border:1.5px solid #a4ccb3;border-radius:8px;background:#fff;font-size:15px';
+   boxes.forEach((box,index)=>{
+    const id=box.id.replace('position_box_','');
+    const rows=[...box.querySelectorAll('.item-row')];
+    const empty=rows.every(row=>!row.querySelector('.item-select')?.value);
+    const name=box.querySelector('[id^="pos_name_"]')?.value.trim();
+    const option=document.createElement('option');
+    option.value=id;
+    option.textContent='ポジション #'+(index+1)+(name?'（'+name+'）':'')+(empty?'・空欄':'・入力済み');
+    select.appendChild(option);
+   });
+   const fresh=document.createElement('option');
+   fresh.value='new';fresh.textContent='＋ 新しいポジションを追加';select.appendChild(fresh);
+   const firstEmpty=boxes.find(box=>[...box.querySelectorAll('.item-row')].every(row=>!row.querySelector('.item-select')?.value));
+   select.value=firstEmpty?firstEmpty.id.replace('position_box_',''):'new';
+   return select;
+  }
+  function refreshTarget(){
+   if(kind!=='single')return;
+   const current=panel.querySelector('.nina-transfer-target');
+   if(!current)return;
+   const selected=current.value;
+   const replacement=chooseSingleTarget();
+   replacement.className='nina-transfer-target';
+   if([...replacement.options].some(o=>o.value===selected))replacement.value=selected;
+   current.replaceWith(replacement);
+  }
   function apply(items){
    // Global lexical declarations are accessible in this page's classic scripts.
    const products=typeof currentMaster!=='undefined'?currentMaster.products:[];
@@ -49,18 +92,25 @@ window.NinaOrderTransfer={
    items.forEach(item=>{const idx=products.findIndex(p=>p.name===item.name);if(idx<0)missing.push(item.name);else matched.push({idx,qty:item.qty})});
    if(missing.length){alert('注文ページの商品マスターにない商品があります。取り込みは行いません。\\n'+missing.join('\\n'));return false}
    if(kind==='single'){
-    const firstBox=document.querySelector('#positions_container .position-box');
-    const firstId=firstBox?.id.replace('position_box_','');
-    const firstRows=firstBox?.querySelectorAll('.item-row')||[];
-    const firstEmpty=Boolean(firstId && firstRows.length && [...firstRows].every(row=>!row.querySelector('.item-select')?.value));
-    if(!confirm(firstEmpty?'空いている最初の注文枠に商品を取り込みますか？':'この商品を新しい注文枠に追加しますか？（既存の注文は残ります）'))return false;
+    const target=panel.querySelector('.nina-transfer-target');
+    const targetId=target?.value||'new';
     const chunks=[];matched.forEach(x=>{let n=x.qty;while(n>0){const q=Math.min(40,n);chunks.push({prodIndex:x.idx,qty:q});n-=q}});
-    if(firstEmpty){
-     const list=document.getElementById('items_list_'+firstId);
-     list.replaceChildren();
-     chunks.forEach(x=>addItemRowWithData(Number(firstId),x.prodIndex,x.qty));
-     updatePreview();
+    if(targetId==='new'){
+     if(!confirm('新しい注文ポジションを追加して取り込みますか？'))return false;
+     addPositionBox('','00','',chunks);
     }else{
+     const box=document.getElementById('position_box_'+targetId);
+     if(!box){alert('選択したポジションが見つかりません。読み込み先を選び直してください。');return false}
+     const rows=[...box.querySelectorAll('.item-row')];
+     const hasItems=rows.some(row=>Boolean(row.querySelector('.item-select')?.value));
+     if(hasItems&&!confirm('このポジションには商品が入力されています。商品と個数を上書きしますか？'))return false;
+     const list=document.getElementById('items_list_'+targetId);
+     list.replaceChildren();
+     chunks.forEach(x=>addItemRowWithData(Number(targetId),x.prodIndex,x.qty));
+     updatePreview();
+    }
+    refreshTarget();
+   }else{
      addPositionBox('','00','',chunks);
     }
    }else{
