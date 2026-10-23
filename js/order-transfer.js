@@ -111,9 +111,6 @@ window.NinaOrderTransfer={
     }
     refreshTarget();
    }else{
-     addPositionBox('','00','',chunks);
-    }
-   }else{
     if(!confirm('現在入力中の商品を、この結果の商品と個数に置き換えますか？'))return false;
     const list=document.getElementById('productPickerRows');
     list.replaceChildren();
