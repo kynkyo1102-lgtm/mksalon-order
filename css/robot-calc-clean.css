@@ -84,7 +84,7 @@ body.robot-show-result #robotResultView{position:fixed;inset:0;z-index:110;displ
 /* Shared app header inside the independent results viewport. */
 body.robot-show-result #robotResultView{padding:0 0 45px}
 #robotResultView .robot-result-topbar{position:relative;z-index:5}
-#robotResultView .robot-result-shared-header .app-header{background:#fff;border-bottom:1px solid #e6e6e6}
+
 #robotResultView .robot-result-screen{padding:30px 18px 0}
 #robotResultView .robot-result-screen>.app-back{display:inline-block;margin-bottom:22px}
 #robotResultView .robot-result-screen>.app-page-title{margin-bottom:7px}
