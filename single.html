@@ -36,9 +36,7 @@
       <div class="line-restore-content">
         <p>以前作成した注文テキストを貼り付けると、入力内容を復元できます。</p>
         <textarea id="import_text_input" rows="5" placeholder="以前の注文テキストを貼り付け"></textarea>
-        <label for="import_target_position">読み込み先のポジション枠</label>
-        <select id="import_target_position" onfocus="refreshImportPositionOptions()" onclick="refreshImportPositionOptions()"></select>
-        <p class="line-restore-caution">※選んだ枠だけを置き換え、ほかのポジションは残ります。複数ポジションを含むテキストは「すべて置き換える」を選んでください。ポイントは現在の処理月度で再計算されます。</p>
+        <p class="line-restore-caution">※ポイントは現在の処理月度のデータで再計算されます。</p>
         <button type="button" class="sub-btn" onclick="restoreAllFromText()">入力内容を復元する</button>
       </div>
     </details>
@@ -250,7 +248,6 @@ window.onload = async function() {
     registeredMembers = SalonMembers.read();
     renderLineSavedMembers();
     addPositionBox();
-    refreshImportPositionOptions();
 };
 
 function renderMonthOptions() {
@@ -550,12 +547,10 @@ function addPositionBox(initialCode = '', initialSuffix = '00', initialName = ''
         addItemRow(positionCount);
     }
     updatePreview();
-    refreshImportPositionOptions();
 }
 
 function removePositionBox(id) {
     document.getElementById(`position_box_${id}`).remove();
-    refreshImportPositionOptions();
     updatePreview();
 }
 
@@ -611,62 +606,6 @@ function addItemRowWithData(posId, prodIndexVal, qtyVal) {
 }
 
 // 📦 コピーされた全体テキストから一括復元するパーサー
-function refreshImportPositionOptions() {
-    const select = document.getElementById('import_target_position');
-    if (!select) return;
-    const previous = select.value;
-    const boxes = [...document.querySelectorAll('#positions_container .position-box')];
-    select.replaceChildren();
-    boxes.forEach((box, i) => {
-        const option = document.createElement('option');
-        option.value = box.id.replace('position_box_', '');
-        const name = box.querySelector('[id^="pos_name_"]')?.value.trim();
-        option.textContent = 'ポジション #' + (i + 1) + (name ? '（' + name + '）' : '');
-        select.appendChild(option);
-    });
-    const all = document.createElement('option');
-    all.value = 'all';
-    all.textContent = 'すべて置き換える（従来の復元）';
-    select.appendChild(all);
-    if ([...select.options].some(o => o.value === previous)) select.value = previous;
-}
-function restoreSelectedPositionFromText(text, targetId) {
-    const blocks = text.split('🔹').slice(1);
-    if (blocks.length !== 1) {
-        alert('選んだ枠への読み込みは、ポジションが1つの注文テキストに対応しています。複数ある場合は「すべて置き換える」を選んでください。');
-        return;
-    }
-    const lines = blocks[0].trim().split('\n');
-    const header = lines[0] || '';
-    const match = header.match(/^([0-9]+)(?:-([0-9A-Za-z]+))?\s+(.+)$/);
-    if (!match) { alert('会員番号と氏名を読み取れませんでした。テキストを確認してください。'); return; }
-    const items = [];
-    for (const raw of lines.slice(1)) {
-        const m = raw.trim().match(/^(.+?)\s+(\d+)個\s+/);
-        if (!m) continue;
-        const index = currentMaster.products.findIndex(p => p.name === m[1].trim());
-        if (index < 0) { alert('商品「' + m[1].trim() + '」が商品一覧にありません。読み込みを中止しました。'); return; }
-        items.push({prodIndex:index, qty:parseInt(m[2], 10)});
-    }
-    const box = document.getElementById('position_box_' + targetId);
-    if (!box) { alert('読み込み先の枠がありません。'); return; }
-    const memberSelect = document.getElementById('pos_select_' + targetId);
-    memberSelect.value = 'manual';
-    onSelectMember(Number(targetId));
-    document.getElementById('pos_code_' + targetId).value = match[1];
-    document.getElementById('pos_name_' + targetId).value = match[3].trim();
-    const suffix = match[2] || '00';
-    const suffixSelect = document.getElementById('pos_num_select_' + targetId);
-    suffixSelect.value = [...suffixSelect.options].some(o => o.value === suffix) ? suffix : 'custom';
-    toggleCustomPos(Number(targetId));
-    if (suffixSelect.value === 'custom') document.getElementById('pos_custom_num_' + targetId).value = suffix;
-    const list = document.getElementById('items_list_' + targetId);
-    list.replaceChildren();
-    items.forEach(item => addItemRowWithData(Number(targetId), item.prodIndex, item.qty));
-    if (!items.length) addItemRow(Number(targetId));
-    updatePreview();
-    alert('選択したポジション枠に読み込みました。ほかの枠は変更していません。');
-}
 function restoreAllFromText() {
     try {
         const text = document.getElementById('import_text_input').value;
@@ -675,11 +614,6 @@ function restoreAllFromText() {
             return;
         }
 
-        const target = document.getElementById('import_target_position')?.value;
-        if (target && target !== 'all') {
-            restoreSelectedPositionFromText(text, target);
-            return;
-        }
         // 1. 月度の復元
         const monthMatch = text.match(/🇫🇷\s*([^\n注文分]+)注文分/);
         if (monthMatch && monthMatch[1]) {
