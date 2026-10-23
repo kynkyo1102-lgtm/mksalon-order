@@ -373,6 +373,8 @@ function renderOrderList() {
 
   container.style.display = "block";
   document.getElementById('orderCount').textContent = allOrders.length;
+  const reviewCount = document.getElementById('bulkReviewCount');
+  if (reviewCount) reviewCount.textContent = allOrders.length;
 
 
   let html = "";
@@ -413,6 +415,45 @@ function updateBulkConfirmState() {
 }
 document.addEventListener('input', updateBulkConfirmState);
 document.addEventListener('change', updateBulkConfirmState);
+
+// Read-only order details, available while entering payment and delivery information.
+function openBulkOrderReview() {
+  const dialog = document.getElementById('bulkOrderReviewDialog');
+  const root = document.getElementById('bulkReviewDetails');
+  if (!dialog || !root) return;
+  root.replaceChildren();
+  const add = (parent, tag, className, value) => {
+    const node = document.createElement(tag);
+    if (className) node.className = className;
+    node.textContent = value;
+    parent.appendChild(node);
+    return node;
+  };
+  allOrders.forEach((order, index) => {
+    const section = add(root, 'section', 'bulk-review-member', '');
+    add(section, 'h3', '', (index + 1) + '. ' + order.fullName);
+    add(section, 'p', 'bulk-review-id', '会員番号 ' + order.memberId);
+    order.items.forEach(item => {
+      const row = add(section, 'div', 'bulk-review-item', '');
+      add(row, 'span', '', item.product + ' × ' + item.quantity);
+      add(row, 'small', '', Number(item.price || 0).toLocaleString() + '円 / ' + Number(item.pt || 0).toLocaleString() + 'PT');
+    });
+    add(section, 'div', 'bulk-review-total', '合計 ' + Number(order.totalPrice || 0).toLocaleString() + '円（' + Number(order.totalPt || 0).toLocaleString() + 'PT）');
+  });
+  if (typeof dialog.showModal === 'function') dialog.showModal();
+  else dialog.setAttribute('open', '');
+}
+function closeBulkOrderReview() {
+  const dialog = document.getElementById('bulkOrderReviewDialog');
+  if (!dialog) return;
+  if (typeof dialog.close === 'function') dialog.close();
+  else dialog.removeAttribute('open');
+}
+document.addEventListener('click', event => {
+  const dialog = document.getElementById('bulkOrderReviewDialog');
+  if (dialog && event.target === dialog) closeBulkOrderReview();
+});
+
 function goToBulkPayment() {
   if (!allOrders.length) return;
   // 氏名は次の会員のために保持する仕様なので、未確定注文の判定には使わない。
