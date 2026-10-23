@@ -117,3 +117,88 @@ body.app-page.calc-pt-page,body.app-page.calc-split-page{background-color:#f7f9f
     padding-bottom:180px;
   }
 }
+
+/* Salon navigation preview: shared visual treatment for home and app menus.
+   Header geometry and page content are intentionally untouched. */
+.home-page .home-site-menu,
+.app-page .app-menu {
+  background:#fcfaf5!important;
+  border:1px solid #e5dfd2!important;
+  border-radius:16px!important;
+  box-shadow:0 16px 40px rgba(24,49,34,.16)!important;
+  padding:18px 20px 20px!important;
+}
+.home-page .home-site-menu .home-menu-primary,
+.app-page .app-menu .app-menu-primary {
+  position:relative;
+  padding:13px 12px 13px 39px!important;
+  border-radius:9px;
+  color:#254b37!important;
+  font-weight:600;
+}
+.home-page .home-site-menu a.home-menu-primary::before,
+.app-page .app-menu a.app-menu-primary::before {
+  content:"";
+  position:absolute;
+  left:14px;
+  top:50%;
+  width:10px;
+  height:10px;
+  border:1.5px solid #75907c;
+  border-radius:3px;
+  transform:translateY(-50%) rotate(45deg);
+  box-sizing:border-box;
+}
+.home-page .home-site-menu .home-menu-primary:hover,
+.app-page .app-menu .app-menu-primary:hover,
+.home-page .home-site-menu .home-menu-sub:hover,
+.app-page .app-menu .app-menu-sub:hover,
+.home-page .home-site-menu .home-menu-secondary a:hover,
+.app-page .app-menu .app-menu-secondary a:hover {
+  background:#edf2e9!important;
+}
+.home-page .home-site-menu .home-menu-group,
+.app-page .app-menu .app-menu-group {
+  border-top:1px solid #dedfd5!important;
+  border-bottom:1px solid #dedfd5!important;
+}
+.home-page .home-site-menu .home-menu-group-title,
+.app-page .app-menu .app-menu-group-title {
+  color:#315b43!important;
+  letter-spacing:.04em;
+}
+.home-page .home-site-menu .home-menu-sub,
+.app-page .app-menu .app-menu-sub {
+  border-radius:8px;
+  color:#3d5145!important;
+}
+.home-page .home-site-menu .home-menu-sub::before,
+.app-page .app-menu .app-menu-sub::before {
+  content:"";
+  display:inline-block;
+  width:5px;
+  height:5px;
+  margin-right:11px;
+  border:1px solid #8ba494;
+  border-radius:50%;
+  vertical-align:middle;
+}
+.home-page .home-site-menu .home-menu-secondary,
+.app-page .app-menu .app-menu-secondary {
+  border-top:1px solid #dedfd5!important;
+}
+.home-page .home-site-menu .home-menu-secondary a,
+.app-page .app-menu .app-menu-secondary a {
+  border-radius:8px;
+  color:#586a5d!important;
+}
+.home-page .home-site-menu .home-menu-disabled,
+.app-page .app-menu .app-menu-disabled {
+  color:#89938a!important;
+}
+@media(max-width:520px) {
+  .home-page .home-site-menu,
+  .app-page .app-menu {
+    padding:18px 18px 20px!important;
+  }
+}
