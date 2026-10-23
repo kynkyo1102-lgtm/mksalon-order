@@ -351,7 +351,7 @@ function addOrderToList() {
 
   renderOrderList();
   const notice = document.getElementById('bulkOrderAddedNotice');
-  if (notice) notice.textContent = `${allOrders.length}人目の注文を追加しました。別の会員の注文も続けて追加できます。`;
+  if (notice) notice.textContent = '';
 
   document.getElementById("orderListContainer").scrollIntoView({ behavior: "smooth", block: "center" });
 }
