@@ -200,6 +200,7 @@
       if(guide){const reducedMotion=window.matchMedia('(prefers-reduced-motion: reduce)').matches;guide.scrollIntoView({behavior:reducedMotion?'instant':'smooth',block:'start'});}
     }
     function switchMode(mode) {
+      if (currentMode !== mode) resetSplitSelection();
       currentMode = mode;
 
       document.getElementById('difficultySelect').hidden = true;
@@ -293,9 +294,12 @@
       renderSelectedSplitProducts();
       document.getElementById('splitResult').style.display='none';
       document.getElementById('splitProductSelect').value='';
+      document.getElementById('splitProductQuantity').value='1';
     }
     function resetSplitSelection() {
       selectedSplitProducts.clear();
+      document.getElementById('splitProductSelect').value='';
+      document.getElementById('splitProductQuantity').value='1';
       renderSelectedSplitProducts();
       document.getElementById('targetLeftPt').value='';
       document.getElementById('targetRightPt').value='';
