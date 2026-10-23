@@ -202,3 +202,49 @@ body.app-page.calc-pt-page,body.app-page.calc-split-page{background-color:#f7f9f
     padding:18px 18px 20px!important;
   }
 }
+
+/* Navigation hierarchy refinement: stronger section rhythm without changing links. */
+.home-page .home-site-menu .home-menu-primary,
+.app-page .app-menu .app-menu-primary {
+  font-size:17px!important;
+  font-weight:700!important;
+  line-height:1.45!important;
+  margin:3px 0!important;
+}
+.home-page .home-site-menu .home-menu-group,
+.app-page .app-menu .app-menu-group {
+  margin:12px 0 14px!important;
+  padding:14px 0 15px!important;
+}
+.home-page .home-site-menu .home-menu-group-title,
+.app-page .app-menu .app-menu-group-title {
+  padding:2px 12px 10px!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+}
+.home-page .home-site-menu .home-menu-sub,
+.app-page .app-menu .app-menu-sub {
+  margin:3px 0 3px 12px!important;
+  padding:12px 14px!important;
+  background:#f0f3ed!important;
+  font-size:14px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+}
+.home-page .home-site-menu .home-menu-secondary,
+.app-page .app-menu .app-menu-secondary {
+  margin-top:16px!important;
+  padding-top:13px!important;
+}
+.home-page .home-site-menu .home-menu-secondary a,
+.app-page .app-menu .app-menu-secondary a {
+  padding:10px 12px!important;
+  font-size:13px!important;
+  font-weight:400!important;
+}
+.home-page .home-site-menu [aria-current="page"],
+.app-page .app-menu [aria-current="page"] {
+  background:#e1eadf!important;
+  font-weight:700!important;
+}
