@@ -21,11 +21,11 @@
   <link rel="stylesheet" href="style.css">
   <link rel="stylesheet" href="css/app-shell.css?v=shared-footer-20261022">
   <link rel="stylesheet" href="css/bulk-shell.css?v=grid-match-20261022">
-  <link rel="stylesheet" href="css/bulk-page.css?v=review-modal-1">
+  <link rel="stylesheet" href="css/bulk-page.css?v=individual-review-1">
 
   <!-- 外部ロジックJavaScriptの読み込み -->
   <script src="js/shared-members.js?v=3"></script>
-  <script src="app-dropdown-preview.js?v=review-modal-1" defer></script>
+  <script src="app-dropdown-preview.js?v=individual-review-1" defer></script>
 
 
 
@@ -147,7 +147,7 @@
         </div>
 
         <div id="bulkFinalStage" class="display-none">
-          <button type="button" id="bulkReviewOrders" class="bulk-review-trigger" onclick="openBulkOrderReview()">追加済みの注文（<span id="bulkReviewCount">0</span>件）を確認 <span aria-hidden="true">›</span></button>
+          <section class="bulk-review-list-card" aria-labelledby="bulkReviewListTitle"><h2 id="bulkReviewListTitle">追加済みの注文（<span id="bulkReviewCount">0</span>件）</h2><p class="bulk-review-hint">会員をタップすると注文内容を確認できます。</p><div id="bulkReviewOrderList" class="bulk-review-order-list"></div></section>
           <div class="bulk-stage-back"><button type="button" onclick="backToBulkOrders()">← 会員注文の入力に戻る</button></div>
         <!-- お支払い方法エリア -->
         <div class="card-box bulk-step-card"><div class="section-title">3. お支払い方法（共通）</div>
