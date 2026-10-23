@@ -280,3 +280,34 @@ body.app-page.calc-pt-page,body.app-page.calc-split-page{background-color:#f7f9f
 .app-page .app-menu .app-menu-sub:hover {
   background:#edf2e9!important;
 }
+
+/* Navigation refinement: text-led hierarchy, no decorative diamonds or dots. */
+.home-page .home-site-menu .home-menu-primary,
+.app-page .app-menu .app-menu-primary,
+.home-page .home-site-menu .home-menu-sub,
+.app-page .app-menu .app-menu-sub {
+  padding:13px 12px!important;
+  margin:3px 0!important;
+  background:transparent!important;
+  color:#254b37!important;
+  font-size:17px!important;
+  font-weight:700!important;
+  line-height:1.45!important;
+}
+.home-page .home-site-menu a.home-menu-primary::before,
+.app-page .app-menu a.app-menu-primary::before,
+.home-page .home-site-menu .home-menu-sub::before,
+.app-page .app-menu .app-menu-sub::before {
+  content:none!important;
+  display:none!important;
+}
+.home-page .home-site-menu .home-menu-primary:hover,
+.app-page .app-menu .app-menu-primary:hover,
+.home-page .home-site-menu .home-menu-sub:hover,
+.app-page .app-menu .app-menu-sub:hover {
+  background:#edf2e9!important;
+}
+.home-page .home-site-menu .home-menu-disabled,
+.app-page .app-menu .app-menu-disabled {
+  color:#89938a!important;
+}
