@@ -167,7 +167,7 @@
 .bulk-order-page .bulk-review-order-arrow{flex:none;font-size:26px;color:#315b43}
 
 /* Reuse the original order list on the payment step instead of duplicating it. */
-.bulk-order-page #bulkFinalStage #orderListContainer{display:block!important;margin:12px 0 22px!important;padding:18px!important;background:#fff!important;border:1.5px solid #aeb8b1!important;border-radius:12px!important;box-shadow:3px 4px 0 rgba(83,99,89,.075)!important}
+.bulk-order-page #bulkFinalStage #orderListContainer{display:block!important;margin:12px 0 22px!important;padding:18px!important;background:var(--order-card-background,#fff)!important;border:var(--order-card-border-width,1.5px) solid var(--order-card-border,#aeb8b1)!important;border-radius:var(--order-card-radius,12px)!important;box-shadow:var(--order-card-shadow,3px 4px 0 rgba(83,99,89,.075))!important}
 .bulk-order-page #bulkFinalStage #orderListContainer .bulk-added-order-delete{display:inline-flex!important;align-items:center;justify-content:center}
 .bulk-order-page #formSection .bulk-added-order-content[role="button"]{cursor:pointer;border-radius:7px}
 .bulk-order-page #formSection .bulk-added-order-content[role="button"]:focus-visible{outline:2px solid #315b43;outline-offset:4px}
