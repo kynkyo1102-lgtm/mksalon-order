@@ -159,6 +159,7 @@
       productConditions.set(index, { mode, qty });
       renderSelectedConditions();
       document.getElementById('conditionProductSelect').value = '';
+      document.getElementById('conditionQuantity').value = '1';
       document.getElementById('conditionEditor').hidden = true;
       clearCalculationResult();
     }
@@ -245,6 +246,7 @@
     function resetProductSettings() {
       document.getElementById('targetPt').value = 10000;
       productConditions.clear();
+      document.getElementById('conditionQuantity').value = '1';
       document.getElementById('conditionProductSelect').value = '';
       document.getElementById('conditionEditor').hidden = true;
       renderSelectedConditions();
