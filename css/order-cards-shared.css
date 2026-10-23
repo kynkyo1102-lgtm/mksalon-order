@@ -1,4 +1,27 @@
-/* Shared form card surface for text and image order flows. */
-:root{--order-card-border:#aeb8b1;--order-card-shadow:3px 4px 0 rgba(83,99,89,.075);--order-card-radius:12px;--order-card-background:#fff;--order-card-border-width:1.5px}
-.line-order-page .info-card,.bulk-order-page #formSection .card-box:not(.bulk-member-utility){background:var(--order-card-background)!important;border:var(--order-card-border-width) solid var(--order-card-border)!important;border-radius:var(--order-card-radius)!important;box-shadow:var(--order-card-shadow)!important}
-.line-order-page .line-restore-area,.bulk-order-page #formSection .bulk-member-utility{border:var(--order-card-border-width) solid var(--order-card-border)!important;border-radius:var(--order-card-radius)!important;box-shadow:var(--order-card-shadow)!important}
+/* Shared order card presentation tokens.
+   Keep these values unchanged: both order pages use the same visual treatment.
+   Page-specific spacing and interaction styles remain in their own stylesheets. */
+:root {
+  --order-card-border: #aeb8b1;
+  --order-card-shadow: 3px 4px 0 rgba(83, 99, 89, .075);
+  --order-card-radius: 12px;
+  --order-card-background: #fff;
+  --order-card-border-width: 1.5px;
+}
+
+/* Primary order cards on the text and image order pages. */
+.line-order-page .info-card,
+.bulk-order-page #formSection .card-box:not(.bulk-member-utility) {
+  background: var(--order-card-background) !important;
+  border: var(--order-card-border-width) solid var(--order-card-border) !important;
+  border-radius: var(--order-card-radius) !important;
+  box-shadow: var(--order-card-shadow) !important;
+}
+
+/* Utility cards share the border and shadow, but keep their page-specific backgrounds. */
+.line-order-page .line-restore-area,
+.bulk-order-page #formSection .bulk-member-utility {
+  border: var(--order-card-border-width) solid var(--order-card-border) !important;
+  border-radius: var(--order-card-radius) !important;
+  box-shadow: var(--order-card-shadow) !important;
+}
