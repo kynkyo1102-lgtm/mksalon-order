@@ -65,7 +65,7 @@ function download(name,obj){const blob=new Blob([JSON.stringify(obj,null,2)+"\n"
 function valid(){if(months().length<1||months().length>2||new Set(months()).size!==months().length){alert("月度は重複なしの1〜2件にしてください。");return false}
 for(const p of data.products){if(!p.name.trim()||!Number.isFinite(p.price)||p.price<0||Object.values(p.pts||{}).some(v=>!Number.isFinite(v)||v<0)||Object.values(p.prices||{}).some(v=>!Number.isFinite(v)||v<0)){alert("商品名、価格、ポイントを確認してください。");return false}}
 return true}
-$("addMonth").onclick=()=>{syncProductInputs();const next=monthNames.find(m=>!months().includes(m));if(!next||months().length>=2)return;months().push(next);renderMonths();renderProducts()};
+$("addMonth").onclick=()=>{syncProductInputs();const current=months()[0];const next=monthNames[(monthNames.indexOf(current)+1)%12];if(!next||months().length>=2)return;months().push(next);renderMonths();renderProducts()};
 $("addProduct").onclick=()=>{syncProductInputs();data.products.push({name:"",price:0,pts:{},prices:{}});renderProducts()};
 $("addNews").onclick=()=>{syncNews();news.newsList.push({date:"",text:""});renderNews()};
 $("exportProducts").onclick=()=>{syncProductInputs();if(!valid())return;const out=clone(data);out.products.forEach(p=>{if(!Object.keys(p.prices||{}).length)delete p.prices});delete out.newsList;delete out.newsDate;delete out.newsText;download("month_config.json",out)};
