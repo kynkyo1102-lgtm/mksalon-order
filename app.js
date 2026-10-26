@@ -1,5 +1,8 @@
 // default-master.js で読み込んだ DEFAULT_MASTER を初期値としてセット
 let currentMaster = DEFAULT_MASTER;
+function productPriceForMonth(product, month) {
+  return Number(product.prices?.[month] ?? product.price ?? 0);
+}
 
 let allOrders = [];
 let currentSubtotal = 0;
@@ -183,7 +186,7 @@ function renderUIFromMaster() {
 
     tr.innerHTML = `
       <td><strong>${prod.name}</strong></td>
-      <td style="color: var(--text-sub); text-align: right;">¥${prod.price.toLocaleString()}</td>
+      <td style="color: var(--text-sub); text-align: right;">¥${productPriceForMonth(prod, document.getElementById('month').value).toLocaleString()}</td>
       <td class="pt-col" id="pt-cell-${index}">-</td>
       <td class="qty-col">
         <select class="qty-select" data-index="${index}">
@@ -250,7 +253,7 @@ function updateCalc() {
     if (qty > 0) {
       const index = sel.getAttribute('data-index');
       const prod = currentMaster.products[index];
-      const itemPrice = prod.price * qty;
+      const itemPrice = productPriceForMonth(prod, month) * qty;
       let itemPt = (month && prod.pts && prod.pts[month]) ? prod.pts[month] * qty : 0;
 
       currentSubtotal += itemPrice;
