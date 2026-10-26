@@ -1,5 +1,8 @@
 // default-master.js で読み込んだ DEFAULT_MASTER を初期値としてセット
 let currentMaster = DEFAULT_MASTER;
+function productPriceForMonth(product, month) {
+  return Number(product.prices?.[month] ?? product.price ?? 0);
+}
 
 let allOrders = [];
 let currentSubtotal = 0;
@@ -197,7 +200,7 @@ function addBulkProductPicker() {
     currentMaster.products.forEach((p,i) => {
       const pts = p.pts?.[selectedMonth] ?? p.pt ?? 0;
       const option = product.options[i+1];
-      option.dataset.fullLabel = p.name + ' (' + p.price.toLocaleString() + '円 / ' + Number(pts).toLocaleString() + 'pt)';
+      option.dataset.fullLabel = p.name + ' (' + productPriceForMonth(p, selectedMonth).toLocaleString() + '円 / ' + Number(pts).toLocaleString() + 'pt)';
       option.textContent = option.dataset.fullLabel;
     });
   };
@@ -277,7 +280,7 @@ function updateCalc() {
       const index = sel.closest('.bulk-picker-row')?.querySelector('.item-select')?.value;
       if (index === '' || index === undefined) return;
       const prod = currentMaster.products[index];
-      const itemPrice = prod.price * qty;
+      const itemPrice = productPriceForMonth(prod, month) * qty;
       let itemPt = (month && prod.pts && prod.pts[month]) ? prod.pts[month] * qty : 0;
 
       currentSubtotal += itemPrice;
