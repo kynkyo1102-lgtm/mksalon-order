@@ -230,6 +230,9 @@
       document.getElementById('splitResult').style.display = 'none';
     }
 
+    function productPriceForMonth(product, month) {
+      return Number(product.prices?.[month] ?? product.price ?? 0);
+    }
     async function loadConfig() {
       try {
         const res = await fetch('month_config.json');
@@ -278,7 +281,7 @@
         const info=document.createElement('div');
         const name=document.createElement('strong');name.textContent=p.name+' × '+qty;
         const detail=document.createElement('small');
-        detail.textContent=((p.pts[month]||0)*qty).toLocaleString()+'PT / '+(p.price*qty).toLocaleString()+'円';
+        detail.textContent=((p.pts[month]||0)*qty).toLocaleString()+'PT / '+(productPriceForMonth(p, month)*qty).toLocaleString()+'円';
         info.append(name,detail);
         const remove=document.createElement('button');remove.type='button';remove.textContent='削除';
         remove.onclick=()=>{selectedSplitProducts.delete(index);renderSelectedSplitProducts();document.getElementById('splitResult').style.display='none';};
@@ -353,7 +356,7 @@
 
         for (let qty = 1; qty <= 5; qty++) {
           const totalPt = pt * qty;
-          const totalPrice = p.price * qty;
+          const totalPrice = productPriceForMonth(p, month) * qty;
           const diff = Math.abs(totalPt - shortagePt);
 
           if (diff < minDiff || (diff === minDiff && totalPrice < minPrice)) {
@@ -426,7 +429,7 @@
       selectedSplitProducts.forEach((qty,index) => {
         const p=configData.products[index];
         const pt=p.pts[month]||0;
-        for(let i=0;i<qty;i++) allUnitItems.push({name:p.name,pt,price:p.price});
+        for(let i=0;i<qty;i++) allUnitItems.push({name:p.name,pt,price:productPriceForMonth(p, month)});
       });
 
       if (allUnitItems.length === 0) {
