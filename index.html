@@ -151,7 +151,7 @@
   <script>
     async function loadNews() {
       try {
-        const res = await fetch('./month_config.json?v=' + Date.now());
+        const res = await fetch('./news.json?v=' + Date.now());
         const data = await res.json();
         
         const container = document.getElementById('newsContainerArea');
