@@ -154,6 +154,9 @@
   </div>
 
 <script>
+function productPriceForMonth(product, month) {
+  return Number(product.prices?.[month] ?? product.price ?? 0);
+}
 let currentMaster = {
   activeMonths: ["9月度", "8月度"],
   products: [
@@ -450,7 +453,7 @@ function refreshProductOptions(selectElement) {
         } else if (p.pt !== undefined) {
             ptVal = p.pt;
         }
-        options += `<option value="${index}">${p.name} (${p.price.toLocaleString()}円 / ${ptVal.toLocaleString()}pt)</option>`;
+        options += `<option value="${index}">${p.name} (${productPriceForMonth(p, selectedMonth).toLocaleString()}円 / ${ptVal.toLocaleString()}pt)</option>`;
     });
     selectElement.innerHTML = options;
     Array.from(selectElement.options).forEach(option => { option.dataset.fullLabel = option.textContent; });
@@ -794,7 +797,7 @@ function calculateAll() {
                     itemPt = prod.pt;
                 }
 
-                const subPrice = prod.price * qty;
+                const subPrice = productPriceForMonth(prod, selectedMonth) * qty;
                 const subPt = itemPt * qty;
 
                 posQty += qty;
