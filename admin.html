@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="ja"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>データ管理 | Place de Nina 南熊本店</title>
+<style>
+:root{font-family:"Noto Sans JP",Meiryo,sans-serif;color:#24372c;background:#f7f5ef}*{box-sizing:border-box}body{margin:0}main{max-width:1100px;margin:auto;padding:26px 18px 70px}h1{font-size:clamp(23px,4vw,32px);margin:8px 0 8px}h2{font-size:20px;margin:0 0 12px}.hint{color:#607068;font-size:13px;line-height:1.7}.card{background:white;border:1px solid #e1e5dc;border-radius:16px;padding:23px;margin:20px 0;box-shadow:0 3px 13px #233e2910}.row{display:flex;align-items:center;gap:10px;flex-wrap:wrap}.space{justify-content:space-between}.btn{background:#315b43;color:white;border:0;border-radius:9px;padding:11px 16px;font:inherit;font-weight:700;cursor:pointer}.btn.secondary{background:#e7eee9;color:#315b43}.btn.danger{background:#fff0ed;color:#9b302c}.btn:disabled{opacity:.4;cursor:not-allowed}input,select,textarea{font:inherit;border:1px solid #cbd5cc;border-radius:8px;padding:9px;background:white;max-width:100%}input[type=number]{width:112px}input[type=text]{width:100%}textarea{width:100%;min-height:65px;resize:vertical}.month-slot{display:flex;align-items:center;gap:8px}.tablewrap{overflow-x:auto}table{width:100%;border-collapse:collapse;min-width:730px}th,td{border-bottom:1px solid #e6e9e5;padding:10px 7px;text-align:left;vertical-align:middle}th{background:#f2f6f2;font-size:13px}td input[type=text]{min-width:170px}td input[type=number]{width:100%;min-width:85px}.override{display:flex;align-items:center;gap:6px;font-size:12px;margin-top:5px;white-space:nowrap}.override input{width:auto}.newsrow{display:grid;grid-template-columns:110px 1fr auto;gap:10px;margin:12px 0;align-items:start}.newsrow input{width:100%}.status{padding:10px 12px;border-radius:9px;background:#edf6ee;color:#315b43;margin:14px 0;font-size:13px}.warning{background:#fff4e5;color:#7b4a00}.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:16px}.eyebrow{font-size:12px;letter-spacing:.12em;color:#54705c;font-weight:800}@media(max-width:650px){.card{padding:16px}.newsrow{grid-template-columns:90px 1fr}.newsrow button{grid-column:2;justify-self:end}.month-slot{width:100%}}
+</style></head><body><main>
+<div class="eyebrow">PLACE DE NINA / DATA ADMIN</div><h1>月度・商品・お知らせ管理</h1>
+<p class="hint">この管理画面は mksalon-order 専用です。編集後はJSONをダウンロードし、同じ名前でGitHubの mksalon-order にアップロードしてください。自動公開はしません。</p>
+<div id="status" class="status">データを読み込んでいます…</div>
+<section class="card"><h2>1. 月度設定</h2><p class="hint">1件は必須、最大2件。月度を切り替えても、ほかの月度のポイント・価格設定は保持します。</p>
+<div class="row" id="monthControls"></div><div class="actions"><button class="btn secondary" id="addMonth">＋ 2つ目の月度を追加</button></div></section>
+<section class="card"><div class="row space"><h2>2. 商品・ポイント設定</h2><button class="btn secondary" id="addProduct">＋ 商品を追加</button></div>
+<p class="hint">基本価格は全月度共通。月度別価格が必要な商品だけ「個別価格」をオンにしてください。ポイントは月度ごとに入力します。</p>
+<div class="tablewrap"><table><thead id="productHead"></thead><tbody id="productBody"></tbody></table></div></section>
+<section class="card"><div class="row space"><h2>3. お知らせ管理</h2><button class="btn secondary" id="addNews">＋ お知らせを追加</button></div>
+<p class="hint">上から新しい順に並べてください。最初の1件がトップページにNEW表示されます。日付は表示用文字列です。</p><div id="newsRows"></div></section>
+<section class="card"><h2>4. JSONの読み込み・書き出し</h2>
+<p class="hint">初回は公開中のデータを自動で読み込みます。手元のJSONを読み込むこともできます。保存先は mksalon-order のルートです。</p>
+<div class="actions"><button class="btn" id="exportProducts">商品・月度 JSON をダウンロード</button><button class="btn" id="exportNews">お知らせ JSON をダウンロード</button></div>
+<div class="actions"><label>商品・月度 JSON を読み込む <input type="file" id="importProducts" accept=".json,application/json"></label><label>お知らせ JSON を読み込む <input type="file" id="importNews" accept=".json,application/json"></label></div>
+<p class="hint">出力名：month_config.json / news.json。価格の個別設定は prices に記録されます。月度別価格を利用する前に注文・計算ツール側の対応が必要です。</p></section>
+</main><script>
+"use strict";
+const $=id=>document.getElementById(id);
+const clone=o=>JSON.parse(JSON.stringify(o));
+let data={activeMonths:["10月度"],products:[]},news={newsList:[]};
+let loadedProducts=false,loadedNews=false;
+const monthNames=Array.from({length:12},(_,i)=>(i+1)+"月度");
+const safe=(s)=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+function setStatus(t,warning=false){$("status").textContent=t;$("status").className="status"+(warning?" warning":"")}
+function months(){return data.activeMonths}
+function syncProductInputs(){
+ document.querySelectorAll("#productBody tr").forEach(tr=>{
+  const i=Number(tr.dataset.index),p=data.products[i];if(!p)return;
+  p.name=tr.querySelector(".pname").value;p.price=Number(tr.querySelector(".pprice").value);
+  if(!p.pts)p.pts={};if(!p.prices)p.prices={};
+  tr.querySelectorAll(".pt").forEach(input=>p.pts[input.dataset.month]=Number(input.value));
+  tr.querySelectorAll(".priceOverride").forEach(input=>{const m=input.dataset.month;const enabled=tr.querySelector('.toggleOverride[data-month="'+m+'"]').checked;if(enabled)p.prices[m]=Number(input.value);else delete p.prices[m]});
+ });
+}
+function renderMonths(){
+ $("monthControls").innerHTML=months().map((m,i)=>'<div class="month-slot"><strong>月度'+(i+1)+'</strong><select data-index="'+i+'" class="monthSelect">'+monthNames.map(x=>'<option value="'+x+'" '+(x===m?"selected":"")+'>'+x+'</option>').join("")+'</select>'+(i===1?'<button class="btn danger" id="removeMonth">削除</button>':"")+'</div>').join("");
+ $("addMonth").disabled=months().length>=2;
+ document.querySelectorAll(".monthSelect").forEach(sel=>sel.addEventListener("change",()=>{
+  syncProductInputs();const idx=Number(sel.dataset.index),next=sel.value;
+  if(months().some((m,i)=>i!==idx&&m===next)){alert("同じ月度を2つ登録できません。");renderMonths();return}
+  data.activeMonths[idx]=next;renderMonths();renderProducts();
+ }));
+ const remove=$("removeMonth");if(remove)remove.onclick=()=>{syncProductInputs();data.activeMonths.pop();renderMonths();renderProducts()};
+}
+function renderProducts(){
+ $("productHead").innerHTML='<tr><th>商品名</th><th>基本価格（税込）</th>'+months().map(m=>'<th>'+safe(m)+' ポイント / 個別価格</th>').join("")+'<th>操作</th></tr>';
+ $("productBody").innerHTML=data.products.map((p,i)=>'<tr data-index="'+i+'"><td><input class="pname" type="text" value="'+safe(p.name)+'"></td><td><input class="pprice" type="number" min="0" step="1" value="'+Number(p.price||0)+'"></td>'+months().map(m=>{const override=p.prices&&Object.hasOwn(p.prices,m);return '<td><input class="pt" data-month="'+safe(m)+'" type="number" min="0" step="1" value="'+Number(p.pts?.[m]??0)+'"><label class="override"><input class="toggleOverride" data-month="'+safe(m)+'" type="checkbox" '+(override?"checked":"")+'>個別価格</label><input class="priceOverride" data-month="'+safe(m)+'" type="number" min="0" step="1" value="'+Number(override?p.prices[m]:p.price||0)+'" '+(override?"":"disabled")+' aria-label="'+safe(m)+'の個別価格"></td>'}).join("")+'<td><button class="btn danger deleteProduct">削除</button></td></tr>').join("");
+ document.querySelectorAll(".toggleOverride").forEach(c=>c.onchange=()=>{const field=c.closest("td").querySelector(".priceOverride");field.disabled=!c.checked;if(c.checked)field.value=c.closest("tr").querySelector(".pprice").value});
+ document.querySelectorAll(".deleteProduct").forEach(b=>b.onclick=()=>{syncProductInputs();data.products.splice(Number(b.closest("tr").dataset.index),1);renderProducts()});
+}
+function syncNews(){
+ news.newsList=Array.from(document.querySelectorAll(".newsrow")).map(row=>({date:row.querySelector(".ndate").value.trim(),text:row.querySelector(".ntext").value.trim()})).filter(x=>x.date||x.text)
+}
+function renderNews(){
+ $("newsRows").innerHTML=(news.newsList||[]).map((n,i)=>'<div class="newsrow" data-index="'+i+'"><input class="ndate" type="text" placeholder="10/17" value="'+safe(n.date)+'"><textarea class="ntext" placeholder="お知らせ本文">'+safe(n.text)+'</textarea><button class="btn danger deleteNews">削除</button></div>').join("");
+ document.querySelectorAll(".deleteNews").forEach(b=>b.onclick=()=>{syncNews();news.newsList.splice(Number(b.closest(".newsrow").dataset.index),1);renderNews()});
+}
+function download(name,obj){const blob=new Blob([JSON.stringify(obj,null,2)+"\n"],{type:"application/json;charset=utf-8"});const url=URL.createObjectURL(blob);const a=document.createElement("a");a.href=url;a.download=name;document.body.append(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(url),2000)}
+function valid(){if(months().length<1||months().length>2||new Set(months()).size!==months().length){alert("月度は重複なしの1〜2件にしてください。");return false}
+for(const p of data.products){if(!p.name.trim()||!Number.isFinite(p.price)||p.price<0||Object.values(p.pts||{}).some(v=>!Number.isFinite(v)||v<0)||Object.values(p.prices||{}).some(v=>!Number.isFinite(v)||v<0)){alert("商品名、価格、ポイントを確認してください。");return false}}
+return true}
+$("addMonth").onclick=()=>{syncProductInputs();const next=monthNames.find(m=>!months().includes(m));if(!next||months().length>=2)return;months().push(next);renderMonths();renderProducts()};
+$("addProduct").onclick=()=>{syncProductInputs();data.products.push({name:"",price:0,pts:{},prices:{}});renderProducts()};
+$("addNews").onclick=()=>{syncNews();news.newsList.push({date:"",text:""});renderNews()};
+$("exportProducts").onclick=()=>{syncProductInputs();if(!valid())return;const out=clone(data);out.products.forEach(p=>{if(!Object.keys(p.prices||{}).length)delete p.prices});delete out.newsList;delete out.newsDate;delete out.newsText;download("month_config.json",out)};
+$("exportNews").onclick=()=>{syncNews();if(news.newsList.some(n=>!n.date||!n.text)){alert("お知らせの日付と本文を両方入力してください。");return}download("news.json",{newsList:news.newsList})};
+function acceptProducts(o){if(!Array.isArray(o.products)||!Array.isArray(o.activeMonths)||!o.activeMonths.length||o.activeMonths.length>2||o.activeMonths.some(m=>!monthNames.includes(m))||new Set(o.activeMonths).size!==o.activeMonths.length)throw Error("月度は1〜2件で、商品配列が必要です");data={...o,activeMonths:[...o.activeMonths],products:clone(o.products)};data.products.forEach(p=>{p.pts=p.pts||{};p.prices=p.prices||{}});renderMonths();renderProducts()}
+function acceptNews(o){if(!Array.isArray(o.newsList))throw Error("newsList配列が必要です");news={newsList:clone(o.newsList)};renderNews()}
+async function importFile(input,handler){const file=input.files[0];if(!file)return;try{handler(JSON.parse(await file.text()));setStatus(file.name+" を読み込みました")}catch(e){setStatus("読み込み失敗："+e.message,true)}input.value=""}
+$("importProducts").onchange=e=>importFile(e.target,acceptProducts);
+$("importNews").onchange=e=>importFile(e.target,acceptNews);
+(async()=>{
+ const results=await Promise.allSettled(["month_config.json","news.json"].map(async path=>{const res=await fetch("./"+path+"?v="+Date.now(),{cache:"no-store"});if(!res.ok)throw Error(path+" "+res.status);return res.json()}));
+ if(results[0].status==="fulfilled"){try{acceptProducts(results[0].value);loadedProducts=true}catch(e){setStatus("商品設定を読み込めません："+e.message,true)}}else setStatus("商品設定の取得に失敗しました。JSONを読み込んでください。",true);
+ if(results[1].status==="fulfilled"){try{acceptNews(results[1].value);loadedNews=true}catch(e){setStatus("お知らせを読み込めません："+e.message,true)}}else if(results[0].status==="fulfilled"&&Array.isArray(results[0].value.newsList)){acceptNews({newsList:results[0].value.newsList})}
+ if(loadedProducts&&loadedNews)setStatus("公開中の月度・商品データとお知らせを読み込みました。");
+ if(!loadedProducts){renderMonths();renderProducts()}if(!loadedNews)renderNews();
+})();
+</script></body></html>
