@@ -651,18 +651,49 @@ async function downloadAllPDF() {
     const pixelsPerMm = canvas.width / contentWidth;
     const sliceHeight = Math.max(1, Math.floor(contentHeight * pixelsPerMm));
 
-    // Split long order images into separate A4 pages without shrinking the text.
-    for (let y = 0; y < canvas.height; y += sliceHeight) {
+    // Prefer page breaks before members, product rows and totals.
+    // These coordinates use the same rendered layout captured by html2canvas.
+    const cardRect = card.getBoundingClientRect();
+    const scaleY = canvas.height / cardRect.height;
+    const breakSelectors = [
+      '.bulk-combined-member',
+      '.bulk-combined-table tbody tr',
+      '.bulk-combined-member-total',
+      '.bulk-combined-summary',
+      '.order-image-section'
+    ];
+    const breakPoints = [...card.querySelectorAll(breakSelectors.join(','))]
+      .map(element => Math.round((element.getBoundingClientRect().top - cardRect.top) * scaleY))
+      .filter(y => y > 0 && y < canvas.height)
+      .sort((a, b) => a - b)
+      .filter((y, index, values) => index === 0 || y !== values[index - 1]);
+
+    let y = 0;
+    while (y < canvas.height) {
       if (y > 0) pdf.addPage();
-      const height = Math.min(sliceHeight, canvas.height - y);
+      const limit = Math.min(y + sliceHeight, canvas.height);
+      let end = limit;
+
+      if (limit < canvas.height) {
+        // Avoid a nearly empty page; fall back for an unusually tall single row.
+        const earliest = y + Math.floor(sliceHeight * 0.55);
+        for (let i = breakPoints.length - 1; i >= 0; i--) {
+          if (breakPoints[i] <= limit && breakPoints[i] >= earliest) {
+            end = breakPoints[i];
+            break;
+          }
+        }
+      }
+
+      const height = end - y;
       const pageCanvas = document.createElement('canvas');
       pageCanvas.width = canvas.width;
       pageCanvas.height = height;
       const context = pageCanvas.getContext('2d');
       if (!context) throw new Error('PDF用の画像を作成できませんでした');
       context.drawImage(canvas, 0, y, canvas.width, height, 0, 0, canvas.width, height);
-      const imageHeightMm = height / pixelsPerMm;
-      pdf.addImage(pageCanvas.toDataURL('image/png'), 'PNG', margin, margin, contentWidth, imageHeightMm);
+      pdf.addImage(pageCanvas.toDataURL('image/png'), 'PNG', margin, margin, contentWidth, height / pixelsPerMm);
+      y = end;
     }
   }
 
