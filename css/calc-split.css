@@ -1,4 +1,4 @@
-/* Distribution functional layout and visualization geometry. Historical RPG theme layers removed; visual theme lives in neural-split.css. */
+/* Distribution functional layout and visualization geometry. Legacy extracted styles; current split-page design is maintained in robot-split-clean.css. */
 /* Extracted from calc_split.html; page-specific rules retained to preserve behavior. */
 /* 数値入力（input[type=number]）の矢印（スピンボタン）を非表示にする */
     input[type=number]::-webkit-inner-spin-button,
