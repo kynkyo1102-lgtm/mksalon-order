@@ -12,7 +12,7 @@
     .home-page .home-menu-toggle{display:grid;place-items:center;flex-shrink:0;width:42px;height:42px;padding:0;background:transparent;border:0;border-radius:9px;color:#222;cursor:pointer;}
     .home-page .home-menu-toggle:focus-visible,.home-page .home-site-menu a:focus-visible{outline:2px solid #333;outline-offset:2px;}
     .home-page .home-site-menu[hidden]{display:none!important;}
-    .home-page .home-site-menu{position:absolute;right:12px;top:calc(100% - 2px);z-index:200;display:flex;flex-direction:column;width:min(270px,calc(100vw - 24px));padding:7px;background:#fff;border:1px solid #e2e2e2;border-radius:12px;box-shadow:0 9px 26px rgba(0,0,0,.12);box-sizing:border-box;}
+    .home-page .home-site-menu{z-index:200;display:flex;flex-direction:column;background:#fff;border:1px solid #e2e2e2;}
     .home-page .home-site-menu a{display:block;padding:12px 13px;border-radius:7px;text-decoration:none;color:#222;font-size:14px;line-height:1.4;}
     .home-page .home-site-menu a:hover{background:#f5f5f5;}
     @media(max-width:360px){.home-page .home-header-brand{gap:6px}.home-page .home-header-brand .header-logo{font-size:17px!important}.home-page .home-header-brand .home-header-shop{font-size:11px!important}}
