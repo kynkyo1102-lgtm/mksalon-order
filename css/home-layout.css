@@ -3,37 +3,29 @@
     .home-page .home-order-grid { display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important; }
     .home-page .home-order-grid .menu-card { min-width:0!important;width:100%!important;margin:0!important;box-sizing:border-box!important; }
     .home-page .home-floating-calc {position:fixed!important;z-index:100!important;right:16px!important;bottom:20px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;width:108px!important;height:74px!important;background:#fff!important;color:#222!important;border:1px solid #bbb!important;border-radius:18px!important;text-decoration:none!important;box-shadow:0 3px 14px rgba(0,0,0,.1)!important;}
-    .home-page .home-floating-calc-label{font-size:11px!important;white-space:nowrap!important;font-weight:700!important;}
 
     /* PT assistant: character floats above its compact label pedestal. */
     .home-page .home-floating-calc{width:116px!important;height:58px!important;bottom:20px!important;right:14px!important;overflow:visible!important;justify-content:flex-end!important;padding:0 4px 10px!important;box-sizing:border-box!important;background:#fff!important;border:1px solid #dedede!important;border-radius:16px!important;}
-    .home-page .home-floating-calc-label{position:relative!important;z-index:1!important;font-size:11px!important;font-weight:700!important;letter-spacing:.01em!important;line-height:1.2!important;}
 
     /* Floating PT assistant: compact, quiet presence */
     .home-page .home-floating-calc{width:102px!important;height:48px!important;right:12px!important;bottom:16px!important;border-radius:15px!important;padding:0 3px 9px!important;box-shadow:0 3px 12px rgba(0,0,0,.09)!important;}
-    .home-page .home-floating-calc-label{font-size:10px!important;}
 
     /* Reference-inspired compact pill with a peeking mascot */
     .home-page .home-floating-calc{width:174px!important;height:55px!important;right:14px!important;bottom:20px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;padding:0 58px 0 21px!important;box-sizing:border-box!important;background:#161616!important;color:#fff!important;border:1px solid #161616!important;border-radius:999px!important;box-shadow:0 5px 18px rgba(0,0,0,.16)!important;overflow:visible!important;}
-    .home-page .home-floating-calc-label{font-size:12px!important;line-height:1.2!important;color:#fff!important;white-space:nowrap!important;font-weight:700!important;letter-spacing:.01em!important;}
     @media(max-width:380px){.home-page .home-floating-calc{right:10px!important;bottom:14px!important;}}
 
     /* Compact PT shortcut: mascot visibly peeks above, not buried in pill */
     .home-page .home-floating-calc{width:144px!important;height:43px!important;right:13px!important;bottom:19px!important;padding:0 44px 0 14px!important;border-radius:999px!important;justify-content:flex-start!important;}
-    .home-page .home-floating-calc-label{font-size:11px!important;letter-spacing:-.03em!important;}
 
     /* Light floating pill: preserve compact size and mascot overlap */
     .home-page .home-floating-calc{background:#fafafa!important;color:#222!important;border:1px solid #d8d8d8!important;box-shadow:0 3px 12px rgba(0,0,0,.12)!important;}
-    .home-page .home-floating-calc-label{color:#222!important;}
 
     /* Compact illustrated banner: pale background, mascot overlapping the right edge */
     .home-page .home-floating-calc{width:218px!important;height:62px!important;right:15px!important;bottom:20px!important;border-radius:12px!important;background:#f6f6f6!important;border:1px solid #d8d8d8!important;box-shadow:0 4px 14px rgba(0,0,0,.12)!important;justify-content:flex-start!important;align-items:center!important;padding:0 72px 0 15px!important;overflow:visible!important;}
-    .home-page .home-floating-calc-label{font-size:13px!important;line-height:1.4!important;letter-spacing:0!important;white-space:nowrap!important;color:#222!important;font-weight:700!important;}
     @media(max-width:360px){.home-page .home-floating-calc{width:205px!important;right:10px!important;padding-left:12px!important}.home-page .home-floating-calc-label{font-size:12px!important}}
 
     /* 10% proportional reduction of the floating support banner */
     .home-page .home-floating-calc{width:196px!important;height:56px!important;right:15px!important;bottom:20px!important;border-radius:11px!important;padding:0 65px 0 14px!important;}
-    .home-page .home-floating-calc-label{font-size:11.7px!important;}
     @media(max-width:360px){.home-page .home-floating-calc{width:185px!important;right:10px!important;padding-left:11px!important}.home-page .home-floating-calc-label{font-size:11px!important}}
 
     /* Future member guide slot: non-interactive until guide launch */
@@ -41,7 +33,6 @@
     .home-page .home-members-guide-copy{min-width:0;}
     .home-page .home-members-guide h2{margin:0 0 7px;font-size:18px;line-height:1.4;font-weight:700;color:#222;}
     .home-page .home-members-guide p{margin:0;font-size:13px;line-height:1.7;color:#666;}
-    .home-page .home-members-guide-status{flex-shrink:0;padding:5px 10px;border-radius:999px;background:#eee;color:#666;font-size:11px;font-weight:700;white-space:nowrap;}
     @media(max-width:380px){.home-page .home-members-guide{padding:18px 14px;gap:8px}.home-page .home-members-guide h2{font-size:16px}.home-page .home-members-guide p{font-size:12px}}
 
     /* Member guide: compact full-width illustrated navigation banner */
@@ -49,8 +40,6 @@
     .home-page .home-members-guide-copy{flex:1;min-width:0;}
     .home-page .home-members-guide h2{font-size:17px;margin:0 0 5px;line-height:1.4;}
     .home-page .home-members-guide p{font-size:12px;line-height:1.6;margin:0 0 8px;color:#666;}
-    .home-page .home-members-guide-status{display:inline-block;padding:3px 9px;background:#eaeaea;border-radius:999px;font-size:10px;color:#666;font-weight:700;}
-    .home-page .home-members-guide-illustration{display:block;flex:0 0 72px;width:72px;height:72px;}
     @media(max-width:380px){.home-page .home-members-guide{padding:15px 13px;gap:8px}.home-page .home-members-guide h2{font-size:16px}.home-page .home-members-guide-illustration{width:62px;height:62px;flex-basis:62px}}
 
     /* Compact app-like header and accessible dropdown menu */
@@ -84,12 +73,6 @@
     /* portal-shortcut-1: calm homepage exterior, RPG doorway accent */
     .home-page .home-floating-calc{width:202px!important;height:60px!important;right:15px!important;bottom:20px!important;padding:0 12px 0 15px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;border-radius:12px!important;border:1px solid #d7dce4!important;background:#fbfcfe!important;color:#222b39!important;box-shadow:0 5px 18px #172c4430!important;text-decoration:none!important;overflow:visible!important;transition:transform .2s,box-shadow .2s!important}
     .home-page .home-floating-calc:hover,.home-page .home-floating-calc:focus-visible{transform:translateY(-3px)!important;box-shadow:0 8px 23px #172c4440!important;outline-offset:3px}
-    .home-page .home-floating-calc-copy{display:flex;flex-direction:column;gap:4px;min-width:0}
-    .home-page .home-floating-calc-kicker{font:10px/1.1 "Noto Sans JP",sans-serif!important;color:#697789!important;letter-spacing:.08em}
-    .home-page .home-floating-calc-label{font:700 12px/1.35 "Noto Sans JP",sans-serif!important;color:#202b3a!important;white-space:nowrap!important;letter-spacing:0!important}
-    .home-page .home-floating-calc-portal{display:grid;place-items:center;flex-shrink:0;width:49px;height:46px;border:2px solid #bd9952;background:linear-gradient(155deg,#223d61,#0c1b30);box-shadow:inset 0 0 0 3px #334d6b;clip-path:polygon(0 12%,12% 12%,12% 0,88% 0,88% 12%,100% 12%,100% 88%,88% 88%,88% 100%,12% 100%,12% 88%,0 88%);transition:filter .2s}
-    .home-page .home-floating-calc:hover .home-floating-calc-portal{filter:brightness(1.2)}
-    .home-page .home-floating-calc-portal svg{width:31px;height:32px;display:block}
     @media(max-width:380px){.home-page .home-floating-calc{width:190px!important;height:57px!important;right:10px!important;bottom:14px!important;padding-left:11px!important}.home-page .home-floating-calc-label{font-size:11px!important}}
     @media(prefers-reduced-motion:reduce){.home-page .home-floating-calc,.home-page .home-floating-calc-portal{transition:none!important}}
 
