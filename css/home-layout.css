@@ -2,30 +2,23 @@
 
     .home-page .home-order-grid { display:grid!important;grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important; }
     .home-page .home-order-grid .menu-card { min-width:0!important;width:100%!important;margin:0!important;box-sizing:border-box!important; }
-    .home-page .home-floating-calc {position:fixed!important;z-index:100!important;right:16px!important;bottom:20px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;width:108px!important;height:74px!important;background:#fff!important;color:#222!important;border:1px solid #bbb!important;border-radius:18px!important;text-decoration:none!important;box-shadow:0 3px 14px rgba(0,0,0,.1)!important;}
+    .home-page .home-floating-calc {position:fixed!important;z-index:100!important;right:16px!important;bottom:20px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;width:108px!important;height:74px!important;background:#fff!important;color:#222!important;border:1px solid #bbb!important;border-radius:18px!important;text-decoration:none!important;box-sizing:border-box!important;box-shadow:0 3px 14px rgba(0,0,0,.1)!important;}
 
     /* PT assistant: character floats above its compact label pedestal. */
-    .home-page .home-floating-calc{width:116px!important;height:58px!important;bottom:20px!important;right:14px!important;overflow:visible!important;justify-content:flex-end!important;padding:0 4px 10px!important;box-sizing:border-box!important;background:#fff!important;border:1px solid #dedede!important;border-radius:16px!important;}
 
     /* Floating PT assistant: compact, quiet presence */
-    .home-page .home-floating-calc{width:102px!important;height:48px!important;right:12px!important;bottom:16px!important;border-radius:15px!important;padding:0 3px 9px!important;box-shadow:0 3px 12px rgba(0,0,0,.09)!important;}
 
     /* Reference-inspired compact pill with a peeking mascot */
-    .home-page .home-floating-calc{width:174px!important;height:55px!important;right:14px!important;bottom:20px!important;display:flex!important;flex-direction:row!important;align-items:center!important;justify-content:flex-start!important;padding:0 58px 0 21px!important;box-sizing:border-box!important;background:#161616!important;color:#fff!important;border:1px solid #161616!important;border-radius:999px!important;box-shadow:0 5px 18px rgba(0,0,0,.16)!important;overflow:visible!important;}
     @media(max-width:380px){.home-page .home-floating-calc{right:10px!important;bottom:14px!important;}}
 
     /* Compact PT shortcut: mascot visibly peeks above, not buried in pill */
-    .home-page .home-floating-calc{width:144px!important;height:43px!important;right:13px!important;bottom:19px!important;padding:0 44px 0 14px!important;border-radius:999px!important;justify-content:flex-start!important;}
 
     /* Light floating pill: preserve compact size and mascot overlap */
-    .home-page .home-floating-calc{background:#fafafa!important;color:#222!important;border:1px solid #d8d8d8!important;box-shadow:0 3px 12px rgba(0,0,0,.12)!important;}
 
     /* Compact illustrated banner: pale background, mascot overlapping the right edge */
-    .home-page .home-floating-calc{width:218px!important;height:62px!important;right:15px!important;bottom:20px!important;border-radius:12px!important;background:#f6f6f6!important;border:1px solid #d8d8d8!important;box-shadow:0 4px 14px rgba(0,0,0,.12)!important;justify-content:flex-start!important;align-items:center!important;padding:0 72px 0 15px!important;overflow:visible!important;}
     @media(max-width:360px){.home-page .home-floating-calc{width:205px!important;right:10px!important;padding-left:12px!important}}
 
     /* 10% proportional reduction of the floating support banner */
-    .home-page .home-floating-calc{width:196px!important;height:56px!important;right:15px!important;bottom:20px!important;border-radius:11px!important;padding:0 65px 0 14px!important;}
     @media(max-width:360px){.home-page .home-floating-calc{width:185px!important;right:10px!important;padding-left:11px!important}}
 
     /* Future member guide slot: non-interactive until guide launch */
