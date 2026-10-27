@@ -53,7 +53,7 @@
     }
 
     /* ==========================================
-       3. メイン注文ツール（フィーチャーカード）
+       2. メイン注文ツール（フィーチャーカード）
     ========================================== */
     .hero-order-section {
       margin-bottom: 24px;
@@ -91,10 +91,8 @@
       box-shadow: 0 8px 20px rgba(200, 162, 97, 0.25);
     }
 
-/* =========================================================
-   INDEX STRUCTURE PREVIEW — monochrome, scoped to home only.
-   Other pages continue using the existing shared stylesheet.
-   ========================================================= */
+/* Homepage base styles: neutral palette and page-specific layout.
+   Shared styles for other pages remain in style.css. */
 .home-page {
   --wood-dark: #222;
   --wood-medium: #303030;
@@ -233,7 +231,7 @@
 }
 
 
-/* Floating calculator: index only, restrained 5-second attention cue */
+/* Floating calculator: base positioning; final robot layout is in home-layout.css. */
 .home-page .home-floating-calc {
   position: fixed;
   z-index: 50;
