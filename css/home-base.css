@@ -214,20 +214,6 @@
 }
 .home-page .menu-card.featured-card .card-title { color: #222; font-size: 1.04rem; }
 .home-page .menu-card.featured-card .card-desc { color: #555; font-size: .86rem; line-height: 1.6; }
-.home-page .calc-sub-card {
-  margin: 18px 0 0;
-  background: #fff;
-  border: 1px solid #dedede;
-  border-radius: 10px;
-  box-shadow: none;
-  padding: 17px 18px;
-}
-.home-page .calc-sub-card:hover,
-.home-page .calc-sub-card:focus-visible { background: #f7f7f7; border-color: #777; }
-.home-page .calc-sub-icon { box-shadow: none; border: 1px solid #dedede; }
-.home-page .calc-sub-title { color: #222; font-size: .93rem; }
-.home-page .calc-sub-desc { color: #666; font-size: .81rem; line-height: 1.5; }
-.home-page .calc-sub-arrow { color: #666; }
 .home-page .home-news-section { margin: 0 0 40px; }
 .home-page .home-section-heading,
 .home-page .sub-info-title {
