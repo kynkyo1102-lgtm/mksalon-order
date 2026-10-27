@@ -116,12 +116,6 @@
     .home-page .home-floating-calc.home-floating-robot:focus:not(:focus-visible){outline:none!important;box-shadow:none!important}
     .home-page .home-floating-calc.home-floating-robot:focus-visible{outline:none!important;box-shadow:none!important;filter:drop-shadow(0 0 4px #7997b3)}
 
-    /* robot-sign-3: gentle idle bob; sign and robot move together */
-    .home-page .home-floating-robot .home-robot-art{animation:home-robot-idle 4.8s ease-in-out infinite;transform-origin:55% 85%}
-    @keyframes home-robot-idle{0%,12%,44%,100%{transform:translateY(0) rotate(0deg)}19%{transform:translateY(-4px) rotate(-1deg)}27%{transform:translateY(-2px) rotate(1deg)}35%{transform:translateY(0) rotate(0deg)}}
-    .home-page .home-floating-robot:hover .home-robot-art{animation-play-state:paused}
-    @media(prefers-reduced-motion:reduce){.home-page .home-floating-robot .home-robot-art{animation:none!important}}
-
     /* robot-sign-4: the placard stays still while the head peeks out */
     .home-page .home-floating-robot .home-robot-art{animation:none!important;transform:none!important}
     .home-page .home-floating-robot .home-robot-peek{animation:home-robot-peek 5.6s ease-in-out infinite;transform:translateY(17px)}
