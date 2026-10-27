@@ -633,22 +633,37 @@ async function downloadAllPDF() {
   const { jsPDF } = window.jspdf;
   let pdf = null;
 
-  for (let i = 0; i < cards.length; i++) {
-    const card = cards[i];
+  for (const card of cards) {
     const canvas = await html2canvas(card, { scale: 2 });
-    const imgData = canvas.toDataURL('image/png');
+    if (!canvas.width || !canvas.height) continue;
 
-    if (i === 0) {
+    if (!pdf) {
       pdf = new jsPDF('p', 'mm', 'a4');
     } else {
       pdf.addPage();
     }
 
-    const imgProps = pdf.getImageProperties(imgData);
-    const pdfWidth = pdf.internal.pageSize.getWidth() - 20;
-    const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-    
-    pdf.addImage(imgData, 'PNG', 10, 10, pdfWidth, pdfHeight);
+    const margin = 10;
+    const pageWidth = pdf.internal.pageSize.getWidth();
+    const pageHeight = pdf.internal.pageSize.getHeight();
+    const contentWidth = pageWidth - margin * 2;
+    const contentHeight = pageHeight - margin * 2;
+    const pixelsPerMm = canvas.width / contentWidth;
+    const sliceHeight = Math.max(1, Math.floor(contentHeight * pixelsPerMm));
+
+    // Split long order images into separate A4 pages without shrinking the text.
+    for (let y = 0; y < canvas.height; y += sliceHeight) {
+      if (y > 0) pdf.addPage();
+      const height = Math.min(sliceHeight, canvas.height - y);
+      const pageCanvas = document.createElement('canvas');
+      pageCanvas.width = canvas.width;
+      pageCanvas.height = height;
+      const context = pageCanvas.getContext('2d');
+      if (!context) throw new Error('PDF用の画像を作成できませんでした');
+      context.drawImage(canvas, 0, y, canvas.width, height, 0, 0, canvas.width, height);
+      const imageHeightMm = height / pixelsPerMm;
+      pdf.addImage(pageCanvas.toDataURL('image/png'), 'PNG', margin, margin, contentWidth, imageHeightMm);
+    }
   }
 
   if (pdf) {
