@@ -125,67 +125,6 @@
       box-shadow: 0 8px 20px rgba(200, 162, 97, 0.25);
     }
 
-    /* 注文計算アシスタント */
-    .calc-sub-card {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      background-color: #f4eee6;
-      border: 1px solid var(--border-color);
-      border-left: 4px solid var(--accent-gold);
-      border-radius: 8px;
-      padding: 12px 14px;
-      margin-top: 10px;
-      margin-bottom: 24px;
-      text-decoration: none;
-      color: var(--text-main);
-      transition: background-color 0.2s, border-color 0.2s, transform 0.1s;
-      width: 100%;
-      box-sizing: border-box;
-    }
-
-    .calc-sub-card:hover {
-      background-color: #ebdcd0;
-      border-color: var(--accent-gold);
-    }
-
-    .calc-sub-content {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .calc-sub-icon {
-      font-size: 1.1rem;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      width: 32px;
-      height: 32px;
-      background-color: #ffffff;
-      border-radius: 50%;
-      box-shadow: 0 1px 3px rgba(0,0,0,0.06);
-    }
-
-    .calc-sub-title {
-      font-size: 0.88rem;
-      font-weight: bold;
-      color: var(--wood-dark);
-    }
-
-    .calc-sub-desc {
-      font-size: 0.75rem;
-      color: var(--text-sub);
-      margin-top: 1px;
-    }
-
-    .calc-sub-arrow {
-      font-size: 0.85rem;
-      color: var(--accent-gold);
-      font-weight: bold;
-    }
-
-
 /* =========================================================
    INDEX STRUCTURE PREVIEW — monochrome, scoped to home only.
    Other pages continue using the existing shared stylesheet.
