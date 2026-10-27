@@ -9,17 +9,14 @@
     /* Floating PT assistant: compact, quiet presence */
 
     /* Reference-inspired compact pill with a peeking mascot */
-    @media(max-width:380px){.home-page .home-floating-calc{right:10px!important;bottom:14px!important;}}
 
     /* Compact PT shortcut: mascot visibly peeks above, not buried in pill */
 
     /* Light floating pill: preserve compact size and mascot overlap */
 
     /* Compact illustrated banner: pale background, mascot overlapping the right edge */
-    @media(max-width:360px){.home-page .home-floating-calc{width:205px!important;right:10px!important;padding-left:12px!important}}
 
     /* 10% proportional reduction of the floating support banner */
-    @media(max-width:360px){.home-page .home-floating-calc{width:185px!important;right:10px!important;padding-left:11px!important}}
 
     /* Future member guide slot: non-interactive until guide launch */
     .home-page .home-members-guide{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 32px;padding:21px 18px;border:1px solid #e5e5e5;border-radius:16px;background:#fafafa;box-sizing:border-box;}
