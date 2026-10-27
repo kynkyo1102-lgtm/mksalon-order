@@ -1,6 +1,5 @@
-/* ===== Former css/index-inline-2.css ===== */
-/* Extracted from index.html; cascade order preserved. */
-
+/* Homepage calculator launch animation and floating-button styles.
+   Rule order is intentional: later declarations refine earlier ones. */
 .calc-launch-screen{position:fixed;inset:0;z-index:99999;display:grid;place-items:center;background:#081324;color:#f6f2e7;opacity:0;visibility:hidden;transition:opacity .15s ease,visibility .15s;overflow:hidden}
 .calc-launch-screen.is-active{opacity:1;visibility:visible}
 .calc-launch-screen::before,.calc-launch-screen::after{content:"";position:absolute;left:0;right:0;height:15px;background:repeating-linear-gradient(90deg,#d9b66b 0 15px,transparent 15px 31px);opacity:.95}
@@ -14,8 +13,6 @@
 @keyframes calcLoadFill{0%{width:0}15%{width:18%}40%{width:39%}60%{width:67%}85%{width:91%}100%{width:100%}}
 @media(prefers-reduced-motion:reduce){.calc-launch-screen{transition:none}.calc-launch-screen.is-active .calc-launch-progress-fill{animation:none;width:100%}}
 
-/* ===== Former css/index-inline-3.css ===== */
-/* Extracted from index.html; cascade order preserved. */
 
 /* Shared navy/gold visual language with the mode selection screen */
 .calc-launch-screen{background:radial-gradient(ellipse at 50% 26%,#243754 0%,#17253c 46%,#101a2c 100%);color:#f4d789}
@@ -25,8 +22,6 @@
 .calc-launch-progress-fill{background:repeating-linear-gradient(90deg,#d9b76b 0 17px,#b88b42 17px 20px);box-shadow:0 0 12px #d9ad5355}
 .calc-launch-start{color:#e3c581;font-family:'DotGothic16',monospace}
 
-/* ===== Former css/index-inline-4.css ===== */
-/* Extracted from index.html; cascade order preserved. */
 
 /* Same layered metallic frame language as the mode selection cards */
 .calc-launch-screen{background:radial-gradient(ellipse at 50% 30%,#2d4362 0%,#17263e 48%,#101a2c 100%)}
@@ -39,8 +34,6 @@
 .calc-launch-start{color:#f4d789;text-shadow:0 2px 0 #081222}
 @media(max-width:480px){.calc-launch-content{width:min(520px,86vw);padding:30px 14px 26px}.calc-launch-title{font-size:clamp(25px,7vw,36px)}}
 
-/* ===== Former css/index-inline-5.css ===== */
-/* Extracted from index.html; cascade order preserved. */
 
 .home-page .home-floating-calc.home-floating-custom{position:fixed!important;z-index:100!important;right:12px!important;bottom:14px!important;width:198px!important;height:79px!important;padding:0!important;margin:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;display:block!important;overflow:visible!important;line-height:0!important;transform:none!important;transition:transform .2s ease!important}
 .home-page .home-floating-custom img{display:block!important;width:100%!important;height:100%!important;object-fit:contain!important;max-width:none!important}
