@@ -4,20 +4,6 @@
     .home-page .home-order-grid .menu-card { min-width:0!important;width:100%!important;margin:0!important;box-sizing:border-box!important; }
     .home-page .home-floating-calc {position:fixed!important;z-index:100!important;right:16px!important;bottom:20px!important;display:flex!important;flex-direction:column!important;align-items:center!important;justify-content:center!important;width:108px!important;height:74px!important;background:#fff!important;color:#222!important;border:1px solid #bbb!important;border-radius:18px!important;text-decoration:none!important;box-sizing:border-box!important;box-shadow:0 3px 14px rgba(0,0,0,.1)!important;}
 
-    /* PT assistant: character floats above its compact label pedestal. */
-
-    /* Floating PT assistant: compact, quiet presence */
-
-    /* Reference-inspired compact pill with a peeking mascot */
-
-    /* Compact PT shortcut: mascot visibly peeks above, not buried in pill */
-
-    /* Light floating pill: preserve compact size and mascot overlap */
-
-    /* Compact illustrated banner: pale background, mascot overlapping the right edge */
-
-    /* 10% proportional reduction of the floating support banner */
-
     /* Compact app-like header and accessible dropdown menu */
     .home-page .home-header{position:relative;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;}
     .home-page .home-header-brand{display:flex;align-items:baseline;gap:9px;min-width:0;flex-wrap:nowrap;}
