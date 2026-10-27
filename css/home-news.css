@@ -1,10 +1,12 @@
 /* News is a quiet, ruled list rather than another homepage card. */
 .home-page .home-news-section{margin:0 0 42px;padding:0;background:transparent;border:0;box-shadow:none}
 .home-page .home-news-section #newsContainerArea{display:block}
-.home-page .home-news-section .news-box{display:flex;align-items:flex-start;gap:18px;padding:17px 0;border:0!important;border-top:1px solid #d9e2d9!important;border-radius:0;background:transparent;box-shadow:none;font-size:14px;line-height:1.8}
-.home-page .home-news-section .news-date{flex:0 0 100px;display:flex;align-items:center;gap:8px;white-space:nowrap;color:#58705e;font-size:13px;font-weight:700;padding-top:2px}
+.home-page .home-news-section .news-box{display:flex;align-items:flex-start;gap:18px;padding:22px 0;border:0!important;border-top:1px solid #d9e2d9!important;border-radius:0;background:transparent;box-shadow:none;font-size:14px;line-height:1.8}
+.home-page .home-news-section .news-date{flex:0 0 100px;display:flex;align-items:center;gap:8px;white-space:nowrap;color:#58705e;font-size:14px;font-weight:700;padding-top:2px}
 .home-page .home-news-section .news-badge{display:inline-flex;align-items:center;justify-content:center;margin:0;padding:3px 7px;border-radius:3px;background:#315b43;color:#fff;font-size:10px;letter-spacing:.05em;font-weight:700;line-height:1.3}
-.home-page .home-news-section .news-text{flex:1;min-width:0;margin:0;color:#303c34;font-size:14px;line-height:1.8;overflow-wrap:anywhere}
+.home-page .home-news-section .news-text{flex:1;min-width:0;margin:0;color:#303c34;font-size:16px;line-height:1.8;overflow-wrap:anywhere}
+.home-page .home-news-section #newsContainerArea > .news-box:last-child{border-bottom:1px solid #d9e2d9!important}
+.home-page .home-news-section #newsContainerArea > .news-box:has(+ .news-accordion){border-bottom:0!important}
 .home-page .home-news-section .news-accordion{margin:0!important;border:0!important;border-top:1px solid #d9e2d9!important;border-bottom:1px solid #d9e2d9!important;border-radius:0;background:transparent!important;overflow:visible;box-shadow:none}
 .home-page .home-news-section .news-summary{padding:15px 0;background:transparent!important;color:#315b43!important;font-size:13px;font-weight:600;display:flex;justify-content:space-between;align-items:center;gap:12px;cursor:pointer;list-style:none;transition:opacity .2s}
 .home-page .home-news-section .news-summary:hover{background:transparent!important;opacity:.7}
@@ -14,4 +16,4 @@
 .home-page .home-news-section .news-content-body{padding:0;border-top:1px solid #e3e9e3;background:transparent;font-size:14px}
 .home-page .home-news-section .news-content-body .news-box{margin:0!important;padding:14px 0;background:transparent;box-shadow:none;border-top:0!important;border-bottom:1px solid #e9eee9!important}
 .home-page .home-news-section .news-content-body .news-box:last-child{border-bottom:0!important}
-@media(max-width:620px){.home-page .home-news-section .news-box{display:block;padding:15px 0}.home-page .home-news-section .news-date{margin-bottom:7px}.home-page .home-news-section .news-text{font-size:13px}.home-page .home-news-section .news-content-body .news-box{padding:13px 0}}
+@media(max-width:620px){.home-page .home-news-section .news-box{display:block;padding:19px 0}.home-page .home-news-section .news-date{margin-bottom:7px}.home-page .home-news-section .news-text{font-size:16px}.home-page .home-news-section .news-content-body .news-box{padding:13px 0}}
