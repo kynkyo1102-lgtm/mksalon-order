@@ -53,40 +53,6 @@
     }
 
     /* ==========================================
-       2. 使い方ガイド（折りたたみ）
-    ========================================== */
-    .usage-guide-accordion {
-      background-color: #fbf9f5;
-      border: 1px solid var(--border-color);
-      border-radius: 8px;
-      margin-bottom: 16px;
-      font-size: 0.85rem;
-      overflow: hidden;
-    }
-
-    .usage-guide-summary {
-      padding: 10px 12px;
-      font-weight: bold;
-      color: var(--wood-dark);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      user-select: none;
-    }
-
-    .usage-guide-summary::-webkit-details-marker {
-      display: none;
-    }
-
-    .usage-guide-content {
-      padding: 10px 12px 12px 12px;
-      border-top: 1px dashed var(--border-color);
-      color: var(--text-main);
-      line-height: 1.6;
-    }
-
-    /* ==========================================
        3. メイン注文ツール（フィーチャーカード）
     ========================================== */
     .hero-order-section {
@@ -171,26 +137,6 @@
   margin: 0 0 20px;
 }
 .home-page .section-title::after { display: none; }
-.home-page .home-order-notice {
-  font-size: .86rem;
-  line-height: 1.75;
-  color: #444;
-  border: 1px solid #dedede;
-  border-radius: 10px;
-  padding: 14px 16px;
-  margin: 0 0 22px;
-  font-weight: 400;
-}
-.home-page .usage-guide-accordion {
-  background: #fff;
-  border: 1px solid #dedede;
-  border-radius: 10px;
-  margin-bottom: 20px;
-}
-.home-page .usage-guide-summary { padding: 15px 16px; color: #222; font-size: .9rem; }
-.home-page .usage-guide-content { border-top: 1px solid #dedede; padding: 15px 16px; }
-.home-page .home-accordion-arrow,
-.home-page .home-guide-note { color: #666; font-size: .78rem; }
 .home-page .menu-card.featured-card {
   background: #fff;
   border: 1px solid #d6d6d6;
@@ -249,8 +195,6 @@
   border-top: 1px solid #e6e6e6;
   box-shadow: none;
 }
-.home-page .home-footer-privacy { margin-bottom: 8px; }
-.home-page .home-footer-privacy a { color: #666; font-size: .75rem; text-decoration: underline; }
 @media (max-width: 520px) {
   .home-page main { padding: 26px 16px 38px; }
   .home-page .section-title { font-size: 1.2rem; }
@@ -337,8 +281,6 @@
 .home-page main {max-width:960px;margin:0 auto;padding-top:44px;}
 .home-page .hero-order-section {background:transparent;border:0;box-shadow:none;border-radius:0;padding:0;margin:0 0 64px;}
 .home-page .section-title {font-size:clamp(1.45rem,4vw,2rem);letter-spacing:-.035em;line-height:1.35;margin:0 0 14px;}
-.home-page .home-order-notice {color:#666;font-size:.87rem;line-height:1.9;max-width:720px;margin:0 0 22px;}
-.home-page .usage-guide-accordion {border:0;border-bottom:1px solid #e7e7e7;background:transparent;border-radius:0;box-shadow:none;margin:0 0 26px;}
 .home-page .home-order-grid {gap:14px!important;}
 .home-page .home-order-grid .menu-card.featured-card {background:#fff;border:1px solid #dedede;border-radius:14px;box-shadow:none;min-height:185px;transition:border-color .18s,transform .18s;position:relative;padding:24px!important;}
 .home-page .home-order-grid .menu-card.featured-card:hover {border-color:#888;transform:translateY(-2px);box-shadow:none;}
