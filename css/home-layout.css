@@ -118,10 +118,7 @@
 
     /* robot-sign-4: the placard stays still while the head peeks out */
     .home-page .home-floating-robot .home-robot-art{animation:none!important;transform:none!important}
-    .home-page .home-floating-robot .home-robot-peek{animation:home-robot-peek 5.6s ease-in-out infinite;transform:translateY(17px)}
-    @keyframes home-robot-peek{0%,12%,52%,100%{transform:translateY(17px)}21%,37%{transform:translateY(-1px)}43%{transform:translateY(3px)}}
     .home-page .home-floating-robot:hover .home-robot-peek{animation-play-state:paused}
-    @media(prefers-reduced-motion:reduce){.home-page .home-floating-robot .home-robot-peek{animation:none!important;transform:translateY(10px)}}
 
     /* robot-sign-5: single tiny peek, no hands; head only moves */
     .home-page .home-floating-robot .home-robot-peek{animation:home-robot-peek-small 6s ease-in-out infinite!important;transform:translateY(10px)}
