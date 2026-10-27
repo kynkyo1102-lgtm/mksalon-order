@@ -22,11 +22,11 @@
 
     /* Compact illustrated banner: pale background, mascot overlapping the right edge */
     .home-page .home-floating-calc{width:218px!important;height:62px!important;right:15px!important;bottom:20px!important;border-radius:12px!important;background:#f6f6f6!important;border:1px solid #d8d8d8!important;box-shadow:0 4px 14px rgba(0,0,0,.12)!important;justify-content:flex-start!important;align-items:center!important;padding:0 72px 0 15px!important;overflow:visible!important;}
-    @media(max-width:360px){.home-page .home-floating-calc{width:205px!important;right:10px!important;padding-left:12px!important}.home-page .home-floating-calc-label{font-size:12px!important}}
+    @media(max-width:360px){.home-page .home-floating-calc{width:205px!important;right:10px!important;padding-left:12px!important}}
 
     /* 10% proportional reduction of the floating support banner */
     .home-page .home-floating-calc{width:196px!important;height:56px!important;right:15px!important;bottom:20px!important;border-radius:11px!important;padding:0 65px 0 14px!important;}
-    @media(max-width:360px){.home-page .home-floating-calc{width:185px!important;right:10px!important;padding-left:11px!important}.home-page .home-floating-calc-label{font-size:11px!important}}
+    @media(max-width:360px){.home-page .home-floating-calc{width:185px!important;right:10px!important;padding-left:11px!important}}
 
     /* Future member guide slot: non-interactive until guide launch */
     .home-page .home-members-guide{display:flex;align-items:center;justify-content:space-between;gap:12px;margin:24px 0 32px;padding:21px 18px;border:1px solid #e5e5e5;border-radius:16px;background:#fafafa;box-sizing:border-box;}
@@ -73,8 +73,8 @@
     /* portal-shortcut-1: calm homepage exterior, RPG doorway accent */
     .home-page .home-floating-calc{width:202px!important;height:60px!important;right:15px!important;bottom:20px!important;padding:0 12px 0 15px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;border-radius:12px!important;border:1px solid #d7dce4!important;background:#fbfcfe!important;color:#222b39!important;box-shadow:0 5px 18px #172c4430!important;text-decoration:none!important;overflow:visible!important;transition:transform .2s,box-shadow .2s!important}
     .home-page .home-floating-calc:hover,.home-page .home-floating-calc:focus-visible{transform:translateY(-3px)!important;box-shadow:0 8px 23px #172c4440!important;outline-offset:3px}
-    @media(max-width:380px){.home-page .home-floating-calc{width:190px!important;height:57px!important;right:10px!important;bottom:14px!important;padding-left:11px!important}.home-page .home-floating-calc-label{font-size:11px!important}}
-    @media(prefers-reduced-motion:reduce){.home-page .home-floating-calc,.home-page .home-floating-calc-portal{transition:none!important}}
+    @media(max-width:380px){.home-page .home-floating-calc{width:190px!important;height:57px!important;right:10px!important;bottom:14px!important;padding-left:11px!important}}
+    @media(prefers-reduced-motion:reduce){.home-page .home-floating-calc{transition:none!important}}
 
     /* robot-sign-1: independent friendly robot holding the shortcut placard */
     .home-page .home-floating-calc.home-floating-robot{width:245px!important;height:135px!important;right:9px!important;bottom:10px!important;padding:0!important;border:0!important;border-radius:0!important;background:transparent!important;box-shadow:none!important;display:block!important;overflow:visible!important;transition:transform .2s ease!important}
