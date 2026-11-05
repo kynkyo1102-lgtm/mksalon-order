@@ -1,0 +1,4 @@
+/* Shared compact navigation spacing for calculator tool pages. */
+.calc-pt-page .app-main,.calc-split-page .app-main{padding-top:14px!important}
+.calc-pt-page .app-main>.calc-back-top,.calc-split-page .app-main>.calc-back-top{display:inline-flex;align-items:center;margin-top:0!important;margin-bottom:14px!important;padding:4px 0!important;line-height:1.5}
+@media(max-width:640px){.calc-pt-page .app-main,.calc-split-page .app-main{padding-top:12px!important}.calc-pt-page .app-main>.calc-back-top,.calc-split-page .app-main>.calc-back-top{margin-bottom:12px!important}}

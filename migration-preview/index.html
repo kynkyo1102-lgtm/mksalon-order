@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>プラッス ドゥ ニナ 南熊本店</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DotGothic16&family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <!-- 外部CSSの読み込み -->
+  <link rel="stylesheet" href="style.css?v=preview-20261018-3">
+
+  <link rel="stylesheet" href="css/home-base.css?v=1">
+  <!-- Preview reliability: core layout remains visible even when external CSS is cached. -->
+  <link rel="stylesheet" href="css/home-layout.css?v=1">
+  <link rel="stylesheet" href="css/app-shell.css?v=shared-footer-20261022">
+
+<link rel="stylesheet" href="css/index-effects.css?v=1">
+
+
+
+
+  <link rel="stylesheet" href="css/members-guide-banner.css?v=3">
+  <link rel="stylesheet" href="css/home-news.css?v=3">
+</head>
+<body class="home-page">
+
+  <header class="home-header">
+    <div class="home-header-brand">
+      <a href="index.html" class="header-logo">Place de Nina</a>
+      <span class="home-header-shop">南熊本店</span>
+    </div>
+    <button class="home-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="home-site-menu">
+      <span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span>
+    </button>
+    <nav id="home-site-menu" class="home-site-menu" aria-label="サイトメニュー" hidden>
+      <a class="home-menu-primary" href="index.html">ホーム</a>
+      <div class="home-menu-group">
+        <span class="home-menu-group-title">注文ツール</span>
+        <a class="home-menu-sub" href="single.html">テキスト注文</a>
+        <a class="home-menu-sub" href="bulk.html">画像注文書</a>
+      </div>
+      <a class="home-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="home-menu-primary" aria-disabled="true">メンバーズガイド（準備中）</span>
+      <div class="home-menu-secondary">
+        <a href="info.html">店舗案内</a>
+        <a href="bank.html">お支払いについて</a>
+        <a href="faq.html">よくある質問</a>
+      </div>
+    </nav>
+  </header>
+
+  <main>
+
+    <!-- メイン：注文ツールセクション -->
+    <div class="hero-order-section">
+      <h2 class="section-title">注文書を作成する</h2>
+      
+      <div class="home-order-grid">
+      <!-- メイン注文ツール 1 -->
+      <a href="single.html" class="menu-card featured-card">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8l-5-5H8z"></path><path d="M16 3v5h5"></path><path d="M7 12h10M7 16h8"></path></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">テキスト注文</div>
+          <p class="card-desc">注文内容をコピーして、LINEノートにそのまま貼り付けられます。</p>
+        </div>
+      </a>
+
+      <!-- メイン注文ツール 2 -->
+      <a href="bulk.html" class="menu-card featured-card">
+        <div class="card-icon">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><path d="M14 2v6h6"></path><rect x="7" y="11" width="10" height="7" rx="1"></rect><circle cx="10" cy="13.5" r=".7" fill="currentColor" stroke="none"></circle><path d="m8 17 3-3 2 2 2-2 2 3"></path></svg>
+        </div>
+        <div class="card-content">
+          <div class="card-title">画像注文書</div>
+          <p class="card-desc">注文書を画像またはPDFで保存できます。</p>
+        </div>
+      </a>
+
+      </div>
+
+
+    </div>
+
+    <!-- 通常のお知らせ：注文ツールの下に配置 -->
+    <section class="home-news-section" aria-label="重要なお知らせ">
+      <h2 class="home-section-heading">お知らせ</h2>
+      <div id="newsContainerArea"></div>
+    </section>
+
+
+    <!-- メンバーズガイド：HTMLとCSSのみで構成 -->
+    <section class="members-guide-entry" aria-labelledby="home-members-guide-title">
+      <div class="members-guide-banner" aria-disabled="true">
+        <span class="members-guide-banner-icon" aria-hidden="true">
+          <svg viewBox="0 0 36 36" fill="none" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M18 29c-4.1-2.6-8.4-3.5-14-2.4V7c5.9-1.2 10.3-.2 14 2.5v19.5Z"/>
+            <path d="M18 29c4.1-2.6 8.4-3.5 14-2.4V7c-5.9-1.2-10.3-.2-14 2.5v19.5Z"/>
+          </svg>
+        </span>
+        <span class="members-guide-banner-copy">
+          <span class="members-guide-banner-eyebrow">NINA MEMBERS GUIDE</span>
+          <strong id="home-members-guide-title" class="members-guide-banner-title">メンバーズガイド</strong>
+          <span class="members-guide-banner-description">登録・定期購入などのお手続きはこちら</span>
+          <span class="members-guide-banner-accent" aria-hidden="true"></span>
+        </span>
+        <span class="members-guide-banner-arrow" aria-hidden="true">→</span>
+      </div>
+    </section>
+
+    <!-- SNS・店舗情報・サポート：用途別に整理 -->
+    <div class="sub-info-area">
+      <h2 class="sub-info-title">サロン情報・サポート</h2>
+      
+      <div class="home-social-links">
+        <a href="https://line.me/ti/p/7iG8fg4ykI" target="_blank" rel="noopener noreferrer" class="sub-btn">
+          <svg class="icon-line" width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 5.82 2 10.53c0 4.2 3.55 7.72 8.36 8.37.33.07.78.22.89.5.1.26.07.67.03.94l-.15.89c-.04.26-.2.1 1.01-.55 1.22-.66 6.58-3.87 6.58-9.62C22 5.82 17.52 2 12 2z"/></svg>
+          <span>公式LINE</span>
+        </a>
+        
+        <a href="https://www.instagram.com/kumamoto5527?igsh=MXBwZ3ljeHFnb29oNg==" target="_blank" rel="noopener noreferrer" class="sub-btn">
+          <svg class="icon-insta" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path><line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line></svg>
+          <span>Instagram</span>
+        </a>
+
+      </div>
+      <nav class="home-support-links" aria-label="サロンのご案内">
+        <a href="info.html" class="sub-btn">
+          <span>店舗案内</span><span class="home-link-arrow" aria-hidden="true">↗</span>
+        </a>
+        
+        <a href="bank.html" class="sub-btn">
+          <span>お支払いについて</span><span class="home-link-arrow" aria-hidden="true">↗</span>
+        </a>
+
+        <a href="faq.html" class="sub-btn">
+          <span>よくある質問</span><span class="home-link-arrow" aria-hidden="true">↗</span>
+        </a>
+      </nav>
+    </div>
+
+  </main>
+
+  <a href="calc.html" class="home-floating-calc home-floating-custom" aria-label="計算サポートツールを開く" title="計算サポートツール">
+    <img src="assets/robot-floating-button-custom.svg" alt="" width="1983" height="793" draggable="false">
+  </a>
+  <footer class="site-unified-footer"><a href="privacy.html">プライバシーポリシー</a><span class="site-footer-copy">&copy; PLACE DE NINA MINAMIKUMAMOTO</span></footer>
+
+  <script>
+    async function loadNews() {
+      try {
+        const res = await fetch('./news.json?v=' + Date.now());
+        const data = await res.json();
+        
+        const container = document.getElementById('newsContainerArea');
+        if (!container) return;
+
+        let items = [];
+        if (Array.isArray(data.newsList) && data.newsList.length > 0) {
+          items = data.newsList;
+        } else if (data.newsDate || data.newsText) {
+          items = [{ date: data.newsDate || '', text: data.newsText || '' }];
+        }
+
+        if (items.length > 0) {
+          const latest = items[0];
+          // 最新お知らせ（NEWバッジを追加）
+          let html = `
+            <div class="news-box">
+              <span class="news-date">
+                <span class="news-badge">NEW</span>${latest.date}
+              </span>
+              <p class="news-text">${latest.text}</p>
+            </div>
+          `;
+
+          // 過去のお知らせ（アコーディオン内・バッジなし）
+          if (items.length > 1) {
+            const pastItemsHtml = items.slice(1).map(item => `
+              <div class="news-box" style="margin-bottom: 10px;">
+                <span class="news-date">${item.date}</span>
+                <p class="news-text">${item.text}</p>
+              </div>
+            `).join('');
+
+            html += `
+              <details class="news-accordion">
+                <summary class="news-summary">
+                  <span>📢 過去のお知らせ一覧</span>
+                  <span class="news-toggle-icon">▶</span>
+                </summary>
+                <div class="news-content-body">
+                  ${pastItemsHtml}
+                </div>
+              </details>
+            `;
+          }
+
+          container.innerHTML = html;
+        } else {
+          container.innerHTML = '';
+        }
+      } catch (e) {
+        console.error("お知らせの読み込みに失敗しました", e);
+      }
+    }
+
+    window.addEventListener('DOMContentLoaded', loadNews);
+  </script>
+
+  <script>
+    // Keep the floating shortcut above the footer while preserving its normal fixed position.
+    (() => {
+      const shortcut = document.querySelector('.home-floating-custom');
+      const footer = document.querySelector('body.home-page > footer');
+      if (!shortcut || !footer) return;
+      let scheduled = false;
+      function positionShortcut() {
+        scheduled = false;
+        const compact = window.matchMedia('(max-width: 380px)').matches;
+        const baseBottom = compact ? 10 : 14;
+        const footerGap = 12;
+        const footerTop = footer.getBoundingClientRect().top;
+        const bottom = Math.max(baseBottom, window.innerHeight - footerTop + footerGap);
+        shortcut.style.setProperty('bottom', bottom + 'px', 'important');
+      }
+      function schedulePosition() {
+        if (scheduled) return;
+        scheduled = true;
+        requestAnimationFrame(positionShortcut);
+      }
+      window.addEventListener('scroll', schedulePosition, { passive: true });
+      window.addEventListener('resize', schedulePosition);
+      window.addEventListener('pageshow', schedulePosition);
+      document.addEventListener('DOMContentLoaded', schedulePosition);
+      schedulePosition();
+    })();
+  </script>
+  <script src="js/app-shell.js?v=menu-motion-2" defer></script>
+  <script>
+    // Browser back/forward cache can restore the last clicked link's focus.
+    // Clear pointer-induced focus when this page becomes visible again.
+    window.addEventListener('pageshow', () => {
+      const shortcut = document.querySelector('.home-floating-robot');
+      if (shortcut && document.activeElement === shortcut) shortcut.blur();
+    });
+  </script>
+
+
+</body>
+</html>

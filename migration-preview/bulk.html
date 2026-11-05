@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>南熊本サロン専用商品購入注文書</title>
+  
+  <!-- フォント・ライブラリ群 -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://yubinbango.github.io/yubinbango/yubinbango.js" charset="UTF-8"></script>
+
+  <!-- デフォルトマスタデータの読み込み -->
+  <script src="default-master.js"></script>
+
+  <!-- 外部スタイルシートの読み込み -->
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="css/app-shell.css?v=shared-footer-20261022">
+  <link rel="stylesheet" href="css/bulk-shell.css?v=grid-match-20261022">
+  <link rel="stylesheet" href="css/bulk-page.css?v=cleanup-1">
+
+  <!-- 外部ロジックJavaScriptの読み込み -->
+  <script src="js/shared-members.js?v=3"></script>
+  <script src="js/bulk-order.js?v=pdf-smart-pages-1" defer></script>
+
+
+
+
+
+
+  <link rel="stylesheet" href="css/order-cards-shared.css?v=cleanup-1">
+</head>
+<body class="app-page bulk-order-page">
+
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文ツール</span><a class="app-menu-sub" href="single.html">テキスト注文</a><a class="app-menu-sub" href="bulk.html" aria-current="page">画像注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
+  </header>
+
+  <main class="bulk-main">
+    <h1 class="app-page-title">画像注文書</h1>
+    <!-- 入力フォーム画面 -->
+    <div id="formSection">
+      <form id="orderForm" class="h-adr">
+        <span class="p-country-name" style="display:none;">Japan</span>
+        
+        <!-- 会員番号・氏名 事前登録エリア（ほかのセクションと統一） -->
+        <details class="card-box card-box-preset bulk-member-utility">
+          <summary class="summary-preset">
+            <span class="bulk-utility-label"><span class="bulk-utility-plus" aria-hidden="true">＋</span>よく使う会員番号を登録 <small>任意</small></span>
+            <span class="bulk-utility-chevron" aria-hidden="true"></span>
+          </summary>
+          <div class="bulk-preset-body">
+          <p class="preset-subtext">会員番号と氏名を保存すると、注文時にリストから選べます。<br><small>※会員番号はポジション（00・01など）を除いて入力してください。登録内容はこのブラウザに保存されます。</small></p>
+          
+          <div class="form-group margin-top-10">
+            <label>登録する会員番号</label>
+            <div class="flex-row">
+              <input type="text" id="regMemberIdMain" placeholder="例: 12345" class="flex-1">
+              <span>-</span>
+              <span class="bulk-fixed-suffix">00</span><input type="hidden" id="regMemberIdSub" value="00">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="regFullName">登録する氏名</label>
+            <input type="text" id="regFullName" placeholder="例: 山田 太郎">
+          </div>
+
+          <button type="button" onclick="savePreMemberInfo()" class="btn-action btn-save-member">
+            この会員情報を保存する
+          </button>
+
+          <!-- 登録済み一覧の表示エリア -->
+          <div id="registeredMembersList" class="registered-list-area"></div>
+          </div>
+        </details>
+
+        <!-- 基本情報エリア（スクロール戻り用ID: topOfForm） -->
+        <div class="card-box bulk-step-card" id="topOfForm"><div class="section-title">1. 会員番号・氏名</div>
+          <div class="form-group">
+            <label for="presetMemberSelect">保存済み会員から選択</label>
+            <select id="presetMemberSelect" onchange="applyPresetMember(this.value)">
+              <option value="">-- 登録リストから選択 --</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label for="month">発注月度 *</label>
+            <select id="month" name="month" required>
+              <option value="">選択してください</option>
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label>購入会員番号 *</label>
+            <div class="flex-row">
+              <input type="text" id="memberIdMain" placeholder="例: 12345" class="flex-1" required>
+              <span>-</span>
+              <select id="memberIdSub" class="width-85"></select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label for="fullName">氏名 *</label>
+            <input type="text" id="fullName" name="fullName" placeholder="例: 山田 太郎" required>
+          </div>
+        </div>
+
+        <!-- 商品一覧テーブル -->
+        <div class="card-box bulk-step-card bulk-products-card">
+        <div class="section-title">2. 商品を選択</div>
+        <div class="sub-instruction">ご希望商品の数量を選択してください</div>
+        <div class="bulk-dropdown-items"><div id="productPickerRows"></div><button type="button" class="sub-btn mt-8" id="addProductPicker">＋ 商品を追加</button></div><table class="product-table" style="display:none">
+          <thead>
+            <tr>
+              <th>商品名</th>
+              <th class="width-65">価格(税込)</th>
+              <th class="width-55">獲得Pt</th>
+              <th class="qty-col">数量</th>
+            </tr>
+          </thead>
+          <tbody id="productTableBody"></tbody>
+        </table>
+        </div>
+
+        
+        <!-- 追加済み注文リスト（確認用） -->
+        <div id="orderListContainer" class="card-box order-list-box display-none">
+          <div class="order-list-header" >
+            追加済みの注文（<span id="orderCount">0</span>件）
+          </div>
+          <div id="bulkOrderAddedNotice" role="status" style="margin:12px 0;color:#245b40;font-weight:600"></div>
+          <div id="addedOrdersList" class="added-orders-list"></div>
+          <div id="bulkOrdersGrandTotal" style="margin-top:16px;padding:15px 12px;background:#f0f8f2;border:1px solid #b8d7c5;border-radius:10px;font-weight:700;color:#245b40"></div>
+        </div>
+
+        <div id="bulkFinalStage" class="display-none">
+          
+          <div class="bulk-stage-back"><button type="button" onclick="backToBulkOrders()">← 会員注文の入力に戻る</button></div>
+        <!-- お支払い方法エリア -->
+        <div class="card-box bulk-step-card"><div class="section-title">3. お支払い方法（共通）</div>
+        
+          <div class="bulk-payment-heading"><button type="button" class="bulk-reset-payment" onclick="resetBulkPayment()">お支払い情報をリセット</button></div>
+          <div class="form-group">
+            <label for="paymentMethod">お支払い方法を選択 *</label>
+            <select id="paymentMethod" required onchange="togglePaymentFields()">
+              <option value="現金">現金</option>
+              <option value="ニナファームカード">ニナファームカード</option>
+              <option value="クレジットカード">クレジットカード</option>
+              <option value="PayPay">PayPay</option>
+            </select>
+          </div>
+
+          <div id="paymentExtraFields" class="payment-extra-box">
+            <div id="eservicePwGroup" class="form-group display-none">
+              <label for="eservicePw">E-Service PW</label>
+              <input type="text" id="eservicePw" placeholder="パスワードを入力">
+            </div>
+
+            <div id="ninaPointGroup" class="form-group display-none">
+              <label for="ninaPoint">ニナポイント利用（※利用する場合のみ）</label>
+              <input type="number" id="ninaPoint" placeholder="例: 1000" min="0" oninput="updateCalc()">
+              <small class="sub-label">※1pt ＝ 1円としてお値引きされます</small>
+            </div>
+          </div>
+
+          <!-- 領収書の宛名 -->
+          <div class="form-group margin-top-12">
+            <label for="receiptName">領収書の宛名（必要な場合のみ）</label>
+            <p class="bulk-field-help">宛名なしの場合は「なし」とお書きください。</p>
+            <input type="text" id="receiptName" placeholder="例：株式会社〇〇、山田太郎">
+          </div>
+
+        </div>
+
+
+        <!-- お届け先エリア -->
+        <div class="card-box bulk-step-card"><div class="section-title">4. 共通のお届け先（配送ご希望の方のみ）</div>
+        <div class="bulk-returning-note"><strong>以前ご注文いただいた方へ</strong><span>お届け先は<strong>宛名だけ</strong>でOKです。変更やご希望がある場合のみ、ほかの項目も入力してください。</span></div>
+        
+          <div class="form-group">
+            <label for="shipName">お届け先お名前</label>
+            <!-- inputの変更を検知してローカルストレージに保存するよう実装 -->
+            <input type="text" id="shipName" placeholder="例: 山田 花子（氏名と異なる場合等）" oninput="saveShipNameStorage(this.value)">
+          </div>
+
+          <div class="form-group">
+            <label for="zip">郵便番号（ハイフンなし7桁）</label>
+            <input type="text" id="zip" class="p-postal-code" maxlength="7" placeholder="例: 8600000">
+          </div>
+
+          <div class="form-group">
+            <label for="address">住所</label>
+            <input type="text" id="address" class="p-region p-locality p-street-address p-extended-address" placeholder="自動入力されます">
+          </div>
+
+          <div class="form-group">
+            <label for="phone">電話番号</label>
+            <input type="tel" id="phone" placeholder="例: 09012345678">
+          </div>
+        </div>
+
+
+
+          <button type="button" class="bulk-final-export" onclick="generateAllReceipts()">注文書の画像を作成 →</button>
+        </div>
+        <!-- 下部固定フッター -->
+        <div class="footer-bar">
+          <div class="footer-content">
+            <div class="footer-totals">
+              <div>
+                合計 <span id="displayPrice" class="price-highlight">¥0</span>
+              </div>
+              <div class="footer-subtext">
+                （<span id="displayPt" class="pt-highlight">0PT</span>）<span id="displaySubtotal" style="display:none">¥0</span>
+              </div>
+            </div>
+            <div class="bulk-flow-hint" id="bulkFlowHint">まず会員情報と商品を入力してください</div><div class="bulk-footer-actions">
+            <button type="button" onclick="addOrderToList()" class="btn-add" id="bulkFooterAdd" disabled>
+              この会員の注文を確定する →
+            </button>
+
+              <button type="button" id="bulkGoPayment" onclick="goToBulkPayment()" class="bulk-footer-next display-none">お支払い・お届け先へ進む →</button>
+            </div>
+          </div>
+        </div>
+
+      </form>
+    </div>
+
+    <!-- 完成画面（JavaScriptで生成処理を行う際に使用する動的領域） -->
+    <div id="completeSection" class="display-none">
+      <div id="receiptsWrapper"></div><button type="button" class="bulk-revise-order" onclick="reviseBulkOrder()">← 注文内容を修正する</button>
+    </div>
+    <dialog id="bulkOrderReviewDialog" class="bulk-review-dialog" aria-labelledby="bulkReviewTitle"><div class="bulk-review-dialog-inner"><div class="bulk-review-dialog-head"><h2 id="bulkReviewTitle">追加済みの注文</h2><button type="button" class="bulk-review-close" onclick="closeBulkOrderReview()" aria-label="閉じる">×</button></div><div id="bulkReviewDetails"></div></div></dialog>
+    <a href="index.html" class="app-back bulk-home-back">‹ トップページへ戻る</a>
+  </main><footer class="site-unified-footer"><a href="privacy.html">プライバシーポリシー</a><span class="site-footer-copy">&copy; PLACE DE NINA MINAMIKUMAMOTO</span></footer>
+
+  <script>
+    // 支払い方法の表示制御
+    function togglePaymentFields() {
+      const method = document.getElementById('paymentMethod')?.value;
+      const pwGroup = document.getElementById('eservicePwGroup');
+      const pointGroup = document.getElementById('ninaPointGroup');
+      const pwInput = document.getElementById('eservicePw');
+      const pointInput = document.getElementById('ninaPoint');
+
+      if (!pwGroup || !pointGroup) return;
+
+      if (method === '現金' || method === 'PayPay') {
+        pwGroup.style.display = 'none';
+        pointGroup.style.display = 'none';
+        if (pwInput) pwInput.value = '';
+        if (pointInput) pointInput.value = '';
+      } else if (method === 'クレジットカード') {
+        pwGroup.style.display = 'block';
+        pointGroup.style.display = 'none';
+        if (pointInput) pointInput.value = '';
+      } else if (method === 'ニナファームカード') {
+        pwGroup.style.display = 'block';
+        pointGroup.style.display = 'block';
+      }
+
+      if (typeof updateCalc === 'function') {
+        updateCalc();
+      }
+    }
+
+    // Delivery details are never saved in browser storage.
+    function saveShipNameStorage(val) {}
+    document.addEventListener('DOMContentLoaded', () => { togglePaymentFields(); });
+  </script>
+<script src="js/app-shell.js?v=menu-motion-2"></script>
+<script src="js/order-transfer.js?v=5"></script><script>window.addEventListener('DOMContentLoaded',()=>NinaOrderTransfer.mount('bulk'));</script>
+</body>
+</html>

@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>お振込先のご案内 - プラッス ドゥ ニナ 南熊本店</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Noto+Sans+JP:wght@400;500;700&display=swap" rel="stylesheet">
+
+  <!-- 共通CSS -->
+  <link rel="stylesheet" href="style.css">
+
+  <link rel="stylesheet" href="css/app-shell.css?v=shared-footer-20261022">
+  <link rel="stylesheet" href="css/bank-inline-1.css?v=css-cleanup-1">
+</head>
+
+<body class="app-page">
+
+  <header class="app-header">
+    <div class="app-brand"><a class="app-brand-name" href="index.html">Place de Nina</a><span class="app-brand-shop">南熊本店</span></div>
+    <button class="app-menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="app-site-menu"><span class="menu-icon" aria-hidden="true"><i></i><i></i><i></i></span></button>
+    <nav id="app-site-menu" class="app-menu" aria-label="サイトメニュー" hidden>
+      <a class="app-menu-primary" href="index.html">ホーム</a>
+      <div class="app-menu-group"><span class="app-menu-group-title">注文ツール</span><a class="app-menu-sub" href="single.html">テキスト注文</a><a class="app-menu-sub" href="bulk.html">画像注文書</a></div>
+      <a class="app-menu-primary" href="calc.html">計算サポートツール</a>
+      <span class="app-menu-primary app-menu-disabled">メンバーズガイド <small>準備中</small></span>
+      <div class="app-menu-secondary"><a href="info.html">店舗案内</a><a href="bank.html" aria-current="page">お支払いについて</a><a href="faq.html">よくある質問</a></div>
+    </nav>
+  </header>
+
+  <main class="app-main">
+    <h1 class="app-page-title">お支払いについて</h1>
+
+    <div class="bank-notice">
+      ※ご購入金額（税込）によって振込先口座が異なります。金額をご確認のうえ、お間違えのないようお振込みをお願いいたします。
+    </div>
+
+    <!-- 口座①：10万円未満 -->
+    <div class="bank-card">
+      <div class="bank-card-header">
+        <span class="bank-tag tag-normal">10万円未満のお支払い</span>
+      </div>
+
+      <dl class="info-list">
+        <div class="info-item">
+          <dt>金融機関</dt>
+          <dd>ゆうちょ銀行（金融機関コード: 9900）</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>支店名</dt>
+          <dd>七四八（店番号: 748）</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>預金種目</dt>
+          <dd>普通預金</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>口座番号</dt>
+          <dd><span class="account-number">7723294</span><button class="bank-copy" type="button" data-copy="7723294">コピー</button></dd>
+        </div>
+
+        <div class="info-item">
+          <dt>口座名義</dt>
+          <dd>カ）エイチワイジェイ</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- 口座②：10万円以上 -->
+    <div class="bank-card highlight-card">
+      <div class="bank-card-header">
+        <span class="bank-tag tag-high">10万円以上のお支払い</span>
+      </div>
+
+      <dl class="info-list">
+        <div class="info-item">
+          <dt>金融機関</dt>
+          <dd>肥後銀行（金融機関コード: 0182）</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>支店名</dt>
+          <dd>浜線支店（店番号: 117）</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>預金種目</dt>
+          <dd>普通預金</dd>
+        </div>
+
+        <div class="info-item">
+          <dt>口座番号</dt>
+          <dd><span class="account-number">202371</span><button class="bank-copy" type="button" data-copy="202371">コピー</button></dd>
+        </div>
+
+        <div class="info-item">
+          <dt>口座名義</dt>
+          <dd>カ）エイチワイジェイ</dd>
+        </div>
+      </dl>
+    </div>
+
+    <!-- お願い事項 -->
+    <div class="bank-sub-note">
+      <ul>
+        <li>振込手数料はお客様ご負担となります。予めご了承ください。</li>
+      </ul>
+    </div>
+
+    <!-- 戻るボタン -->
+    <a href="index.html" class="app-back">
+      ‹ トップページへ戻る
+    </a>
+
+  </main>
+
+  <footer class="site-unified-footer"><a href="privacy.html">プライバシーポリシー</a><span class="site-footer-copy">&copy; PLACE DE NINA MINAMIKUMAMOTO</span></footer>
+
+<script src="js/app-shell.js?v=menu-motion-2" defer></script>
+  <script>
+    document.querySelectorAll('.bank-copy').forEach(button => {
+      button.addEventListener('click', async () => {
+        try {
+          await navigator.clipboard.writeText(button.dataset.copy);
+          button.textContent = 'コピーしました';
+        } catch (error) {
+          button.textContent = 'コピーできませんでした';
+        }
+        setTimeout(() => { button.textContent = 'コピー'; }, 1800);
+      });
+    });
+  </script>
+</body>
+</html>

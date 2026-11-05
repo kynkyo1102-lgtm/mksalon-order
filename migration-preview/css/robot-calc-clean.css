@@ -1,0 +1,92 @@
+@import url("https://fonts.googleapis.com/css2?family=DotGothic16&family=Noto+Sans+JP:wght@400;500;600;700;800&display=swap");
+:root{color-scheme:light}*{box-sizing:border-box}html{scroll-behavior:auto}body.calc-pt-page{margin:0;background:#f7f9fc url("../assets/robot-lab-pattern.svg") repeat center top/640px;color:#263b50;font-family:"Noto Sans JP",sans-serif;font-size:14px;line-height:1.7}button,input,select{font:inherit}button{cursor:pointer}button:disabled{cursor:wait;opacity:.7}[hidden]{display:none!important}
+.calc-pt-page .app-main{max-width:920px;margin:auto;padding:30px 18px 90px}.calc-pt-page .app-back{display:inline-block;margin-bottom:22px;color:#59778f;text-decoration:none;font-size:13px}.calc-pt-page .app-page-title{font-size:clamp(24px,4vw,35px);line-height:1.5;color:#193650;margin:0 0 7px;font-weight:800;letter-spacing:-.035em}.calc-pt-page .quest-lead{color:#6b8194;margin:0 0 18px;font-size:13px}.calc-pt-page .app-footer{text-align:center;padding:20px;color:#8296a7;font-size:12px}
+.robot-guide{display:flex;align-items:center;gap:16px;margin:22px 0 26px}.robot-guide img{width:95px;height:108px;object-fit:contain;flex:none}.robot-dialogue{position:relative;flex:1;background:#fff;border:3px solid #203b51;box-shadow:4px 4px 0 #c8d8e6;padding:16px 20px;color:#193650;font-family:"DotGothic16",monospace}.robot-dialogue:before{content:"";position:absolute;left:-17px;top:30px;border-top:12px solid transparent;border-bottom:12px solid transparent;border-right:15px solid #203b51}.robot-dialogue strong{display:block;font-size:clamp(17px,2.7vw,23px);line-height:1.6}.robot-dialogue span{display:block;margin-top:6px;font-size:13px;color:#617b91}
+.calc-steps,.calc-input-section,.calc-product-section,.calc-run-area,.plan-card{background:#fff;border:2px solid #d4e2f0;border-radius:17px;box-shadow:4px 5px 0 #dfe9f5;color:#233e56}.calc-steps{padding:19px 22px;margin-bottom:23px}.calc-steps h2{font-size:15px;margin:0 0 10px}.calc-steps ol{list-style:none;padding:0;margin:0;display:grid;gap:8px}.calc-steps li{display:flex;align-items:center;gap:12px;font-size:13px}.calc-steps li span{font-family:"DotGothic16",monospace;color:#58799b}
+.calc-workspace{display:grid;gap:20px}.calc-input-section,.calc-product-section{padding:23px}.calc-input-section h2,.calc-product-section h2{font-size:17px;margin:0 0 18px;color:#193650}.calc-input-section h2 span,.calc-section-number{font-family:"DotGothic16",monospace;font-size:12px;color:#5a7892;margin-right:7px}.form-group+.form-group{margin-top:18px!important}.label-accent{display:block;font-weight:700;font-size:13px;margin-bottom:7px;color:#344e63}.calc-select,.calc-input{display:block;width:100%;min-height:48px;padding:11px 13px;border:1px solid #bfcfdf;border-radius:8px;background:#fff;color:#233e56;font-size:16px}.calc-select:focus,.calc-input:focus{outline:2px solid #93b6d8;outline-offset:1px}
+.calc-conditions-toolbar{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-bottom:9px}.calc-conditions-toolbar h2{margin:0}.calc-conditions-toolbar h2 small{font-size:12px;color:#8294a5;font-weight:500}.btn-reset,.calc-selected-condition button,.robot-edit-button{border:1px solid #bdcedd;background:#fff;border-radius:8px;color:#486a86;padding:8px 12px;font-size:12px;font-weight:700}.calc-product-help{font-size:13px;color:#687f91;margin:0 0 16px}.calc-condition-editor{margin-top:14px;border:1px solid #dce5ee;background:#f8fafc;border-radius:10px;padding:17px}.calc-selected-info{margin:0 0 13px;color:#5e7890}.calc-condition-fieldset{border:0;padding:0;margin:0;display:grid;gap:11px}.calc-condition-fieldset legend{font-weight:700;margin-bottom:10px}.calc-condition-fieldset label{display:flex;align-items:center;gap:8px}.calc-condition-fieldset input{width:17px;height:17px;accent-color:#2d6287}.calc-condition-quantity{margin-top:14px}.calc-condition-quantity label{display:block;margin-bottom:6px}.calc-condition-explanation{background:#eef4f9;border-radius:7px;padding:11px;margin:14px 0;font-size:13px}.calc-add-condition{width:100%;padding:13px;background:#244f6e;color:#fff;border:0;border-radius:8px;font-weight:700}.calc-selected-conditions{margin-top:14px}.calc-selected-conditions:empty{display:none}.calc-selected-conditions h3{font-size:14px}.calc-selected-condition{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid #e4eaf0;padding:10px 0}
+.calc-run-area{padding:20px;margin-top:21px}.calc-action-hint{color:#688092;font-size:13px;margin:0 0 13px}.btn-copy{width:100%;background:#234d6c;color:#fff;border:0;border-radius:9px;padding:15px 12px;font-size:15px;font-weight:700}.calc-progress{padding:17px 0;text-align:center}.calc-progress p{font-family:"DotGothic16",monospace;color:#607c92}.calc-progress-line{height:8px;border:1px solid #b7cddd;background:#eaf1f7;overflow:hidden}.calc-progress-line span{display:block;width:36%;height:100%;background:#f3c452;animation:robot-progress .8s ease-in-out infinite alternate}@keyframes robot-progress{to{transform:translateX(180%)}}.calc-complete{margin-top:12px;text-align:center}
+#robotResultView{margin-top:25px}.robot-result-header{display:flex;align-items:center;gap:16px;background:#fff;border:3px solid #203b51;box-shadow:4px 4px 0 #c8d8e6;padding:15px;margin-bottom:20px}.robot-result-header img{width:70px;height:75px;object-fit:contain}.robot-result-header strong{font:700 22px/1.5 "DotGothic16",monospace}.robot-result-header p{margin:5px 0 0;color:#657e94;font-size:13px}.robot-edit-button{margin-bottom:18px;padding:11px 17px;font-size:14px}.result-container{scroll-margin-top:20px}.quest-result-heading{text-align:center;margin:20px 0;color:#59778e;font-family:"DotGothic16",monospace;font-size:13px}.plan-card{padding:20px;margin-bottom:18px}.plan-card.best{border-color:#f0c96c}.quest-clear-tag{font-family:"DotGothic16",monospace;color:#8a671c;font-size:12px;margin-bottom:12px}.quest-clear-tag span{margin-left:8px}.plan-heading{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:15px}.plan-title{font-size:18px;margin:0}.plan-best-label,.plan-variation-label{font-size:12px;background:#edf3f8;padding:5px 9px;border-radius:7px}.plan-summary{display:grid;grid-template-columns:1fr 1fr;gap:12px;padding:15px;background:#f1f5f9;border-radius:9px;margin-bottom:20px}.plan-summary-item>span{display:block;color:#647e92;font-size:12px}.plan-summary-item strong{display:block;font-size:clamp(18px,3.5vw,25px);line-height:1.5;color:#193650;overflow-wrap:anywhere}.plan-summary-item strong small{font-size:12px}.plan-summary-item em{display:block;font-size:12px;font-style:normal;color:#6e8394}.plan-items-heading{font-size:15px;margin:0 0 10px}.plan-item-row{border-top:1px solid #e5ebf1;padding:12px 0}.plan-item-name{display:flex;align-items:center;gap:8px;flex-wrap:wrap;margin-bottom:7px}.mandatory-item-badge{font-size:11px;background:#fff3d4;padding:2px 6px;border-radius:4px}.plan-item-meta{display:flex;justify-content:flex-end;flex-wrap:wrap;gap:12px;font-size:12px;color:#5f778a}.plan-item-qty{margin-right:auto;font-weight:700}
+.robot-show-result .calc-steps,.robot-show-result .calc-workspace,.robot-show-result .calc-run-area{display:none}.calc-result-reveal .plan-card{animation:plan-enter .35s ease both}@keyframes plan-enter{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+@media(max-width:640px){body.calc-pt-page{background-size:440px 440px}.calc-pt-page .app-main{padding:26px 15px 70px}.robot-guide{gap:10px}.robot-guide img{width:72px;height:86px}.robot-dialogue{padding:12px 13px}.robot-dialogue strong{font-size:17px}.robot-dialogue span{font-size:12px}.calc-input-section,.calc-product-section,.calc-steps{padding:17px}.calc-conditions-toolbar{align-items:flex-start}.plan-card{padding:15px}.plan-summary{gap:8px;padding:11px}.plan-item-meta{gap:8px}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}.calc-progress-line span,.calc-result-reveal .plan-card{animation:none}}
+
+.calc-pt-page .app-page-title{animation:none!important;transition:none!important;transform:none!important;opacity:1!important;visibility:visible!important;clip-path:none!important;white-space:normal!important}
+.calc-pt-page .calc-product-section .calc-conditions-toolbar{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap}
+.calc-pt-page .calc-product-section .calc-conditions-toolbar h2{display:flex;align-items:center;flex-wrap:wrap;gap:7px 10px;flex:1 1 210px;min-width:0;margin:0;line-height:1.55}
+.calc-pt-page .calc-product-section .calc-conditions-toolbar .product-heading-text{display:inline-flex;align-items:baseline;gap:6px;flex-wrap:wrap;min-width:0}
+.calc-pt-page .calc-product-section .calc-conditions-toolbar .btn-reset{flex:0 0 auto;white-space:nowrap;padding:9px 12px;line-height:1.4}
+.calc-pt-page .calc-product-section .calc-conditions-toolbar h2 small{white-space:nowrap}
+@media(max-width:640px){.calc-pt-page .calc-product-section .calc-conditions-toolbar{align-items:stretch}.calc-pt-page .calc-product-section .calc-conditions-toolbar h2{flex-basis:100%;flex-wrap:nowrap;font-size:16px;gap:7px}.calc-pt-page .calc-product-section .calc-conditions-toolbar .product-heading-text{flex-wrap:nowrap;white-space:nowrap;gap:5px}.calc-pt-page .calc-product-section .calc-conditions-toolbar .btn-reset{align-self:flex-end;width:auto;font-size:12px}.calc-pt-page .calc-product-section .calc-conditions-toolbar .calc-section-number{flex-shrink:0;margin-right:0}}
+
+/* Robot control-panel action */
+.calc-pt-page .robot-calc-button{position:relative;display:flex;align-items:center;justify-content:center;gap:14px;min-height:72px;background:#193d59;color:#fff;border:3px solid #102b42;border-radius:12px;box-shadow:0 5px 0 #a9bfd3,inset 0 2px 0 #416b89;padding:10px 20px;transition:transform .15s,box-shadow .15s}
+.calc-pt-page .robot-button-icon{width:49px;height:49px;display:flex;align-items:center;justify-content:center;flex:none;border:2px solid #87a6c0;background:#f3f7fa;border-radius:7px}
+.calc-pt-page .robot-button-icon img{width:41px;height:43px;object-fit:contain}
+.calc-pt-page .robot-button-label{font-family:"DotGothic16","MS Gothic",monospace;font-size:clamp(15px,3.5vw,19px);font-weight:400;line-height:1.4;letter-spacing:.025em}
+.calc-pt-page .robot-button-arrow{font:26px/1 "DotGothic16",monospace;color:#dceaf4}
+.calc-pt-page .robot-calc-button:hover:not(:disabled){background:#245675}
+.calc-pt-page .robot-calc-button:active:not(:disabled){transform:translateY(3px);box-shadow:0 2px 0 #a9bfd3,inset 0 2px 0 #416b89}
+.calc-pt-page .robot-calc-button.is-calculating .robot-button-icon img{animation:robot-button-bob .5s ease-in-out infinite alternate}
+@keyframes robot-button-bob{to{transform:translateY(-4px)}}
+@media(max-width:420px){.calc-pt-page .robot-calc-button{gap:9px;padding:10px 9px;min-height:66px}.calc-pt-page .robot-button-icon{width:41px;height:41px}.calc-pt-page .robot-button-icon img{width:35px;height:37px}.calc-pt-page .robot-button-arrow{font-size:21px}}
+@media(prefers-reduced-motion:reduce){.calc-pt-page .robot-calc-button,.calc-pt-page .robot-calc-button.is-calculating .robot-button-icon img{animation:none;transition:none}}
+
+
+/* Results screen — robot-guided, readable on mobile */
+#robotResultView{max-width:800px;margin:24px auto 0;scroll-margin-top:20px}
+#robotResultView .robot-result-header{border:2px solid #d4e2f0;border-radius:16px;box-shadow:4px 5px 0 #dfe9f5;padding:19px 22px;gap:18px}
+#robotResultView .robot-result-header img{width:85px;height:94px}
+#robotResultView .robot-result-eyebrow{display:block;font:12px/1.5 "DotGothic16",monospace;color:#6b879c;letter-spacing:.06em;margin-bottom:3px}
+#robotResultView .robot-result-header strong{display:block;color:#193650;font:23px/1.5 "DotGothic16",monospace}
+#robotResultView .robot-result-header p{font-family:"DotGothic16",monospace}
+#robotResultView .robot-result-actions{display:flex;justify-content:space-between;align-items:center;gap:12px;margin:24px 0 16px}
+#robotResultView .robot-result-actions p{margin:0;color:#647d91;font-size:13px}
+#robotResultView .robot-edit-button{margin:0;white-space:nowrap;border:1px solid #b6cbdb;background:#fff;color:#244d6d;box-shadow:0 2px 0 #e1eaf2}
+#robotResultView .quest-result-heading{text-align:left;font:17px/1.5 "DotGothic16",monospace;color:#294b66;margin:22px 0 14px}
+#robotResultView .plan-card{position:relative;border:2px solid #d4e2f0;border-radius:16px;padding:24px;margin-bottom:20px;box-shadow:4px 5px 0 #dfe9f5}
+#robotResultView .plan-card.best{border:3px solid #7398b5;box-shadow:5px 6px 0 #cdddea}
+#robotResultView .quest-clear-tag{display:inline-block;color:#426985;background:#eaf2f8;border-radius:5px;padding:4px 9px;font:11px/1.5 "DotGothic16",monospace;margin-bottom:12px}
+#robotResultView .plan-heading{align-items:flex-start;margin-bottom:18px}
+#robotResultView .plan-title{font-size:clamp(17px,3vw,21px);color:#193650;line-height:1.5}
+#robotResultView .plan-best-label{background:#244e6d;color:#fff;font-family:"DotGothic16",monospace;white-space:nowrap}
+#robotResultView .plan-variation-label{background:#edf3f8;color:#56758c;font-family:"DotGothic16",monospace;white-space:nowrap}
+#robotResultView .plan-summary{background:#f1f6fa;border:1px solid #e1eaf2;padding:18px;gap:12px;border-radius:10px}
+#robotResultView .plan-summary-item strong{font-size:clamp(21px,4vw,29px);font-variant-numeric:tabular-nums}
+#robotResultView .plan-summary-item em{font-weight:700;color:#54768e;margin-top:2px}
+#robotResultView .plan-items-heading{font-size:15px;color:#294b66;padding-bottom:8px;border-bottom:0}
+#robotResultView .plan-item-row{padding:13px 0}
+#robotResultView .plan-item-name strong{font-weight:600;overflow-wrap:anywhere}
+#robotResultView .plan-item-meta{font-variant-numeric:tabular-nums}
+#robotResultView .plan-item-qty{display:inline-block;color:#244e6d;background:#edf4f9;padding:1px 8px;border-radius:5px}
+#robotResultView .robot-result-bottom{text-align:center;padding:7px 0 30px}
+#robotResultView .robot-result-bottom .robot-edit-button{padding:12px 19px;font-size:14px}
+@media(max-width:640px){
+ #robotResultView .robot-result-header{padding:15px 13px;gap:10px}
+ #robotResultView .robot-result-header img{width:64px;height:75px}
+ #robotResultView .robot-result-header strong{font-size:19px}
+ #robotResultView .robot-result-actions{align-items:flex-start;flex-direction:column;margin:19px 0 15px}
+ #robotResultView .robot-result-actions .robot-edit-button{align-self:flex-end}
+ #robotResultView .plan-card{padding:16px}
+ #robotResultView .plan-heading{gap:8px}
+ #robotResultView .plan-summary{padding:12px;gap:8px}
+ #robotResultView .plan-summary-item strong{font-size:clamp(18px,5vw,24px)}
+ #robotResultView .plan-item-meta{gap:8px 12px}
+}
+
+/* Dedicated results viewport: never inherit the input page scroll position. */
+body.robot-show-result{overflow:hidden}
+body.robot-show-result #robotResultView{position:fixed;inset:0;z-index:110;display:block;overflow-y:auto;overscroll-behavior:contain;-webkit-overflow-scrolling:touch;max-width:none;margin:0;padding:0 16px 45px;background:#f7f9fc url("../assets/robot-lab-pattern.svg") repeat center top/640px}
+#robotResultView .robot-result-screen{width:min(800px,100%);margin:0 auto;padding-top:clamp(24px,5vw,50px)}
+#robotResultView .robot-result-header{margin-top:0}
+@media(max-width:640px){body.robot-show-result #robotResultView{background-size:440px 440px;padding:0 15px 40px}#robotResultView .robot-result-screen{padding-top:24px}}
+
+/* Shared app header inside the independent results viewport. */
+body.robot-show-result #robotResultView{padding:0 0 45px}
+#robotResultView .robot-result-topbar{position:relative;z-index:5}
+
+#robotResultView .robot-result-screen{padding:30px 18px 0}
+#robotResultView .robot-result-screen>.app-back{display:inline-block;margin-bottom:22px}
+#robotResultView .robot-result-screen>.app-page-title{margin-bottom:7px}
+#robotResultView .robot-result-screen>.quest-lead{margin-bottom:23px}
+@media(max-width:640px){body.robot-show-result #robotResultView{padding:0 0 40px}#robotResultView .robot-result-screen{padding:26px 15px 0}}

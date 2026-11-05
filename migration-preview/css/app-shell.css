@@ -1,0 +1,313 @@
+@import url("https://fonts.googleapis.com/css2?family=DM+Serif+Display&display=swap");
+/* Shared application UI for refreshed pages. Scope to .app-page to protect legacy tools. */
+.app-page{--app-ink:#222;--app-muted:#666;--app-line:#dedede;--app-surface:#fff;background:#fff;color:var(--app-ink);font-family:"Noto Sans JP",sans-serif;padding-bottom:0;}
+.app-page .app-header{position:relative;display:flex;align-items:center;justify-content:space-between;gap:10px;background:#fff;color:#222;border:0;border-bottom:1px solid #e6e6e6;box-shadow:none;text-align:left;padding:18px 22px;}
+.app-page .app-header::after{display:none;}
+.app-page .app-brand{display:flex;align-items:baseline;gap:9px;min-width:0;white-space:nowrap;}
+.app-page .app-brand-name{font:700 16px/1.5 "Noto Sans JP",sans-serif;letter-spacing:.035em;color:#222;text-decoration:none;text-shadow:none;margin:0;}
+.app-page .app-brand-shop{font-size:12px;color:#666;}
+.app-page .app-menu-toggle{display:grid;place-items:center;flex-shrink:0;width:42px;height:42px;padding:0;background:transparent;border:0;border-radius:9px;color:#222;cursor:pointer;}
+.app-page .app-menu-toggle:focus-visible,.app-page .app-menu a:focus-visible{outline:2px solid #333;outline-offset:2px;}
+.app-page .app-menu[hidden]{display:none!important;}
+.app-page .app-menu{position:absolute;right:12px;top:calc(100% + 5px);z-index:200;display:flex;flex-direction:column;width:min(350px,calc(100vw - 24px));max-height:calc(100dvh - 85px);overflow-y:auto;padding:18px 22px 20px;background:#fff;border:1px solid #e2e2e2;border-radius:14px;box-shadow:0 14px 36px rgba(0,0,0,.16);box-sizing:border-box;}
+.app-page .app-menu a{color:#222;text-decoration:none;border-radius:7px;}
+.app-page .app-menu a:hover{background:#f7f7f7;}
+.app-page .app-menu-primary{display:block;padding:13px 5px;font-size:16px;font-weight:400;line-height:1.5;}
+.app-page .app-menu-group{margin:8px 0 10px;padding:12px 0 13px;border-top:1px solid #dedede;border-bottom:1px solid #dedede;}
+.app-page .app-menu-group-title{display:block;padding:2px 5px 9px;font-size:16px;font-weight:700;}
+.app-page .app-menu-sub{display:block;margin-left:14px;padding:10px 8px;font-size:15px;}
+.app-page .app-menu-disabled{color:#555;cursor:default;}
+.app-page .app-menu-disabled small{margin-left:8px;font-size:10px;color:#888;}
+.app-page .app-menu-secondary{margin-top:17px;padding-top:13px;border-top:1px solid #e5e5e5;}
+.app-page .app-menu-secondary a{display:block;padding:10px 5px;font-size:13px;color:#666;}
+.app-page .app-main{max-width:760px;width:100%;margin:0 auto;padding:30px 20px 50px;box-sizing:border-box;}
+.app-page .app-page-title{font-size:22px;line-height:1.5;font-weight:700;letter-spacing:0;color:#222;margin:0 0 22px;}
+.app-page .app-panel{border:1px solid #e3e3e3;border-radius:12px;background:#fff;padding:8px 20px;}
+.app-page .app-details{margin:0;}
+.app-page .app-detail{display:grid;grid-template-columns:120px minmax(0,1fr);gap:18px;padding:19px 0;border-bottom:1px solid #ebebeb;}
+.app-page .app-detail:last-child{border-bottom:0;}
+.app-page .app-detail dt{font-size:13px;font-weight:500;line-height:1.7;color:#666;margin:0;letter-spacing:0;}
+.app-page .app-detail dd{font-size:15px;line-height:1.85;color:#222;margin:0;overflow-wrap:anywhere;}
+.app-page .app-action-link{display:inline-flex;align-items:center;gap:6px;margin-top:11px;padding:10px 14px;border:1px solid #dedede;border-radius:8px;background:#fafafa;color:#222;text-decoration:none;font-size:13px;font-weight:500;}
+.app-page .app-tel-link{color:#222;text-decoration:underline;text-underline-offset:3px;font-weight:500;}
+.app-page .app-back{display:inline-flex;align-items:center;gap:7px;margin-top:26px;padding:11px 0;color:#555;text-decoration:none;font-size:14px;}
+.app-page .app-footer{border-top:1px solid #e6e6e6;background:#fff;color:#777;text-align:center;padding:22px 16px;font-size:11px;letter-spacing:.03em;}
+@media(max-width:520px){.app-page .app-main{padding:26px 16px 42px}.app-page .app-page-title{font-size:20px}.app-page .app-panel{padding:3px 16px}.app-page .app-detail{grid-template-columns:1fr;gap:4px;padding:17px 0}.app-page .app-detail dt{font-size:12px}.app-page .app-detail dd{font-size:15px}.app-page .app-menu{right:0;width:min(100vw,380px);border-radius:0 0 14px 14px;padding:20px 25px 24px;}}
+@media(max-width:360px){.app-page .app-brand{gap:6px}.app-page .app-brand-name{font-size:15px}.app-page .app-brand-shop{font-size:11px}}
+
+/* Shared menu motion and hamburger-to-close icon */
+.home-page .home-menu-toggle svg,.app-page .app-menu-toggle svg{transition:transform .2s ease;}
+.home-page .home-menu-toggle svg path,.app-page .app-menu-toggle svg path{transition:d .2s ease;}
+.home-page .home-menu-toggle[aria-expanded="true"] svg,.app-page .app-menu-toggle[aria-expanded="true"] svg{transform:rotate(90deg);}
+.home-page .home-site-menu,.app-page .app-menu{transform-origin:top right;}
+.home-page .home-site-menu.menu-enter,.app-page .app-menu.menu-enter{animation:app-menu-in .2s ease-out both;}
+.home-page .home-site-menu.menu-exit,.app-page .app-menu.menu-exit{animation:app-menu-out .16s ease-in both;pointer-events:none;}
+@keyframes app-menu-in{from{opacity:0;transform:translateY(-8px) scale(.98)}to{opacity:1;transform:translateY(0) scale(1)}}
+@keyframes app-menu-out{from{opacity:1;transform:translateY(0) scale(1)}to{opacity:0;transform:translateY(-6px) scale(.99)}}
+@media(prefers-reduced-motion:reduce){.home-page .home-site-menu.menu-enter,.home-page .home-site-menu.menu-exit,.app-page .app-menu.menu-enter,.app-page .app-menu.menu-exit{animation:none}.home-page .home-menu-toggle svg,.app-page .app-menu-toggle svg{transition:none}}
+
+.home-page .menu-icon,.app-page .menu-icon{display:flex;width:23px;height:23px;flex-direction:column;align-items:center;justify-content:center;gap:5px;}
+.home-page .menu-icon i,.app-page .menu-icon i{display:block;width:21px;height:1.8px;background:currentColor;border-radius:2px;transition:transform .2s ease,opacity .15s ease;transform-origin:center;}
+.home-page [aria-expanded="true"] .menu-icon i:first-child,.app-page [aria-expanded="true"] .menu-icon i:first-child{transform:translateY(6.8px) rotate(45deg);}
+.home-page [aria-expanded="true"] .menu-icon i:nth-child(2),.app-page [aria-expanded="true"] .menu-icon i:nth-child(2){opacity:0;}
+.home-page [aria-expanded="true"] .menu-icon i:last-child,.app-page [aria-expanded="true"] .menu-icon i:last-child{transform:translateY(-6.8px) rotate(-45deg);}
+@media(prefers-reduced-motion:reduce){.home-page .menu-icon i,.app-page .menu-icon i{transition:none}}
+
+/* Shared salon header: forest green with white branding. Main content stays plain white. */
+.app-page .app-header{background:#315b43!important;color:#fff!important;border-bottom:1px solid #254a35!important;box-shadow:none!important}
+.app-page .app-brand-name{font-family:"DM Serif Display",Georgia,serif!important;font-size:clamp(21px,3.5vw,27px)!important;font-weight:400!important;letter-spacing:0!important;line-height:1.15!important;color:#fff!important}
+.app-page .app-brand-shop,.app-page .app-menu-toggle{color:#fff!important}
+.app-page .app-menu-toggle .menu-icon i{background:currentColor!important}
+.app-page .app-main,.app-page .bulk-main{background:transparent}
+
+/* Informational pages share the homepage ivory canvas, while panels remain white. */
+.app-page:not(.line-order-page):not(.bulk-order-page):not(.calc-pt-page):not(.calc-split-page){background:#f7f3ed!important;background-image:none!important}
+/* Calculation tools retain their original robot-lab patterned background. */
+body.app-page.calc-pt-page,body.app-page.calc-split-page{background-color:#f7f9fc!important;background-image:url('../assets/robot-lab-pattern.svg')!important;background-repeat:repeat!important;background-position:center top!important;background-size:640px 640px!important}
+@media(max-width:640px){body.app-page.calc-pt-page,body.app-page.calc-split-page{background-size:440px 440px!important}}
+.app-page:not(.line-order-page):not(.bulk-order-page) .app-panel{background:#fff}
+
+/* One shared header geometry for homepage and all application pages. */
+.home-page .home-header,.app-page .app-header{box-sizing:border-box!important;width:100%!important;min-height:78px!important;padding:18px 22px!important;display:flex!important;align-items:center!important;justify-content:space-between!important;gap:10px!important;background:#315b43!important;border:0!important;border-bottom:1px solid #254a35!important;box-shadow:none!important;text-align:left!important}
+.home-page .home-header::after,.app-page .app-header::after{display:none!important}
+.home-page .home-header-brand,.app-page .app-brand{display:flex!important;align-items:baseline!important;gap:9px!important;min-width:0!important;white-space:nowrap!important}
+.home-page .home-header .header-logo,.app-page .app-header .app-brand-name{font-family:"DM Serif Display",Georgia,serif!important;font-size:clamp(21px,3.5vw,27px)!important;font-weight:400!important;line-height:1.15!important;letter-spacing:0!important;color:#fff!important;text-shadow:none!important;text-decoration:none!important;margin:0!important;white-space:nowrap!important}
+.home-page .home-header .home-header-shop,.app-page .app-header .app-brand-shop{font-family:"Noto Sans JP",sans-serif!important;font-size:12px!important;font-weight:400!important;letter-spacing:0!important;color:#fff!important;opacity:1!important;white-space:nowrap!important;margin:0!important}
+.home-page .home-header .home-menu-toggle,.app-page .app-header .app-menu-toggle{display:grid!important;place-items:center!important;flex:0 0 42px!important;width:42px!important;height:42px!important;padding:0!important;border:0!important;border-radius:9px!important;background:transparent!important;color:#fff!important;box-shadow:none!important}
+@media(max-width:360px){.home-page .home-header,.app-page .app-header{padding:16px 16px!important;min-height:74px!important}.home-page .home-header-brand,.app-page .app-brand{gap:6px!important}.home-page .home-header .header-logo,.app-page .app-header .app-brand-name{font-size:21px!important}.home-page .home-header .home-header-shop,.app-page .app-header .app-brand-shop{font-size:11px!important}}
+
+/* Shared site footer, consistent across home, orders, and tools.
+   The order pages reserve extra bottom space for their fixed action areas. */
+.site-unified-footer {
+  position:relative;
+  clear:both;
+  box-sizing:border-box;
+  width:100%;
+  margin:0;
+  padding:24px 16px 28px;
+  background:#fff!important;
+  border-top:1px solid #e6e6e6;
+  color:#777!important;
+  text-align:center;
+  font-family:'Noto Sans JP',sans-serif;
+  font-size:11px;
+  line-height:1.8;
+  letter-spacing:.03em;
+}
+.site-unified-footer a {
+  display:inline-block;
+  color:#52665a;
+  text-decoration:underline;
+  text-underline-offset:3px;
+  margin-bottom:7px;
+  font-size:12px;
+}
+.site-unified-footer .site-footer-copy {
+  display:block;
+  color:#777;
+  font-size:11px;
+}
+.line-order-page .site-unified-footer,
+.bulk-order-page .site-unified-footer {
+  padding-bottom:145px;
+}
+@media(max-width:600px) {
+  .line-order-page .site-unified-footer,
+  .bulk-order-page .site-unified-footer {
+    padding-bottom:180px;
+  }
+}
+
+/* Salon navigation preview: shared visual treatment for home and app menus.
+   Header geometry and page content are intentionally untouched. */
+.home-page .home-site-menu,
+.app-page .app-menu {
+  background:#fcfaf5!important;
+  border:1px solid #e5dfd2!important;
+  border-radius:16px!important;
+  box-shadow:0 16px 40px rgba(24,49,34,.16)!important;
+  padding:18px 20px 20px!important;
+}
+.home-page .home-site-menu .home-menu-primary,
+.app-page .app-menu .app-menu-primary {
+  position:relative;
+  padding:13px 12px 13px 39px!important;
+  border-radius:9px;
+  color:#254b37!important;
+  font-weight:600;
+}
+.home-page .home-site-menu a.home-menu-primary::before,
+.app-page .app-menu a.app-menu-primary::before {
+  content:"";
+  position:absolute;
+  left:14px;
+  top:50%;
+  width:10px;
+  height:10px;
+  border:1.5px solid #75907c;
+  border-radius:3px;
+  transform:translateY(-50%) rotate(45deg);
+  box-sizing:border-box;
+}
+.home-page .home-site-menu .home-menu-primary:hover,
+.app-page .app-menu .app-menu-primary:hover,
+.home-page .home-site-menu .home-menu-sub:hover,
+.app-page .app-menu .app-menu-sub:hover,
+.home-page .home-site-menu .home-menu-secondary a:hover,
+.app-page .app-menu .app-menu-secondary a:hover {
+  background:#edf2e9!important;
+}
+.home-page .home-site-menu .home-menu-group,
+.app-page .app-menu .app-menu-group {
+  border-top:1px solid #dedfd5!important;
+  border-bottom:1px solid #dedfd5!important;
+}
+.home-page .home-site-menu .home-menu-group-title,
+.app-page .app-menu .app-menu-group-title {
+  color:#315b43!important;
+  letter-spacing:.04em;
+}
+.home-page .home-site-menu .home-menu-sub,
+.app-page .app-menu .app-menu-sub {
+  border-radius:8px;
+  color:#3d5145!important;
+}
+.home-page .home-site-menu .home-menu-sub::before,
+.app-page .app-menu .app-menu-sub::before {
+  content:"";
+  display:inline-block;
+  width:5px;
+  height:5px;
+  margin-right:11px;
+  border:1px solid #8ba494;
+  border-radius:50%;
+  vertical-align:middle;
+}
+.home-page .home-site-menu .home-menu-secondary,
+.app-page .app-menu .app-menu-secondary {
+  border-top:1px solid #dedfd5!important;
+}
+.home-page .home-site-menu .home-menu-secondary a,
+.app-page .app-menu .app-menu-secondary a {
+  border-radius:8px;
+  color:#586a5d!important;
+}
+.home-page .home-site-menu .home-menu-disabled,
+.app-page .app-menu .app-menu-disabled {
+  color:#89938a!important;
+}
+@media(max-width:520px) {
+  .home-page .home-site-menu,
+  .app-page .app-menu {
+    padding:18px 18px 20px!important;
+  }
+}
+
+/* Navigation hierarchy refinement: stronger section rhythm without changing links. */
+.home-page .home-site-menu .home-menu-primary,
+.app-page .app-menu .app-menu-primary {
+  font-size:17px!important;
+  font-weight:700!important;
+  line-height:1.45!important;
+  margin:3px 0!important;
+}
+.home-page .home-site-menu .home-menu-group,
+.app-page .app-menu .app-menu-group {
+  margin:12px 0 14px!important;
+  padding:14px 0 15px!important;
+}
+.home-page .home-site-menu .home-menu-group-title,
+.app-page .app-menu .app-menu-group-title {
+  padding:2px 12px 10px!important;
+  font-size:12px!important;
+  font-weight:700!important;
+  letter-spacing:.14em!important;
+}
+.home-page .home-site-menu .home-menu-sub,
+.app-page .app-menu .app-menu-sub {
+  margin:3px 0 3px 12px!important;
+  padding:12px 14px!important;
+  background:#f0f3ed!important;
+  font-size:14px!important;
+  font-weight:500!important;
+  line-height:1.5!important;
+}
+.home-page .home-site-menu .home-menu-secondary,
+.app-page .app-menu .app-menu-secondary {
+  margin-top:16px!important;
+  padding-top:13px!important;
+}
+.home-page .home-site-menu .home-menu-secondary a,
+.app-page .app-menu .app-menu-secondary a {
+  padding:10px 12px!important;
+  font-size:13px!important;
+  font-weight:400!important;
+}
+.home-page .home-site-menu [aria-current="page"],
+.app-page .app-menu [aria-current="page"] {
+  background:#e1eadf!important;
+  font-weight:700!important;
+}
+
+/* Order links use the same visual hierarchy as Home; retain their group heading. */
+.home-page .home-site-menu .home-menu-sub,
+.app-page .app-menu .app-menu-sub {
+  position:relative;
+  margin:3px 0!important;
+  padding:13px 12px 13px 39px!important;
+  background:transparent!important;
+  border-radius:9px!important;
+  color:#254b37!important;
+  font-size:17px!important;
+  font-weight:700!important;
+  line-height:1.45!important;
+}
+.home-page .home-site-menu .home-menu-sub::before,
+.app-page .app-menu .app-menu-sub::before {
+  content:"";
+  position:absolute;
+  left:14px;
+  top:50%;
+  width:10px;
+  height:10px;
+  margin:0;
+  border:1.5px solid #75907c;
+  border-radius:3px;
+  transform:translateY(-50%) rotate(45deg);
+  box-sizing:border-box;
+}
+.home-page .home-site-menu .home-menu-sub:hover,
+.app-page .app-menu .app-menu-sub:hover {
+  background:#edf2e9!important;
+}
+
+/* Navigation refinement: text-led hierarchy, no decorative diamonds or dots. */
+.home-page .home-site-menu .home-menu-primary,
+.app-page .app-menu .app-menu-primary,
+.home-page .home-site-menu .home-menu-sub,
+.app-page .app-menu .app-menu-sub {
+  padding:13px 12px!important;
+  margin:3px 0!important;
+  background:transparent!important;
+  color:#254b37!important;
+  font-size:17px!important;
+  font-weight:700!important;
+  line-height:1.45!important;
+}
+.home-page .home-site-menu a.home-menu-primary::before,
+.app-page .app-menu a.app-menu-primary::before,
+.home-page .home-site-menu .home-menu-sub::before,
+.app-page .app-menu .app-menu-sub::before {
+  content:none!important;
+  display:none!important;
+}
+.home-page .home-site-menu .home-menu-primary:hover,
+.app-page .app-menu .app-menu-primary:hover,
+.home-page .home-site-menu .home-menu-sub:hover,
+.app-page .app-menu .app-menu-sub:hover {
+  background:#edf2e9!important;
+}
+.home-page .home-site-menu .home-menu-disabled,
+.app-page .app-menu .app-menu-disabled {
+  color:#89938a!important;
+}
