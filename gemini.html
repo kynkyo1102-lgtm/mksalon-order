@@ -1,0 +1,348 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chronos Cosmos - 宇宙の誕生から現代まで</title>
+    <style>
+        :root {
+            --bg-color: #030308;
+            --text-color: #e2e8f0;
+            --accent-glow: rgba(56, 189, 248, 0.5);
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* 背景の星屑エフェクト */
+        #stars {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .star {
+            position: absolute;
+            background: #ffffff;
+            border-radius: 50%;
+            animation: twinkle var(--duration) infinite ease-in-out;
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 0.2; transform: scale(0.8); }
+            50% { opacity: 1; transform: scale(1.2); }
+        }
+
+        /* ヘッダー・イントロ */
+        header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+            z-index: 1;
+            padding: 0 20px;
+        }
+
+        h1 {
+            font-size: clamp(2.5rem, 6vw, 5rem);
+            font-weight: 300;
+            letter-spacing: 0.2em;
+            margin-bottom: 20px;
+            background: linear-gradient(135deg, #fff 0%, #38bdf8 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 30px rgba(56, 189, 248, 0.3);
+        }
+
+        p.subtitle {
+            font-size: clamp(1rem, 2vw, 1.25rem);
+            color: #94a3b8;
+            letter-spacing: 0.1em;
+            margin-bottom: 40px;
+        }
+
+        .scroll-hint {
+            position: absolute;
+            bottom: 40px;
+            animation: bounce 2s infinite;
+            color: #64748b;
+            font-size: 0.9rem;
+            letter-spacing: 0.1em;
+        }
+
+        @keyframes bounce {
+            0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+            40% { transform: translateY(-10px); }
+            60% { transform: translateY(-5px); }
+        }
+
+        /* タイムラインセクション */
+        .timeline-container {
+            position: relative;
+            z-index: 1;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 100px 20px;
+        }
+
+        /* 中央の軸ライン */
+        .timeline-container::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: 50%;
+            width: 2px;
+            background: linear-gradient(to bottom, #38bdf8, #a855f7, #ec4899);
+            transform: translateX(-50%);
+        }
+
+        .milestone {
+            display: flex;
+            justify-content: flex-end;
+            padding-right: 50%;
+            position: relative;
+            margin-bottom: 80px;
+            opacity: 0;
+            transform: translateY(50px);
+            transition: all 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .milestone:nth-child(even) {
+            justify-content: flex-start;
+            padding-right: 0;
+            padding-left: 50%;
+        }
+
+        .milestone.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* タイムラインのカード */
+        .content-card {
+            background: rgba(15, 23, 42, 0.75);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(12px);
+            padding: 30px;
+            border-radius: 16px;
+            width: 85%;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            transition: transform 0.3s ease, border-color 0.3s ease;
+        }
+
+        .content-card:hover {
+            transform: translateY(-5px);
+            border-color: rgba(56, 189, 248, 0.4);
+        }
+
+        .milestone:nth-child(odd) .content-card {
+            margin-right: 40px;
+        }
+
+        .milestone:nth-child(even) .content-card {
+            margin-left: 40px;
+        }
+
+        /* タイムライン上のドット */
+        .content-card::after {
+            content: '';
+            position: absolute;
+            top: 30px;
+            width: 16px;
+            height: 16px;
+            background: #38bdf8;
+            border-radius: 50%;
+            box-shadow: 0 0 15px #38bdf8;
+        }
+
+        .milestone:nth-child(odd) .content-card::after {
+            right: -48px;
+        }
+
+        .milestone:nth-child(even) .content-card::after {
+            left: -48px;
+        }
+
+        .era-time {
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 0.2em;
+            color: #38bdf8;
+            margin-bottom: 8px;
+            font-weight: bold;
+        }
+
+        h2.era-title {
+            font-size: 1.5rem;
+            margin-bottom: 12px;
+            color: #f8fafc;
+        }
+
+        .era-desc {
+            font-size: 0.95rem;
+            line-height: 1.7;
+            color: #94a3b8;
+        }
+
+        /* フッター */
+        footer {
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            z-index: 1;
+            color: #64748b;
+            font-size: 0.9rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        /* レスポンシブ対応（スマホ表示） */
+        @media (max-width: 768px) {
+            .timeline-container::before {
+                left: 20px;
+            }
+            .milestone, .milestone:nth-child(even) {
+                justify-content: flex-start;
+                padding-right: 0;
+                padding-left: 50px;
+            }
+            .milestone:nth-child(odd) .content-card,
+            .milestone:nth-child(even) .content-card {
+                width: 100%;
+                margin-left: 0;
+                margin-right: 0;
+            }
+            .milestone:nth-child(odd) .content-card::after,
+            .milestone:nth-child(even) .content-card::after {
+                left: -38px;
+                right: auto;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- 星屑背景レイヤー -->
+    <div id="stars"></div>
+
+    <header>
+        <h1>CHRONOS COSMOS</h1>
+        <p class="subtitle">宇宙の誕生から現在までの物語</p>
+        <div class="scroll-hint">↓ スクロールして歴史を辿る</div>
+    </header>
+
+    <main class="timeline-container">
+        <div class="milestone">
+            <div class="content-card">
+                <div class="era-time">約138億年前</div>
+                <h2 class="era-title">ビッグバン（宇宙の始まり）</h2>
+                <p class="era-desc">極限の高密度・高温状態だった一点が急激に膨張（インフレーション）。空間と時間が生まれ、物質の素となるエネルギーが爆発的に広がりました。</p>
+            </div>
+        </div>
+
+        <div class="milestone">
+            <div class="content-card">
+                <div class="era-time">約136億年前</div>
+                <h2 class="era-title">最初の星と銀河の誕生</h2>
+                <p class="era-desc">水素とヘリウムのガスが集まり、重力によって最初の星々が点灯。暗黒だった宇宙に光が差し込み、巨大な銀河の骨組みが形作られ始めました。</p>
+            </div>
+        </div>
+
+        <div class="milestone">
+            <div class="content-card">
+                <div class="era-time">約46億年前</div>
+                <p class="era-time" style="margin-top:-4px; color:#a855f7;">太陽系と地球の形成</p>
+                <h2 class="era-title">太陽系の誕生</h2>
+                <p class="era-desc">超新星爆発の残骸からガスと塵の雲が収縮し、太陽が誕生。その周りを巡る微惑星が衝突・合体を繰り返して、私たちの地球を含む惑星が形作られました。</p>
+            </div>
+        </div>
+
+        <div class="milestone">
+            <div class="content-card">
+                <div class="era-time">約40億〜35億年前</div>
+                <h2 class="era-title">生命の誕生と海</h2>
+                <p class="era-desc">冷えた地球の表面に海が満ち、その水中で奇跡的な化学反応から最初の単細胞生物が誕生。生命が地球という星の歴史に刻まれました。</p>
+            </div>
+        </div>
+
+        <div class="milestone">
+            <div class="content-card">
+                <div class="era-time">約6,600万年前</div>
+                <h2 class="era-title">恐竜の絶滅と哺乳類の台頭</h2>
+                <p class="era-desc">巨大隕石の衝突により環境が激変し、地球を支配していた恐竜が絶滅。その陰で生き延びた小さな哺乳類たちが新たな進化の主役に躍り出ます。</p>
+            </div>
+        </div>
+
+        <div class="milestone">
+            <div class="content-card">
+                <div class="era-time">約300万年前 〜 現在</div>
+                <h2 class="era-title">人類の登場と文明の開花</h2>
+                <p class="era-desc">アフリカで直立二足歩行を始めた人類の祖先が、道具や言葉、火を獲得。知性を武器に文明を築き、ついに星空を見上げて宇宙の謎を解き明かす旅に出発しました。</p>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Chronos Cosmos / Built with GitHub</p>
+    </footer>
+
+    <script>
+        // 背景の星をランダムに生成するスクリプト
+        const starsContainer = document.getElementById('stars');
+        const starCount = 120;
+
+        for (let i = 0; i < starCount; i++) {
+            const star = document.createElement('div');
+            star.classList.add('star');
+            const size = Math.random() * 2.5 + 1;
+            star.style.width = `${size}px`;
+            star.style.height = `${size}px`;
+            star.style.top = `${Math.random() * 100}%`;
+            star.style.left = `${Math.random() * 100}%`;
+            star.style.setProperty('--duration', `${Math.random() * 3 + 2}s`);
+            star.style.animationDelay = `${Math.random() * 5}s`;
+            starsContainer.appendChild(star);
+        }
+
+        // スクロールに応じてタイムラインカードをふわっと浮かび上がらせる処理
+        const milestones = document.querySelectorAll('.milestone');
+
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        milestones.forEach(milestone => {
+            observer.observe(milestone);
+        });
+    </script>
+</body>
+</html>
